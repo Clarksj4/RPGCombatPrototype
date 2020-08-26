@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager
+public class TurnManager : Singleton<TurnManager>
 {
     /// <summary>
     /// Occurs when a new round is starting. A round is
@@ -31,12 +31,7 @@ public class TurnManager
     public IEnumerable<ITurnBased> OrderOfActors { get { return turnOrder; } }
 
     private bool roundStarted;
-    private TurnOrder turnOrder;
-
-    public TurnManager()
-    {
-        turnOrder = new TurnOrder();
-    }
+    private TurnOrder turnOrder = new TurnOrder();
 
     /// <summary>
     /// Proceeds to the next thing in the turn order if
