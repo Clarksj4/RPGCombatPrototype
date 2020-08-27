@@ -8,20 +8,23 @@ public class MapInputManager : Singleton<MapInputManager>
         if (!ActionManager.Instance.AssemblingAction)
         {
             // Select actor at input position if there is one
-            Actor actor = map.GetActorAtCoordinate(coordinate);
-            if (actor != null)
+            Pawn pawn = map.GetPawnAtCoordinate(coordinate);
+            if (pawn != null && pawn is Actor)
             {
+                Actor actor = pawn as Actor;
                 ActionManager.Instance.SelectActor(actor);
+
+                // Close all menus and open this actor's actions bar
+                MenuStack.Instance.CloseAll();
                 MenuStack.Instance.Show<ActionsBar>();
             }
         }
             
         else
         {
-            // Select target if its valid
-            if (ActionManager.Instance.IsValidTarget(map, coordinate))
+            // Set target if its valid
+            if (ActionManager.Instance.SetTarget(map, coordinate))
             {
-                ActionManager.Instance.SetTarget(map, coordinate);
                 ActionManager.Instance.DoAction();
                 MenuStack.Instance.CloseAll();
             }

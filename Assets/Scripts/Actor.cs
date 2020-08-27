@@ -2,31 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour, ITurnBased
+public class Actor : Pawn, ITurnBased, IAttacker
 {
-    public float Priority { get; set; }
+    /// <summary>
+    /// Gets this actor's name.
+    /// </summary>
     public string Name { get; set; }
-    public Vector2Int MapPosition { get; private set; }
-    public BattleMap BattleMap { get { return GetComponentInParent<BattleMap>(); } }
+    /// <summary>
+    /// Gets this actors priority in the turn order. Determines
+    /// how frequently it gets to act.
+    /// </summary>
+    public float Priority { get; set; }
+    /// <summary>
+    /// Gets whether this actor is currently able to take actions.
+    /// </summary>
+    public bool Incapacitated { get; private set; }
 
-    private void OnMouseDown()
-    {
-        print("Actor tapped");
-    }
+    public float Attack { get; private set; } = 10f;
 
-    public void Move(Vector2Int destination)
-    {
-        MapPosition = destination;
-        transform.position = BattleMap.GetWorldPositionFromCoordinate(destination);
-    }
-
-    public void Attack(int attackIndex, Vector2Int target)
-    {
-
-    }
+    public float Accuracy { get; private set; } = 1f;
 
     public void EndTurn()
     {
-
+        // Thing!
     }
 }

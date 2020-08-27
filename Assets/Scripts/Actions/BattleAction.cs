@@ -8,28 +8,32 @@ public abstract class BattleAction
     public BattleMap OriginMap { get; protected set; }
     public Vector2Int OriginPosition { get; protected set; }
 
-    public virtual BattleAction SetActor(Actor actor)
+    public virtual bool SetActor(Actor actor)
     {
-        Actor = actor;
-        OriginMap = actor.BattleMap;
-        OriginPosition = actor.MapPosition;
-        return this;
+        bool isAble = IsActorAble(actor);
+        if (isAble)
+        {
+            Actor = actor;
+            OriginMap = actor.Map;
+            OriginPosition = actor.MapPosition;
+        }
+        return isAble;
     }
 
-    public virtual BattleAction SetTarget(BattleMap map, Vector2Int position)
+    public virtual bool SetTarget(BattleMap map, Vector2Int position)
     {
-        if (IsValidTarget(map, position))
+        bool isValid = IsTargetValid(map, position);
+        if (isValid)
         {
             TargetMap = map;
             TargetPosition = position;
         }
-
-        return this;
+        return isValid;
     }
 
-    public abstract bool IsValidTarget(BattleMap map, Vector2Int position);
+    public abstract bool IsTargetValid(BattleMap map, Vector2Int position);
 
-    public abstract bool CanDo();
+    public abstract bool IsActorAble(Actor actor);
 
     public abstract bool Do();
 }

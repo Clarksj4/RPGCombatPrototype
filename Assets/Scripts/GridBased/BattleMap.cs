@@ -1,34 +1,63 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BattleMap : MonoBehaviour, IGridInputHandle
+public class BattleMap : MonoBehaviour
 {
+    [SerializeField]
+    private Grid grid;
+
     public UnityEvent<BattleMap, Vector2Int> OnInput;
 
-    private Grid grid;
-    private Actor[] actors;
+    private Pawn[] pawns;
 
     private void Awake()
     {
-        actors = GetComponentsInChildren<Actor>();
-        grid = GetComponent<Grid>();
+        pawns = GetComponentsInChildren<Pawn>();
     }
 
-    public Actor GetActorAtCoordinate(Vector2Int coordinate)
+    private void OnDrawGizmos()
     {
-        return actors.FirstOrDefault(a => a.MapPosition == coordinate);
+        for (int x = 0; x <= grid.NCells.x; x++)
+        {
+            Vector2 from = new Vector2(x * grid.CellSize.x, 0);
+            Vector2 to = from + (Vector2.up * grid.CellSize * grid.NCells.y);
+            Gizmos.DrawLine(from, to);
+        }
+
+        for (int y = 0; y <= grid.NCells.y; y++)
+        {
+            Vector2 from = new Vector2(0, y * grid.CellSize.y);
+            Vector2 to = from + (Vector2.right * grid.CellSize * grid.NCells.x);
+            Gizmos.DrawLine(from, to);
+        }
     }
 
-    public Vector2 GetWorldPositionFromCoordinate(Vector2Int coordinate)
+    private void OnMouseDown()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (grid.WorldPositionToCoordinate(mousePosition, out var coordinate))
+            OnInput?.Invoke(this, coordinate);
+    }
+
+    public Pawn GetPawnAtCoordinate(Vector2Int coordinate)
+    {
+        return pawns.FirstOrDefault(a => a.MapPosition == coordinate);
+    }
+
+    public Vector2 CoordinateToWorldPosition(Vector2Int coordinate)
     {
         return grid.CoordinateToWorldPosition(coordinate);
     }
 
-    public void OnGridInput(Grid grid, Vector2Int coordinate)
+    public Vector2Int WorldPositionToCoordinate(Vector2 position)
     {
-        OnInput?.Invoke(this, coordinate);
+        if (grid.WorldPositionToCoordinate(position, out var coordinate))
+            return coordinate;
+
+        throw new ArgumentException("World position not within grid bounds");
     }
 }

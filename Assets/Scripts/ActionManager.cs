@@ -3,54 +3,49 @@ using UnityEngine;
 
 public class ActionManager : Singleton<ActionManager>
 {
-    public bool AssemblingAction { get { return selectedAction != null; } }
-
-    private Actor selectedActor;
-    private BattleAction selectedAction;
+    public bool AssemblingAction { get { return SelectedAction != null; } }
+    public Actor SelectedActor { get; private set; }
+    public BattleAction SelectedAction { get; private set; }
 
     public void SelectActor(Actor actor)
     {
-        selectedActor = actor;
+        SelectedActor = actor;
     }
 
     public void SelectAction<TBattleAction>() where TBattleAction : BattleAction
     {
         // Create an instance of the action
-        selectedAction = (BattleAction)Activator.CreateInstance(typeof(TBattleAction));
-        selectedAction.SetActor(selectedActor);
+        SelectedAction = (BattleAction)Activator.CreateInstance(typeof(TBattleAction));
+        SelectedAction.SetActor(SelectedActor);
     }
 
-    public bool IsValidTarget(BattleMap map, Vector2Int target)
+    public bool SetTarget(BattleMap map, Vector2Int target)
     {
-
-        return selectedAction.IsValidTarget(map, target);
+        return SelectedAction.SetTarget(map, target);
     }
 
-    public void SetTarget(BattleMap map, Vector2Int target)
+    public bool DoAction()
     {
-        selectedAction.SetTarget(map, target);
-    }
-
-    public void DoAction()
-    {
-        selectedAction.Do();
-        EndSelectedActorTurn();
+        bool done = SelectedAction.Do();
+        if (done)
+            EndSelectedActorTurn();
+        return done;
     }
 
     public void EndSelectedActorTurn()
     {
-        selectedActor.EndTurn();
+        SelectedActor.EndTurn();
         ClearSelectedActor();
     }
 
     public void ClearSelectedAction()
     {
-        selectedAction = null;
+        SelectedAction = null;
     }
 
     public void ClearSelectedActor()
     {
         ClearSelectedAction();
-        selectedActor = null;
+        SelectedActor = null;
     }
 }

@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 public class MoveAction : BattleAction
 {
-    public override bool CanDo()
+    public override bool IsActorAble(Actor actor)
     {
-        return true;
+        return !actor.Incapacitated;
+    }
+
+    public override bool IsTargetValid(BattleMap map, Vector2Int position)
+    {
+        return map.GetPawnAtCoordinate(position) == null;
     }
 
     public override bool Do()
     {
-        bool canDo = CanDo();
+        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetMap, TargetPosition);
 
         if (canDo)
-            Actor.Move(TargetPosition);
+            Actor.SetCoordinate(TargetPosition);
+        else
+            Debug.Log($"Can't perform move action.");
 
         return canDo;
-    }
-
-    public override bool IsValidTarget(BattleMap map, Vector2Int position)
-    {
-        return true;
     }
 }
