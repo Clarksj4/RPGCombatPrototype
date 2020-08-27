@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pawn : MonoBehaviour, IDefender
+public class Pawn : MonoBehaviour, IGridBased, IDefender
 {
     /// <summary>
     /// Gets this actors coordinate on the battlemap.
