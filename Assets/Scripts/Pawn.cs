@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Pawn : MonoBehaviour, IGridBased, IDefender
 {
+    /// <summary>
+    /// Occurs when this pawn's health changes.
+    /// </summary>
+    public event Action<int> OnHealthChanged;
+
     /// <summary>
     /// Gets this actors coordinate on the battlemap.
     /// </summary>
@@ -14,7 +20,19 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// <summary>
     /// Gets this pawn's current health.
     /// </summary>
-    public int Health { get; set; } = 100;
+    public int Health
+    {
+        get { return health; }
+        set
+        {
+            int delta = health - value;
+            if (delta != 0)
+            {
+                health = value;
+                OnHealthChanged?.Invoke(delta);
+            }
+        }
+    }
     /// <summary>
     /// Gets this pawns defense.
     /// </summary>
@@ -24,18 +42,13 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// </summary>
     public float Evasion { get; protected set; } = 0f;
 
+    public int MaxHealth { get { return 100; } }
+
+    private int health = 100;
+
     protected virtual void Awake()
     {
         MapPosition = Map.WorldPositionToCoordinate((Vector2)transform.position);
-    }
-
-    /// <summary>
-    /// Reduces the pawns health by the given amount. Does NOT account for
-    /// armour or other effects.
-    /// </summary>
-    public virtual void TakeDamage(int damage)
-    {
-        Health -= damage;
     }
 
     /// <summary>

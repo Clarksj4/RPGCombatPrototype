@@ -11,11 +11,6 @@ public interface IGridBased
     /// </summary>
     BattleMap Map { get; }
     /// <summary>
-    /// Sets the pawns world position without updating their map coordinate.
-    /// </summary>
-    void SetPosition(Vector2 position);
-
-    /// <summary>
     /// Moves the pawn to the given coordinate - also, updates their world position.
     /// </summary>
     void SetCoordinate(Vector2Int coordinate);
