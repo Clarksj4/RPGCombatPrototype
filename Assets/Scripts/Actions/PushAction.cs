@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PushAction : BattleAction
 {
+    /// <summary>
+    /// The range of this push action.
+    /// </summary>
     private const int RANGE = 1;
+    /// <summary>
+    /// The distance that the target will be pushed.
+    /// </summary>
     private const int PUSH_DISTANCE = 1;
 
     public override int Range { get { return RANGE; } }
+
+    public override ActionTag[] Tags { get { return tags; } }
+    private ActionTag[] tags = new ActionTag[] { ActionTag.Movement, ActionTag.Forced };
 
     public override bool IsActorAble(Actor actor)
     {
@@ -25,20 +33,25 @@ public class PushAction : BattleAction
 
         if (canDo)
         {
-            // Get defender, check if hit, and apply damage
-            Pawn defender = TargetMap.GetPawnAtCoordinate(TargetPosition);
+            // Get direction to target
+            Pawn target = TargetMap.GetPawnAtCoordinate(TargetPosition);
+            Vector2Int direction = GetDirectionToTarget(target);
 
-            // Get direction to defender
-            Vector2Int delta = defender.MapPosition - Actor.MapPosition;
-            Vector2Int direction = delta.Reduce();
-
-            // Push defender in that direction
-            defender.SetCoordinate(defender.MapPosition + (direction * PUSH_DISTANCE));
+            // Push target in that direction
+            target.SetCoordinate(target.MapPosition + (direction * PUSH_DISTANCE));
         }
 
         else
             Debug.Log("Can't perform push action.");
 
         return canDo;
+    }
+
+    private Vector2Int GetDirectionToTarget(Pawn target)
+    {
+        // Get direction to defender
+        Vector2Int delta = target.MapPosition - Actor.MapPosition;
+        Vector2Int direction = delta.Reduce();
+        return direction;
     }
 }

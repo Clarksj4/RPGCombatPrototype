@@ -4,6 +4,9 @@ public class MoveAction : BattleAction
 {
     public override int Range { get { return Actor.Movement; } }
 
+    public override ActionTag[] Tags { get { return tags; } }
+    private ActionTag[] tags = new ActionTag[] { ActionTag.Movement };
+
     public override bool IsActorAble(Actor actor)
     {
         return !actor.Incapacitated;
