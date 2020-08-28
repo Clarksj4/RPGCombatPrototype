@@ -41,6 +41,18 @@ public class BattleMap : MonoBehaviour
             OnInput?.Invoke(this, coordinate);
     }
 
+    public bool IsInRange(Vector2Int from, Vector2Int to, int maxRange, int minRange = 0)
+    {
+        int distance = GetDistance(from, to);
+        return distance <= maxRange && distance >= minRange;
+    }
+
+    public int GetDistance(Vector2Int from, Vector2Int to)
+    {
+        Vector2Int delta = to - from;
+        return Mathf.Abs(delta.x + delta.y);
+    }
+
     public Pawn GetPawnAtCoordinate(Vector2Int coordinate)
     {
         return pawns.FirstOrDefault(a => a.MapPosition == coordinate);

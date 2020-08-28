@@ -21,6 +21,12 @@ public class Actor : Pawn, ITurnBased, IAttacker
     public float Attack { get; private set; } = 10f;
 
     public float Accuracy { get; private set; } = 1f;
+    public int Movement { get; private set; } = 3;
+    public int AttackRange { get; private set; } = 1;
+    public List<string> Actions { get; private set; } = new List<string>()
+    {
+        "Move", "Attack", "Push"
+    };
 
     public void EndTurn()
     {

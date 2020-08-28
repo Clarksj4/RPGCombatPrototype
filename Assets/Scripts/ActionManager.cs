@@ -12,6 +12,13 @@ public class ActionManager : Singleton<ActionManager>
         SelectedActor = actor;
     }
 
+    public void SelectAction(string name)
+    {
+        // Create an instance of the action
+        SelectedAction = (BattleAction)Activator.CreateInstance(Type.GetType(name));
+        SelectedAction.SetActor(SelectedActor);
+    }
+
     public void SelectAction<TBattleAction>() where TBattleAction : BattleAction
     {
         // Create an instance of the action

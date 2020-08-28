@@ -2,6 +2,7 @@
 
 public abstract class BattleAction
 {
+    public abstract int Range { get; }
     public Actor Actor { get; protected set; }
     public BattleMap TargetMap { get; protected set; }
     public Vector2Int TargetPosition { get; protected set; }

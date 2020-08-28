@@ -7,6 +7,8 @@ public class AttackAction : BattleAction
     /// </summary>
     private const float MINIMUM_HIT_CHANCE = 0.1f;
 
+    public override int Range { get { return Actor.AttackRange; } }
+
     public override bool IsActorAble(Actor actor)
     {
         return !actor.Incapacitated;
@@ -14,7 +16,8 @@ public class AttackAction : BattleAction
  
     public override bool IsTargetValid(BattleMap map, Vector2Int position)
     {
-        return map.GetPawnAtCoordinate(position) != null;
+        return map.GetPawnAtCoordinate(position) != null &&
+                map.IsInRange(OriginPosition, position, Range);
     }
 
     public override bool Do()

@@ -15,7 +15,7 @@ public class MapInputManager : Singleton<MapInputManager>
                 ActionManager.Instance.SelectActor(actor);
 
                 // Close all menus and open this actor's actions bar
-                MenuStack.Instance.CloseAll();
+                MenuStack.Instance.HideAll();
                 MenuStack.Instance.Show<ActionsBar>();
             }
         }
@@ -26,7 +26,7 @@ public class MapInputManager : Singleton<MapInputManager>
             if (ActionManager.Instance.SetTarget(map, coordinate))
             {
                 ActionManager.Instance.DoAction();
-                MenuStack.Instance.CloseAll();
+                MenuStack.Instance.HideAll();
             }
         }
     }

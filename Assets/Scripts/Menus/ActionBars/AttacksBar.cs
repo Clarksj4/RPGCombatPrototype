@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class AttacksBar : Menu
 {
+    private Button[] attackButtons;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        attackButtons = GetComponentsInChildren<Button>();
+    }
+
     protected override void PreShow()
     {
         base.PreShow();
@@ -19,6 +29,6 @@ public class AttacksBar : Menu
     public void OnCancelTapped()
     {
         ActionManager.Instance.ClearSelectedAction();
-        MenuStack.Instance.CloseCurrent();
+        MenuStack.Instance.Hide();
     }
 }

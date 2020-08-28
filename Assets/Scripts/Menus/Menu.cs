@@ -34,7 +34,7 @@ public abstract class Menu : MonoBehaviour
     private Sequence showSequence;
     private Sequence hideSequence;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         parentCanvas = GetComponentInParent<Canvas>();
         

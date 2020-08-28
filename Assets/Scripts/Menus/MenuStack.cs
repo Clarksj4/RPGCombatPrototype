@@ -8,11 +8,19 @@ public class MenuStack : Singleton<MenuStack>
 
     private HashSet<Menu> registry = new HashSet<Menu>();
 
+    /// <summary>
+    /// Registers the given menu so that it can be
+    /// found by type or name.
+    /// </summary>
     public void RegisterMenu(Menu menu) 
     {
         registry.Add(menu);
     }
 
+    /// <summary>
+    /// Shows the menu with the given type, hiding any
+    /// currently visible menu.
+    /// </summary>
     public void Show<TMenu>() 
         where TMenu : Menu
     {
@@ -23,6 +31,10 @@ public class MenuStack : Singleton<MenuStack>
             Show(menu);
     }
 
+    /// <summary>
+    /// Shows the menu with the given name, hiding any
+    /// currently visible menu.
+    /// </summary>
     public void Show(string name)
     {
         // Find menu by name
@@ -32,6 +44,10 @@ public class MenuStack : Singleton<MenuStack>
             Show(menu);
     }
 
+    /// <summary>
+    /// Shows the given menu, hiding any currently visible
+    /// menu
+    /// </summary>
     public void Show(Menu menu)
     {
         if (menu == null)
@@ -49,21 +65,35 @@ public class MenuStack : Singleton<MenuStack>
         menu.Show();
     }
 
-    public void CloseCurrent()
+    /// <summary>
+    /// Hides the currently visible menu and show the next
+    /// menu in the stack.
+    /// </summary>
+    public void Hide()
+    {
+        HideCurrent();
+        ShowNext();
+    }
+
+    public void HideAll()
+    {
+        // Hide current then just dismiss the rest because
+        // they're already hidden.
+        HideCurrent();
+        menus.Clear();
+    }
+
+    private void HideCurrent()
     {
         // Hide current menu
         if (menus.Count > 0)
             menus.Pop()?.Hide();
-        
+    }
+
+    private void ShowNext()
+    {
         // Show next menu in stack
         if (menus.Count > 0)
             menus.Peek()?.Show();
-    }
-
-    public void CloseAll()
-    {
-        // Close all the menus!
-        while (menus.Count > 0)
-            CloseCurrent();
     }
 }
