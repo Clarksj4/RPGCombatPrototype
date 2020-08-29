@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class TurnManager : Singleton<TurnManager>
 {
@@ -32,6 +30,16 @@ public class TurnManager : Singleton<TurnManager>
 
     private bool roundStarted;
     private TurnOrder turnOrder = new TurnOrder();
+
+    public bool Add(ITurnBased actor)
+    {
+        return turnOrder.Add(actor);
+    }
+
+    public bool Remove(ITurnBased actor)
+    {
+        return turnOrder.Remove(actor);
+    }
 
     /// <summary>
     /// Proceeds to the next thing in the turn order if
