@@ -1,30 +1,18 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T>
 {
     /// <summary>
-    /// Gets the instance of this singleton
+    /// Gets the instance of this singleton.
     /// </summary>
     public static T Instance
     {
         get
         {
             if (instance == null)
-            {
-                GameObject go = new GameObject();
-                instance = go.AddComponent<T>();
-                go.name = instance.GetType().ToString();
-            }
+                instance = Activator.CreateInstance<T>();
             return instance;
         }
     }
     private static T instance;
-
-    protected virtual void Awake()
-    {
-        // Get yourself, before you wreck yourself
-        if (instance == null)
-            instance = GetComponent<T>();
-    }
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class MapInputManager : Singleton<MapInputManager>
+public class MapInputManager : MonoSingleton<MapInputManager>
 {
     public void OnMapInput(BattleMap map, Vector2Int coordinate)
     {

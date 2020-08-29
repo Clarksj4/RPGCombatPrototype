@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class TurnManager : Singleton<TurnManager>
+public class TurnManager : MonoSingleton<TurnManager>
 {
     /// <summary>
     /// Occurs when a new round is starting. A round is
@@ -31,11 +31,17 @@ public class TurnManager : Singleton<TurnManager>
     private bool roundStarted;
     private TurnOrder turnOrder = new TurnOrder();
 
+    /// <summary>
+    /// Adds the given actor to the turn order.
+    /// </summary>
     public bool Add(ITurnBased actor)
     {
         return turnOrder.Add(actor);
     }
 
+    /// <summary>
+    /// Removes the given actor from the turn order.
+    /// </summary>
     public bool Remove(ITurnBased actor)
     {
         return turnOrder.Remove(actor);
@@ -65,8 +71,9 @@ public class TurnManager : Singleton<TurnManager>
         // If there's nothing left in the order then the round has ended
         if (!anyMore)
         {
-            OnRoundEnd?.Invoke();
             roundStarted = false;
+            turnOrder.Reset();
+            OnRoundEnd?.Invoke();
         }
             
         // Otherwise, let the new thing know its turn is

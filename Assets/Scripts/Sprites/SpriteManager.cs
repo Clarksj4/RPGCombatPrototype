@@ -3,17 +3,19 @@ using System.Linq;
 
 public class SpriteManager : Singleton<SpriteManager>
 {
-    private SpriteCatalogue spriteCatalogue;
-
-    protected override void Awake()
+    private SpriteCatalogue SpriteCatalogue
     {
-        base.Awake();
-
-        spriteCatalogue = Resources.Load<SpriteCatalogue>("SpriteCatalogue");
+        get
+        {
+            if (spriteCatalogue == null)
+                spriteCatalogue = Resources.Load<SpriteCatalogue>("SpriteCatalogue");
+            return spriteCatalogue;
+        }
     }
+    private SpriteCatalogue spriteCatalogue;
 
     public Sprite GetSpriteByName(string name)
     {
-        return spriteCatalogue.Sprites.FirstOrDefault(s => s.name == name);
+        return SpriteCatalogue.Sprites.FirstOrDefault(s => s.name == name);
     }
 }

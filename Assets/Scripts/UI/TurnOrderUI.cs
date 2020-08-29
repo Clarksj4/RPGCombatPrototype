@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TurnOrderUI : MonoBehaviour
+public class TurnOrderUI : MonoBehaviour, IStartable
 {
     [SerializeField]
     private HorizontalLayoutGroup slideyBit;
@@ -21,9 +21,16 @@ public class TurnOrderUI : MonoBehaviour
         rectTransform = transform as RectTransform;
 
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
+        PrioritizedStartManager.Instance.RegisterWithPriority(this, 1);
     }
 
-    private IEnumerator Start()
+    public bool Initialize()
+    {
+        StartCoroutine(DoInitialize());
+        return false;
+    }
+
+    private IEnumerator DoInitialize()
     {
         foreach (ITurnBased turnbased in TurnManager.Instance.OrderOfActors)
         {
@@ -33,8 +40,7 @@ public class TurnOrderUI : MonoBehaviour
         }
 
         UpdateSize();
-
-        // TODO: fade in.
+        PrioritizedStartManager.Instance.MarkInitializationComplete(this);
     }
 
     private void HandleOnTurnEnd(ITurnBased entity)
