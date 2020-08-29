@@ -84,6 +84,8 @@ public class ActionManager : Singleton<ActionManager>
     {
         SelectedActor.EndTurn();
         ClearSelectedActor();
+
+        TurnManager.Instance.Next();
     }
 
     /// <summary>

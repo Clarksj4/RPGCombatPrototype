@@ -237,11 +237,11 @@ RectTransform:
   m_Father: {fileID: 856778801}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 140, y: -10}
-  m_SizeDelta: {x: -320, y: 60}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -20, y: -10}
+  m_SizeDelta: {x: 300, y: 60}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &229277579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,6 +1241,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cf5ec318bb2e14ea6906d1714ed649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  priority: 90
+  attack: 10
+  accuracy: 1
+  movement: 3
+  attackRange: 1
+  actions:
+  - Move
+  - Attack
+  - Push
 --- !u!212 &790048780
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2009,6 +2018,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cf5ec318bb2e14ea6906d1714ed649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  priority: 90
+  attack: 10
+  accuracy: 1
+  movement: 3
+  attackRange: 1
+  actions:
+  - Move
+  - Attack
+  - Push
 --- !u!212 &1185877223
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2204,6 +2222,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cf5ec318bb2e14ea6906d1714ed649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  priority: 90
+  attack: 10
+  accuracy: 1
+  movement: 3
+  attackRange: 1
+  actions:
+  - Move
+  - Attack
+  - Push
 --- !u!212 &1357926698
 SpriteRenderer:
   m_ObjectHideFlags: 0
