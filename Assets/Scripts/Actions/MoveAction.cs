@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class MoveAction : BattleAction
 {
@@ -28,5 +29,11 @@ public class MoveAction : BattleAction
             Debug.Log($"Can't perform move action.");
 
         return canDo;
+    }
+
+    public override IEnumerable<Vector2Int> GetArea()
+    {
+        // TODO: actually do some path finding or something.
+        yield return TargetPosition;
     }
 }

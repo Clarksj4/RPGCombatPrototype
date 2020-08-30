@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PushAction : BattleAction
 {
@@ -56,5 +57,10 @@ public class PushAction : BattleAction
         Vector2Int delta = target.MapPosition - Actor.MapPosition;
         Vector2Int direction = delta.Reduce();
         return direction;
+    }
+
+    public override IEnumerable<Vector2Int> GetArea()
+    {
+        yield return TargetPosition;
     }
 }

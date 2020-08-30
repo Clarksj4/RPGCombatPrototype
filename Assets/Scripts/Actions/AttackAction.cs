@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AttackAction : BattleAction
 {
@@ -61,5 +62,10 @@ public class AttackAction : BattleAction
         int damage = (int)Mathf.Max(0, Actor.Attack - defender.Defense);
         Debug.Log($"Defender takes {damage} damage.");
         defender.Health -= damage;
+    }
+
+    public override IEnumerable<Vector2Int> GetArea()
+    {
+        yield return TargetPosition;
     }
 }

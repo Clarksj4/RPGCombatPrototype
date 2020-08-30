@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Encapsulates any action / ability used by an actor
@@ -79,6 +80,11 @@ public abstract class BattleAction
     /// this action.
     /// </summary>
     public abstract bool IsActorAble(Actor actor);
+
+    /// <summary>
+    /// Gets the area that this action will affect.
+    /// </summary>
+    public abstract IEnumerable<Vector2Int> GetArea();
 
     /// <summary>
     /// Performs this action. Returns true if the action was
