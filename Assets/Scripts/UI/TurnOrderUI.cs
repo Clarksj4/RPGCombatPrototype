@@ -35,7 +35,7 @@ public class TurnOrderUI : MonoBehaviour, IStartable
         foreach (ITurnBased turnbased in TurnManager.Instance.OrderOfActors)
         {
             Actor actor = turnbased as Actor;
-            AddFrame(actor);
+            AddFrame(actor, true);
             yield return null;
         }
 
