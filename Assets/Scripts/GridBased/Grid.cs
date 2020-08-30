@@ -7,6 +7,7 @@ public class Grid
     public Vector2Int NCells { get { return nCells; } }
     public Vector2 CellSize { get { return cellSize; } }
     public Vector2 WorldPosition { get { return worldPosition; } }
+    public Bounds Bounds { get { return new Bounds(WorldPosition, nCells * cellSize); } }
 
     [SerializeField]
     private Vector2Int nCells;
@@ -24,12 +25,12 @@ public class Grid
 
     public Vector2 CoordinateToWorldPosition(Vector2Int coordinate)
     {
-        return WorldPosition + (coordinate * CellSize) + (CellSize * 0.5f);
+        return (Vector2)Bounds.min + (coordinate * CellSize) + (CellSize * 0.5f);
     }
 
     public bool WorldPositionToCoordinate(Vector2 worldPosition, out Vector2Int coordinate)
     {
-        Vector2 delta = worldPosition - WorldPosition;
+        Vector2 delta = worldPosition - (Vector2)Bounds.min;
         Vector2 unboundedCoordinate = delta / CellSize;
         Vector2Int roundedUnboundedCoordinate = new Vector2Int((int)unboundedCoordinate.x, (int)unboundedCoordinate.y);
 
