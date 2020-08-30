@@ -13,6 +13,10 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     public event Action<int> OnHealthChanged;
 
     /// <summary>
+    /// Gets this pawns position in world space.
+    /// </summary>
+    public Vector2 WorldPosition { get { return transform.position; } }
+    /// <summary>
     /// Gets this pawns coordinate on the battlemap.
     /// </summary>
     public Vector2Int MapPosition { get; private set; }
