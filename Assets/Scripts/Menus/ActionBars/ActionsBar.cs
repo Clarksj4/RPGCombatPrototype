@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -8,6 +9,14 @@ public class ActionsBar : Menu
 
     [SerializeField]
     private Button[] actionButtons;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        ActionManager.Instance.OnActorSelected += HandleOnActorSelected;
+        ActionManager.Instance.OnActorDeselected += HandleOnActorDeselected;
+    }
 
     protected override void PreShow()
     {
@@ -33,18 +42,25 @@ public class ActionsBar : Menu
     {
         string action = ActionManager.Instance.SelectedActor.Actions[index];
         ActionManager.Instance.SelectAction(action + "Action");
-        MenuStack.Instance.Show<CancelBar>();
     }
 
     public void OnEndTurnTapped()
     {
         ActionManager.Instance.EndSelectedActorTurn();
-        MenuStack.Instance.HideAll();
     }
 
     public void OnCancelTapped()
     {
         ActionManager.Instance.ClearSelectedAction();
-        MenuStack.Instance.HideAll();
+    }
+
+    private void HandleOnActorSelected(Actor obj)
+    {
+        MenuStack.Instance.Show(this);
+    }
+
+    private void HandleOnActorDeselected(Actor obj)
+    {
+        MenuStack.Instance.Hide();
     }
 }

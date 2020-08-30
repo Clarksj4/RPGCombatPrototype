@@ -50,7 +50,7 @@ public class BattleMap : MonoBehaviour
     public int GetDistance(Vector2Int from, Vector2Int to)
     {
         Vector2Int delta = to - from;
-        return Mathf.Abs(delta.x + delta.y);
+        return Mathf.Abs(delta.x) + Mathf.Abs(delta.y);
     }
 
     public Pawn GetPawnAtCoordinate(Vector2Int coordinate)

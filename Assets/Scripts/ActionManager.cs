@@ -4,6 +4,23 @@ using UnityEngine;
 public class ActionManager : Singleton<ActionManager>
 {
     /// <summary>
+    /// Occurs when an actor is selected.
+    /// </summary>
+    public event Action<Actor> OnActorSelected;
+    /// <summary>
+    /// Occurs when an actor is deselected.
+    /// </summary>
+    public event Action<Actor> OnActorDeselected;
+    /// <summary>
+    /// Occurs when any battle action is selected.
+    /// </summary>
+    public event Action<BattleAction> OnActionSelected;
+    /// <summary>
+    /// Occurs when the currently selected battle action is
+    /// deselected.
+    /// </summary>
+    public event Action<BattleAction> OnActionDeselected;
+    /// <summary>
     /// Occurs after any action is successfully completed
     /// </summary>
     public event Action<Actor, BattleAction> OnAfterSuccessfulAction;
@@ -26,7 +43,15 @@ public class ActionManager : Singleton<ActionManager>
     /// </summary>
     public void SelectActor(Actor actor)
     {
+        // Deselect current actor if one is selected
+        ClearSelectedActor();
+
+        // Select new actor
         SelectedActor = actor;
+
+        // Notify senpai
+        if (actor != null)
+            OnActorSelected?.Invoke(actor);
     }
 
     /// <summary>
@@ -37,6 +62,8 @@ public class ActionManager : Singleton<ActionManager>
         // Create an instance of the action
         SelectedAction = (BattleAction)Activator.CreateInstance(Type.GetType(name));
         SelectedAction.SetActor(SelectedActor);
+
+        OnActionSelected?.Invoke(SelectedAction);
     }
 
     /// <summary>
@@ -49,6 +76,8 @@ public class ActionManager : Singleton<ActionManager>
         // Create an instance of the action
         SelectedAction = (BattleAction)Activator.CreateInstance(typeof(TBattleAction));
         SelectedAction.SetActor(SelectedActor);
+
+        OnActionSelected?.Invoke(SelectedAction);
     }
 
     /// <summary>
@@ -93,7 +122,15 @@ public class ActionManager : Singleton<ActionManager>
     /// </summary>
     public void ClearSelectedAction()
     {
+        // Local action so can pass it to event after
+        // instance action is cleared.
+        BattleAction action = SelectedAction;
+
         SelectedAction = null;
+        
+        // Notify senpai
+        if (action != null)
+            OnActionDeselected?.Invoke(action);
     }
 
     /// <summary>
@@ -102,7 +139,17 @@ public class ActionManager : Singleton<ActionManager>
     /// </summary>
     public void ClearSelectedActor()
     {
+        // Local actor so can pass it to event after
+        // clearing instance actor.
+        Actor actor = SelectedActor;
+        
+        // Get rid of instance actor and any action
+        // being assembled
         ClearSelectedAction();
         SelectedActor = null;
+
+        // Notify senpai
+        if (actor != null)
+            OnActorDeselected?.Invoke(actor);
     }
 }

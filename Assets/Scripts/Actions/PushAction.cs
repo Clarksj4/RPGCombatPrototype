@@ -23,8 +23,11 @@ public class PushAction : BattleAction
 
     public override bool IsTargetValid(BattleMap map, Vector2Int position)
     {
-        return map.GetPawnAtCoordinate(position) != null &&
-                map.IsInRange(OriginPosition, position, Range);
+        Pawn target = map.GetPawnAtCoordinate(position);
+        bool inRange = map.IsInRange(OriginPosition, position, Range);
+        return target != null &&
+                target != Actor &&
+                inRange;
     }
 
     public override bool Do()

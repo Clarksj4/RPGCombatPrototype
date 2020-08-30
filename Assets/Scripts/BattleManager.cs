@@ -1,4 +1,6 @@
-﻿public class BattleManager : MonoSingleton<BattleManager>
+﻿using System;
+
+public class BattleManager : MonoSingleton<BattleManager>
 {
     public int RoundCount { get; private set; } = 1;
 
@@ -6,6 +8,7 @@
     {
         base.Awake();
 
+        TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
         TurnManager.Instance.OnRoundEnd += HandleOnRoundEnd;
     }
 
@@ -15,6 +18,12 @@
             // Start the turn!
             TurnManager.Instance.Next();
         });
+    }
+
+    private void HandleOnTurnStart(ITurnBased obj)
+    {
+        ActionManager.Instance.ClearSelectedActor();
+        ActionManager.Instance.SelectActor(obj as Actor);
     }
 
     private void HandleOnRoundEnd()
