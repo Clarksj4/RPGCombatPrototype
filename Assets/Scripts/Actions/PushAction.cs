@@ -22,10 +22,10 @@ public class PushAction : BattleAction
         return !actor.Incapacitated;
     }
 
-    public override bool IsTargetValid(BattleMap map, Vector2Int position)
+    public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
-        Pawn target = map.GetPawnAtCoordinate(position);
-        bool inRange = map.IsInRange(OriginPosition, position, Range);
+        Pawn target = formation.GetPawnAtCoordinate(position);
+        bool inRange = formation.IsInRange(OriginPosition, position, Range);
         return target != null &&
                 target != Actor &&
                 inRange;
@@ -33,16 +33,16 @@ public class PushAction : BattleAction
 
     public override bool Do()
     {
-        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetMap, TargetPosition);
+        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetFormation, TargetPosition);
 
         if (canDo)
         {
             // Get direction to target
-            Pawn target = TargetMap.GetPawnAtCoordinate(TargetPosition);
+            Pawn target = TargetFormation.GetPawnAtCoordinate(TargetPosition);
             Vector2Int direction = GetDirectionToTarget(target);
 
             // Push target in that direction
-            target.SetCoordinate(target.MapPosition + (direction * PUSH_DISTANCE));
+            target.SetCoordinate(target.GridPosition + (direction * PUSH_DISTANCE));
         }
 
         else
@@ -54,7 +54,7 @@ public class PushAction : BattleAction
     private Vector2Int GetDirectionToTarget(Pawn target)
     {
         // Get direction to defender
-        Vector2Int delta = target.MapPosition - Actor.MapPosition;
+        Vector2Int delta = target.GridPosition - Actor.GridPosition;
         Vector2Int direction = delta.Reduce();
         return direction;
     }

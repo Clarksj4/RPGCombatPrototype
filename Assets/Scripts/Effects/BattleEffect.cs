@@ -21,7 +21,7 @@ public abstract class BattleEffect
     /// <summary>
     /// Gets the map that this effect originates from.
     /// </summary>
-    public BattleMap OriginMap { get; protected set; }
+    public Formation OriginFormation { get; protected set; }
     /// <summary>
     /// Gets the coordinate that this effect originates from,
     /// if this effect is attached to an actor, this
@@ -44,8 +44,8 @@ public abstract class BattleEffect
         if (isAble)
         {
             Actor = actor;
-            OriginMap = actor.Map;
-            OriginPosition = actor.MapPosition;
+            OriginFormation = actor.Formation;
+            OriginPosition = actor.GridPosition;
         }
         return isAble;
     }
@@ -54,18 +54,18 @@ public abstract class BattleEffect
     /// Checks whether the origin coordinate is valid.
     /// Returns true if it is.
     /// </summary>
-    public abstract bool IsOriginValid(BattleMap map, Vector2Int position);
+    public abstract bool IsOriginValid(Formation formation, Vector2Int position);
 
     /// <summary>
     /// Sets the originating coordinate for this effect.
     /// Returns true if the coordinate was valid.
     /// </summary>
-    public virtual bool SetOrigin(BattleMap map, Vector2Int position)
+    public virtual bool SetOrigin(Formation formation, Vector2Int position)
     {
-        bool isValid = IsOriginValid(map, position);
+        bool isValid = IsOriginValid(formation, position);
         if (isValid)
         {
-            OriginMap = map;
+            OriginFormation = formation;
             OriginPosition = position;
         }
         return isValid;

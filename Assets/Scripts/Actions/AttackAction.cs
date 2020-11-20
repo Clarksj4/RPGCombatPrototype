@@ -18,10 +18,10 @@ public class AttackAction : BattleAction
         return !actor.Incapacitated;
     }
  
-    public override bool IsTargetValid(BattleMap map, Vector2Int position)
+    public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
-        Pawn target = map.GetPawnAtCoordinate(position);
-        bool inRange = map.IsInRange(OriginPosition, position, Range);
+        Pawn target = formation.GetPawnAtCoordinate(position);
+        bool inRange = formation.IsInRange(OriginPosition, position, Range);
         return target != null &&
                 target != Actor &&
                 inRange;
@@ -29,12 +29,12 @@ public class AttackAction : BattleAction
 
     public override bool Do()
     {
-        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetMap, TargetPosition);
+        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetFormation, TargetPosition);
 
         if (canDo)
         {
             // Get defender, check if hit, and apply damage
-            Pawn defender = TargetMap.GetPawnAtCoordinate(TargetPosition);
+            Pawn defender = TargetFormation.GetPawnAtCoordinate(TargetPosition);
             if (IsHit(defender))
                 ApplyDamage(defender);
         }

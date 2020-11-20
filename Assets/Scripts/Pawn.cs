@@ -17,13 +17,17 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// </summary>
     public Vector2 WorldPosition { get { return transform.position; } }
     /// <summary>
-    /// Gets this pawns coordinate on the battlemap.
+    /// Gets this pawns coordinate on the grid.
     /// </summary>
-    public Vector2Int MapPosition { get; private set; }
+    public Vector2Int GridPosition { get; private set; }
     /// <summary>
-    /// Gets the battlemap that this pawn is on.
+    /// Gets the formation this pawn is part of.
     /// </summary>
-    public BattleMap Map { get { return GetComponentInParent<BattleMap>(); } }
+    public Formation Formation { get { return Grid as Formation; } }
+    /// <summary>
+    /// Gets the grid this pawn is on.
+    /// </summary>
+    public Grid Grid { get { return GetComponentInParent<Grid>(); } }
     /// <summary>
     /// Gets or sets this pawn's current health.
     /// </summary>
@@ -57,7 +61,13 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
 
     protected virtual void Awake()
     {
-        MapPosition = Map.WorldPositionToCoordinate((Vector2)transform.position);
+        Vector2Int gridPosition;
+        bool onGrid = Grid.WorldPositionToCoordinate(transform.position, out gridPosition);
+
+        if (onGrid)
+            GridPosition = gridPosition;
+        else
+            Debug.LogError("Pawn not on grid!");
     }
 
     /// <summary>
@@ -73,7 +83,7 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// </summary>
     public virtual void SetCoordinate(Vector2Int coordinate)
     {
-        MapPosition = coordinate;
-        transform.position = Map.CoordinateToWorldPosition(coordinate);
+        GridPosition = coordinate;
+        transform.position = Grid.CoordinateToWorldPosition(coordinate);
     }
 }

@@ -18,7 +18,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the map that this action is targeted to.
     /// </summary>
-    public BattleMap TargetMap { get; protected set; }
+    public Formation TargetFormation { get; protected set; }
     /// <summary>
     /// Gets the coordinate that this action is targeting.
     /// </summary>
@@ -26,7 +26,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the map where this action originates from.
     /// </summary>
-    public BattleMap OriginMap { get; protected set; }
+    public Formation OriginFormation { get; protected set; }
     /// <summary>
     /// Gets the coordinate that this action originates from.
     /// </summary>
@@ -47,8 +47,8 @@ public abstract class BattleAction
         {
             // Set actor and originating map / position.
             Actor = actor;
-            OriginMap = actor.Map;
-            OriginPosition = actor.MapPosition;
+            OriginFormation = actor.Formation;
+            OriginPosition = actor.GridPosition;
         }
         return isAble;
     }
@@ -57,14 +57,14 @@ public abstract class BattleAction
     /// Sets the target for this action if valid. Returns true
     /// if the target is a valid one.
     /// </summary>
-    public virtual bool SetTarget(BattleMap map, Vector2Int position)
+    public virtual bool SetTarget(Formation formation, Vector2Int position)
     {
         // Check if target is valid.
-        bool isValid = IsTargetValid(map, position);
+        bool isValid = IsTargetValid(formation, position);
         if (isValid)
         {
             // Set target map / position
-            TargetMap = map;
+            TargetFormation = formation;
             TargetPosition = position;
         }
         return isValid;
@@ -73,7 +73,7 @@ public abstract class BattleAction
     /// <summary>
     /// Checks whether the given target is valid.
     /// </summary>
-    public abstract bool IsTargetValid(BattleMap map, Vector2Int position);
+    public abstract bool IsTargetValid(Formation formation, Vector2Int position);
 
     /// <summary>
     /// Checks if the given actor is currently able to perform

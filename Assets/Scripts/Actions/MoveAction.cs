@@ -13,15 +13,15 @@ public class MoveAction : BattleAction
         return !actor.Incapacitated;
     }
 
-    public override bool IsTargetValid(BattleMap map, Vector2Int position)
+    public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
-        return map.GetPawnAtCoordinate(position) == null &&
-                map.IsInRange(OriginPosition, position, Range);
+        return formation.GetPawnAtCoordinate(position) == null &&
+                formation.IsInRange(OriginPosition, position, Range);
     }
 
     public override bool Do()
     {
-        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetMap, TargetPosition);
+        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetFormation, TargetPosition);
 
         if (canDo)
             Actor.SetCoordinate(TargetPosition);

@@ -83,9 +83,9 @@ public class ActionManager : Singleton<ActionManager>
     /// <summary>
     /// Sets the target for the current action.
     /// </summary>
-    public bool SetTarget(BattleMap map, Vector2Int target)
+    public bool SetTarget(Formation formation, Vector2Int target)
     {
-        return SelectedAction.SetTarget(map, target);
+        return SelectedAction.SetTarget(formation, target);
     }
 
     /// <summary>
