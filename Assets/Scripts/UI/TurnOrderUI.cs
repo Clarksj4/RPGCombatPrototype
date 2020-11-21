@@ -7,13 +7,16 @@ using UnityEngine.UI;
 
 public class TurnOrderUI : MonoBehaviour, IStartable
 {
-    [SerializeField]
-    private HorizontalLayoutGroup slideyBit;
-    [SerializeField]
-    private TurnOrderUIFrame FramePrefab;
+    [SerializeField][Range(1, 10)] private int nVisibleActors = 4;
+    [SerializeField] private HorizontalLayoutGroup slideyBit;
+    [SerializeField] private TurnOrderUIFrame FramePrefab;
 
+    // Components
     private RectTransform slideyBitRectTransform;
     private RectTransform rectTransform;
+
+    // Fields
+    private Sequence slideSequence;
 
     private void Awake()
     {
@@ -45,6 +48,14 @@ public class TurnOrderUI : MonoBehaviour, IStartable
 
     private void HandleOnTurnEnd(ITurnBased entity)
     {
+        if (slideSequence != null && 
+            slideSequence.active)
+        {
+            slideSequence.Complete();
+            slideSequence.onComplete?.Invoke();
+            slideSequence = null;
+        }
+            
         // TODO: add a new frame for the current actor
         TurnOrderUIFrame lastActorFrame = GetLastFrame();
 
@@ -52,12 +63,12 @@ public class TurnOrderUI : MonoBehaviour, IStartable
         AddFrame(lastActorFrame.Actor, true);
 
         // TODO: slide bit along 60 units
-        Sequence slideSequence = DOTween.Sequence();
+        slideSequence = DOTween.Sequence();
         slideSequence.Append(slideyBitRectTransform.DOAnchorPosX(60, 1f));
-        slideSequence.AppendCallback(() => {
-            // Remove the excess frame and snap the transform back
-            Destroy(lastActorFrame.gameObject);
+        slideSequence.AppendCallback(() =>{
+            DestroyImmediate(lastActorFrame.gameObject);
             slideyBitRectTransform.anchoredPosition = Vector2.zero;
+
         });
     }
 
@@ -82,7 +93,10 @@ public class TurnOrderUI : MonoBehaviour, IStartable
 
     private void UpdateSize()
     {
-        int actorCount = slideyBit.transform.childCount;
+        // Show nVisibleActors or as many as there are if there is not enough.
+        int actorCount = Mathf.Min(slideyBit.transform.childCount, nVisibleActors);
+
+        // Calculate total width of panel
         float frameWidth = FramePrefab.RectTransform.sizeDelta.x;
         float sumFrameWidths = frameWidth * actorCount;
         float sumSpacing = slideyBit.spacing * (actorCount - 1);

@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b81816453ebc644944e08a2a8bc853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nVisibleActors: 10
   slideyBit: {fileID: 658551478}
   FramePrefab: {fileID: 3500204063213605033, guid: 8d782b01d845d004daafd3a19bbc5df6, type: 3}
 --- !u!1001 &263865177
@@ -864,7 +865,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 2.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
