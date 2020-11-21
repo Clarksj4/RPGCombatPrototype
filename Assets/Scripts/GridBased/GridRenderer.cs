@@ -1,33 +1,55 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[RequireComponent(typeof(Grid))]
+//[RequireComponent(typeof(Grid))]
 public class GridRenderer : MonoBehaviour
 {
-    private Grid grid;
+    [SerializeField] private Grid grid;
+    [SerializeField] private Transform cellParent;
 
-    private void Awake()
+    public void SetCellColour(Vector2Int coordinate, Color colour)
     {
-        grid = GetComponentInParent<Grid>();
+        Transform cell = GetCellAtCoordinate(coordinate);
+        SpriteRenderer renderer = cell.GetComponent<SpriteRenderer>();
+        renderer.color = colour;
+        renderer.sortingOrder++;
     }
 
-    private void OnDrawGizmos()
+    public void SetAllCellColours(Color colour)
     {
-        if (EditorApplication.isPlaying)
+        foreach (Transform cell in cellParent)
         {
-            for (int x = 0; x <= grid.NCells.x; x++)
-            {
-                Vector2 from = new Vector2(grid.Bounds.min.x + (x * grid.CellSize.x), grid.Bounds.min.y);
-                Vector2 to = from + (Vector2.up * grid.CellSize * grid.NCells.y);
-                Gizmos.DrawLine(from, to);
-            }
+            SpriteRenderer renderer = cell.GetComponent<SpriteRenderer>();
+            renderer.color = colour;
+            renderer.sortingOrder = -10;
+        }
+            
+    }
 
-            for (int y = 0; y <= grid.NCells.y; y++)
-            {
-                Vector2 from = new Vector2(grid.Bounds.min.x, grid.Bounds.min.y + (y * grid.CellSize.y));
-                Vector2 to = from + (Vector2.right * grid.CellSize * grid.NCells.x);
-                Gizmos.DrawLine(from, to);
-            }
+    public void SetCellColour(int x, int y, Color colour)
+    {
+        //SetCellColour(coordinate.x, coordinate.y, colour);
+    }
+
+    private Transform GetCellAtCoordinate(Vector2Int coordinate)
+    {
+        int index = coordinate.x + (coordinate.y * grid.NCells.x);
+        return cellParent.GetChild(index);
+    }
+
+    [ContextMenu("ArrangeCells")]
+    private void ArrangeCells()
+    {
+        for (int i = 0; i < cellParent.childCount; i++)
+        {
+            int y = i / grid.NCells.x;
+            int x = i % grid.NCells.x;
+            Vector2Int coordinate = new Vector2Int(x, y);
+
+            Transform child = cellParent.GetChild(i);
+            child.name = new Vector2Int(x, y).ToString();
+
+            child.position = grid.CoordinateToWorldPosition(coordinate);
         }
     }
 }

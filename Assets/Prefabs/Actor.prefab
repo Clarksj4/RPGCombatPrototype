@@ -699,7 +699,7 @@ MonoBehaviour:
   priority: 90
   attack: 10
   accuracy: 1
-  movement: 3
+  movement: 2
   attackRange: 1
   actions:
   - Move
