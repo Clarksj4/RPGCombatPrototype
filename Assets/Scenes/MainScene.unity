@@ -306,7 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b81816453ebc644944e08a2a8bc853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nVisibleActors: 10
+  nVisibleActors: 3
+  slideDuration: 0.5
   slideyBit: {fileID: 658551478}
   FramePrefab: {fileID: 3500204063213605033, guid: 8d782b01d845d004daafd3a19bbc5df6, type: 3}
 --- !u!1001 &263865177
