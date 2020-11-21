@@ -36,7 +36,7 @@ public class RoundAnnouncement : MonoBehaviour
     {
         background.color = new Color(0, 0, 0, 0);
 
-        text.text = $"Round {BattleManager.Instance.RoundCount}";
+        text.text = $"Round {TurnManager.Instance.RoundCount}";
         text.rectTransform.anchoredPosition = new Vector2(-OffScreenX, 0);
 
         Sequence sequence = DOTween.Sequence();

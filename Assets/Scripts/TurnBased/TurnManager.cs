@@ -27,6 +27,10 @@ public class TurnManager : MonoSingleton<TurnManager>
     /// during each round.
     /// </summary>
     public IEnumerable<ITurnBased> OrderOfActors { get { return turnOrder; } }
+    /// <summary>
+    /// The index of the current round.
+    /// </summary>
+    public int RoundCount { get; private set; }
 
     private bool roundStarted;
     private TurnOrder turnOrder = new TurnOrder();
@@ -61,6 +65,7 @@ public class TurnManager : MonoSingleton<TurnManager>
         // is starting
         if (!roundStarted)
         {
+            RoundCount++;
             OnRoundStart?.Invoke();
             roundStarted = true;
         }

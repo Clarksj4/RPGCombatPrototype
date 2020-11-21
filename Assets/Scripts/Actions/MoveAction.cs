@@ -15,8 +15,13 @@ public class MoveAction : BattleAction
 
     public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
-        return formation.GetPawnAtCoordinate(position) == null &&
-                formation.IsInRange(OriginPosition, position, Range);
+        bool isOnSameFormation = formation == OriginFormation;
+        bool cellEmpty = formation.GetPawnAtCoordinate(position) == null;
+        bool isInRange = formation.IsInRange(OriginPosition, position, Range);
+
+        return isOnSameFormation &&
+                cellEmpty &&
+                isInRange;
     }
 
     public override bool Do()

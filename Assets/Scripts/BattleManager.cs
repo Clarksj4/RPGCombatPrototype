@@ -1,9 +1,10 @@
 ﻿using System;
 
+/// <summary>
+/// Singleton responsible 
+/// </summary>
 public class BattleManager : MonoSingleton<BattleManager>
 {
-    public int RoundCount { get; private set; } = 1;
-
     protected override void Awake()
     {
         base.Awake();
@@ -22,13 +23,15 @@ public class BattleManager : MonoSingleton<BattleManager>
 
     private void HandleOnTurnStart(ITurnBased obj)
     {
+        // Clear old actor, get the one whose turn it is.
         ActionManager.Instance.ClearSelectedActor();
         ActionManager.Instance.SelectActor(obj as Actor);
     }
 
     private void HandleOnRoundEnd()
     {
-        RoundCount++;
+        // Next round doesn't automatically start - need to
+        // explicitly tell turn manager to go to next turn.
         TurnManager.Instance.Next();
     }
 }

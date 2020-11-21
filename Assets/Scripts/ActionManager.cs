@@ -69,7 +69,6 @@ public class ActionManager : Singleton<ActionManager>
     /// <summary>
     /// Selects the action, by type, that will be performed by the actor.
     /// </summary>
-    /// <typeparam name="TBattleAction"></typeparam>
     public void SelectAction<TBattleAction>() 
         where TBattleAction : BattleAction
     {
