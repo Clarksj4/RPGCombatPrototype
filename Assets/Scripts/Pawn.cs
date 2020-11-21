@@ -64,6 +64,7 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
         Vector2Int gridPosition;
         bool onGrid = Grid.WorldPositionToCoordinate(transform.position, out gridPosition);
 
+        // Snap to grid - or throw an error if we're not on the grid.
         if (onGrid)
             GridPosition = gridPosition;
         else

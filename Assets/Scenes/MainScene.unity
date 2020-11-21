@@ -866,7 +866,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.5
+  orthographic size: 1.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1317,7 +1317,6 @@ GameObject:
   - component: {fileID: 722404954}
   - component: {fileID: 722404952}
   - component: {fileID: 722404955}
-  - component: {fileID: 722404956}
   - component: {fileID: 722404957}
   m_Layer: 0
   m_Name: Formation
@@ -1366,13 +1365,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 0f23133f160d9f149a8f5d733a613b53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa5255a69e18ad54f99790104a168424, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
   m_Size: {x: 3, y: 3}
-  m_AdaptiveModeThreshold: 0.5
+  m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
@@ -1411,9 +1410,9 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.024, y: 1.024}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 3, y: 3}
-    adaptiveTilingThreshold: 0.5
+    adaptiveTilingThreshold: 0
     drawMode: 2
     adaptiveTiling: 1
   m_AutoTiling: 0
@@ -1434,18 +1433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nCells: {x: 3, y: 3}
   cellSize: {x: 1, y: 1}
---- !u!114 &722404956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722404951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4945b50227634fb449fb9b14b46f143b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &722404957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,7 +1887,6 @@ GameObject:
   - component: {fileID: 1153853545}
   - component: {fileID: 1153853544}
   - component: {fileID: 1153853543}
-  - component: {fileID: 1153853542}
   - component: {fileID: 1153853541}
   m_Layer: 0
   m_Name: Formation
@@ -1953,18 +1939,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1153853542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153853539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4945b50227634fb449fb9b14b46f143b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1153853543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2019,13 +1993,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 0f23133f160d9f149a8f5d733a613b53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa5255a69e18ad54f99790104a168424, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
   m_Size: {x: 3, y: 3}
-  m_AdaptiveModeThreshold: 0.5
+  m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
@@ -2047,9 +2021,9 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.024, y: 1.024}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 3, y: 3}
-    adaptiveTilingThreshold: 0.5
+    adaptiveTilingThreshold: 0
     drawMode: 2
     adaptiveTiling: 1
   m_AutoTiling: 0
@@ -2242,7 +2216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721897763412088450, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3721897763412088450, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2878,17 +2852,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1153853540}
     m_Modifications:
+    - target: {fileID: 2665752696212504585, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
+      propertyPath: fillDuration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665752696212504585, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
+      propertyPath: drainDuration
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3721897763412088449, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
       propertyPath: m_Name
       value: Ragnor
       objectReference: {fileID: 0}
     - target: {fileID: 3721897763412088450, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3721897763412088450, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3721897763412088450, guid: 6e82af4df7e064d4a8c7fd9ac92593c0, type: 3}
       propertyPath: m_LocalPosition.z

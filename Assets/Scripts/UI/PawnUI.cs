@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PawnUI : MonoBehaviour
 {
     [SerializeField]
-    private Image healthBar;
+    private HealthBar healthBar;
     private Pawn pawn;
 
     private void Awake()
@@ -17,6 +17,6 @@ public class PawnUI : MonoBehaviour
     private void HandleOnPawnHealthChanged(int change)
     {
         float fill = (float)pawn.Health / pawn.MaxHealth;
-        healthBar.fillAmount = fill;
+        healthBar.SetHealth(fill);
     }
 }
