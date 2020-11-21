@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Linq;
 
 public class SpriteManager : Singleton<SpriteManager>
 {
@@ -7,15 +6,20 @@ public class SpriteManager : Singleton<SpriteManager>
     {
         get
         {
+            // Lazy loading
             if (spriteCatalogue == null)
-                spriteCatalogue = Resources.Load<SpriteCatalogue>("SpriteCatalogue");
+                spriteCatalogue = SpriteCatalogue.FromResources();
             return spriteCatalogue;
         }
     }
     private SpriteCatalogue spriteCatalogue;
 
+    /// <summary>
+    /// Gets a sprite with the given name. Returns null
+    /// if there is no sprite with that name.
+    /// </summary>
     public Sprite GetSpriteByName(string name)
     {
-        return SpriteCatalogue.Sprites.FirstOrDefault(s => s.name == name);
+        return SpriteCatalogue.GetSpriteByName(name);
     }
 }
