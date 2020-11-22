@@ -8,7 +8,7 @@ public class AttackAction : BattleAction
     /// </summary>
     private const float MINIMUM_HIT_CHANCE = 0.1f;
 
-    public override int Range { get { return Actor.AttackRange; } }
+    public override int Range { get { return Actor.Reach; } }
 
     public override ActionTag[] Tags { get { return tags; } }
     private ActionTag[] tags = new ActionTag[] { ActionTag.Damage };

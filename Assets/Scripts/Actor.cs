@@ -7,7 +7,7 @@ public class Actor : Pawn, ITurnBased, IAttacker
     [SerializeField] private float attack = 10f;
     [SerializeField] private float accuracy = 1f;
     [SerializeField] private int movement = 3;
-    [SerializeField] private int attackRange = 1;
+    [SerializeField] private int reach = 1;
     [SerializeField] private List<string> actions = new List<string>() { "Move", "Attack", "Push" };
 
     /// <summary>
@@ -35,7 +35,7 @@ public class Actor : Pawn, ITurnBased, IAttacker
     /// <summary>
     /// Gets the range on this actors attacks.
     /// </summary>
-    public int AttackRange { get { return attackRange; } }
+    public int Reach { get { return reach; } }
     /// <summary>
     /// Gets the actions available to this actor.
     /// </summary>
