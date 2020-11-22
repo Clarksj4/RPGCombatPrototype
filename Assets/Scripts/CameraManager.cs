@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    [SerializeField] private bool focusOnCurrentActor = true;
+
     [Header("Components")]
     [SerializeField]
     private new Camera camera;
@@ -28,15 +30,18 @@ public class CameraManager : MonoBehaviour
 
     private void HandleOnTurnStart(ITurnBased obj)
     {
-        Actor actor = obj as Actor;
-        Vector3 actorWorldPosition = actor.WorldPosition;
-        Vector3 freezeZPos = new Vector3(actorWorldPosition.x, actorWorldPosition.y, translationTransform.position.z);
+        if (focusOnCurrentActor)
+        {
+            Actor actor = obj as Actor;
+            Vector3 actorWorldPosition = actor.WorldPosition;
+            Vector3 freezeZPos = new Vector3(actorWorldPosition.x, actorWorldPosition.y, translationTransform.position.z);
 
 
-        lookAtSequence = DOTween.Sequence();
-        lookAtSequence.Append(camera.DOOrthoSize(camera.orthographicSize * orthographicSizePunchFactor, movementDuration / 2).SetEase(orthographicSizePunchOutEasing));
-        lookAtSequence.Insert(movementDuration / 2f, camera.DOOrthoSize(startOrthographicSize, movementDuration / 2).SetEase(orthographicSizePunchReturnEasing));
-        lookAtSequence.Insert(0f, translationTransform.DOMove(freezeZPos, movementDuration).SetEase(movementEasing));
-        lookAtSequence.Play();
+            lookAtSequence = DOTween.Sequence();
+            lookAtSequence.Append(camera.DOOrthoSize(camera.orthographicSize * orthographicSizePunchFactor, movementDuration / 2).SetEase(orthographicSizePunchOutEasing));
+            lookAtSequence.Insert(movementDuration / 2f, camera.DOOrthoSize(startOrthographicSize, movementDuration / 2).SetEase(orthographicSizePunchReturnEasing));
+            lookAtSequence.Insert(0f, translationTransform.DOMove(freezeZPos, movementDuration).SetEase(movementEasing));
+            lookAtSequence.Play();
+        }
     }
 }
