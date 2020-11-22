@@ -12,18 +12,8 @@ public class FormationInputManager : MonoSingleton<FormationInputManager>
         // Convert to formation
         Formation formation = grid as Formation;
 
-        if (!ActionManager.Instance.AssemblingAction)
-        {
-            // Select actor at input position if there is one
-            Pawn pawn = formation.GetPawnAtCoordinate(coordinate);
-            if (pawn != null && pawn is Actor)
-            {
-                Actor actor = pawn as Actor;
-                ActionManager.Instance.SelectActor(actor);
-            }
-        }
-            
-        else
+        // If we've got an action and just need a target 
+        if (ActionManager.Instance.AssemblingAction)
         {
             // Set target if its valid
             if (ActionManager.Instance.SetTarget(formation, coordinate))
