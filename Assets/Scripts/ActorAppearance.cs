@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Rendering;
 
 namespace Assets.Scripts
 {
@@ -11,6 +12,8 @@ namespace Assets.Scripts
         private SpriteRenderer frameImage;
         [SerializeField]
         private SpriteRenderer actorImage;
+        [SerializeField]
+        private SortingGroup maskSortingGroup;
 
         private Actor actor;
 
@@ -35,13 +38,26 @@ namespace Assets.Scripts
         private void HandleOnTurnStart(ITurnBased turnBasedEntity)
         {
             if (actor == turnBasedEntity)
+            {
                 frameImage.color = Color.green;
+                IncrementSortOrders(1);
+            }
         }
 
         private void HandleOnTurnEnd(ITurnBased turnBasedEntity)
         {
             if (actor == turnBasedEntity)
+            {
                 frameImage.color = Color.white;
+                IncrementSortOrders(-1);
+            }
+        }
+
+        private void IncrementSortOrders(int amount)
+        {
+            frameImage.sortingOrder += amount;
+            actorImage.sortingOrder += amount;
+            maskSortingGroup.sortingOrder += amount;
         }
     }
 }

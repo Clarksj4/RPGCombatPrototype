@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
-public class ActionManager : Singleton<ActionManager>
+public class ActionManager : MonoSingleton<ActionManager>
 {
     /// <summary>
     /// Occurs when an actor is selected.
@@ -23,7 +24,11 @@ public class ActionManager : Singleton<ActionManager>
     /// <summary>
     /// Occurs after any action is successfully completed
     /// </summary>
-    public event Action<Actor, BattleAction> OnAfterSuccessfulAction;
+    public event Action<Actor, BattleAction> OnActionStarted;
+    /// <summary>
+    /// Occurs after any action is successfully completed
+    /// </summary>
+    public event Action<Actor, BattleAction> OnActionComplete;
     /// <summary>
     /// Gets whether an actor is currently assembling an action.
     /// </summary>
@@ -36,6 +41,8 @@ public class ActionManager : Singleton<ActionManager>
     /// Gets the action the actor will perform.
     /// </summary>
     public BattleAction SelectedAction { get; private set; }
+
+    private Coroutine actionCoroutine;
 
     /// <summary>
     /// Selects the given actor - setting it as the originator of
@@ -91,18 +98,10 @@ public class ActionManager : Singleton<ActionManager>
     /// Performs the stored action. Returns true if the action was
     /// successful.
     /// </summary>
-    public bool DoAction()
+    public void DoAction()
     {
-        // Try do the action
-        bool done = SelectedAction.Do();
-        if (done)
-        {
-            // If it was successful, notify senpai, and end actors turn.
-            OnAfterSuccessfulAction?.Invoke(SelectedActor, SelectedAction);
-            EndSelectedActorTurn();
-        }
-            
-        return done;
+        if (SelectedAction.CanDo())
+            actionCoroutine = StartCoroutine(DoActionInternal());
     }
 
     /// <summary>
@@ -150,5 +149,19 @@ public class ActionManager : Singleton<ActionManager>
         // Notify senpai
         if (actor != null)
             OnActorDeselected?.Invoke(actor);
+    }
+
+    private IEnumerator DoActionInternal()
+    {
+        // Action about to start!
+        OnActionStarted?.Invoke(SelectedActor, SelectedAction);
+
+        // Do the action then remove coroutine ref.
+        yield return SelectedAction.Do();
+        actionCoroutine = null;
+
+        // Notify senpai, and end actors turn.
+        OnActionComplete?.Invoke(SelectedActor, SelectedAction);
+        EndSelectedActorTurn();
     }
 }

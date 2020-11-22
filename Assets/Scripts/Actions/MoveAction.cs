@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveAction : BattleAction
@@ -24,16 +26,22 @@ public class MoveAction : BattleAction
                 isInRange;
     }
 
-    public override bool Do()
+    public override IEnumerator Do()
     {
-        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetFormation, TargetPosition);
-
-        if (canDo)
+        // Get final position
+        Vector3 targetWorldPosition = TargetFormation.CoordinateToWorldPosition(TargetPosition);
+            
+        // Move actor to position over time
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(Actor.transform.DOMove(targetWorldPosition, 0.5f).SetEase(Ease.OutQuad));
+        sequence.OnComplete(() => {
+            // Update coordinate on arrival
             Actor.SetCoordinate(TargetPosition);
-        else
-            Debug.Log($"Can't perform move action.");
+        });
 
-        return canDo;
+        // Invokers wlil know when the move is complete because
+        // the coroutine has ended.
+        yield return sequence.WaitForCompletion();
     }
 
     public override IEnumerable<Vector2Int> GetArea()

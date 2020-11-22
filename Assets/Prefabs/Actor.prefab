@@ -700,7 +700,7 @@ MonoBehaviour:
   attack: 10
   accuracy: 1
   movement: 2
-  attackRange: 1
+  reach: 1
   actions:
   - Move
   - Attack
@@ -719,6 +719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frameImage: {fileID: 3385616858920658960}
   actorImage: {fileID: 3721897762781144650}
+  maskSortingGroup: {fileID: 807881837675753977}
 --- !u!1 &5686913569458336657
 GameObject:
   m_ObjectHideFlags: 0

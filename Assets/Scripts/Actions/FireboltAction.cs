@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FireboltAction : BattleAction
@@ -27,22 +28,13 @@ public class FireboltAction : BattleAction
                 inRange;
     }
 
-    public override bool Do()
+    public override IEnumerator Do()
     {
-        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetFormation, TargetPosition);
+        Pawn defender = TargetFormation.GetPawnAtCoordinate(TargetPosition);
+        if (IsHit(defender))
+            ApplyDamage(defender);
 
-        if (canDo)
-        {
-            // Get defender, check if hit, and apply damage
-            Pawn defender = TargetFormation.GetPawnAtCoordinate(TargetPosition);
-            if (IsHit(defender))
-                ApplyDamage(defender);
-        }
-
-        else
-            Debug.Log("Can't perform attack action.");
-
-        return canDo;
+        return null;
     }
 
     // Does the attack hit?

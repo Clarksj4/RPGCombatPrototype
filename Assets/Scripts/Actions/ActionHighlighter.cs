@@ -11,6 +11,7 @@ namespace Assets.Scripts.Actions
         {
             ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
             ActionManager.Instance.OnActionDeselected += HandleOnActionDeselected;
+            ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
         }
 
         private void HandleOnActionSelected(BattleAction action)
@@ -30,6 +31,12 @@ namespace Assets.Scripts.Actions
         }
 
         private void HandleOnActionDeselected(BattleAction action)
+        {
+            GridRenderer renderer = action.OriginFormation.GetComponent<GridRenderer>();
+            renderer.SetAllCellColours(Color.white);
+        }
+
+        private void HandleOnActionStarted(Actor actor, BattleAction action)
         {
             GridRenderer renderer = action.OriginFormation.GetComponent<GridRenderer>();
             renderer.SetAllCellColours(Color.white);

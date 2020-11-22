@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PushAction : BattleAction
@@ -26,37 +28,59 @@ public class PushAction : BattleAction
     {
         Pawn target = formation.GetPawnAtCoordinate(position);
         bool inRange = formation.IsInRange(OriginPosition, position, Range);
+        bool destinationEmpty = IsDestinationEmpty(formation, position);
+
         return target != null &&
                 target != Actor &&
-                inRange;
+                inRange && 
+                destinationEmpty;
     }
 
-    public override bool Do()
+    public override IEnumerator Do()
     {
-        bool canDo = IsActorAble(Actor) && IsTargetValid(TargetFormation, TargetPosition);
+        // Get target pawn
+        Pawn target = TargetFormation.GetPawnAtCoordinate(TargetPosition);
 
-        if (canDo)
-        {
-            // Get direction to target
-            Pawn target = TargetFormation.GetPawnAtCoordinate(TargetPosition);
-            Vector2Int direction = GetDirectionToTarget(target);
+        // Get final positions
+        Vector2Int destinationCoordinate = GetDestinationCoordinate(TargetFormation, TargetPosition);
+        Vector3 destinationWorldPosition = TargetFormation.CoordinateToWorldPosition(destinationCoordinate);
 
-            // Push target in that direction
-            target.SetCoordinate(target.GridPosition + (direction * PUSH_DISTANCE));
-        }
+        // Move target to position over time
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(target.transform.DOMove(destinationWorldPosition, 0.25f).SetEase(Ease.OutExpo));
+        sequence.OnComplete(() => {
+            // Update coordinate on arrival
+            target.SetCoordinate(destinationCoordinate);
+        });
 
-        else
-            Debug.Log("Can't perform push action.");
-
-        return canDo;
+        // Invokers wlil know when the move is complete because
+        // the coroutine has ended.
+        yield return sequence.WaitForCompletion();
     }
 
-    private Vector2Int GetDirectionToTarget(Pawn target)
+    private Vector2Int GetDestinationCoordinate(Formation formation, Vector2Int position)
+    {
+        // Get direction to target
+        Vector2Int direction = GetDirectionToTarget(position);
+
+        // Get final position
+        Vector2Int destinationCoordinate = position + (direction * PUSH_DISTANCE);
+        return destinationCoordinate;
+    }
+
+    private Vector2Int GetDirectionToTarget(Vector2Int targetPosition)
     {
         // Get direction to defender
-        Vector2Int delta = target.GridPosition - Actor.GridPosition;
+        Vector2Int delta = targetPosition - Actor.GridPosition;
         Vector2Int direction = delta.Reduce();
         return direction;
+    }
+
+    private bool IsDestinationEmpty(Formation formation, Vector2Int position)
+    {
+        // Get final position
+        Vector2Int destinationCoordinate = GetDestinationCoordinate(formation, position);
+        return formation.GetPawnAtCoordinate(destinationCoordinate) == null;
     }
 
     public override IEnumerable<Vector2Int> GetArea()

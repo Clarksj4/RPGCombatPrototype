@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Actor : Pawn, ITurnBased, IAttacker
@@ -47,6 +48,7 @@ public class Actor : Pawn, ITurnBased, IAttacker
 
         TurnManager.Instance.Add(this);
     }
+
     /// <summary>
     /// Ends this actors turn.
     /// </summary>

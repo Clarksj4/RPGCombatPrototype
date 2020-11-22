@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -87,8 +88,18 @@ public abstract class BattleAction
     public abstract IEnumerable<Vector2Int> GetArea();
 
     /// <summary>
+    /// Gets whether the assigned actor is able to complete
+    /// the action with its current parameters.
+    /// </summary>
+    public virtual bool CanDo()
+    {
+        return IsActorAble(Actor) &&
+               IsTargetValid(TargetFormation, TargetPosition);
+    }
+
+    /// <summary>
     /// Performs this action. Returns true if the action was
     /// successful.
     /// </summary>
-    public abstract bool Do();
+    public abstract IEnumerator Do();
 }
