@@ -16,6 +16,7 @@ public class ActionsBar : Menu
 
         ActionManager.Instance.OnActorSelected += HandleOnActorSelected;
         ActionManager.Instance.OnActorDeselected += HandleOnActorDeselected;
+        ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
     }
 
     protected override void PreShow()
@@ -62,5 +63,10 @@ public class ActionsBar : Menu
     private void HandleOnActorDeselected(Actor obj)
     {
         MenuStack.Instance.Hide();
+    }
+
+    private void HandleOnActionStarted(Actor arg1, BattleAction arg2)
+    {
+        MenuStack.Instance.HideAll();
     }
 }
