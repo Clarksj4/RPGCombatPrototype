@@ -66,7 +66,7 @@ public class MenuStack : Singleton<MenuStack>
     }
 
     /// <summary>
-    /// Hides the currently visible menu and show the next
+    /// Hides the currently visible menu and shows the next
     /// menu in the stack.
     /// </summary>
     public void Hide()
