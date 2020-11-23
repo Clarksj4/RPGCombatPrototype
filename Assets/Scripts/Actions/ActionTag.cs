@@ -5,5 +5,6 @@ public enum ActionTag
 {
     Damage,
     Movement,
-    Forced
+    Forced,
+    Heal
 }

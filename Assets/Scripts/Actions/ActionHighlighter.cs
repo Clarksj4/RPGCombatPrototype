@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Actions
 {
     public class ActionHighlighter : MonoBehaviour
     {
+        private static readonly Dictionary<ActionTag, Color> TAG_TO_COLOUR = new Dictionary<ActionTag, Color>()
+        {
+            { ActionTag.Damage, Color.red },
+            { ActionTag.Heal, Color.green },
+            { ActionTag.Movement, Color.cyan }
+        };
+
         private void Awake()
         {
             ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
@@ -14,10 +20,21 @@ namespace Assets.Scripts.Actions
             ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
         }
 
+        private Color GetActionColour(BattleAction action)
+        {
+            // Get the first tag that has a colour associated with it
+            ActionTag tag = action.Tags.FirstOrDefault(TAG_TO_COLOUR.ContainsKey);
+
+            // Get the colour associated with tag
+            Color color = TAG_TO_COLOUR[tag];
+            return color;
+        }
+
         private void HandleOnActionSelected(BattleAction action)
         {
             GridRenderer renderer = action.OriginFormation.GetComponent<GridRenderer>();
-            Color colour = action.Tags.Contains(ActionTag.Damage) ? Color.red : Color.cyan;
+            Color colour = GetActionColour(action);
+
             for (int x = 0; x < action.OriginFormation.NCells.x; x++)
             {
                 for (int y = 0; y < action.OriginFormation.NCells.y; y++)
