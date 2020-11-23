@@ -28,11 +28,13 @@ public class PushAction : BattleAction
     {
         Pawn target = formation.GetPawnAtCoordinate(position);
         bool inRange = formation.IsInRange(OriginPosition, position, Range);
+        bool destinationOnFormation = IsDestinationOnFormation(formation, position);
         bool destinationEmpty = IsDestinationEmpty(formation, position);
 
         return target != null &&
                 target != Actor &&
-                inRange && 
+                inRange &&
+                destinationOnFormation &&
                 destinationEmpty;
     }
 
@@ -58,6 +60,20 @@ public class PushAction : BattleAction
         yield return sequence.WaitForCompletion();
     }
 
+    private bool IsDestinationOnFormation(Formation formation, Vector2Int position)
+    {
+        // Get final position
+        Vector2Int destinationCoordinate = GetDestinationCoordinate(formation, position);
+        return formation.ContainsCoordinate(destinationCoordinate);
+    }
+
+    private bool IsDestinationEmpty(Formation formation, Vector2Int position)
+    {
+        // Get final position
+        Vector2Int destinationCoordinate = GetDestinationCoordinate(formation, position);
+        return formation.GetPawnAtCoordinate(destinationCoordinate) == null;
+    }
+
     private Vector2Int GetDestinationCoordinate(Formation formation, Vector2Int position)
     {
         // Get direction to target
@@ -74,13 +90,6 @@ public class PushAction : BattleAction
         Vector2Int delta = targetPosition - Actor.GridPosition;
         Vector2Int direction = delta.Reduce();
         return direction;
-    }
-
-    private bool IsDestinationEmpty(Formation formation, Vector2Int position)
-    {
-        // Get final position
-        Vector2Int destinationCoordinate = GetDestinationCoordinate(formation, position);
-        return formation.GetPawnAtCoordinate(destinationCoordinate) == null;
     }
 
     public override IEnumerable<Vector2Int> GetArea()
