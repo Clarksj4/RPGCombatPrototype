@@ -32,25 +32,31 @@ namespace Assets.Scripts.Actions
 
         private void HandleOnActionSelected(BattleAction action)
         {
-            GridRenderer renderer = action.OriginFormation.GetComponent<GridRenderer>();
             Color colour = GetActionColour(action);
 
-            for (int x = 0; x < action.OriginFormation.NCells.x; x++)
+            foreach (Formation formation in BattleManager.Instance.Formations)
             {
-                for (int y = 0; y < action.OriginFormation.NCells.y; y++)
+                GridRenderer renderer = formation.GetComponent<GridRenderer>();
+
+                for (int x = 0; x < formation.NCells.x; x++)
                 {
-                    Vector2Int coordinate = new Vector2Int(x, y);
-                    if (action.IsTargetValid(action.OriginFormation, coordinate))
-                        renderer.SetCellColour(coordinate, colour);
-                        
+                    for (int y = 0; y < formation.NCells.y; y++)
+                    {
+                        Vector2Int coordinate = new Vector2Int(x, y);
+                        if (action.IsTargetValid(formation, coordinate))
+                            renderer.SetCellColour(coordinate, colour);
+                    }
                 }
             }
         }
 
         private void HandleOnActionDeselected(BattleAction action)
         {
-            GridRenderer renderer = action.OriginFormation.GetComponent<GridRenderer>();
-            renderer.SetAllCellColours(Color.white);
+            foreach (Formation formation in BattleManager.Instance.Formations)
+            {
+                GridRenderer renderer = formation.GetComponent<GridRenderer>();
+                renderer.SetAllCellColours(Color.white);
+            }
         }
 
         private void HandleOnActionStarted(Actor actor, BattleAction action)

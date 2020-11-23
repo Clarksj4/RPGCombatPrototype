@@ -705,6 +705,7 @@ MonoBehaviour:
   - Move
   - Attack
   - Push
+  - Firebolt
 --- !u!114 &7303308842043825205
 MonoBehaviour:
   m_ObjectHideFlags: 0

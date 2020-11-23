@@ -9,7 +9,7 @@ public class FireboltAction : BattleAction
     /// </summary>
     private const float MINIMUM_HIT_CHANCE = 0.1f;
 
-    public override int Range { get { return 3; } }
+    public override int Range { get { return 0; } }
 
     public override ActionTag[] Tags { get { return tags; } }
     private ActionTag[] tags = new ActionTag[] { ActionTag.Damage };
@@ -22,10 +22,8 @@ public class FireboltAction : BattleAction
     public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
         Pawn target = formation.GetPawnAtCoordinate(position);
-        bool inRange = formation.IsInRange(OriginPosition, position, Range);
         return target != null &&
-                target != Actor &&
-                inRange;
+                target != Actor;
     }
 
     public override IEnumerator Do()

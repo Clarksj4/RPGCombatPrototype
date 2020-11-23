@@ -5,9 +5,13 @@
 /// </summary>
 public class BattleManager : MonoSingleton<BattleManager>
 {
+    public Formation[] Formations { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
+
+        Formations = FindObjectsOfType<Formation>();
 
         TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
         TurnManager.Instance.OnRoundEnd += HandleOnRoundEnd;
