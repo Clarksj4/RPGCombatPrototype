@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : Pawn, ITurnBased, IAttacker
+public class Actor : Pawn, ITurnBased, IAttacker, ITeamBased
 {
     [SerializeField] private float priority = 90f;
     [SerializeField] private float attack = 10f;
@@ -10,6 +10,10 @@ public class Actor : Pawn, ITurnBased, IAttacker
     [SerializeField] private int movement = 3;
     [SerializeField] private int reach = 1;
     [SerializeField] private List<string> actions = new List<string>() { "Move", "Attack", "Push" };
+    /// <summary>
+    /// Occurs when this actor's allegience changes.
+    /// </summary>
+    public event Action OnTeamChanged;
 
     /// <summary>
     /// Gets this actors priority in the turn order. Determines
@@ -41,6 +45,19 @@ public class Actor : Pawn, ITurnBased, IAttacker
     /// Gets the actions available to this actor.
     /// </summary>
     public List<string> Actions { get { return actions; } }
+    /// <summary>
+    /// Gets or sets the team this actor belongs to.
+    /// </summary>
+    public Team Team 
+    {
+        get { return team; }
+        set
+        {
+            team = value;
+            OnTeamChanged?.Invoke();
+        }
+    }
+    private Team team;
 
     protected override void Awake()
     {

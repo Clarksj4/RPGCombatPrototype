@@ -16,7 +16,7 @@ public class TeamManager : Singleton<TeamManager>
         Teams.Add(team);
     }
 
-    public void AddTeamAndMembers(string teamName, Color teamColour, params ITeamBased[] members)
+    public void AddTeamAndMembers(string teamName, Color teamColour, IEnumerable<ITeamBased> members)
     {
         // Create new team
         Team team = new Team()

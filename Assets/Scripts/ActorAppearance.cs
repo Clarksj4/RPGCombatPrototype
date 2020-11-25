@@ -20,6 +20,7 @@ namespace Assets.Scripts
         private void Awake()
         {
             actor = GetComponent<Actor>();
+            actor.OnTeamChanged += HandleOnTeamChanged;
 
             TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
             TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
@@ -35,29 +36,40 @@ namespace Assets.Scripts
             actorImage.sprite = SpriteManager.Instance.GetSpriteByName(name);
         }
 
-        private void HandleOnTurnStart(ITurnBased turnBasedEntity)
-        {
-            if (actor == turnBasedEntity)
-            {
-                frameImage.color = Color.green;
-                IncrementSortOrders(1);
-            }
-        }
-
-        private void HandleOnTurnEnd(ITurnBased turnBasedEntity)
-        {
-            if (actor == turnBasedEntity)
-            {
-                frameImage.color = Color.white;
-                IncrementSortOrders(-1);
-            }
-        }
-
         private void IncrementSortOrders(int amount)
         {
             frameImage.sortingOrder += amount;
             actorImage.sortingOrder += amount;
             maskSortingGroup.sortingOrder += amount;
+        }
+
+        private void ApplySelectionColour()
+        {
+            frameImage.color = Color.green;
+            IncrementSortOrders(1);
+        }
+
+        private void ApplyTeamColour()
+        {
+            frameImage.color = actor.Team.Colour;
+            IncrementSortOrders(-1);
+        }
+
+        private void HandleOnTurnStart(ITurnBased turnBasedEntity)
+        {
+            if (actor == turnBasedEntity)
+                ApplySelectionColour();
+        }
+
+        private void HandleOnTurnEnd(ITurnBased turnBasedEntity)
+        {
+            if (actor == turnBasedEntity)
+                ApplyTeamColour();
+        }
+
+        private void HandleOnTeamChanged()
+        {
+            ApplyTeamColour();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿
+using System;
+
 public interface ITeamBased
 {
-    string Name { get; }
+    event Action OnTeamChanged;
     Team Team { get; set; }
 }

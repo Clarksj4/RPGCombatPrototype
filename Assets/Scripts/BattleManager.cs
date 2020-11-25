@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// Singleton responsible 
@@ -20,6 +22,20 @@ public class BattleManager : MonoSingleton<BattleManager>
     private void Start()
     {
         PrioritizedStartManager.Instance.InitializeAll(() => {
+            // TODO: assign things to teams!
+            int i = 1;
+            foreach(Formation formation in Formations)
+            {
+                TeamManager.Instance.AddTeamAndMembers
+                (
+                    $"Team {i}", 
+                    i == 1 ? Color.blue : Color.magenta, 
+                    formation.Pawns.Select(p => p as ITeamBased)
+                );
+                i++;
+            }
+            
+            
             // Start the turn!
             TurnManager.Instance.Next();
         });

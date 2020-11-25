@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Formation : Grid
 {
+    public IEnumerable<Pawn> Pawns { get { return pawns; } }
+
     private Pawn[] pawns;
 
     private void Awake()
