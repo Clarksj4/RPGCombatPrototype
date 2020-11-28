@@ -1,18 +1,9 @@
 ﻿using UnityEngine;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace Assets.Scripts.Actions
 {
     public class ActionHighlighter : MonoBehaviour
     {
-        private static readonly Dictionary<ActionTag, Color> TAG_TO_COLOUR = new Dictionary<ActionTag, Color>()
-        {
-            { ActionTag.Damage, Color.red },
-            { ActionTag.Heal, Color.green },
-            { ActionTag.Movement, Color.cyan }
-        };
-
         private void Awake()
         {
             ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
