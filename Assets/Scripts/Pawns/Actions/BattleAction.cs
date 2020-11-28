@@ -80,6 +80,9 @@ public abstract class BattleAction
         return isValid;
     }
 
+    /// <summary>
+    /// Removes the action's current target.
+    /// </summary>
     public void DeselectTarget()
     {
         TargetFormation = null;
@@ -194,6 +197,9 @@ public abstract class BattleAction
     }
 
     // TODO: handle being able to target multiple formations with an area attack
+    /// <summary>
+    /// Gets the coordinates that will be affected by this action.
+    /// </summary>
     public virtual IEnumerable<Vector2Int> GetAffectedCoordinates()
     {
         yield return TargetPosition;
