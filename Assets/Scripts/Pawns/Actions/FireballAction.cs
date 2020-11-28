@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FireballAction : BattleAction
@@ -13,13 +14,17 @@ public class FireballAction : BattleAction
     private const int AREA = 1;
 
     public override ActionTag Tags { get { return ActionTag.Damage; } }
-
     public override Target Target { get { return Target.Enemy | Target.Area; } }
     public override FormationTarget FormationTarget { get { return FormationTarget.Other; } }
 
+    public override IEnumerable<Vector2Int> GetAffectedCoordinates()
+    {
+        return TargetFormation.GetCoordinatesInRange(TargetPosition, AREA);
+    }
+
     public override IEnumerator Do()
     {
-        foreach (Vector2Int coordinate in TargetFormation.GetCoordinatesInRange(TargetPosition, AREA))
+        foreach (Vector2Int coordinate in GetAffectedCoordinates())
         {
             Pawn defender = TargetFormation.GetPawnAtCoordinate(coordinate);
             if (defender != null && IsHit(defender))
