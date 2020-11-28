@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -64,10 +65,39 @@ public class Grid : MonoBehaviour
     /// </summary>
     public bool ContainsCoordinate(Vector2Int coordinate)
     {
-        return coordinate.x >= 0 &&
-                coordinate.x <= (NCells.x - 1) &&
-                coordinate.y >= 0 &&
-                coordinate.y <= (NCells.y - 1);
+        return ContainsCoordinate(coordinate.x, coordinate.y);
+    }
+
+    /// <summary>
+    /// Checks if the given coordinate is within the bounds of
+    /// this grid.
+    /// </summary>
+    public bool ContainsCoordinate(int x, int y)
+    {
+        return x >= 0 &&
+                x <= (NCells.x - 1) &&
+                y >= 0 &&
+                y <= (NCells.y - 1);
+    }
+
+    /// <summary>
+    /// Gets a collection of all coordinates with the given
+    /// range of the given coordinate.
+    /// </summary>
+    public IEnumerable<Vector2Int> GetCoordinatesInRange(Vector2Int origin, int range)
+    {
+        for (int i = -range; i <= range; i++)
+        {
+            int x = origin.x + i;
+            int startY = origin.y - (range - Math.Abs(i));
+            int endY = origin.y + (range - Math.Abs(i));
+
+            for (int y = startY; y <= endY; y++)
+            {
+                if (ContainsCoordinate(x, y))
+                    yield return new Vector2Int(x, y);
+            }
+        }
     }
     
     /// <summary>

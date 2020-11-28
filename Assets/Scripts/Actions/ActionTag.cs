@@ -8,4 +8,5 @@ public enum ActionTag
     Damage = 2,
     Forced = 4,
     Heal = 8,
+    AoE = 16
 }
