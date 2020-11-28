@@ -15,25 +15,16 @@ public class PushAction : BattleAction
     private const int PUSH_DISTANCE = 1;
 
     public override int Range { get { return RANGE; } }
-
-    public override ActionTag[] Tags { get { return tags; } }
-    private ActionTag[] tags = new ActionTag[] { ActionTag.Movement, ActionTag.Forced };
-
-    public override bool IsActorAble(Actor actor)
-    {
-        return !actor.Incapacitated;
-    }
+    public override ActionTag Tags { get { return ActionTag.Movement | ActionTag.Forced; } }
+    public override Target Target { get { return Target.Ally | Target.Enemy; } }
 
     public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
-        Pawn target = formation.GetPawnAtCoordinate(position);
-        bool inRange = formation.IsInRange(OriginPosition, position, Range);
+        bool valid = base.IsTargetValid(formation, position);
         bool destinationOnFormation = IsDestinationOnFormation(formation, position);
         bool destinationEmpty = IsDestinationEmpty(formation, position);
 
-        return target != null &&
-                target != Actor &&
-                inRange &&
+        return valid &&
                 destinationOnFormation &&
                 destinationEmpty;
     }
@@ -90,10 +81,5 @@ public class PushAction : BattleAction
         Vector2Int delta = targetPosition - Actor.GridPosition;
         Vector2Int direction = delta.Reduce();
         return direction;
-    }
-
-    public override IEnumerable<Vector2Int> GetArea()
-    {
-        yield return TargetPosition;
     }
 }

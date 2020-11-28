@@ -6,25 +6,8 @@ using UnityEngine;
 public class MoveAction : BattleAction
 {
     public override int Range { get { return Actor.Movement; } }
-
-    public override ActionTag[] Tags { get { return tags; } }
-    private ActionTag[] tags = new ActionTag[] { ActionTag.Movement };
-
-    public override bool IsActorAble(Actor actor)
-    {
-        return !actor.Incapacitated;
-    }
-
-    public override bool IsTargetValid(Formation formation, Vector2Int position)
-    {
-        bool isOnSameFormation = formation == OriginFormation;
-        bool cellEmpty = formation.GetPawnAtCoordinate(position) == null;
-        bool isInRange = formation.IsInRange(OriginPosition, position, Range);
-
-        return isOnSameFormation &&
-                cellEmpty &&
-                isInRange;
-    }
+    public override ActionTag Tags { get { return ActionTag.Movement; } }
+    public override Target Target { get { return Target.Area; } }
 
     public override IEnumerator Do()
     {
@@ -42,11 +25,5 @@ public class MoveAction : BattleAction
         // Invokers wlil know when the move is complete because
         // the coroutine has ended.
         yield return sequence.WaitForCompletion();
-    }
-
-    public override IEnumerable<Vector2Int> GetArea()
-    {
-        // TODO: actually do some path finding or something.
-        yield return TargetPosition;
     }
 }

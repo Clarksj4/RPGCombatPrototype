@@ -10,23 +10,8 @@ public class AttackAction : BattleAction
     private const float MINIMUM_HIT_CHANCE = 0.1f;
 
     public override int Range { get { return Actor.Reach; } }
-
-    public override ActionTag[] Tags { get { return tags; } }
-    private ActionTag[] tags = new ActionTag[] { ActionTag.Damage };
-
-    public override bool IsActorAble(Actor actor)
-    {
-        return !actor.Incapacitated;
-    }
- 
-    public override bool IsTargetValid(Formation formation, Vector2Int position)
-    {
-        Pawn target = formation.GetPawnAtCoordinate(position);
-        bool inRange = formation.IsInRange(OriginPosition, position, Range);
-        return target != null &&
-                target != Actor &&
-                inRange;
-    }
+    public override ActionTag Tags { get { return ActionTag.Damage; } }
+    public override Target Target { get { return Target.Enemy; } }
 
     public override IEnumerator Do()
     {
@@ -54,10 +39,5 @@ public class AttackAction : BattleAction
         int damage = (int)Mathf.Max(0, Actor.Attack - defender.Defense);
         Debug.Log($"Defender takes {damage} damage.");
         defender.Health -= damage;
-    }
-
-    public override IEnumerable<Vector2Int> GetArea()
-    {
-        yield return TargetPosition;
     }
 }

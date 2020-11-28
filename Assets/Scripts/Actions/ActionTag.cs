@@ -1,10 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 
+[Flags]
 public enum ActionTag
 {
-    Damage,
-    Movement,
-    Forced,
-    Heal
+    None = 0,
+    Movement = 1,
+    Damage = 2,
+    Forced = 4,
+    Heal = 8,
 }

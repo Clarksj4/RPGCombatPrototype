@@ -22,12 +22,15 @@ namespace Assets.Scripts.Actions
 
         private Color GetActionColour(BattleAction action)
         {
-            // Get the first tag that has a colour associated with it
-            ActionTag tag = action.Tags.FirstOrDefault(TAG_TO_COLOUR.ContainsKey);
+            Color colour = Color.cyan;
 
-            // Get the colour associated with tag
-            Color color = TAG_TO_COLOUR[tag];
-            return color;
+            if (action.Tags.HasFlag(ActionTag.Damage))
+                colour = Color.red;
+
+            else if (action.Tags.HasFlag(ActionTag.Heal))
+                colour = Color.green;
+            
+            return colour;
         }
 
         private void HandleOnActionSelected(BattleAction action)
