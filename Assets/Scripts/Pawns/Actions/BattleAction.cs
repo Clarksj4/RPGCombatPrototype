@@ -80,6 +80,12 @@ public abstract class BattleAction
         return isValid;
     }
 
+    public void DeselectTarget()
+    {
+        TargetFormation = null;
+        TargetPosition = Vector2Int.zero;
+    }
+
     /// <summary>
     /// Checks whether the given cell is a valid target.
     /// </summary>
@@ -185,6 +191,12 @@ public abstract class BattleAction
     {
         return IsActorAble(Actor) &&
                IsTargetValid(TargetFormation, TargetPosition);
+    }
+
+    // TODO: handle being able to target multiple formations with an area attack
+    public virtual IEnumerable<Vector2Int> GetAffectedCoordinates()
+    {
+        yield return TargetPosition;
     }
 
     /// <summary>

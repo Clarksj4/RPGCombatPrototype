@@ -22,6 +22,16 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// </summary>
     public event Action<BattleAction> OnActionDeselected;
     /// <summary>
+    /// Occurs when a target for the current battle action
+    /// is selected.
+    /// </summary>
+    public event Action<BattleAction> OnTargetSelected;
+    /// <summary>
+    /// Occurs when the target for the current battle
+    /// action is deslected.
+    /// </summary>
+    public event Action<BattleAction> OnTargetDeselected;
+    /// <summary>
     /// Occurs after any action is successfully completed
     /// </summary>
     public event Action<Actor, BattleAction> OnActionStarted;
@@ -33,6 +43,11 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// Gets whether an actor is currently assembling an action.
     /// </summary>
     public bool AssemblingAction { get { return SelectedAction != null; } }
+    /// <summary>
+    /// Gets whether an actor is currently confirming whether
+    /// to do an action at the target position.
+    /// </summary>
+    public bool ConfirmingTarget { get { return SelectedAction.TargetFormation != null; } }
     /// <summary>
     /// Gets the actor that the action originates from.
     /// </summary>
@@ -91,7 +106,19 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// </summary>
     public bool SetTarget(Formation formation, Vector2Int target)
     {
-        return SelectedAction.SetTarget(formation, target);
+        bool success = SelectedAction.SetTarget(formation, target);
+        if (success)
+            OnTargetSelected?.Invoke(SelectedAction);
+        return success;
+    }
+
+    /// <summary>
+    /// Removes the target for the current action.
+    /// </summary>
+    public void DeselectTarget()
+    {
+        SelectedAction.DeselectTarget();
+        OnTargetDeselected?.Invoke(SelectedAction);
     }
 
     /// <summary>

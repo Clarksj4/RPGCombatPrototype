@@ -1,4 +1,6 @@
-﻿public class CancelBar : Menu
+﻿using System;
+
+public class CancelBar : Menu
 {
     protected override void Awake()
     {
@@ -6,11 +8,27 @@
 
         ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
         ActionManager.Instance.OnActionDeselected += HandleOnActionDeslected;
+        ActionManager.Instance.OnTargetSelected += HandleOnTargetSelected;
+        ActionManager.Instance.OnTargetDeselected += HandleOnTargetDeslected;
+    }
+
+    private void HandleOnTargetDeslected(BattleAction obj)
+    {
+        //MenuStack.Instance.Hide();
+    }
+
+    private void HandleOnTargetSelected(BattleAction obj)
+    {
+        if (MenuStack.Instance.Current != this)
+            MenuStack.Instance.Show(this);
     }
 
     public void OnCancelTapped()
     {
-        ActionManager.Instance.ClearSelectedAction();
+        if (ActionManager.Instance.AssemblingAction)
+            ActionManager.Instance.ClearSelectedAction();
+        else if (ActionManager.Instance.ConfirmingTarget)
+            ActionManager.Instance.DeselectTarget();
     }
 
     private void HandleOnActionSelected(BattleAction obj)

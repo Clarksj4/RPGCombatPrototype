@@ -16,8 +16,9 @@ public class FormationInputManager : MonoSingleton<FormationInputManager>
         if (ActionManager.Instance.AssemblingAction)
         {
             // Set target if its valid
-            if (ActionManager.Instance.SetTarget(formation, coordinate))
-                ActionManager.Instance.DoAction();
+            ActionManager.Instance.SetTarget(formation, coordinate);
+            //if (ActionManager.Instance.SetTarget(formation, coordinate))
+            //    ActionManager.Instance.DoAction();
         }
     }
 }

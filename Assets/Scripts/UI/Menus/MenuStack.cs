@@ -4,6 +4,11 @@ using System.Linq;
 
 public class MenuStack : Singleton<MenuStack>
 {
+    /// <summary>
+    /// Gets the currently visible menu.
+    /// </summary>
+    public Menu Current { get { return menus.Peek(); } }
+
     private Stack<Menu> menus = new Stack<Menu>();
 
     private HashSet<Menu> registry = new HashSet<Menu>();
