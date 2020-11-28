@@ -25,9 +25,9 @@ public class CancelBar : Menu
 
     public void OnCancelTapped()
     {
-        if (ActionManager.Instance.AssemblingAction)
+        if (ActionManager.Instance.HasAction)
             ActionManager.Instance.ClearSelectedAction();
-        else if (ActionManager.Instance.ConfirmingTarget)
+        else if (ActionManager.Instance.HasTarget)
             ActionManager.Instance.DeselectTarget();
     }
 

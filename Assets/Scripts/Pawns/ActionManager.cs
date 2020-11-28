@@ -40,14 +40,18 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// </summary>
     public event Action<Actor, BattleAction> OnActionComplete;
     /// <summary>
+    /// Gets whether an actor is currently selected.
+    /// </summary>
+    public bool HasActor { get { return SelectedActor != null; } }
+    /// <summary>
     /// Gets whether an actor is currently assembling an action.
     /// </summary>
-    public bool AssemblingAction { get { return SelectedAction != null; } }
+    public bool HasAction { get { return HasActor && SelectedAction != null; } }
     /// <summary>
     /// Gets whether an actor is currently confirming whether
     /// to do an action at the target position.
     /// </summary>
-    public bool ConfirmingTarget { get { return AssemblingAction && SelectedAction.TargetFormation != null; } }
+    public bool HasTarget { get { return HasAction && SelectedAction.TargetFormation != null; } }
     /// <summary>
     /// Gets the actor that the action originates from.
     /// </summary>
