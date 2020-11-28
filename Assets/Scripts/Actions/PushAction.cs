@@ -34,7 +34,7 @@ public class PushAction : BattleAction
         Pawn target = TargetFormation.GetPawnAtCoordinate(TargetPosition);
 
         // Get final positions
-        Vector2Int destinationCoordinate = GetDestinationCoordinate(TargetFormation, TargetPosition);
+        Vector2Int destinationCoordinate = GetDestinationCoordinate(TargetPosition);
         Vector3 destinationWorldPosition = TargetFormation.CoordinateToWorldPosition(destinationCoordinate);
 
         // Move target to position over time
@@ -53,18 +53,18 @@ public class PushAction : BattleAction
     private bool IsDestinationOnFormation(Formation formation, Vector2Int position)
     {
         // Get final position
-        Vector2Int destinationCoordinate = GetDestinationCoordinate(formation, position);
+        Vector2Int destinationCoordinate = GetDestinationCoordinate(position);
         return formation.ContainsCoordinate(destinationCoordinate);
     }
 
     private bool IsDestinationEmpty(Formation formation, Vector2Int position)
     {
         // Get final position
-        Vector2Int destinationCoordinate = GetDestinationCoordinate(formation, position);
+        Vector2Int destinationCoordinate = GetDestinationCoordinate(position);
         return formation.GetPawnAtCoordinate(destinationCoordinate) == null;
     }
 
-    private Vector2Int GetDestinationCoordinate(Formation formation, Vector2Int position)
+    private Vector2Int GetDestinationCoordinate(Vector2Int position)
     {
         // Get direction to target
         Vector2Int direction = GetDirectionToTarget(position);
