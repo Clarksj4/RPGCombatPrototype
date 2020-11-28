@@ -89,6 +89,9 @@ public class Grid : MonoBehaviour
         for (int i = -range; i <= range; i++)
         {
             int x = origin.x + i;
+            
+            // Get Y coordinate such that it doesn't exceed 
+            // the given range with the current x coordinate.
             int startY = origin.y - (range - Math.Abs(i));
             int endY = origin.y + (range - Math.Abs(i));
 
