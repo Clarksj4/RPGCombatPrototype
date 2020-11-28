@@ -200,9 +200,9 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the coordinates that will be affected by this action.
     /// </summary>
-    public virtual IEnumerable<Vector2Int> GetAffectedCoordinates()
+    public virtual IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
     {
-        yield return TargetPosition;
+        yield return (TargetFormation, TargetPosition);
     }
 
     /// <summary>

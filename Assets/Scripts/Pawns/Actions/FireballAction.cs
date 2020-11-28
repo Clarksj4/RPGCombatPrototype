@@ -17,9 +17,10 @@ public class FireballAction : BattleAction
     public override Target Target { get { return Target.Enemy | Target.Area; } }
     public override FormationTarget FormationTarget { get { return FormationTarget.Other; } }
 
-    public override IEnumerable<Vector2Int> GetAffectedCoordinates()
+    public override IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
     {
-        return TargetFormation.GetCoordinatesInRange(TargetPosition, AREA);
+        foreach (Vector2Int coordinate in TargetFormation.GetCoordinatesInRange(TargetPosition, AREA))
+            yield return (TargetFormation, coordinate);
     }
 
     public override IEnumerator Do()

@@ -1,62 +1,138 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.Actions
 {
     public class ActionHighlighter : MonoBehaviour
     {
+        // Convenience properties
+        private Formation SelfFormation { get { return SelectedAction.OriginFormation; } }
+        private IEnumerable<Formation> Formations { get { return BattleManager.Instance.Formations; } }
+        private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
+
         private void Awake()
         {
             ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
             ActionManager.Instance.OnActionDeselected += HandleOnActionDeselected;
+            ActionManager.Instance.OnTargetSelected += HandleOnTargetSelected;
+            ActionManager.Instance.OnTargetDeselected += HandleOnTargetDeselected;
             ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
         }
 
-        private Color GetActionColour(BattleAction action)
+        private void HighlightPossibleTargets()
         {
-            Color colour = Color.cyan;
-
-            if (action.Tags.HasFlag(ActionTag.Damage))
-                colour = Color.red;
-
-            else if (action.Tags.HasFlag(ActionTag.Heal))
-                colour = Color.green;
-            
-            return colour;
+            SetCellColour(
+                cells: GetPossibleTargets(),
+                colour: GetActionColour()
+            );
         }
 
-        private void HandleOnActionSelected(BattleAction action)
+        private void HighlightAffectedCells()
         {
-            Color colour = GetActionColour(action);
-
-            foreach (Formation formation in BattleManager.Instance.Formations)
-            {
-                GridRenderer renderer = formation.GetComponent<GridRenderer>();
-
-                for (int x = 0; x < formation.NCells.x; x++)
-                {
-                    for (int y = 0; y < formation.NCells.y; y++)
-                    {
-                        Vector2Int coordinate = new Vector2Int(x, y);
-                        if (action.IsTargetValid(formation, coordinate))
-                            renderer.SetCellColour(coordinate, colour);
-                    }
-                }
-            }
+            SetCellColour(
+                cells: GetAffectedCoordinates(),
+                colour: GetActionColour()
+            );
         }
 
-        private void HandleOnActionDeselected(BattleAction action)
+        private void UnhighlightAll()
         {
-            foreach (Formation formation in BattleManager.Instance.Formations)
+            // Unhighlight everything
+            foreach (Formation formation in Formations)
             {
                 GridRenderer renderer = formation.GetComponent<GridRenderer>();
                 renderer.SetAllCellColours(Color.white);
             }
         }
 
+        private Color GetActionColour()
+        {
+            Color colour = Color.cyan;
+
+            if (SelectedAction.Tags.HasFlag(ActionTag.Damage))
+                colour = Color.red;
+
+            else if (SelectedAction.Tags.HasFlag(ActionTag.Heal))
+                colour = Color.green;
+
+            return colour;
+        }
+
+        private void SetCellColour(IEnumerable<(Formation, Vector2Int)> cells, Color colour)
+        {
+            // Highlight possible targets 
+            foreach ((Formation formation, Vector2Int coordinate) in cells)
+            {
+                GridRenderer renderer = formation.GetComponent<GridRenderer>();
+                renderer.SetCellColour(coordinate, colour);
+            }
+        }
+
+        private IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
+        {
+            return SelectedAction.GetAffectedCoordinates();
+        }
+
+        private IEnumerable<(Formation, Vector2Int)> GetPossibleTargets()
+        {
+            // Check ALL possible target formations
+            foreach (Formation formation in GetPossibleTargetFormations())
+            {
+                // Check all the coordinates on formation
+                for (int x = 0; x < formation.NCells.x; x++)
+                {
+                    for (int y = 0; y < formation.NCells.y; y++)
+                    {
+                        // If the coordinate is valid - yield it
+                        Vector2Int coordinate = new Vector2Int(x, y);
+                        if (SelectedAction.IsTargetValid(formation, coordinate))
+                            yield return (formation, coordinate);
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<Formation> GetPossibleTargetFormations()
+        {
+            // Return own formation.
+            if (SelectedAction.FormationTarget.HasFlag(FormationTarget.Self))
+                yield return SelfFormation;
+
+            // Return the other formations.
+            if (SelectedAction.FormationTarget.HasFlag(FormationTarget.Other))
+            {
+                IEnumerable<Formation> otherFormations = Formations.Except(SelfFormation.Yield());
+                foreach (Formation formation in otherFormations)
+                    yield return formation;
+            }
+        }
+
+        private void HandleOnTargetSelected(BattleAction action)
+        {
+            HighlightAffectedCells();
+        }
+
+        private void HandleOnTargetDeselected(BattleAction action)
+        {
+            UnhighlightAll();
+            HighlightPossibleTargets();
+        }
+
+        private void HandleOnActionSelected(BattleAction action)
+        {
+            HighlightPossibleTargets();
+        }
+
+        private void HandleOnActionDeselected(BattleAction action)
+        {
+            UnhighlightAll();
+        }
+
         private void HandleOnActionStarted(Actor actor, BattleAction action)
         {
-            GridRenderer renderer = action.OriginFormation.GetComponent<GridRenderer>();
-            renderer.SetAllCellColours(Color.white);
+            UnhighlightAll();
         }
     }
 }
