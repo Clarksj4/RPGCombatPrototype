@@ -119,7 +119,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Removes the target for the current action.
     /// </summary>
-    public void DeselectTarget()
+    public void ClearSelectedTarget()
     {
         SelectedAction.DeselectTarget();
         OnTargetDeselected?.Invoke(SelectedAction);

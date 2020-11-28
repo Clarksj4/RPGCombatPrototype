@@ -28,7 +28,7 @@ public class CancelBar : Menu
         if (ActionManager.Instance.HasAction)
             ActionManager.Instance.ClearSelectedAction();
         else if (ActionManager.Instance.HasTarget)
-            ActionManager.Instance.DeselectTarget();
+            ActionManager.Instance.ClearSelectedTarget();
     }
 
     private void HandleOnActionSelected(BattleAction obj)
