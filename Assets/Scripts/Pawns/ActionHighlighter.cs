@@ -111,6 +111,7 @@ namespace Assets.Scripts.Actions
 
         private void HandleOnTargetSelected(BattleAction action)
         {
+            UnhighlightAll();
             HighlightAffectedCells();
         }
 

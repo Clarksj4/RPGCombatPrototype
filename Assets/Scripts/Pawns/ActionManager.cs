@@ -47,7 +47,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// Gets whether an actor is currently confirming whether
     /// to do an action at the target position.
     /// </summary>
-    public bool ConfirmingTarget { get { return SelectedAction.TargetFormation != null; } }
+    public bool ConfirmingTarget { get { return AssemblingAction && SelectedAction.TargetFormation != null; } }
     /// <summary>
     /// Gets the actor that the action originates from.
     /// </summary>

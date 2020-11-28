@@ -25,9 +25,9 @@ public class FireballAction : BattleAction
 
     public override IEnumerator Do()
     {
-        foreach (Vector2Int coordinate in GetAffectedCoordinates())
+        foreach ((Formation formation, Vector2Int coordinate) in GetAffectedCoordinates())
         {
-            Pawn defender = TargetFormation.GetPawnAtCoordinate(coordinate);
+            Pawn defender = formation.GetPawnAtCoordinate(coordinate);
             if (defender != null && IsHit(defender))
                 ApplyDamage(defender);
         }
