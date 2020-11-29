@@ -8,12 +8,15 @@ using UnityEngine.UI;
 public class TurnOrderUI : MonoBehaviour, IStartable
 {
     [SerializeField][Range(1, 10)] private int nVisibleActors = 4;
+    [SerializeField] private bool horizontal;
     [SerializeField] private float slideDuration = 1f;
-    [SerializeField] private HorizontalLayoutGroup slideyBit;
+    [SerializeField] private LayoutGroup slideyBit;
     [SerializeField] private TurnOrderUIFrame FramePrefab;
 
     //Properties
-    private float FrameWidth {  get { return FramePrefab.RectTransform.sizeDelta.x; } }
+    private float FrameSize {  get { return horizontal ? FrameSizeDelta.y : FrameSizeDelta.x; } }
+    private Vector2 FrameSizeDelta { get { return rectTransform.sizeDelta; } }
+    private float Spacing { get { return horizontal ? (slideyBit as HorizontalLayoutGroup).spacing : (slideyBit as VerticalLayoutGroup).spacing; } }
 
     // Components
     private RectTransform slideyBitRectTransform;
@@ -66,8 +69,13 @@ public class TurnOrderUI : MonoBehaviour, IStartable
 
         // Slide the order along to hide the actor who just went
         slideSequence = DOTween.Sequence();
-        slideSequence.Append(slideyBitRectTransform.DOAnchorPosX(FrameWidth, slideDuration));
-        slideSequence.AppendCallback(() =>{
+
+        if (horizontal)
+            slideSequence.Append(slideyBitRectTransform.DOAnchorPosX(FrameSize, slideDuration));
+        else
+            slideSequence.Append(slideyBitRectTransform.DOAnchorPosY(FrameSize, slideDuration));
+
+        slideSequence.AppendCallback(() => {
             // Get rid of the original previous actor's frame 
             // and reset the position of the slider.
             DestroyImmediate(lastActorFrame.gameObject);
@@ -80,6 +88,7 @@ public class TurnOrderUI : MonoBehaviour, IStartable
     {
         // Create as first child
         TurnOrderUIFrame frame = Instantiate(FramePrefab, slideyBit.transform, false);
+        frame.RectTransform.sizeDelta = Vector2.one * FrameSize;
         if (first)
             frame.transform.SetAsFirstSibling();
 
@@ -101,10 +110,14 @@ public class TurnOrderUI : MonoBehaviour, IStartable
         int actorCount = Mathf.Min(slideyBit.transform.childCount, nVisibleActors);
 
         // Calculate total width of panel
-        float sumFrameWidths = FrameWidth * actorCount;
-        float sumSpacing = slideyBit.spacing * (actorCount - 1);
-        float totalWidth = sumFrameWidths + sumSpacing;
+        float sumFrameSizes = FrameSize * actorCount;
+        float sumSpacing = Spacing * (actorCount - 1);
+        float totalSize = sumFrameSizes + sumSpacing;
 
-        rectTransform.sizeDelta = new Vector2(totalWidth, rectTransform.sizeDelta.y);
+        if (horizontal)
+            rectTransform.sizeDelta = new Vector2(totalSize, rectTransform.sizeDelta.y);
+
+        else
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, totalSize);
     }
 }

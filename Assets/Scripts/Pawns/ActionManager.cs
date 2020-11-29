@@ -117,15 +117,6 @@ public class ActionManager : MonoSingleton<ActionManager>
     }
 
     /// <summary>
-    /// Removes the target for the current action.
-    /// </summary>
-    public void ClearSelectedTarget()
-    {
-        SelectedAction.DeselectTarget();
-        OnTargetDeselected?.Invoke(SelectedAction);
-    }
-
-    /// <summary>
     /// Performs the stored action. Returns true if the action was
     /// successful.
     /// </summary>
@@ -144,6 +135,15 @@ public class ActionManager : MonoSingleton<ActionManager>
         ClearSelectedActor();
 
         TurnManager.Instance.Next();
+    }
+
+    /// <summary>
+    /// Removes the target for the current action.
+    /// </summary>
+    public void ClearSelectedTarget()
+    {
+        SelectedAction.DeselectTarget();
+        OnTargetDeselected?.Invoke(SelectedAction);
     }
 
     /// <summary>
