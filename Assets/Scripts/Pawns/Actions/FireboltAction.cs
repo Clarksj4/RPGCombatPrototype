@@ -10,7 +10,7 @@ public class FireboltAction : BattleAction
 
     public override ActionTag Tags { get { return ActionTag.Damage; } }
     public override Target Target { get { return Target.Enemy; } }
-    public override FormationTarget FormationTarget { get { return FormationTarget.Other; } }
+    public override TargetableFormations FormationTarget { get { return TargetableFormations.Other; } }
 
     public override IEnumerator Do()
     {
