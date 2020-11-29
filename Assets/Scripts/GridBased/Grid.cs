@@ -121,4 +121,32 @@ public class Grid : MonoBehaviour
         Vector2Int delta = to - from;
         return Mathf.Abs(delta.x) + Mathf.Abs(delta.y);
     }
+
+    /// <summary>
+    /// Gets the coordinate of the cell that is closest to the 
+    /// given world position.
+    /// </summary>
+    public Vector2Int GetClosestCoordinate(Vector2 worldPosition)
+    {
+        Vector2 closestPoint = Bounds.ClosestPoint(worldPosition);
+        bool onGrid = WorldPositionToCoordinate(closestPoint, out Vector2Int closestCoordinate);
+        return closestCoordinate;
+    }
+
+    /// <summary>
+    /// Returns all the coordinates on this grid in a line
+    /// beginning at origin, and proceeding in the given
+    /// direction with the given magnitude.
+    /// </summary>
+    public IEnumerable<Vector2Int> GetCoordinatesInLine(Vector2Int origin, Vector2Int line)
+    {
+        int n = Mathf.Max(Mathf.Abs(line.x), Mathf.Abs(line.y));
+        Vector2Int step = line.Reduce();
+        for (int i = 0; i <= n; i++)
+        {
+            Vector2Int coordinate = origin + (step * i);
+            if (ContainsCoordinate(coordinate))
+                yield return coordinate;
+        }
+    }
 }

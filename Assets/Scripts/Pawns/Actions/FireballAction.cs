@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FireballAction : BattleAction
@@ -16,6 +17,26 @@ public class FireballAction : BattleAction
     public override ActionTag Tags { get { return ActionTag.Damage; } }
     public override Target Target { get { return Target.Enemy | Target.Area; } }
     public override TargetableFormations TargetableFormations { get { return TargetableFormations.Other; } }
+
+    public override bool IsTargetValid(Formation formation, Vector2Int position)
+    {
+        bool valid = base.IsTargetValid(formation, position);
+        if (!valid) return false;
+
+        Vector2Int closestCoordinate = formation.GetClosestCoordinate(Actor.WorldPosition);
+        if (position == closestCoordinate)
+            return true;
+
+        Vector2 closestCellWorldPosition = formation.CoordinateToWorldPosition(closestCoordinate);
+        Vector2 direction = closestCellWorldPosition - Actor.WorldPosition;
+        direction.Normalize();
+
+        Vector2Int directionCoordinate = new Vector2Int(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
+        directionCoordinate.Scale(formation.NCells);
+
+        IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
+        return line.Contains(position);
+    }
 
     public override IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
     {
