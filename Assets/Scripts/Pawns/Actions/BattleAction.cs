@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -87,6 +88,15 @@ public abstract class BattleAction
     {
         TargetFormation = null;
         TargetPosition = Vector2Int.zero;
+    }
+
+    /// <summary>
+    /// Gets all the formations that are valid targets for
+    /// this action.
+    /// </summary>
+    public IEnumerable<Formation> GetPossibleTargetFormations()
+    {
+        return BattleManager.Instance.Formations.Where(IsTargetFormationValid);
     }
 
     /// <summary>

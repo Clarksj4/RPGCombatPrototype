@@ -149,4 +149,16 @@ public class Grid : MonoBehaviour
                 yield return coordinate;
         }
     }
+
+    /// <summary>
+    /// Gets all the coordinates on this grid.
+    /// </summary>
+    public IEnumerable<Vector2Int> GetCoordinates()
+    {
+        for (int x = 0; x < NCells.x; x++)
+        {
+            for (int y = 0; y < NCells.y; y++)
+                yield return new Vector2Int(x, y);
+        }
+    }
 }

@@ -83,7 +83,7 @@ namespace Assets.Scripts.Actions
         private IEnumerable<(Formation, Vector2Int)> GetPossibleTargets()
         {
             // Check ALL possible target formations
-            foreach (Formation formation in GetPossibleTargetFormations())
+            foreach (Formation formation in SelectedAction.GetPossibleTargetFormations())
             {
                 // Check all the coordinates on formation
                 for (int x = 0; x < formation.NCells.x; x++)
@@ -96,21 +96,6 @@ namespace Assets.Scripts.Actions
                             yield return (formation, coordinate);
                     }
                 }
-            }
-        }
-
-        private IEnumerable<Formation> GetPossibleTargetFormations()
-        {
-            // Return own formation.
-            if (SelectedAction.TargetableFormation.HasFlag(TargetableFormation.Self))
-                yield return SelfFormation;
-
-            // Return the other formations.
-            if (SelectedAction.TargetableFormation.HasFlag(TargetableFormation.Other))
-            {
-                IEnumerable<Formation> otherFormations = Formations.Except(SelfFormation.Yield());
-                foreach (Formation formation in otherFormations)
-                    yield return formation;
             }
         }
 
