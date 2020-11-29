@@ -21,11 +21,16 @@ namespace Assets.Scripts.Actions
             ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
         }
 
+        private void Start()
+        {
+            UnhighlightAll();
+        }
+
         private void HighlightPossibleTargets()
         {
             SetCellColour(
                 cells: GetPossibleTargets(),
-                colour: GetActionColour()
+                colour: Color.white
             );
         }
 
@@ -43,7 +48,7 @@ namespace Assets.Scripts.Actions
             foreach (Formation formation in Formations)
             {
                 GridRenderer renderer = formation.GetComponent<GridRenderer>();
-                renderer.SetAllCellColours(Color.white);
+                renderer.SetAllCellColours(Color.grey);
             }
         }
 
@@ -112,6 +117,7 @@ namespace Assets.Scripts.Actions
         private void HandleOnTargetSelected(BattleAction action)
         {
             UnhighlightAll();
+            HighlightPossibleTargets();
             HighlightAffectedCells();
         }
 
