@@ -15,7 +15,7 @@ public class PushAction : BattleAction
 
     public override int Range { get { return RANGE; } }
     public override ActionTag Tags { get { return ActionTag.Movement | ActionTag.Forced; } }
-    public override Target Target { get { return Target.Ally | Target.Enemy; } }
+    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Ally | TargetableCellContent.Enemy; } }
 
     public override bool IsTargetValid(Formation formation, Vector2Int position)
     {

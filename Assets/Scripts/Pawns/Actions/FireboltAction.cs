@@ -9,7 +9,7 @@ public class FireboltAction : BattleAction
     private const float MINIMUM_HIT_CHANCE = 0.1f;
 
     public override ActionTag Tags { get { return ActionTag.Damage; } }
-    public override Target Target { get { return Target.Enemy; } }
+    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy; } }
     public override TargetableFormations TargetableFormations { get { return TargetableFormations.Other; } }
 
     public override IEnumerator Do()

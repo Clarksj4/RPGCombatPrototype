@@ -15,7 +15,7 @@ public class FireballAction : BattleAction
     private const int AREA = 1;
 
     public override ActionTag Tags { get { return ActionTag.Damage; } }
-    public override Target Target { get { return Target.Enemy | Target.Area; } }
+    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy | TargetableCellContent.Empty; } }
     public override TargetableFormations TargetableFormations { get { return TargetableFormations.Other; } }
 
     public override bool IsTargetValid(Formation formation, Vector2Int position)

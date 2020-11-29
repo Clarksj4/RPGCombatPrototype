@@ -1,12 +1,12 @@
 ﻿using System;
 
 [Flags]
-public enum Target
+public enum TargetableCellContent
 {
     None = 0,
     Self = 1,
     Ally = 2,
     Enemy = 4,
-    Area = 8,
+    Empty = 8,
     All = 16
 }

@@ -6,7 +6,7 @@ public class MoveAction : BattleAction
 {
     public override int Range { get { return Actor.Movement; } }
     public override ActionTag Tags { get { return ActionTag.Movement; } }
-    public override Target Target { get { return Target.Area; } }
+    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Empty; } }
 
     public override IEnumerator Do()
     {

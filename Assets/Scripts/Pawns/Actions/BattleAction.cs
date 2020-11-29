@@ -39,7 +39,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the applicable targets for this ability.
     /// </summary>
-    public abstract Target Target { get; }
+    public abstract TargetableCellContent TargetableCellContent { get; }
     /// <summary>
     /// Gets whether this action can target a formation other than
     /// the one the actor is currently on.
@@ -95,7 +95,7 @@ public abstract class BattleAction
     public virtual bool IsTargetValid(Formation formation, Vector2Int position)
     {
         return IsTargetFormationValid(formation) &&
-                IsTargetTypeValid(formation, position) &&
+                IsTargetCellContentValid(formation, position) &&
                 IsTargetInRange(formation, position);
     }
 
@@ -103,12 +103,12 @@ public abstract class BattleAction
     /// Checks whether the thing in the targeted cell 
     /// is a valid target.
     /// </summary>
-    public virtual bool IsTargetTypeValid(Formation formation, Vector2Int position)
+    public virtual bool IsTargetCellContentValid(Formation formation, Vector2Int position)
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
-        if (Target == Target.All)  return true;
-        if (Target == Target.None) return false;
+        if (TargetableCellContent == TargetableCellContent.All)  return true;
+        if (TargetableCellContent == TargetableCellContent.None) return false;
 
         // Assume the target is invalid and then include
         // cases as it meets their requirements
@@ -119,22 +119,22 @@ public abstract class BattleAction
         bool isActorOnSameTeam = IsActorOnSameTeam(pawn);
 
         // Can target self.
-        if (Target.HasFlag(Target.Self) &&
+        if (TargetableCellContent.HasFlag(TargetableCellContent.Self) &&
             pawnExists && isSelf)
             valid = true;
 
         // Can target allies.
-        else if (Target.HasFlag(Target.Ally) &&
+        else if (TargetableCellContent.HasFlag(TargetableCellContent.Ally) &&
             pawnExists && isActorOnSameTeam)
             valid = true;
 
         // Can target enemies.
-        else if (Target.HasFlag(Target.Enemy) &&
+        else if (TargetableCellContent.HasFlag(TargetableCellContent.Enemy) &&
             pawnExists && !isActorOnSameTeam)
             valid = true;
 
         // Can target empty cells.
-        else if (Target.HasFlag(Target.Area) &&
+        else if (TargetableCellContent.HasFlag(TargetableCellContent.Empty) &&
             !pawnExists)
             valid = true;
         
