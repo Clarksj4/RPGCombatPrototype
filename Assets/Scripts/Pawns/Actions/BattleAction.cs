@@ -44,7 +44,7 @@ public abstract class BattleAction
     /// Gets whether this action can target a formation other than
     /// the one the actor is currently on.
     /// </summary>
-    public virtual TargetableFormations TargetableFormations { get { return TargetableFormations.Self; } }
+    public virtual TargetableFormation TargetableFormation { get { return TargetableFormation.Self; } }
     /// <summary>
     /// Sets the actor who will perform this action. Returns
     /// true if the actor is able to perform the action.
@@ -145,8 +145,8 @@ public abstract class BattleAction
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
-        if (TargetableFormations == TargetableFormations.All)  return true;
-        if (TargetableFormations == TargetableFormations.None) return false;
+        if (TargetableFormation == TargetableFormation.All)  return true;
+        if (TargetableFormation == TargetableFormation.None) return false;
 
         // Assume the formation is invalid and then include
         // cases as it meets their requirements
@@ -154,12 +154,12 @@ public abstract class BattleAction
         bool isSelfFormation = formation == Actor.Formation;
 
         // Can target own formation.
-        if (TargetableFormations.HasFlag(TargetableFormations.Self) &&
+        if (TargetableFormation.HasFlag(TargetableFormation.Self) &&
             isSelfFormation)
             valid = true;
 
         // Can target other formations.
-        else if (TargetableFormations.HasFlag(TargetableFormations.Other) &&
+        else if (TargetableFormation.HasFlag(TargetableFormation.Other) &&
             !isSelfFormation)
             valid = true;
 

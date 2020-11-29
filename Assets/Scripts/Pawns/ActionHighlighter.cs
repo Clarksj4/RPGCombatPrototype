@@ -102,11 +102,11 @@ namespace Assets.Scripts.Actions
         private IEnumerable<Formation> GetPossibleTargetFormations()
         {
             // Return own formation.
-            if (SelectedAction.TargetableFormations.HasFlag(TargetableFormations.Self))
+            if (SelectedAction.TargetableFormation.HasFlag(TargetableFormation.Self))
                 yield return SelfFormation;
 
             // Return the other formations.
-            if (SelectedAction.TargetableFormations.HasFlag(TargetableFormations.Other))
+            if (SelectedAction.TargetableFormation.HasFlag(TargetableFormation.Other))
             {
                 IEnumerable<Formation> otherFormations = Formations.Except(SelfFormation.Yield());
                 foreach (Formation formation in otherFormations)

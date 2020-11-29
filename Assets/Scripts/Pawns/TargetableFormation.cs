@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Flags]
-public enum TargetableFormations
+public enum TargetableFormation
 {
     None = 0,
     Self = 1,
