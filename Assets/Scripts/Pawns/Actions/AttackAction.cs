@@ -11,6 +11,14 @@ public class AttackAction : BattleAction
     public override int Range { get { return Actor.Reach; } }
     public override ActionTag Tags { get { return ActionTag.Damage; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy; } }
+    protected override TargetableCells TargetableCells { get { return targetableCells; } }
+    private TargetableCells targetableCells;
+
+    public AttackAction() 
+        : base()
+    {
+        targetableCells = new AnyCells(this);
+    }
 
     public override IEnumerator Do()
     {

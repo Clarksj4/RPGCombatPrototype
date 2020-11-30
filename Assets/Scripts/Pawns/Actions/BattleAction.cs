@@ -47,6 +47,10 @@ public abstract class BattleAction
     /// </summary>
     public virtual TargetableFormation TargetableFormation { get { return TargetableFormation.Self; } }
     /// <summary>
+    /// Gets the strategy for selecting which cells are targetable.
+    /// </summary>
+    protected abstract TargetableCells TargetableCells { get; }
+    /// <summary>
     /// Sets the actor who will perform this action. Returns
     /// true if the actor is able to perform the action.
     /// </summary>
@@ -97,6 +101,11 @@ public abstract class BattleAction
     public IEnumerable<Formation> GetPossibleTargetFormations()
     {
         return BattleManager.Instance.Formations.Where(IsTargetFormationValid);
+    }
+
+    public virtual IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
+    {
+        return TargetableCells.GetTargetableCells();
     }
 
     /// <summary>

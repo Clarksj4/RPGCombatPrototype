@@ -17,6 +17,14 @@ public class FireballAction : BattleAction
     public override ActionTag Tags { get { return ActionTag.Damage; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy | TargetableCellContent.Empty; } }
     public override TargetableFormation TargetableFormation { get { return TargetableFormation.Other; } }
+    protected override TargetableCells TargetableCells { get { return targetableCells; } }
+    private TargetableCells targetableCells;
+
+    public FireballAction()
+        : base()
+    {
+        targetableCells = new LinearExposedCells(this);
+    }
 
     public override bool IsTargetValid(Formation formation, Vector2Int position)
     {

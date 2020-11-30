@@ -11,6 +11,14 @@ public class FireboltAction : BattleAction
     public override ActionTag Tags { get { return ActionTag.Damage; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy; } }
     public override TargetableFormation TargetableFormation { get { return TargetableFormation.Other; } }
+    protected override TargetableCells TargetableCells { get { return targetableCells; } }
+    private TargetableCells targetableCells;
+
+    public FireboltAction()
+        : base()
+    {
+        targetableCells = new LinearCells(this);
+    }
 
     public override IEnumerator Do()
     {
