@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class LinearExposed : TargetableCells
+public class LinearExposedCells : TargetableCells
 {
-    public LinearExposed(BattleAction action)
+    public LinearExposedCells(BattleAction action)
         : base(action) { /* Nothing! */ }
 
     public override IEnumerable<(Formation, Vector2Int)> GetTargetableCells()

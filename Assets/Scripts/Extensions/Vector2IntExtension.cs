@@ -29,4 +29,16 @@ public static class Vector2IntExtension
     {
         return new Vector2Int(coordinate.y, coordinate.x);
     }
+
+    /// <summary>
+    /// Returns which ever axis of this vector has the greatest
+    /// magnitude.
+    /// </summary>
+    public static int MaxAbs(this Vector2Int coordinate)
+    {
+        if (Mathf.Abs(coordinate.x) > Mathf.Abs(coordinate.y))
+            return coordinate.x;
+        else
+            return coordinate.y;
+    }
 }

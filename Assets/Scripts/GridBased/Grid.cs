@@ -134,12 +134,47 @@ public class Grid : MonoBehaviour
     /// </summary>
     public IEnumerable<Vector2Int> GetFrontRankCoordinates()
     {
-        Vector2Int flank = Vector2Int.Scale(Forward, NCells);
+        int nRanks = GetNRanks();
+        return GetRankCoordinates(nRanks - 1);
+    }
+
+    /// <summary>
+    /// Gets all coordinates in the given rank on this grid.
+    /// </summary>
+    public IEnumerable <Vector2Int> GetRankCoordinates(int rank)
+    {
+        // First coordinate in rank
+        Vector2Int rankFlank = Forward * rank;
+        
+        // The direction to step when counting coordinates in rank.
         Vector2Int step = Forward.Perpendicular();
+
+        // How many cells in rank.
+        int rankWidth = GetRankWidth();
+
+        for (int i = 0; i < rankWidth; i++)
+            yield return rankFlank + (step * i);
+    }
+
+    /// <summary>
+    /// Gets the number of ranks deep the theis grid runs.
+    /// </summary>
+    public int GetNRanks()
+    {
+        Vector2Int direction = Vector2Int.Scale(Forward, NCells);
+        return direction.MaxAbs();
+    }
+
+    /// <summary>
+    /// Gets the width of ranks on this grid.
+    /// </summary>
+    public int GetRankWidth()
+    {
+        Vector2Int step = Forward.Perpendicular();
+
         Vector2Int fullStep = Vector2Int.Scale(step, NCells);
         int rankWidth = Mathf.Max(fullStep.x, fullStep.y);
-        for (int i = 0; i < rankWidth; i++)
-            yield return flank + (step * i);
+        return rankWidth;
     }
 
     /// <summary>
