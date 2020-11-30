@@ -136,7 +136,8 @@ public class Grid : MonoBehaviour
     {
         Vector2Int flank = Vector2Int.Scale(Forward, NCells);
         Vector2Int step = Forward.Perpendicular();
-        int rankWidth = Mathf.Max(NCells.x, NCells.y);
+        Vector2Int fullStep = Vector2Int.Scale(step, NCells);
+        int rankWidth = Mathf.Max(fullStep.x, fullStep.y);
         for (int i = 0; i < rankWidth; i++)
             yield return flank + (step * i);
     }

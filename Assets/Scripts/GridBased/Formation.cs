@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Formation : Grid
 {
+    /// <summary>
+    /// Gets all the pawns currently on this grid.
+    /// </summary>
     public IEnumerable<Pawn> Pawns { get { return pawns; } }
 
     private Pawn[] pawns;
