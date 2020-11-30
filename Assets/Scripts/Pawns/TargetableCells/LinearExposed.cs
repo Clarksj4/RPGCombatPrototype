@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +22,14 @@ public class LinearExposed : TargetableCells
             // Get line of cells starting at front rank to the back of the grid.
             IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
             foreach (Vector2Int coordinate in line)
+            {
                 yield return (formation, coordinate);
+
+                // Only iterate until encountering the first occupied cell (inclusive)
+                bool occupied = formation.GetPawnAtCoordinate(coordinate) != null;
+                if (occupied)
+                    break;
+            }
         }
     }
 }
