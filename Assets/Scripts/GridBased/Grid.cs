@@ -145,12 +145,15 @@ public class Grid : MonoBehaviour
     {
         // First coordinate in rank
         Vector2Int rankFlank = Forward * rank;
-        
+        Debug.Log($"rankFlank: {rankFlank}");
+
         // The direction to step when counting coordinates in rank.
         Vector2Int step = Forward.Perpendicular();
+        Debug.Log($"step: {step}");
 
         // How many cells in rank.
         int rankWidth = GetRankWidth();
+        Debug.Log($"rankWidth: {rankWidth}");
 
         for (int i = 0; i < rankWidth; i++)
             yield return rankFlank + (step * i);
@@ -162,7 +165,7 @@ public class Grid : MonoBehaviour
     public int GetNRanks()
     {
         Vector2Int direction = Vector2Int.Scale(Forward, NCells);
-        return direction.MaxAbs();
+        return Mathf.Abs(direction.MaxAxisMagnitude());
     }
 
     /// <summary>
@@ -173,7 +176,7 @@ public class Grid : MonoBehaviour
         Vector2Int step = Forward.Perpendicular();
 
         Vector2Int fullStep = Vector2Int.Scale(step, NCells);
-        int rankWidth = Mathf.Max(fullStep.x, fullStep.y);
+        int rankWidth = Mathf.Abs(fullStep.MaxAxisMagnitude());
         return rankWidth;
     }
 

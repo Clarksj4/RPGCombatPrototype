@@ -8,7 +8,6 @@ namespace Assets.Scripts.Actions
     public class ActionHighlighter : MonoBehaviour
     {
         // Convenience properties
-        private Formation SelfFormation { get { return SelectedAction.OriginFormation; } }
         private IEnumerable<Formation> Formations { get { return BattleManager.Instance.Formations; } }
         private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
 
@@ -82,21 +81,7 @@ namespace Assets.Scripts.Actions
 
         private IEnumerable<(Formation, Vector2Int)> GetPossibleTargets()
         {
-            // Check ALL possible target formations
-            foreach (Formation formation in SelectedAction.GetPossibleTargetFormations())
-            {
-                // Check all the coordinates on formation
-                for (int x = 0; x < formation.NCells.x; x++)
-                {
-                    for (int y = 0; y < formation.NCells.y; y++)
-                    {
-                        // If the coordinate is valid - yield it
-                        Vector2Int coordinate = new Vector2Int(x, y);
-                        if (SelectedAction.IsTargetValid(formation, coordinate))
-                            yield return (formation, coordinate);
-                    }
-                }
-            }
+            return SelectedAction.GetTargetableCells();
         }
 
         private void HandleOnTargetSelected(BattleAction action)

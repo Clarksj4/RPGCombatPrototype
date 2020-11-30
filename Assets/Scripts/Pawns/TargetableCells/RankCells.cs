@@ -16,7 +16,10 @@ public class RankCells : TargetableCells
         foreach (Formation formation in action.GetPossibleTargetFormations())
         {
             foreach (Vector2Int coordinate in formation.GetRankCoordinates(rank))
-                yield return (formation, coordinate);
+            {
+                if (action.IsTargetValid(formation, coordinate))
+                    yield return (formation, coordinate);
+            }
         }
     }
 }

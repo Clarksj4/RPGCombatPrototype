@@ -17,6 +17,15 @@ public class PushAction : BattleAction
     public override ActionTag Tags { get { return ActionTag.Movement | ActionTag.Forced; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Ally | TargetableCellContent.Enemy; } }
 
+    protected override TargetableCells TargetableCells { get { return targetableCells; } }
+    private TargetableCells targetableCells;
+
+    public PushAction()
+        : base()
+    {
+        targetableCells = new AnyCells(this);
+    }
+
     public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
         bool valid = base.IsTargetValid(formation, position);

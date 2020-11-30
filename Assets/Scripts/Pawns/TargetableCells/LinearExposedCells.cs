@@ -23,12 +23,15 @@ public class LinearExposedCells : TargetableCells
             IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
             foreach (Vector2Int coordinate in line)
             {
-                yield return (formation, coordinate);
+                if (action.IsTargetValid(formation, coordinate))
+                {
+                    yield return (formation, coordinate);
 
-                // Only iterate until encountering the first occupied cell (inclusive)
-                bool occupied = formation.GetPawnAtCoordinate(coordinate) != null;
-                if (occupied)
-                    break;
+                    // Only iterate until encountering the first occupied cell (inclusive)
+                    bool occupied = formation.GetPawnAtCoordinate(coordinate) != null;
+                    if (occupied)
+                        break;
+                }
             }
         }
     }
