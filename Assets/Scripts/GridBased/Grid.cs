@@ -6,6 +6,10 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     /// <summary>
+    /// Gets the direction to the front rank of the grid.
+    /// </summary>
+    public Vector2Int Forward { get { return forward; } }
+    /// <summary>
     /// Gets the number of cells on each axis of this grid.
     /// </summary>
     public Vector2Int NCells { get { return nCells; } }
@@ -23,7 +27,9 @@ public class Grid : MonoBehaviour
     /// Gets the world space bounds of this grid.
     /// </summary>
     public Bounds Bounds { get { return new Bounds(WorldPosition, nCells * CellSize); } }
-
+    
+    [SerializeField][Tooltip("The direction this grid is facing.")]
+    private Vector2Int forward;
     [SerializeField][Tooltip("The number of cells on each axis of this grid.")]
     private Vector2Int nCells;
     [SerializeField][Tooltip("The size of each cell on the grid.")]
@@ -120,6 +126,19 @@ public class Grid : MonoBehaviour
     {
         Vector2Int delta = to - from;
         return Mathf.Abs(delta.x) + Mathf.Abs(delta.y);
+    }
+    
+    /// <summary>
+    /// Gets the coordinates of the cells in the front rank
+    /// of this grid.
+    /// </summary>
+    public IEnumerable<Vector2Int> GetFrontRankCoordinates()
+    {
+        Vector2Int flank = Vector2Int.Scale(Forward, NCells);
+        Vector2Int step = Forward.Perpendicular();
+        int rankWidth = Mathf.Max(NCells.x, NCells.y);
+        for (int i = 0; i < rankWidth; i++)
+            yield return flank + (step * i);
     }
 
     /// <summary>

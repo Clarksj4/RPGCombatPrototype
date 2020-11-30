@@ -21,4 +21,12 @@ public static class Vector2IntExtension
 
         return new Vector2Int(x, y);
     }
+
+    /// <summary>
+    /// Gets a vector that is perpendicular to this one.
+    /// </summary>
+    public static Vector2Int Perpendicular(this Vector2Int coordinate)
+    {
+        return new Vector2Int(coordinate.y, coordinate.x);
+    }
 }

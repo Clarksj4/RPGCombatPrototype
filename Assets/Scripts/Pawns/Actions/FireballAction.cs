@@ -23,17 +23,14 @@ public class FireballAction : BattleAction
         bool valid = base.IsTargetValid(formation, position);
         if (!valid) return false;
 
-        Vector2Int closestCoordinate = formation.GetClosestCoordinate(Actor.WorldPosition);
-        if (position == closestCoordinate)
-            return true;
+        // Get closest coordinate in front rank.
+        Vector2Int closestCoordinate = formation.GetFrontRankCoordinates()
+                                                .First(c => c.x == Actor.GridPosition.x || 
+                                                            c.y == Actor.GridPosition.y);
+        // Get direction AWAY from the closest coordinate in fron rank.
+        Vector2Int directionCoordinate = Vector2Int.Scale(-formation.Forward, formation.NCells);
 
-        Vector2 closestCellWorldPosition = formation.CoordinateToWorldPosition(closestCoordinate);
-        Vector2 direction = closestCellWorldPosition - Actor.WorldPosition;
-        direction.Normalize();
-
-        Vector2Int directionCoordinate = new Vector2Int(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
-        directionCoordinate.Scale(formation.NCells);
-
+        // Get line of cells starting at front rank to the back of the grid.
         IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
         return line.Contains(position);
     }
