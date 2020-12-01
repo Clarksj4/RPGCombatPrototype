@@ -26,23 +26,6 @@ public class FireballAction : BattleAction
         targetableCells = new LinearExposedCells(this);
     }
 
-    public override bool IsTargetValid(Formation formation, Vector2Int position)
-    {
-        bool valid = base.IsTargetValid(formation, position);
-        if (!valid) return false;
-
-        // Get closest coordinate in front rank.
-        Vector2Int closestCoordinate = formation.GetFrontRankCoordinates()
-                                                .First(c => c.x == Actor.GridPosition.x || 
-                                                            c.y == Actor.GridPosition.y);
-        // Get direction AWAY from the closest coordinate in fron rank.
-        Vector2Int directionCoordinate = Vector2Int.Scale(-formation.Forward, formation.NCells);
-
-        // Get line of cells starting at front rank to the back of the grid.
-        IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
-        return line.Contains(position);
-    }
-
     public override IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
     {
         foreach (Vector2Int coordinate in TargetFormation.GetCoordinatesInRange(TargetPosition, AREA))
