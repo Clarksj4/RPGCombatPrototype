@@ -6,6 +6,10 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     /// <summary>
+    /// Gets the cell on the flank of the font of this grid. 
+    /// </summary>
+    public Vector2Int FrontFlankCoordinate { get { return frontFlankCoordinate; } }
+    /// <summary>
     /// Gets the direction to the front rank of the grid.
     /// </summary>
     public Vector2Int Forward { get { return forward; } }
@@ -27,7 +31,11 @@ public class Grid : MonoBehaviour
     /// Gets the world space bounds of this grid.
     /// </summary>
     public Bounds Bounds { get { return new Bounds(WorldPosition, nCells * CellSize); } }
-    
+
+    // TODO: maybe use FRONT instead of FORWARD?
+    // TODO: OR maybe it DID make more sense that the FRONT was determined relative to the position of ANOTHER formation
+    [SerializeField][Tooltip("A cell on the flank of the font of this grid.")]
+    private Vector2Int frontFlankCoordinate;
     [SerializeField][Tooltip("The direction this grid is facing.")]
     private Vector2Int forward;
     [SerializeField][Tooltip("The number of cells on each axis of this grid.")]
@@ -134,8 +142,7 @@ public class Grid : MonoBehaviour
     /// </summary>
     public IEnumerable<Vector2Int> GetFrontRankCoordinates()
     {
-        int nRanks = GetNRanks();
-        return GetRankCoordinates(nRanks - 1);
+        return GetRankCoordinates(0);
     }
 
     /// <summary>
@@ -144,7 +151,7 @@ public class Grid : MonoBehaviour
     public IEnumerable <Vector2Int> GetRankCoordinates(int rank)
     {
         // First coordinate in rank
-        Vector2Int rankFlank = Forward * rank;
+        Vector2Int rankFlank = FrontFlankCoordinate + (-Forward * rank);
         Debug.Log($"rankFlank: {rankFlank}");
 
         // The direction to step when counting coordinates in rank.
