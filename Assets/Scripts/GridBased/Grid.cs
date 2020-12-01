@@ -171,6 +171,17 @@ public class Grid : MonoBehaviour
     }
 
     /// <summary>
+    /// Gets the rank of the given coordinate.
+    /// </summary>
+    public int GetRank(Vector2Int coordinate)
+    {
+        Vector2Int deltaVector = FrontFlankCoordinate - coordinate;
+        int deltaRank = Vector2Int.Scale(deltaVector, Forward).MaxAxisMagnitude();
+        int rank = Mathf.Abs(deltaRank);
+        return rank;
+    }
+
+    /// <summary>
     /// Gets the number of ranks deep the theis grid runs.
     /// </summary>
     public int GetNRanks()
