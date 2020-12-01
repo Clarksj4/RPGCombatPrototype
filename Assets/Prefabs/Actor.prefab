@@ -707,6 +707,7 @@ MonoBehaviour:
   - Push
   - Firebolt
   - Fireball
+  - SecondWind
 --- !u!114 &7303308842043825205
 MonoBehaviour:
   m_ObjectHideFlags: 0

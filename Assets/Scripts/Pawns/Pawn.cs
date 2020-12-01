@@ -39,7 +39,7 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
             int delta = health - value;
             if (delta != 0)
             {
-                health = value;
+                health = Mathf.Clamp(value, 0, MaxHealth);
                 OnHealthChanged?.Invoke(delta);
             }
         }

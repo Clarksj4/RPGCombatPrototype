@@ -163,7 +163,11 @@ public class Grid : MonoBehaviour
         Debug.Log($"rankWidth: {rankWidth}");
 
         for (int i = 0; i < rankWidth; i++)
-            yield return rankFlank + (step * i);
+        {
+            Vector2Int coordinate = rankFlank + (step * i);
+            Debug.Log($"coordinate: {coordinate}");
+            yield return coordinate;
+        }
     }
 
     /// <summary>

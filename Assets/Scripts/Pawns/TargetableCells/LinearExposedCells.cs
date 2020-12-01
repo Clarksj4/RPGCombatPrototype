@@ -12,6 +12,7 @@ public class LinearExposedCells : TargetableCells
         // Need to consider all possible formations
         foreach (Formation formation in action.GetPossibleTargetFormations())
         {
+            Debug.Log($"self position: {action.Actor.GridPosition}");
             // Get closest coordinate in front rank.
             Vector2Int closestCoordinate = formation.GetFrontRankCoordinates()
                                                     .First(c => c.x == action.Actor.GridPosition.x ||
