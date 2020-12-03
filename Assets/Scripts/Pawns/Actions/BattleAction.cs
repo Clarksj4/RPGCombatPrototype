@@ -50,7 +50,13 @@ public abstract class BattleAction
     /// Gets the strategy for selecting which cells are targetable.
     /// </summary>
     protected TargetableStrategy targetableStrategy;
+    /// <summary>
+    /// Gets the strategy for selecting which cells are affected based
+    /// upon a targeted cell.
+    /// </summary>
     protected TargetedStrategy targetedStrategy;
+
+    protected List<ActionNode> actionSequence;
 
     public BattleAction()
     {
@@ -236,7 +242,21 @@ public abstract class BattleAction
     /// Performs this action. Returns true if the action was
     /// successful.
     /// </summary>
-    public abstract IEnumerator Do();
+    public virtual IEnumerator Do()
+    {
+        foreach ((Formation formation, Vector2Int coordinate) in GetAffectedCoordinates())
+        {
+            // Apply action sequence to each affected cell.
+            foreach (ActionNode action in actionSequence)
+            {
+                bool success = action.ApplyToCell(formation, coordinate);
+                if (!success)
+                    break;
+            }
+        }
+
+        return null;
+    }
 
     /// <summary>
     /// Checks if the given pawn is an actor who is on the same
