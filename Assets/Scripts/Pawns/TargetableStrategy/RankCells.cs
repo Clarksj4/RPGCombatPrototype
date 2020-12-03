@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class RankCells : TargetableCells
+public class RankCells : TargetableStrategy
 {
     private int rank;
 

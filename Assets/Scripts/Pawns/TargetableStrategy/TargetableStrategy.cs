@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TargetableCells
+public abstract class TargetableStrategy
 {
     protected BattleAction action;
-    public TargetableCells(BattleAction action)
+    public TargetableStrategy(BattleAction action)
     {
         this.action = action;
     }

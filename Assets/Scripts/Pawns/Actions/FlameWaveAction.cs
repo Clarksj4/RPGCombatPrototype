@@ -1,25 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 public class FlameWaveAction : BattleAction
 {
     public override ActionTag Tags { get { return ActionTag.Damage | ActionTag.AoE; } }
     public override TargetableFormation TargetableFormation { get { return TargetableFormation.Other; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Empty | TargetableCellContent.Enemy; } }
-    protected override TargetableCells TargetableCells { get { return targetableCells; } }
-    private TargetableCells targetableCells;
 
     public FlameWaveAction()
     {
-        targetableCells = new RankCells(this, 0);
-    }
-
-    public override IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
-    {
-        int rank = TargetFormation.GetRank(TargetPosition);
-        return TargetFormation.GetRankCoordinates(rank).Select(c => { return (TargetFormation, c); });
+        targetableStrategy = new RankCells(this, 0);
+        targetedStrategy = new TargetedRank(this);
     }
 
     public override IEnumerator Do()

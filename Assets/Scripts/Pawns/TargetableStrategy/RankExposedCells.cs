@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class RankExposedCells : TargetableCells
+public class RankExposedCells : TargetableStrategy
 {
     public RankExposedCells(BattleAction action)
         : base(action) { /* Nothing! */ }

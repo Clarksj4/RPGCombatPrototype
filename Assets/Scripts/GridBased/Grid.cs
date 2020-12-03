@@ -170,6 +170,36 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public IEnumerable<Vector2Int> GetRowCoordinates(int row)
+    {
+        // First coordinate in row
+        Vector2Int rowFlank = FrontFlankCoordinate + (-Forward.Perpendicular() * row);
+        Debug.Log($"rowFlank: {rowFlank}");
+
+        // The direction to step when counting coordinates in row.
+        Vector2Int step = -Forward;
+        Debug.Log($"step: {step}");
+
+        // How many cells in rank.
+        int rowDepth = GetRowDepth();
+        Debug.Log($"rowDepth: {rowDepth}");
+
+        for (int i = 0; i < rowDepth; i++)
+        {
+            Vector2Int coordinate = rowFlank + (step * i);
+            Debug.Log($"coordinate: {coordinate}");
+            yield return coordinate;
+        }
+    }
+
+    public int GetRow(Vector2Int coordinate)
+    {
+        Vector2Int deltaVector = FrontFlankCoordinate - coordinate;
+        int deltaRow = Vector2Int.Scale(deltaVector, Forward.Perpendicular()).MaxAxisMagnitude();
+        int row = Mathf.Abs(deltaRow);
+        return row;
+    }
+
     /// <summary>
     /// Gets the rank of the given coordinate.
     /// </summary>
@@ -188,6 +218,15 @@ public class Grid : MonoBehaviour
     {
         Vector2Int direction = Vector2Int.Scale(Forward, NCells);
         return Mathf.Abs(direction.MaxAxisMagnitude());
+    }
+
+    public int GetRowDepth()
+    {
+        Vector2Int step = Forward;
+
+        Vector2Int fullStep = Vector2Int.Scale(step, NCells);
+        int rowDepth = Mathf.Abs(fullStep.MaxAxisMagnitude());
+        return rowDepth;
     }
 
     /// <summary>

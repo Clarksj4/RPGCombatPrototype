@@ -49,7 +49,16 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the strategy for selecting which cells are targetable.
     /// </summary>
-    protected abstract TargetableCells TargetableCells { get; }
+    protected TargetableStrategy targetableStrategy;
+    protected TargetedStrategy targetedStrategy;
+
+    public BattleAction()
+    {
+        // Default strategies
+        targetableStrategy = new AnyCells(this);
+        targetedStrategy = new TargetedPoint(this);
+    }
+
     /// <summary>
     /// Sets the actor who will perform this action. Returns
     /// true if the actor is able to perform the action.
@@ -105,7 +114,7 @@ public abstract class BattleAction
 
     public virtual IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
-        return TargetableCells.GetTargetableCells();
+        return targetableStrategy.GetTargetableCells();
     }
 
     /// <summary>
@@ -215,13 +224,12 @@ public abstract class BattleAction
                IsTargetValid(TargetFormation, TargetPosition);
     }
 
-    // TODO: handle being able to target multiple formations with an area attack
     /// <summary>
     /// Gets the coordinates that will be affected by this action.
     /// </summary>
-    public virtual IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
+    public IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
     {
-        yield return (TargetFormation, TargetPosition);
+        return targetedStrategy.GetAffectedCoordinates();
     }
 
     /// <summary>

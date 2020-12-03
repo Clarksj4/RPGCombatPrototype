@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class LinearExposedCells : TargetableCells
+public class LinearExposedCells : TargetableStrategy
 {
     public LinearExposedCells(BattleAction action)
         : base(action) { /* Nothing! */ }

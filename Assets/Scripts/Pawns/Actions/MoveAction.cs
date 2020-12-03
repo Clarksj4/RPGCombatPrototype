@@ -7,14 +7,6 @@ public class MoveAction : BattleAction
     public override int Range { get { return Actor.Movement; } }
     public override ActionTag Tags { get { return ActionTag.Movement; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Empty; } }
-    protected override TargetableCells TargetableCells { get { return targetableCells; } }
-    private TargetableCells targetableCells;
-
-    public MoveAction()
-        : base()
-    {
-        targetableCells = new AnyCells(this);
-    }
 
     public override IEnumerator Do()
     {
