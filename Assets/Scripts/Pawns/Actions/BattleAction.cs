@@ -132,8 +132,13 @@ public abstract class BattleAction
     public virtual bool IsTargetValid(Formation formation, Vector2Int position)
     {
         return IsTargetFormationValid(formation) &&
+
+            // TODO: TargetableStrategyRestriction
                 IsTargetCellContentValid(formation, position) &&
                 IsTargetInRange(formation, position);
+
+            // TODO: needs acces to actor to know in WHICH direction.
+             // EmptyAdjacentCell()
     }
 
     /// <summary>
