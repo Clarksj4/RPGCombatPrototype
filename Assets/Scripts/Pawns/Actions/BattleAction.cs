@@ -71,7 +71,7 @@ public abstract class BattleAction
         targetedStrategy = new TargetedPoint(this);
         targetRestrictions = new List<TargetableCellRestriction>()
         {
-            new RangeRestriction(this, Range),
+            new RangeRestriction(this),
             new CellContentRestriction(this, TargetableCellContent)
         };
     }

@@ -2,7 +2,6 @@
 
 public class AttackAction : BattleAction
 {
-
     public override int Range { get { return Actor.Reach; } }
     public override ActionTag Tags { get { return ActionTag.Damage; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy; } }
