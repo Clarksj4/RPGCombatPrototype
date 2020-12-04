@@ -51,11 +51,17 @@ public abstract class BattleAction
     /// </summary>
     protected TargetableStrategy targetableStrategy;
     /// <summary>
+    /// Gets the collection of restrictions on cells that can be targeted.
+    /// </summary>
+    protected List<TargetableCellRestriction> targetRestrictions;
+    /// <summary>
     /// Gets the strategy for selecting which cells are affected based
     /// upon a targeted cell.
     /// </summary>
     protected TargetedStrategy targetedStrategy;
-
+    /// <summary>
+    /// The sequence of things this battle action with do.
+    /// </summary>
     protected List<ActionNode> actionSequence;
 
     public BattleAction()
@@ -63,6 +69,11 @@ public abstract class BattleAction
         // Default strategies
         targetableStrategy = new AnyCells(this);
         targetedStrategy = new TargetedPoint(this);
+        targetRestrictions = new List<TargetableCellRestriction>()
+        {
+            new RangeRestriction(this, Range),
+            new CellContentRestriction(this, TargetableCellContent)
+        };
     }
 
     /// <summary>
@@ -87,17 +98,11 @@ public abstract class BattleAction
     /// Sets the target for this action if valid. Returns true
     /// if the target is a valid one.
     /// </summary>
-    public virtual bool SetTarget(Formation formation, Vector2Int position)
+    public virtual void SetTarget(Formation formation, Vector2Int position)
     {
-        // Check if target is valid.
-        bool isValid = IsTargetValid(formation, position);
-        if (isValid)
-        {
-            // Set target map / position
-            TargetFormation = formation;
-            TargetPosition = position;
-        }
-        return isValid;
+        // Set target map / position
+        TargetFormation = formation;
+        TargetPosition = position;
     }
 
     /// <summary>
@@ -123,64 +128,24 @@ public abstract class BattleAction
     /// </summary>
     public virtual IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
-        return targetableStrategy.GetTargetableCells();
-    }
+        IEnumerable<(Formation, Vector2Int)> cells = targetableStrategy.GetTargetableCells();
 
-    /// <summary>
-    /// Checks whether the given cell is a valid target.
-    /// </summary>
-    public virtual bool IsTargetValid(Formation formation, Vector2Int position)
-    {
-        return IsTargetFormationValid(formation) &&
+        // Return all cells that meet restrictions
+        if (targetRestrictions != null && targetRestrictions.Count > 0)
+        {
+            foreach ((Formation formation, Vector2Int coordinate) in cells)
+            {
+                if (targetRestrictions.All(r => r.IsTargetValid(formation, coordinate)))
+                    yield return (formation, coordinate);
+            }
+        }
 
-            // TODO: TargetableStrategyRestriction
-                IsTargetCellContentValid(formation, position) &&
-                IsTargetInRange(formation, position);
-
-            // TODO: needs acces to actor to know in WHICH direction.
-             // EmptyAdjacentCell()
-    }
-
-    /// <summary>
-    /// Checks whether the thing in the targeted cell 
-    /// is a valid target.
-    /// </summary>
-    public virtual bool IsTargetCellContentValid(Formation formation, Vector2Int position)
-    {
-        // Check for all or nothing cases first to see
-        // if we can skip the other checks.
-        if (TargetableCellContent == TargetableCellContent.All)  return true;
-        if (TargetableCellContent == TargetableCellContent.None) return false;
-
-        // Assume the target is invalid and then include
-        // cases as it meets their requirements
-        bool valid = false;
-        Pawn pawn = formation.GetPawnAtCoordinate(position);
-        bool isSelf = pawn == Actor;
-        bool pawnExists = pawn != null;
-        bool isActorOnSameTeam = IsActorOnSameTeam(pawn);
-
-        // Can target self.
-        if (TargetableCellContent.HasFlag(TargetableCellContent.Self) &&
-            pawnExists && isSelf)
-            valid = true;
-
-        // Can target allies.
-        else if (TargetableCellContent.HasFlag(TargetableCellContent.Ally) &&
-            pawnExists && isActorOnSameTeam)
-            valid = true;
-
-        // Can target enemies.
-        else if (TargetableCellContent.HasFlag(TargetableCellContent.Enemy) &&
-            pawnExists && !isActorOnSameTeam)
-            valid = true;
-
-        // Can target empty cells.
-        else if (TargetableCellContent.HasFlag(TargetableCellContent.Empty) &&
-            !pawnExists)
-            valid = true;
-        
-        return valid;
+        // Return all cells - no restrictions
+        else
+        {
+            foreach ((Formation formation, Vector2Int coordinate) in cells)
+                yield return (formation, coordinate);
+        }
     }
 
     public virtual bool IsTargetFormationValid(Formation formation)
@@ -209,17 +174,6 @@ public abstract class BattleAction
     }
 
     /// <summary>
-    /// Checks whether the given position on the given formation is
-    /// within this action's range.
-    /// </summary>
-    public virtual bool IsTargetInRange(Formation formation, Vector2Int position)
-    {
-        bool infiniteRange = Range < 0;
-        bool positionInRange = formation.IsInRange(OriginPosition, position, Range);
-        return infiniteRange || positionInRange;
-    }
-
-    /// <summary>
     /// Checks if the given actor is currently able to perform
     /// this action.
     /// </summary>
@@ -234,8 +188,7 @@ public abstract class BattleAction
     /// </summary>
     public virtual bool CanDo()
     {
-        return IsActorAble(Actor) &&
-               IsTargetValid(TargetFormation, TargetPosition);
+        return IsActorAble(Actor);
     }
 
     /// <summary>
@@ -264,22 +217,5 @@ public abstract class BattleAction
         }
 
         return null;
-    }
-
-    /// <summary>
-    /// Checks if the given pawn is an actor who is on the same
-    /// team as this action's actor.
-    /// </summary>
-    protected bool IsActorOnSameTeam(Pawn pawn)
-    {
-        if (pawn is Actor)
-        {
-            // Convert to actor and check its allegience.
-            Actor actor = pawn as Actor;
-            return actor.Team == Actor.Team;
-        }
-
-        // Pawn is not an actor - it doesn't have a team.
-        return false;
     }
 }

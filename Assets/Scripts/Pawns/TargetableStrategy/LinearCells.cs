@@ -12,9 +12,6 @@ public class LinearCells : TargetableStrategy
         // Need to consider all possible formations
         foreach(Formation formation in action.GetTargetableFormations())
         {
-            foreach (var c in formation.GetFrontRankCoordinates())
-                Debug.Log(c);
-
             // Get closest coordinate in front rank.
             Vector2Int closestCoordinate = formation.GetFrontRankCoordinates()
                                                     .First(c => c.x == action.Actor.GridPosition.x ||
@@ -25,10 +22,7 @@ public class LinearCells : TargetableStrategy
             // Get line of cells starting at front rank to the back of the grid.
             IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
             foreach (Vector2Int coordinate in line)
-            {
-                if (action.IsTargetValid(formation, coordinate))
-                    yield return (formation, coordinate);
-            }
+                yield return (formation, coordinate);
         }
     }
 }
