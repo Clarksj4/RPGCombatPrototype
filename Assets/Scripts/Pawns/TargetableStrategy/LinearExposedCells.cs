@@ -10,7 +10,7 @@ public class LinearExposedCells : TargetableStrategy
     public override IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
         // Need to consider all possible formations
-        foreach (Formation formation in action.GetPossibleTargetFormations())
+        foreach (Formation formation in action.GetTargetableFormations())
         {
             Debug.Log($"self position: {action.Actor.GridPosition}");
             // Get closest coordinate in front rank.

@@ -8,7 +8,7 @@ public class RankExposedCells : TargetableStrategy
 
     public override IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
-        foreach (Formation formation in action.GetPossibleTargetFormations())
+        foreach (Formation formation in action.GetTargetableFormations())
         {
             // Get direction AWAY from front rank.
             Vector2Int directionCoordinate = Vector2Int.Scale(-formation.Forward, formation.NCells);

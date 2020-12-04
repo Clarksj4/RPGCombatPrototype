@@ -10,7 +10,7 @@ public class LinearCells : TargetableStrategy
     public override IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
         // Need to consider all possible formations
-        foreach(Formation formation in action.GetPossibleTargetFormations())
+        foreach(Formation formation in action.GetTargetableFormations())
         {
             foreach (var c in formation.GetFrontRankCoordinates())
                 Debug.Log(c);

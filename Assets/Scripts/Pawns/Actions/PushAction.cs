@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PushAction : BattleAction
@@ -17,6 +18,14 @@ public class PushAction : BattleAction
     public override ActionTag Tags { get { return ActionTag.Movement | ActionTag.Forced; } }
     public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Ally | TargetableCellContent.Enemy; } }
 
+    public PushAction()
+    {
+        actionSequence = new List<ActionNode>()
+        {
+            new PushNode(this)
+        };
+    }
+
     public override bool IsTargetValid(Formation formation, Vector2Int position)
     {
         bool valid = base.IsTargetValid(formation, position);
@@ -26,28 +35,6 @@ public class PushAction : BattleAction
         return valid &&
                 destinationOnFormation &&
                 destinationEmpty;
-    }
-
-    public override IEnumerator Do()
-    {
-        // Get target pawn
-        Pawn target = TargetFormation.GetPawnAtCoordinate(TargetPosition);
-
-        // Get final positions
-        Vector2Int destinationCoordinate = GetDestinationCoordinate(TargetPosition);
-        Vector3 destinationWorldPosition = TargetFormation.CoordinateToWorldPosition(destinationCoordinate);
-
-        // Move target to position over time
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(target.transform.DOMove(destinationWorldPosition, 0.25f).SetEase(Ease.OutExpo));
-        sequence.OnComplete(() => {
-            // Update coordinate on arrival
-            target.SetCoordinate(destinationCoordinate);
-        });
-
-        // Invokers wlil know when the move is complete because
-        // the coroutine has ended.
-        yield return sequence.WaitForCompletion();
     }
 
     private bool IsDestinationOnFormation(Formation formation, Vector2Int position)

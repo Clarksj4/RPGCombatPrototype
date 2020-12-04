@@ -13,7 +13,7 @@ public class RankCells : TargetableStrategy
 
     public override IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
-        foreach (Formation formation in action.GetPossibleTargetFormations())
+        foreach (Formation formation in action.GetTargetableFormations())
         {
             foreach (Vector2Int coordinate in formation.GetRankCoordinates(rank))
             {

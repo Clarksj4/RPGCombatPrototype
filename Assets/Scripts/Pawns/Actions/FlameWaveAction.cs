@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections.Generic;
 
 public class FlameWaveAction : BattleAction
 {
@@ -11,17 +10,10 @@ public class FlameWaveAction : BattleAction
     {
         targetableStrategy = new RankCells(this, 0);
         targetedStrategy = new TargetedRank(this);
-    }
 
-    public override IEnumerator Do()
-    {
-        foreach ((Formation formation, Vector2Int coordinate) in GetAffectedCoordinates())
+        actionSequence = new List<ActionNode>()
         {
-            Pawn pawn = formation.GetPawnAtCoordinate(coordinate);
-            if (pawn != null)
-                pawn.Health -= 10;
-        }
-
-        return null;
+            new DoDamageNode(this)
+        };
     }
 }

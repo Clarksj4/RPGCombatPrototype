@@ -152,20 +152,16 @@ public class Grid : MonoBehaviour
     {
         // First coordinate in rank
         Vector2Int rankFlank = FrontFlankCoordinate + (-Forward * rank);
-        Debug.Log($"rankFlank: {rankFlank}");
 
         // The direction to step when counting coordinates in rank.
         Vector2Int step = Forward.Perpendicular();
-        Debug.Log($"step: {step}");
 
         // How many cells in rank.
         int rankWidth = GetRankWidth();
-        Debug.Log($"rankWidth: {rankWidth}");
 
         for (int i = 0; i < rankWidth; i++)
         {
             Vector2Int coordinate = rankFlank + (step * i);
-            Debug.Log($"coordinate: {coordinate}");
             yield return coordinate;
         }
     }
@@ -174,20 +170,16 @@ public class Grid : MonoBehaviour
     {
         // First coordinate in row
         Vector2Int rowFlank = FrontFlankCoordinate + (-Forward.Perpendicular() * row);
-        Debug.Log($"rowFlank: {rowFlank}");
 
         // The direction to step when counting coordinates in row.
         Vector2Int step = -Forward;
-        Debug.Log($"step: {step}");
 
         // How many cells in rank.
         int rowDepth = GetRowDepth();
-        Debug.Log($"rowDepth: {rowDepth}");
 
         for (int i = 0; i < rowDepth; i++)
         {
             Vector2Int coordinate = rowFlank + (step * i);
-            Debug.Log($"coordinate: {coordinate}");
             yield return coordinate;
         }
     }

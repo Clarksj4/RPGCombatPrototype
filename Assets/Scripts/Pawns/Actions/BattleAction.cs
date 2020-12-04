@@ -113,11 +113,14 @@ public abstract class BattleAction
     /// Gets all the formations that are valid targets for
     /// this action.
     /// </summary>
-    public IEnumerable<Formation> GetPossibleTargetFormations()
+    public IEnumerable<Formation> GetTargetableFormations()
     {
         return BattleManager.Instance.Formations.Where(IsTargetFormationValid);
     }
 
+    /// <summary>
+    /// Gets all the cells that can be targeted by this action.
+    /// </summary>
     public virtual IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
         return targetableStrategy.GetTargetableCells();
