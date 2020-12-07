@@ -136,7 +136,11 @@ public abstract class BattleAction
             foreach ((Formation formation, Vector2Int coordinate) in cells)
             {
                 if (targetRestrictions.All(r => r.IsTargetValid(formation, coordinate)))
+                {
+                    Debug.Log($"Cell {coordinate} is valid!");
                     yield return (formation, coordinate);
+                }
+                    
             }
         }
 

@@ -1,7 +1,4 @@
-﻿using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class PushAction : BattleAction
 {
@@ -18,9 +15,9 @@ public class PushAction : BattleAction
     {
         actionSequence = new List<ActionNode>()
         {
-            new PushNode(this)
+            new PushNode(this, Range, RelativeDirection.Away)
         };
 
-        targetRestrictions.Add(new EmptyAdjacentRestriction(this));
+        targetRestrictions.Add(new EmptyAdjacentRestriction(this, RelativeDirection.Away));
     }
 }

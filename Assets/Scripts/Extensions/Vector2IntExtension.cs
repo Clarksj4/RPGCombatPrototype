@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class Vector2IntExtension
 {
@@ -28,6 +29,57 @@ public static class Vector2IntExtension
     public static Vector2Int Perpendicular(this Vector2Int coordinate)
     {
         return new Vector2Int(coordinate.y, coordinate.x);
+    }
+
+    /// <summary>
+    /// Gets a collection of direction vectors pointing in the
+    /// given directions relative to the given coordainte.
+    /// </summary>
+    public static IEnumerable<Vector2Int> GetRelativeDirections(this Vector2Int coordinate, Vector2Int from, RelativeDirection direction)
+    {
+        if (direction.HasFlag(RelativeDirection.Away))
+            yield return coordinate.Away(from);
+        if (direction.HasFlag(RelativeDirection.Towards))
+            yield return coordinate.Towards(from);
+        if (direction.HasFlag(RelativeDirection.Left))
+            yield return coordinate.Left(from);
+        if (direction.HasFlag(RelativeDirection.Right))
+            yield return coordinate.Right(from);
+    }
+
+    /// <summary>
+    /// Gets a direction vector pointing towards the target.
+    /// </summary>
+    public static Vector2Int Towards(this Vector2Int origin, Vector2Int target)
+    {
+        return (target - origin).Reduce();
+    }
+
+    /// <summary>
+    /// Gets a direction vector pointing away from the target.
+    /// </summary>
+    public static Vector2Int Away(this Vector2Int origin, Vector2Int target)
+    {
+        return (origin - target).Reduce();
+    }
+
+    /// <summary>
+    /// Gets a direction vector pointing to the left of the target.
+    /// </summary>
+    public static Vector2Int Left(this Vector2Int origin, Vector2Int target)
+    {
+        return Away(origin, target).Perpendicular();
+    }
+
+    /// <summary>
+    /// Gets a direction vector pointing to the right of the target.
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public static Vector2Int Right(this Vector2Int origin, Vector2Int target)
+    {
+        return Towards(origin, target).Perpendicular();
     }
 
     /// <summary>

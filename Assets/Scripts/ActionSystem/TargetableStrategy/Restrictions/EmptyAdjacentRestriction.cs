@@ -1,46 +1,46 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class EmptyAdjacentRestriction : TargetableCellRestriction
 {
-    public EmptyAdjacentRestriction(BattleAction action)
-        : base(action) { /* Nothing! */ }
-    
+    private RelativeDirection directions;
+    private bool allEmpty;
+
+    public EmptyAdjacentRestriction(BattleAction action, RelativeDirection directions, bool allEmpty = true)
+        : base(action) 
+    {
+        this.directions = directions;
+        this.allEmpty = allEmpty;
+    }
+
     public override bool IsTargetValid(Formation formation, Vector2Int coordinate)
     {
-        return IsDestinationOnFormation(formation, coordinate) &&
-                IsDestinationEmpty(formation, coordinate);
+        bool valid;
+        if (allEmpty)
+            valid = AllAdjacentCellsEmpty(formation, coordinate);
+        else
+            valid = AnyAdjacentCellsEmpty(formation, coordinate);
+        return valid;
     }
 
-    private bool IsDestinationOnFormation(Formation formation, Vector2Int position)
+    private bool AllAdjacentCellsEmpty(Formation formation, Vector2Int coordinate)
     {
-        // Get final position
-        Vector2Int destinationCoordinate = GetDestinationCoordinate(position);
-        return formation.ContainsCoordinate(destinationCoordinate);
+        //bool allCellsEmpty = true;
+        //IEnumerable<Vector2Int> adjacents = coordinate.GetRelativeDirections(action.Actor.GridPosition, directions);
+        //foreach (Vector2Int adjacent in adjacents)
+        //{
+        //    Debug.Log(adjacent);
+        //    allCellsEmpty
+        //}
+
+        return coordinate.GetRelativeDirections(action.Actor.GridPosition, directions)
+                         .All(c => { return formation.GetPawnAtCoordinate(c) == null; });
     }
 
-    private bool IsDestinationEmpty(Formation formation, Vector2Int position)
+    private bool AnyAdjacentCellsEmpty(Formation formation, Vector2Int coordinate)
     {
-        // Get final position
-        Vector2Int destinationCoordinate = GetDestinationCoordinate(position);
-        return formation.GetPawnAtCoordinate(destinationCoordinate) == null;
-    }
-
-    private Vector2Int GetDestinationCoordinate(Vector2Int position)
-    {
-        // Get direction to target
-        Vector2Int direction = GetDirectionToTarget(position);
-
-        // Get final position
-        Vector2Int destinationCoordinate = position + (direction * 1);
-        return destinationCoordinate;
-    }
-
-    private Vector2Int GetDirectionToTarget(Vector2Int targetPosition)
-    {
-        // Get direction to defender
-        Vector2Int delta = targetPosition - action.Actor.GridPosition;
-        Vector2Int direction = delta.Reduce();
-        return direction;
+        return coordinate.GetRelativeDirections(action.Actor.GridPosition, directions)
+                         .Any(c => { return formation.GetPawnAtCoordinate(c) == null; });
     }
 }
