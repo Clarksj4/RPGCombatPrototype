@@ -22,10 +22,7 @@ public class LinearCells : TargetableStrategy
             // Get line of cells starting at front rank to the back of the grid.
             IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
             foreach (Vector2Int coordinate in line)
-            {
-                Debug.Log($"Coordinate in line: {coordinate}");
                 yield return (formation, coordinate);
-            }
         }
     }
 }

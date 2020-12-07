@@ -20,7 +20,7 @@ public class CellContentRestriction : TargetableCellRestriction
     /// Checks whether the thing in the targeted cell is 
     /// a valid target.
     /// </summary>
-    public virtual bool IsTargetCellContentValid(Formation formation, Vector2Int position)
+    private bool IsTargetCellContentValid(Formation formation, Vector2Int position)
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
@@ -62,7 +62,7 @@ public class CellContentRestriction : TargetableCellRestriction
     /// Checks if the given pawn is an actor who is on the same
     /// team as this action's actor.
     /// </summary>
-    protected bool IsActorOnSameTeam(Pawn pawn)
+    private bool IsActorOnSameTeam(Pawn pawn)
     {
         if (pawn is Actor)
         {

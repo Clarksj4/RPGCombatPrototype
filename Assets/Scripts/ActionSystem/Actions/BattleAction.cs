@@ -98,11 +98,16 @@ public abstract class BattleAction
     /// Sets the target for this action if valid. Returns true
     /// if the target is a valid one.
     /// </summary>
-    public virtual void SetTarget(Formation formation, Vector2Int position)
+    public virtual bool SetTarget(Formation formation, Vector2Int position)
     {
-        // Set target map / position
-        TargetFormation = formation;
-        TargetPosition = position;
+        bool validTarget = IsTargetCellValid(formation, position);
+        if (validTarget)
+        {
+            // Set target map / position
+            TargetFormation = formation;
+            TargetPosition = position;
+        }
+        return validTarget;
     }
 
     /// <summary>
@@ -136,11 +141,7 @@ public abstract class BattleAction
             foreach ((Formation formation, Vector2Int coordinate) in cells)
             {
                 if (targetRestrictions.All(r => r.IsTargetValid(formation, coordinate)))
-                {
-                    Debug.Log($"Cell {coordinate} is valid!");
                     yield return (formation, coordinate);
-                }
-                    
             }
         }
 
@@ -150,31 +151,6 @@ public abstract class BattleAction
             foreach ((Formation formation, Vector2Int coordinate) in cells)
                 yield return (formation, coordinate);
         }
-    }
-
-    public virtual bool IsTargetFormationValid(Formation formation)
-    {
-        // Check for all or nothing cases first to see
-        // if we can skip the other checks.
-        if (TargetableFormation == TargetableFormation.All)  return true;
-        if (TargetableFormation == TargetableFormation.None) return false;
-
-        // Assume the formation is invalid and then include
-        // cases as it meets their requirements
-        bool valid = false;
-        bool isSelfFormation = formation == Actor.Formation;
-
-        // Can target own formation.
-        if (TargetableFormation.HasFlag(TargetableFormation.Self) &&
-            isSelfFormation)
-            valid = true;
-
-        // Can target other formations.
-        else if (TargetableFormation.HasFlag(TargetableFormation.Other) &&
-            !isSelfFormation)
-            valid = true;
-
-        return valid;
     }
 
     /// <summary>
@@ -221,5 +197,41 @@ public abstract class BattleAction
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Checks whether the given formation is a valid target.
+    /// </summary>
+    private bool IsTargetFormationValid(Formation formation)
+    {
+        // Check for all or nothing cases first to see
+        // if we can skip the other checks.
+        if (TargetableFormation == TargetableFormation.All) return true;
+        if (TargetableFormation == TargetableFormation.None) return false;
+
+        // Assume the formation is invalid and then include
+        // cases as it meets their requirements
+        bool valid = false;
+        bool isSelfFormation = formation == Actor.Formation;
+
+        // Can target own formation.
+        if (TargetableFormation.HasFlag(TargetableFormation.Self) &&
+            isSelfFormation)
+            valid = true;
+
+        // Can target other formations.
+        else if (TargetableFormation.HasFlag(TargetableFormation.Other) &&
+            !isSelfFormation)
+            valid = true;
+
+        return valid;
+    }
+
+    /// <summary>
+    /// Checks whether the given cell is a valid target.
+    /// </summary>
+    private bool IsTargetCellValid(Formation formation, Vector2Int position)
+    {
+        return GetTargetableCells().Any(cell => cell.Item1 == formation && cell.Item2 == position);
     }
 }

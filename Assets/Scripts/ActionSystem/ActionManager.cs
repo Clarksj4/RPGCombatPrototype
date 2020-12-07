@@ -110,9 +110,10 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// </summary>
     public bool SetTarget(Formation formation, Vector2Int target)
     {
-        SelectedAction.SetTarget(formation, target);
-        OnTargetSelected?.Invoke(SelectedAction);
-        return true;
+        bool validTarget = SelectedAction.SetTarget(formation, target);
+        if (validTarget)
+            OnTargetSelected?.Invoke(SelectedAction);
+        return validTarget;
     }
 
     /// <summary>
