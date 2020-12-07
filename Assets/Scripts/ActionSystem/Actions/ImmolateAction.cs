@@ -7,16 +7,22 @@ public class ImmolateAction : BattleAction
     /// </summary>
     private const int AREA = 1;
 
-    public override ActionTag Tags { get { return ActionTag.Damage | ActionTag.AoE; } }
-    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy; } }
-    public override TargetableFormation TargetableFormation { get { return TargetableFormation.Other; } }
-
     public ImmolateAction()
         : base()
     {
+        // Misc information about the ability
+        Tags = ActionTag.Damage;
+
+        // Knowing what we can target
+        targetableFormation = TargetableFormation.Other;
         targetableStrategy = new LinearExposedCells(this);
+        targetRestrictions = new List<TargetableCellRestriction>()
+        {
+            new CellContentRestriction(this, TargetableCellContent.Enemy)
+        };
         targetedStrategy = new TargetedArea(this, AREA);
 
+        // Knowing what we do.
         actionSequence = new List<ActionNode>()
         {
             new IsHitNode(this),

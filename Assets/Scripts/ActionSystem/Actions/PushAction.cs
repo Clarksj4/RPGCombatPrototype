@@ -2,22 +2,28 @@
 
 public class PushAction : BattleAction
 {
-    /// <summary>
-    /// The range of this push action.
-    /// </summary>
-    private const int RANGE = 1;
-
-    public override int Range { get { return RANGE; } }
-    public override ActionTag Tags { get { return ActionTag.Movement | ActionTag.Forced; } }
-    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Ally | TargetableCellContent.Enemy; } }
+    public override int Range { get { return 1; } }
 
     public PushAction()
+        : base()
     {
+        Tags = ActionTag.Movement | ActionTag.Forced;
+
+        // Knowing what we can target
+        targetableFormation = TargetableFormation.Self;
+        targetableStrategy = new AnyCells(this);
+        targetRestrictions = new List<TargetableCellRestriction>()
+        {
+            new RangeRestriction(this),
+            new EmptyAdjacentRestriction(this, RelativeDirection.Away),
+            new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)
+        };
+        targetedStrategy = new TargetedPoint(this);
+
+        // Knowing what we do.
         actionSequence = new List<ActionNode>()
         {
             new PushNode(this, Range, RelativeDirection.Away)
         };
-
-        targetRestrictions.Add(new EmptyAdjacentRestriction(this, RelativeDirection.Away));
     }
 }

@@ -9,10 +9,10 @@ using UnityEngine;
 /// </summary>
 public abstract class BattleAction
 {
-    /// <summary>
-    /// Gets the range of this action.
-    /// </summary>
-    public virtual int Range { get { return -1; } }
+    //
+    // Setting up current target
+    //
+
     /// <summary>
     /// Gets the actor who will perform this action.
     /// </summary>
@@ -33,48 +33,50 @@ public abstract class BattleAction
     /// Gets the coordinate that this action originates from.
     /// </summary>
     public Vector2Int OriginPosition { get; protected set; }
-    /// <summary>
-    /// Gest a collection of informative tags about this action.
-    /// </summary>
-    public abstract ActionTag Tags { get; }
-    /// <summary>
-    /// Gets the applicable targets for this ability.
-    /// </summary>
-    public abstract TargetableCellContent TargetableCellContent { get; }
+
+    //
+    // Target Validation.
+    //
+
     /// <summary>
     /// Gets whether this action can target a formation other than
     /// the one the actor is currently on.
     /// </summary>
-    public virtual TargetableFormation TargetableFormation { get { return TargetableFormation.Self; } }
+    protected TargetableFormation targetableFormation = TargetableFormation.None;
     /// <summary>
     /// Gets the strategy for selecting which cells are targetable.
     /// </summary>
-    protected TargetableStrategy targetableStrategy;
+    protected TargetableStrategy targetableStrategy = null;
     /// <summary>
     /// Gets the collection of restrictions on cells that can be targeted.
     /// </summary>
-    protected List<TargetableCellRestriction> targetRestrictions;
+    protected List<TargetableCellRestriction> targetRestrictions = null;
     /// <summary>
     /// Gets the strategy for selecting which cells are affected based
     /// upon a targeted cell.
     /// </summary>
-    protected TargetedStrategy targetedStrategy;
+    protected TargetedStrategy targetedStrategy = null;
     /// <summary>
     /// The sequence of things this battle action with do.
     /// </summary>
-    protected List<ActionNode> actionSequence;
+    protected List<ActionNode> actionSequence = null;
 
-    public BattleAction()
-    {
-        // Default strategies
-        targetableStrategy = new AnyCells(this);
-        targetedStrategy = new TargetedPoint(this);
-        targetRestrictions = new List<TargetableCellRestriction>()
-        {
-            new RangeRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent)
-        };
-    }
+    //
+    // Action params
+    //
+
+    /// <summary>
+    /// Gets the range of this action.
+    /// </summary>
+    public virtual int Range { get { return -1; } }
+    /// <summary>
+    /// Gest a collection of informative tags about this action.
+    /// </summary>
+    public ActionTag Tags { get; protected set; } = ActionTag.None;
+
+    //
+    // Methods
+    //
 
     /// <summary>
     /// Sets the actor who will perform this action. Returns
@@ -206,8 +208,8 @@ public abstract class BattleAction
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
-        if (TargetableFormation == TargetableFormation.All) return true;
-        if (TargetableFormation == TargetableFormation.None) return false;
+        if (targetableFormation == TargetableFormation.All) return true;
+        if (targetableFormation == TargetableFormation.None) return false;
 
         // Assume the formation is invalid and then include
         // cases as it meets their requirements
@@ -215,12 +217,12 @@ public abstract class BattleAction
         bool isSelfFormation = formation == Actor.Formation;
 
         // Can target own formation.
-        if (TargetableFormation.HasFlag(TargetableFormation.Self) &&
+        if (targetableFormation.HasFlag(TargetableFormation.Self) &&
             isSelfFormation)
             valid = true;
 
         // Can target other formations.
-        else if (TargetableFormation.HasFlag(TargetableFormation.Other) &&
+        else if (targetableFormation.HasFlag(TargetableFormation.Other) &&
             !isSelfFormation)
             valid = true;
 

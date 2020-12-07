@@ -703,7 +703,7 @@ MonoBehaviour:
   reach: 1
   actions:
   - Move
-  - Attack
+  - Hook
   - Push
   - Firebolt
   - Immolate

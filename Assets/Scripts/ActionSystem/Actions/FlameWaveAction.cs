@@ -2,15 +2,22 @@
 
 public class FlameWaveAction : BattleAction
 {
-    public override ActionTag Tags { get { return ActionTag.Damage | ActionTag.AoE; } }
-    public override TargetableFormation TargetableFormation { get { return TargetableFormation.Other; } }
-    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Empty | TargetableCellContent.Enemy; } }
-
     public FlameWaveAction()
     {
+        // Misc information about the ability
+        Tags = ActionTag.Damage;
+
+        // Knowing what we can target
+        targetableFormation = TargetableFormation.Other;
         targetableStrategy = new RankCells(this, 0);
+        targetRestrictions = new List<TargetableCellRestriction>()
+        {
+            new EmptyAdjacentRestriction(this, RelativeDirection.Away),
+            new CellContentRestriction(this, TargetableCellContent.Empty | TargetableCellContent.Enemy)
+        };
         targetedStrategy = new TargetedRank(this);
 
+        // Knowing what we do.
         actionSequence = new List<ActionNode>()
         {
             new DoDamageNode(this)

@@ -1,9 +1,28 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections.Generic;
 
 public class HookAction : BattleAction
 {
-    public override ActionTag Tags { get { return ActionTag.Damage; } }
+    public HookAction()
+    : base()
+    {
+        Tags = ActionTag.Movement | ActionTag.Forced | ActionTag.Damage;
 
-    public override TargetableCellContent TargetableCellContent { get { return TargetableCellContent.Enemy; } }
+        // Knowing what we can target
+        targetableFormation = TargetableFormation.Self | TargetableFormation.Other;
+        targetableStrategy = new LinearCells(this);
+        targetRestrictions = new List<TargetableCellRestriction>()
+        {
+            new EmptyAdjacentRestriction(this, RelativeDirection.Towards),
+            new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)
+        };
+        targetedStrategy = new TargetedPoint(this);
+
+        // Knowing what we do.
+        actionSequence = new List<ActionNode>()
+        {
+            new IsHitNode(this),
+            new PushNode(this, 1, RelativeDirection.Towards),
+            new DoDamageNode(this)
+        };
+    }
 }
