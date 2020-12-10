@@ -41,6 +41,11 @@ public struct FormationVector
         return new FormationVector(a.Rank * factor, a.File * factor);
     }
 
+    public static Vector2 operator *(FormationVector a, Vector2 factor)
+    {
+        return new Vector2(a.Rank * factor.x, a.File * factor.y);
+    }
+
     public static FormationVector operator /(FormationVector a, FormationVector b)
     {
         return new FormationVector(a.Rank / b.Rank, a.File / b.File);

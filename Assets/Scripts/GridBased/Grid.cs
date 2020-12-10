@@ -5,14 +5,7 @@ using UnityEngine;
 [Serializable]
 public class Grid : MonoBehaviour
 {
-    /// <summary>
-    /// Gets the cell on the flank of the font of this grid. 
-    /// </summary>
-    public Vector2Int FrontFlankCoordinate { get { return frontFlankCoordinate; } }
-    /// <summary>
-    /// Gets the direction to the front rank of the grid.
-    /// </summary>
-    public Vector2Int Forward { get { return forward; } }
+    public FormationVector Forward { get { return new FormationVector((int)-transform.up.y, (int)transform.up.x); } }
     /// <summary>
     /// Gets the number of cells on each axis of this grid.
     /// </summary>
@@ -32,23 +25,27 @@ public class Grid : MonoBehaviour
     /// </summary>
     public Bounds Bounds { get { return new Bounds(WorldPosition, nCells * CellSize); } }
 
-    // TODO: maybe use FRONT instead of FORWARD?
-    // TODO: OR maybe it DID make more sense that the FRONT was determined relative to the position of ANOTHER formation
-    [SerializeField][Tooltip("A cell on the flank of the font of this grid.")]
-    private Vector2Int frontFlankCoordinate;
-    [SerializeField][Tooltip("The direction this grid is facing.")]
-    private Vector2Int forward;
     [SerializeField][Tooltip("The number of cells on each axis of this grid.")]
     private Vector2Int nCells;
     [SerializeField][Tooltip("The size of each cell on the grid.")]
     private Vector2 cellSize;
 
+    private Vector2 GetUnrotatedOrigin()
+    {
+        return WorldPosition + ((Vector2)Bounds.extents - (CellSize * 0.5f));
+    }
+
+    public Vector2 GetOriginPosition()
+    {
+        return transform.rotation * GetUnrotatedOrigin();
+    }
+
     /// <summary>
     /// Gets the world position of the centre of the cell at the given position.
     /// </summary>
-    public Vector2 CoordinateToWorldPosition(Vector2Int coordinate)
+    public Vector2 RankAndFileToWorldPosition(FormationVector rankAndFile)
     {
-        return (Vector2)Bounds.min + (coordinate * CellSize) + (CellSize * 0.5f);
+        return GetOriginPosition() + (rankAndFile * CellSize);
     }
 
     /// <summary>
