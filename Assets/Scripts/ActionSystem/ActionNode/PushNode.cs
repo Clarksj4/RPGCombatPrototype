@@ -22,8 +22,11 @@ public class PushNode : ActionNode
         // Get target pawn
         Pawn target = action.TargetFormation.GetPawnAtCoordinate(position);
 
+        // Get closest cell on target formation to actor.
+        Vector2Int sameFormationOrigin = formation.GetClosestCoordinate(action.Actor.WorldPosition);
+
         // Get final positions
-        Vector2Int destinationDirection = position.GetRelativeDirections(action.Actor.GridPosition, direction).Single();
+        Vector2Int destinationDirection = position.GetRelativeDirections(sameFormationOrigin, direction).Single();
         Vector2Int destinationCoordinate = position + (destinationDirection * distance);
         Vector3 destinationWorldPosition = formation.CoordinateToWorldPosition(destinationCoordinate);
 

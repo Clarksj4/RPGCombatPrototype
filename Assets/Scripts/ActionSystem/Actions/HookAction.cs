@@ -8,7 +8,7 @@ public class HookAction : BattleAction
         Tags = ActionTag.Movement | ActionTag.Forced | ActionTag.Damage;
 
         // Knowing what we can target
-        targetableFormation = TargetableFormation.Self | TargetableFormation.Other;
+        targetableFormation = TargetableFormation.Other;
         targetableStrategy = new LinearCells(this);
         targetRestrictions = new List<TargetableCellRestriction>()
         {

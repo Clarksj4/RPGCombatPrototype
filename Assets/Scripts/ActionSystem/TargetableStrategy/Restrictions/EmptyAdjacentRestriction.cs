@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 public class EmptyAdjacentRestriction : TargetableCellRestriction
 {
@@ -25,13 +26,43 @@ public class EmptyAdjacentRestriction : TargetableCellRestriction
 
     private bool AllAdjacentCellsEmpty(Formation formation, Vector2Int coordinate)
     {
-        return coordinate.GetRelativeDirections(action.Actor.GridPosition, directions)
-                         .All(c => { return formation.GetPawnAtCoordinate(c) == null; });
+        // Get closest cell on target formation to actor.
+        Vector2Int sameFormationOrigin = formation.GetClosestCoordinate(action.Actor.WorldPosition);
+        IEnumerable<Vector2Int> relativeDirections = coordinate.GetRelativeDirections(sameFormationOrigin, directions);
+
+        foreach (Vector2Int relativeDirection in relativeDirections)
+        {
+            Vector2Int adjacentPosition = coordinate + relativeDirection;
+
+            bool containsCoordinate = formation.ContainsCoordinate(adjacentPosition);
+            bool empty = formation.GetPawnAtCoordinate(adjacentPosition) == null;
+
+            if (!containsCoordinate ||
+                !empty)
+                return false;
+        }
+
+        return true;
     }
 
     private bool AnyAdjacentCellsEmpty(Formation formation, Vector2Int coordinate)
     {
-        return coordinate.GetRelativeDirections(action.Actor.GridPosition, directions)
-                         .Any(c => { return formation.GetPawnAtCoordinate(c) == null; });
+        // Get closest cell on target formation to actor.
+        Vector2Int sameFormationOrigin = formation.GetClosestCoordinate(action.Actor.WorldPosition);
+        IEnumerable<Vector2Int> relativeDirections = coordinate.GetRelativeDirections(sameFormationOrigin, directions);
+
+        foreach (Vector2Int relativeDirection in relativeDirections)
+        {
+            Vector2Int adjacentPosition = coordinate + relativeDirection;
+
+            bool containsCoordinate = formation.ContainsCoordinate(adjacentPosition);
+            bool empty = formation.GetPawnAtCoordinate(adjacentPosition) == null;
+
+            if (containsCoordinate &&
+                empty)
+                return true;
+        }
+
+        return false;
     }
 }

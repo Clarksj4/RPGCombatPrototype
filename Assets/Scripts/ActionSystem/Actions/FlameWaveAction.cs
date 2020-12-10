@@ -10,11 +10,6 @@ public class FlameWaveAction : BattleAction
         // Knowing what we can target
         targetableFormation = TargetableFormation.Other;
         targetableStrategy = new RankCells(this, 0);
-        targetRestrictions = new List<TargetableCellRestriction>()
-        {
-            new EmptyAdjacentRestriction(this, RelativeDirection.Away),
-            new CellContentRestriction(this, TargetableCellContent.Empty | TargetableCellContent.Enemy)
-        };
         targetedStrategy = new TargetedRank(this);
 
         // Knowing what we do.
