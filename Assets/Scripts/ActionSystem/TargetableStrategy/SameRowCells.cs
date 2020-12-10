@@ -13,9 +13,8 @@ public class SameRowCells : TargetableStrategy
         foreach(Formation formation in action.GetTargetableFormations())
         {
             // Get closest coordinate in front rank.
-            Vector2Int closestCoordinate = formation.GetFrontRankCoordinates()
-                                                    .First(c => c.x == action.Actor.GridPosition.x ||
-                                                                c.y == action.Actor.GridPosition.y);
+            Vector2Int closestCoordinate = formation.GetClosestCoordinate(action.Actor.WorldPosition);
+
             // Get direction AWAY from the closest coordinate in fron rank.
             Vector2Int directionCoordinate = Vector2Int.Scale(-formation.Forward, formation.NCells);
 
