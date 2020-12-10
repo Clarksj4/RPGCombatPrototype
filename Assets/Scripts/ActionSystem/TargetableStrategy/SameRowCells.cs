@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class LinearExposedCells : TargetableStrategy
+public class SameRowCells : TargetableStrategy
 {
-    public LinearExposedCells(BattleAction action)
+    public SameRowCells(BattleAction action)
         : base(action) { /* Nothing! */ }
 
     public override IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
     {
         // Need to consider all possible formations
-        foreach (Formation formation in action.GetTargetableFormations())
+        foreach(Formation formation in action.GetTargetableFormations())
         {
             // Get closest coordinate in front rank.
             Vector2Int closestCoordinate = formation.GetFrontRankCoordinates()
@@ -22,14 +22,7 @@ public class LinearExposedCells : TargetableStrategy
             // Get line of cells starting at front rank to the back of the grid.
             IEnumerable<Vector2Int> line = formation.GetCoordinatesInLine(closestCoordinate, directionCoordinate);
             foreach (Vector2Int coordinate in line)
-            {
                 yield return (formation, coordinate);
-
-                // Only iterate until encountering the first occupied cell (inclusive)
-                bool occupied = formation.GetPawnAtCoordinate(coordinate) != null;
-                if (occupied)
-                    break;
-            }
         }
     }
 }

@@ -15,7 +15,7 @@ public class ImmolateAction : BattleAction
 
         // Knowing what we can target
         targetableFormation = TargetableFormation.Other;
-        targetableStrategy = new LinearExposedCells(this);
+        targetableStrategy = new SameRowExposedCells(this);
         targetRestrictions = new List<TargetableCellRestriction>()
         {
             new CellContentRestriction(this, TargetableCellContent.Enemy)
