@@ -28,10 +28,25 @@ public class FormationRefactor : MonoBehaviour
     /// Half the width and height of this formation in world space. 
     /// </summary>
     public Vector2 Extents { get { return Size / 2f; } }
+    /// <summary>
+    /// The local position of the top left corner of this grid.
+    /// </summary>
     private Vector3 LocalOriginCorner { get { return new Vector3(-Extents.x, Extents.y); } } 
+    /// <summary>
+    /// The local position of the top left cell centre.
+    /// </summary>
     private Vector3 LocalOriginCellPosition { get { return LocalOriginCorner + HalfCell; } }
+    /// <summary>
+    /// The size and direction of half a cell.
+    /// </summary>
     private Vector3 HalfCell { get { return new Vector3(CellSize.x * 0.5f, -CellSize.y * 0.5f); } }
+    /// <summary>
+    /// The direction that files increase.
+    /// </summary>
     private Vector2Int FileIncrement { get { return Vector2Int.right; } }
+    /// <summary>
+    /// The direction the ranks increase.
+    /// </summary>
     private Vector2Int RankIncrement { get { return Vector2Int.down; } }
     
     [SerializeField]
