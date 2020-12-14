@@ -4,7 +4,7 @@ using System.Collections;
 public struct FormationVector
 {
     public static FormationVector Origin = new FormationVector(0, 0);
-    public static FormationVector Forward = new FormationVector(-1, 0);
+    public static FormationVector Forward = new FormationVector(1, 0);
     public static FormationVector Back = -Forward;
 
     public int Rank;

@@ -1,18 +1,11 @@
-﻿using System;
+﻿using UnityEngine;
+using UnityEditor;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-[Serializable]
-public class Grid : MonoBehaviour
+public class FormationRefactor : MonoBehaviour
 {
-    /// <summary>
-    /// Gets the cell on the flank of the font of this grid. 
-    /// </summary>
-    public Vector2Int FrontFlankCoordinate { get { return frontFlankCoordinate; } }
-    /// <summary>
-    /// Gets the direction to the front rank of the grid.
-    /// </summary>
-    public Vector2Int Forward { get { return forward; } }
     /// <summary>
     /// Gets the number of cells on each axis of this grid.
     /// </summary>
@@ -26,46 +19,58 @@ public class Grid : MonoBehaviour
     /// Gets the world position of this grid (same as
     /// transform.position).
     /// </summary>
-    public Vector2 WorldPosition { get { return transform.position; } }
+    public Vector3 WorldPosition { get { return transform.position; } }
     /// <summary>
-    /// Gets the world space bounds of this grid.
+    /// The width and height of this formation in world space.
     /// </summary>
-    public Bounds Bounds { get { return new Bounds(WorldPosition, nCells * CellSize); } }
-
-    // TODO: maybe use FRONT instead of FORWARD?
-    // TODO: OR maybe it DID make more sense that the FRONT was determined relative to the position of ANOTHER formation
-    [SerializeField][Tooltip("A cell on the flank of the font of this grid.")]
-    private Vector2Int frontFlankCoordinate;
-    [SerializeField][Tooltip("The direction this grid is facing.")]
-    private Vector2Int forward;
-    [SerializeField][Tooltip("The number of cells on each axis of this grid.")]
+    public Vector2 Size { get { return CellSize * NCells; } }
+    /// <summary>
+    /// Half the width and height of this formation in world space. 
+    /// </summary>
+    public Vector2 Extents { get { return Size / 2f; } }
+    private Vector3 LocalOriginCorner { get { return new Vector3(-Extents.x, Extents.y); } } 
+    private Vector3 LocalOriginCellPosition { get { return LocalOriginCorner + HalfCell; } }
+    private Vector3 HalfCell { get { return new Vector3(CellSize.x * 0.5f, -CellSize.y * 0.5f); } }
+    private Vector2Int FileIncrement { get { return Vector2Int.right; } }
+    private Vector2Int RankIncrement { get { return Vector2Int.down; } }
+    
+    [SerializeField]
+    [Tooltip("The number of cells on each axis of this grid.")]
     private Vector2Int nCells;
-    [SerializeField][Tooltip("The size of each cell on the grid.")]
+    [SerializeField]
+    [Tooltip("The size of each cell on the grid.")]
     private Vector2 cellSize;
+    [SerializeField]
+    [Tooltip("The collider that determines the edge of this formation.")]
+    private new BoxCollider2D collider;
 
     /// <summary>
     /// Gets the world position of the centre of the cell at the given position.
     /// </summary>
-    public Vector2 CoordinateToWorldPosition(Vector2Int coordinate)
+    public Vector3 CoordinateToWorldPosition(Vector2Int coordinate)
     {
-        return (Vector2)Bounds.min + (coordinate * CellSize) + (CellSize * 0.5f);
+        Vector3 scale = new Vector3(coordinate.x * CellSize.x, -coordinate.y * CellSize.y);
+        Vector3 localPosition = LocalOriginCellPosition + scale;
+        return transform.TransformPoint(localPosition);
     }
 
     /// <summary>
     /// Gets the coordinate of the cell that contains the given world position.
     /// Returns false if there is no cell that contains the given position.
     /// </summary>
-    public bool WorldPositionToCoordinate(Vector2 worldPosition, out Vector2Int coordinate)
+    public bool WorldPositionToCoordinate(Vector3 worldPosition, out Vector2Int coordinate)
     {
+        Vector3 localPosition = transform.InverseTransformPoint(worldPosition);
+
         // Distance from min to position
-        Vector2 delta = worldPosition - (Vector2)Bounds.min;
+        Vector3 delta = localPosition - LocalOriginCorner;
 
         // Continuous coordinate (not necessarily on the grid)
-        Vector2 unboundedCoordinate = delta / CellSize;
+        Vector3 unboundedCoordinate = delta / CellSize;
 
         // Round it - we don't care about the continuous part - just the
         // coordinate part.
-        Vector2Int roundedUnboundedCoordinate = new Vector2Int((int)unboundedCoordinate.x, (int)unboundedCoordinate.y);
+        Vector2Int roundedUnboundedCoordinate = new Vector2Int((int)unboundedCoordinate.x, -(int)unboundedCoordinate.y);
 
         coordinate = roundedUnboundedCoordinate;
 
@@ -135,7 +140,7 @@ public class Grid : MonoBehaviour
         Vector2Int delta = to - from;
         return Mathf.Abs(delta.x) + Mathf.Abs(delta.y);
     }
-    
+
     /// <summary>
     /// Gets the coordinates of the cells in the front rank
     /// of this grid.
@@ -148,89 +153,33 @@ public class Grid : MonoBehaviour
     /// <summary>
     /// Gets all coordinates in the given rank on this grid.
     /// </summary>
-    public IEnumerable <Vector2Int> GetRankCoordinates(int rank)
+    public IEnumerable<Vector2Int> GetRankCoordinates(int rank)
     {
-        // First coordinate in rank
-        Vector2Int rankFlank = FrontFlankCoordinate + (-Forward * rank);
-
-        // The direction to step when counting coordinates in rank.
-        Vector2Int step = Forward.Perpendicular();
-
         // How many cells in rank.
-        int rankWidth = GetRankWidth();
+        int rankWidth = NCells.x;
 
         for (int i = 0; i < rankWidth; i++)
         {
-            Vector2Int coordinate = rankFlank + (step * i);
+            Vector2Int coordinate = FileIncrement * i;
+            coordinate.y = rank;
             yield return coordinate;
         }
     }
 
-    public IEnumerable<Vector2Int> GetRowCoordinates(int row)
+    /// <summary>
+    /// Gets all the coordinates in the given file.
+    /// </summary>
+    public IEnumerable<Vector2Int> GetFileCoordinates(int file)
     {
-        // First coordinate in row
-        Vector2Int rowFlank = FrontFlankCoordinate + (-Forward.Perpendicular() * row);
-
-        // The direction to step when counting coordinates in row.
-        Vector2Int step = -Forward;
-
         // How many cells in rank.
-        int rowDepth = GetRowDepth();
+        int fileDepth = NCells.y;
 
-        for (int i = 0; i < rowDepth; i++)
+        for (int i = 0; i < fileDepth; i++)
         {
-            Vector2Int coordinate = rowFlank + (step * i);
+            Vector2Int coordinate = RankIncrement * i;
+            coordinate.x = file;
             yield return coordinate;
         }
-    }
-
-    public int GetRow(Vector2Int coordinate)
-    {
-        Vector2Int deltaVector = FrontFlankCoordinate - coordinate;
-        int deltaRow = Vector2Int.Scale(deltaVector, Forward.Perpendicular()).MaxAxisMagnitude();
-        int row = Mathf.Abs(deltaRow);
-        return row;
-    }
-
-    /// <summary>
-    /// Gets the rank of the given coordinate.
-    /// </summary>
-    public int GetRank(Vector2Int coordinate)
-    {
-        Vector2Int deltaVector = FrontFlankCoordinate - coordinate;
-        int deltaRank = Vector2Int.Scale(deltaVector, Forward).MaxAxisMagnitude();
-        int rank = Mathf.Abs(deltaRank);
-        return rank;
-    }
-
-    /// <summary>
-    /// Gets the number of ranks deep the theis grid runs.
-    /// </summary>
-    public int GetNRanks()
-    {
-        Vector2Int direction = Vector2Int.Scale(Forward, NCells);
-        return Mathf.Abs(direction.MaxAxisMagnitude());
-    }
-
-    public int GetRowDepth()
-    {
-        Vector2Int step = Forward;
-
-        Vector2Int fullStep = Vector2Int.Scale(step, NCells);
-        int rowDepth = Mathf.Abs(fullStep.MaxAxisMagnitude());
-        return rowDepth;
-    }
-
-    /// <summary>
-    /// Gets the width of ranks on this grid.
-    /// </summary>
-    public int GetRankWidth()
-    {
-        Vector2Int step = Forward.Perpendicular();
-
-        Vector2Int fullStep = Vector2Int.Scale(step, NCells);
-        int rankWidth = Mathf.Abs(fullStep.MaxAxisMagnitude());
-        return rankWidth;
     }
 
     /// <summary>
@@ -239,7 +188,7 @@ public class Grid : MonoBehaviour
     /// </summary>
     public Vector2Int GetClosestCoordinate(Vector2 worldPosition)
     {
-        Vector2 closestPoint = Bounds.ClosestPoint(worldPosition);
+        Vector2 closestPoint = collider.ClosestPoint(worldPosition);
         bool onGrid = WorldPositionToCoordinate(closestPoint, out Vector2Int closestCoordinate);
         return closestCoordinate;
     }
