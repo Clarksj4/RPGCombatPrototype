@@ -261,6 +261,32 @@ public class Grid : MonoBehaviour
         }
     }
 
+    ///// <summary>
+    ///// Returns all the coordinates on this grid in a line
+    ///// beginning at origin, and proceeding in the given
+    ///// direction with the given magnitude.
+    ///// </summary>
+    //public IEnumerable<Vector2Int> GetLinearCoordinatesAwayFrom(Vector3 origin)
+    //{
+    //    Vector3 onBounds = collider.ClosestPoint(origin);
+    //    Vector3 direction = origin - onBounds;
+
+    //    Vector3 overshoot = onBounds + (direction * Size.magnitude);
+    //    Vector3 onBoundsEndCell = collider.ClosestPoint(overshoot);
+
+    //    WorldPositionToCoordinate(onBounds, out var startCell);
+    //    WorldPositionToCoordinate(onBoundsEndCell, out var endCell);
+
+    //    Vector2Int line = endCell - startCell;
+    //    Vector2Int step = line.Reduce();
+    //    for (int i = 0; i <= line.MaxAxisMagnitude(); i++)
+    //    {
+    //        Vector2Int coordinate = startCell + (step * i);
+    //        if (ContainsCoordinate(coordinate))
+    //            yield return coordinate;
+    //    }
+    //}
+
     /// <summary>
     /// Gets all the coordinates on this grid.
     /// </summary>

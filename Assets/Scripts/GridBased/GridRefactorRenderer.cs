@@ -2,8 +2,8 @@
 using System.Collections;
 using UnityEditor;
 
-[RequireComponent(typeof(FormationRefactor))]
-public class FormationRefactorRenderer : MonoBehaviour
+[RequireComponent(typeof(GridRefactor))]
+public class GridRefactorRenderer : MonoBehaviour
 {
     private Vector3 UnrotatedCorner1 { get { return new Vector3(-formation.Extents.x, formation.Extents.y); } }
     private Vector3 UnrotatedCorner2 { get { return new Vector3(-formation.Extents.x, -formation.Extents.y); } }
@@ -15,7 +15,7 @@ public class FormationRefactorRenderer : MonoBehaviour
     private Vector3 Corner4 { get { return transform.TransformPoint(UnrotatedCorner4); } }
 
     [SerializeField]
-    private FormationRefactor formation;
+    private GridRefactor formation;
 
     private void OnDrawGizmosSelected()
     {
