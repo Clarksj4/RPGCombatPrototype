@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
-[RequireComponent(typeof(GridRefactor))]
+[RequireComponent(typeof(MonoGrid))]
 public class GridRefactorRenderer : MonoBehaviour
 {
     private Vector3 UnrotatedCorner1 { get { return new Vector3(-formation.Extents.x, formation.Extents.y); } }
@@ -15,7 +15,7 @@ public class GridRefactorRenderer : MonoBehaviour
     private Vector3 Corner4 { get { return transform.TransformPoint(UnrotatedCorner4); } }
 
     [SerializeField]
-    private GridRefactor formation;
+    private MonoGrid formation;
 
     private void OnDrawGizmosSelected()
     {

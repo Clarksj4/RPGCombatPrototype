@@ -1,25 +1,21 @@
 ﻿using UnityEngine;
-using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
-using System;
 
-public class GridRefactor : MonoBehaviour
+public class GridRefactor
 {
+    // TODO: ONE grid per game - impassable / void cells connect the two parts of the grid
+    // TODO: ONE GRID - MULTIPLE FORMATIONS!!! Each formation is like a 'home area' for each team.
+
     /// <summary>
-    /// Gets the number of cells on each axis of this grid.
+    /// Gets or sets the number of cells in each column and row
+    /// on this grid.
     /// </summary>
-    public Vector2Int NCells { get { return nCells; } }
+    public Vector2Int NCells { get; set; }
     /// <summary>
-    /// Gets the size of the cells on this grid - adjusted
-    /// by the scale of this components transform.
+    /// Gets or sets the width and height of each cell on this
+    /// grid.
     /// </summary>
-    public Vector2 CellSize { get { return Vector2.Scale(cellSize, transform.localScale); } }
-    /// <summary>
-    /// Gets the world position of this grid (same as
-    /// transform.position).
-    /// </summary>
-    public Vector3 WorldPosition { get { return transform.position; } }
+    public Vector2 CellSize { get; set; }
     /// <summary>
     /// The width and height of this formation in world space.
     /// </summary>
@@ -28,6 +24,7 @@ public class GridRefactor : MonoBehaviour
     /// Half the width and height of this formation in world space. 
     /// </summary>
     public Vector2 Extents { get { return Size / 2f; } }
+
     /// <summary>
     /// The local position of the top left corner of this grid.
     /// </summary>
@@ -41,31 +38,30 @@ public class GridRefactor : MonoBehaviour
     /// </summary>
     private Vector3 HalfCell { get { return new Vector3(CellSize.x * 0.5f, CellSize.y * 0.5f); } }
 
-    [SerializeField]
-    [Tooltip("The number of cells on each axis of this grid.")]
-    private Vector2Int nCells;
-    [SerializeField]
-    [Tooltip("The size of each cell on the grid.")]
-    private Vector2 cellSize;
+    public GridRefactor() { /* Nothing! */ }
+
+    public GridRefactor(Vector2Int nCells, Vector2 cellSize)
+    {
+        NCells = nCells;
+        CellSize = cellSize;
+    }
 
     /// <summary>
     /// Gets the world position of the centre of the cell at the given position.
     /// </summary>
-    public Vector3 CoordinateToWorldPosition(Vector2Int coordinate)
+    public Vector3 CoordinateToPosition(Vector2Int coordinate)
     {
         Vector3 scale = new Vector3(coordinate.x * CellSize.x, coordinate.y * CellSize.y);
         Vector3 localPosition = LocalOriginCellPosition + scale;
-        return transform.TransformPoint(localPosition);
+        return localPosition;
     }
 
     /// <summary>
     /// Gets the coordinate of the cell that contains the given world position.
     /// Returns false if there is no cell that contains the given position.
     /// </summary>
-    public bool WorldPositionToCoordinate(Vector3 worldPosition, out Vector2Int coordinate)
+    public bool PositionToCoordinate(Vector3 localPosition, out Vector2Int coordinate)
     {
-        Vector3 localPosition = transform.InverseTransformPoint(worldPosition);
-
         // Distance from min to position
         Vector3 delta = localPosition - LocalOriginCorner;
 
