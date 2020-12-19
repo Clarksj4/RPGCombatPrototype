@@ -6,6 +6,7 @@ public class Cell : MonoBehaviour
     public MonoGrid Parent { get { return GetComponentInParent<MonoGrid>(); } }
     public IEnumerable<IGridBased> Contents { get { return GetComponentsInChildren<IGridBased>(); } }
     public Vector2Int Coordinate { get { return coordinate; } }
+    public Vector3 Extents { get { return Parent.CellSize / 2; } }
 
     public bool Passable;
     [SerializeField][HideInInspector]
@@ -13,8 +14,15 @@ public class Cell : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // TODO: draw lines to corners so rotation is taken into account
-        Gizmos.DrawWireCube(transform.position, Parent.LossyCellSize);
+        Vector3 corner1 = transform.TransformPoint(new Vector3(-Extents.x, -Extents.y));
+        Vector3 corner2 = transform.TransformPoint(new Vector3(-Extents.x, Extents.y));
+        Vector3 corner3 = transform.TransformPoint(new Vector3(Extents.x, Extents.y));
+        Vector3 corner4 = transform.TransformPoint(new Vector3(Extents.x, -Extents.y));
+
+        Gizmos.DrawLine(corner1, corner2);
+        Gizmos.DrawLine(corner2, corner3);
+        Gizmos.DrawLine(corner3, corner4);
+        Gizmos.DrawLine(corner4, corner1);
     }
 
     public void Place(MonoGrid parent, Vector2Int coordinate)
@@ -47,7 +55,7 @@ public class Cell : MonoBehaviour
         UpdatePosition();
     }
 
-    private void UpdatePosition()
+    public void UpdatePosition()
     {
         transform.localPosition = -Parent.Extents + (Parent.CellSize * Coordinate) + (Parent.CellSize / 2);
     }

@@ -1,17 +1,13 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public class MonoGrid : MonoBehaviour
 {
     /// <summary>
     /// Gets the number of cells in each column and row
     /// on this grid.
     /// </summary>
-    public Vector2Int NCells { get { return nCells; } }
-    /// <summary>
-    /// Gets the width and height of each cell on this
-    /// grid.
-    /// </summary>
-    public Vector2 LossyCellSize { get { return cellSize * transform.lossyScale; } }
+    public Vector2Int NCells { get { return nCells; } } 
     /// <summary>
     /// Gets the width and height of each cell on this
     /// grid unaffected by scale.
@@ -20,7 +16,6 @@ public class MonoGrid : MonoBehaviour
     /// <summary>
     /// Half the width and height of this formation in world space. 
     /// </summary>
-
     public Vector2 Extents { get { return grid.Extents; } }
 
     [SerializeField]
@@ -35,6 +30,10 @@ public class MonoGrid : MonoBehaviour
 
     private void OnValidate()
     {
+        // Update scaled cell size of grid - it's not a
+        // monobehaviour so it doesn't know about scale
+        grid.CellSize = cellSize * transform.lossyScale;
+
         // Sanity check - can't have less than 0 cells
         if (nCells.x < 0) nCells.x = 0;
         if (nCells.y < 0) nCells.y = 0;
@@ -45,10 +44,12 @@ public class MonoGrid : MonoBehaviour
             grid.NCells = nCells;
             cells.ResizeArray(nCells.x, nCells.y);
         }
-        
-        // Update scaled cell size of grid - it's not a
-        // monobehaviour so it doesn't know about scale
-        grid.CellSize = cellSize * transform.lossyScale;
+
+        else
+        {
+            foreach (Cell cell in cells)
+                cell.UpdatePosition();
+        }
     }
 
     /// <summary>
