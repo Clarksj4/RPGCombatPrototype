@@ -25,6 +25,14 @@ public class Cell : MonoBehaviour
         Gizmos.DrawLine(corner4, corner1);
     }
 
+    public IEnumerable<Cell> GetNeighbours()
+    {
+        yield return Parent.GetCell(coordinate + Vector2Int.up);
+        yield return Parent.GetCell(coordinate + Vector2Int.right);
+        yield return Parent.GetCell(coordinate + Vector2Int.down);
+        yield return Parent.GetCell(coordinate + Vector2Int.left);
+    }
+
     public void Place(MonoGrid parent, Vector2Int coordinate)
     {
         Place(parent, coordinate.x, coordinate.y);

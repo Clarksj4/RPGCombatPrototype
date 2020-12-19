@@ -39,6 +39,12 @@ public class FormationRefactor : MonoBehaviour
         transform.localPosition = localPosition;
     }
 
+    private IEnumerable<Cell> GetCells()
+    {
+        foreach (Vector2Int coordinate in GetCoordinates())
+            yield return Grid.GetCell(coordinate);
+    }
+
     private IEnumerable<Vector2Int> GetCoordinates()
     {
         for (int x = 0; x < nCells.x; x++)

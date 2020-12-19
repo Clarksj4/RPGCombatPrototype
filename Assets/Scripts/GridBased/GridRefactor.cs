@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 public class GridRefactor
 {
-    // TODO: ONE grid per game - impassable / void cells connect the two parts of the grid
-    // TODO: ONE GRID - MULTIPLE FORMATIONS!!! Each formation is like a 'home area' for each team.
-
     /// <summary>
     /// Gets or sets the number of cells in each column and row
     /// on this grid.
@@ -37,14 +34,6 @@ public class GridRefactor
     /// The size and direction of half a cell.
     /// </summary>
     private Vector3 HalfCell { get { return new Vector3(CellSize.x * 0.5f, CellSize.y * 0.5f); } }
-
-    public GridRefactor() { /* Nothing! */ }
-
-    public GridRefactor(Vector2Int nCells, Vector2 cellSize)
-    {
-        NCells = nCells;
-        CellSize = cellSize;
-    }
 
     /// <summary>
     /// Gets the world position of the centre of the cell at the given position.

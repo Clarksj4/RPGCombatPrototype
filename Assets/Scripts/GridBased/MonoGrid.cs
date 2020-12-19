@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class MonoGrid : MonoBehaviour
@@ -14,7 +15,7 @@ public class MonoGrid : MonoBehaviour
     /// </summary>
     public Vector2 CellSize { get { return cellSize; } }
     /// <summary>
-    /// Half the width and height of this formation in world space. 
+    /// Half the width and height of this grid. 
     /// </summary>
     public Vector2 Extents { get { return grid.Extents; } }
 
@@ -25,11 +26,18 @@ public class MonoGrid : MonoBehaviour
     [Tooltip("The size of each cell on the grid.")]
     private Vector2 cellSize;
 
-    private Cell[,] cells = new Cell[0,0];
+    private Dictionary<Vector2Int, Cell> cellDirectory = new Dictionary<Vector2Int, Cell>();
     private GridRefactor grid = new GridRefactor();
+
+    private void Awake()
+    {
+        foreach (Cell cell in GetComponentsInChildren<Cell>())
+            cellDirectory.Add(cell.Coordinate, cell);
+    }
 
     private void OnValidate()
     {
+        //grid = new GridRefactor();
         // Update scaled cell size of grid - it's not a
         // monobehaviour so it doesn't know about scale
         grid.CellSize = cellSize * transform.lossyScale;
@@ -38,18 +46,15 @@ public class MonoGrid : MonoBehaviour
         if (nCells.x < 0) nCells.x = 0;
         if (nCells.y < 0) nCells.y = 0;
 
-        // Resize array of cells
-        if (nCells != grid.NCells)
-        {
-            grid.NCells = nCells;
-            cells.ResizeArray(nCells.x, nCells.y);
-        }
+        grid.NCells = nCells;
 
-        else
-        {
-            foreach (Cell cell in cells)
-                cell.UpdatePosition();
-        }
+        foreach (Cell cell in GetComponentsInChildren<Cell>())
+            cell.UpdatePosition();
+    }
+
+    public Cell GetCell(Vector2Int coordinate)
+    {
+        return cellDirectory[coordinate];
     }
 
     /// <summary>
@@ -75,7 +80,7 @@ public class MonoGrid : MonoBehaviour
     [ContextMenu("MakeCells")]
     public void MakeCells()
     {
-        cells = new Cell[nCells.x, nCells.y];
+        print(grid.Extents);
         for (int x = 0; x < nCells.x; x++)
         {
             for (int y = 0; y < nCells.y; y++)
@@ -88,6 +93,5 @@ public class MonoGrid : MonoBehaviour
         GameObject gameObject = new GameObject();
         Cell cell = gameObject.AddComponent<Cell>();
         cell.Place(this, x, y);
-        cells[x, y] = cell;
     }
 }
