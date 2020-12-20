@@ -3,12 +3,24 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    /// <summary>
+    /// Gets the grid this cell belongs to.
+    /// </summary>
     public MonoGrid Parent { get { return GetComponentInParent<MonoGrid>(); } }
+    /// <summary>
+    /// Gets the contents of this cell.
+    /// </summary>
     public IEnumerable<IGridBased> Contents { get { return GetComponentsInChildren<IGridBased>(); } }
+    /// <summary>
+    /// Gets the coordinate of this cell.
+    /// </summary>
     public Vector2Int Coordinate { get { return coordinate; } }
+    /// <summary>
+    /// Gets the extents of this cell - equal to half its width and height
+    /// </summary>
     public Vector3 Extents { get { return Parent.CellSize / 2; } }
-
-    public bool Passable;
+    [Tooltip("Whether or not this cell is traversable.")]
+    public bool Traversable;
     [SerializeField][HideInInspector]
     private Vector2Int coordinate;
 
@@ -25,6 +37,9 @@ public class Cell : MonoBehaviour
         Gizmos.DrawLine(corner4, corner1);
     }
 
+    /// <summary>
+    /// Gets all the cells neighbouring this one.
+    /// </summary>
     public IEnumerable<Cell> GetNeighbours()
     {
         yield return Parent.GetCell(coordinate + Vector2Int.up);
@@ -33,10 +48,19 @@ public class Cell : MonoBehaviour
         yield return Parent.GetCell(coordinate + Vector2Int.left);
     }
 
+    /// <summary>
+    /// Reparents the cell to the given grid and moves it to
+    /// the correct position based on its coordinate.
+    /// </summary>
     public void Place(MonoGrid parent, Vector2Int coordinate)
     {
         Place(parent, coordinate.x, coordinate.y);
     }
+
+    /// <summary>
+    /// Reparents the cell to the given grid and moves it to
+    /// the correct position based on its coordinate.
+    /// </summary>
     public void Place(MonoGrid parent, int x, int y)
     {
         SetParent(parent);
@@ -44,28 +68,31 @@ public class Cell : MonoBehaviour
         UpdateName();
     }
 
-    public void SetParent(MonoGrid parent)
+    /// <summary>
+    /// Updates the position of the cell.
+    /// </summary>
+    public void UpdatePosition()
+    {
+        transform.localPosition = -Parent.Extents + (Parent.CellSize * Coordinate) + (Parent.CellSize / 2);
+    }
+
+    private void SetParent(MonoGrid parent)
     {
         transform.SetParent(parent.transform, false);
     }
 
-    public void SetCoordinate(Vector2Int coordinate)
+    private void SetCoordinate(Vector2Int coordinate)
     {
         // Set coordinate and update position
         this.coordinate = coordinate;
         UpdatePosition();
     }
 
-    public void SetCoordinate(int x, int y)
+    private void SetCoordinate(int x, int y)
     {
         // Set coordinate and update position
         coordinate = new Vector2Int(x, y);
         UpdatePosition();
-    }
-
-    public void UpdatePosition()
-    {
-        transform.localPosition = -Parent.Extents + (Parent.CellSize * Coordinate) + (Parent.CellSize / 2);
     }
 
     private void UpdateName()

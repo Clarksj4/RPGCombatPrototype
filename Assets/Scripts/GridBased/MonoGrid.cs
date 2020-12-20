@@ -52,6 +52,20 @@ public class MonoGrid : MonoBehaviour
             cell.UpdatePosition();
     }
 
+    /// <summary>
+    /// Gets the cell at the given coordinate
+    /// </summary>
+    public Cell GetCell(Vector3 worldPosition)
+    {
+        if (WorldPositionToCoordinate(worldPosition, out var coordinate))
+            return GetCell(coordinate);
+
+        return null;
+    }
+
+    /// <summary>
+    /// Gets the cell at the given coordinate
+    /// </summary>
     public Cell GetCell(Vector2Int coordinate)
     {
         return cellDirectory[coordinate];
