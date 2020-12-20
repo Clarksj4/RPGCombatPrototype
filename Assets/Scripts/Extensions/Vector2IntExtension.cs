@@ -93,4 +93,13 @@ public static class Vector2IntExtension
         else
             return coordinate.y;
     }
+
+    /// <summary>
+    /// Gets the distance in steps between the two coordinates.
+    /// </summary>
+    public static int GetTravelDistance(this Vector2Int from, Vector2Int to)
+    {
+        Vector2Int delta = to - from;
+        return Mathf.Abs(delta.x) + Mathf.Abs(delta.y);
+    }
 }

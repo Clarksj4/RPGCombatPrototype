@@ -123,17 +123,8 @@ public class Grid : MonoBehaviour
     /// </summary>
     public bool IsInRange(Vector2Int from, Vector2Int to, int maxRange, int minRange = 0)
     {
-        int distance = GetDistance(from, to);
+        int distance = from.GetTravelDistance(to);
         return distance <= maxRange && distance >= minRange;
-    }
-
-    /// <summary>
-    /// Gets the distance in steps between the two coordinates.
-    /// </summary>
-    public int GetDistance(Vector2Int from, Vector2Int to)
-    {
-        Vector2Int delta = to - from;
-        return Mathf.Abs(delta.x) + Mathf.Abs(delta.y);
     }
     
     /// <summary>
