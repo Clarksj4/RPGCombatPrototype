@@ -31,7 +31,7 @@ public class MonoGrid : MonoBehaviour
 
     private void Awake()
     {
-        foreach (Cell cell in GetComponentsInChildren<Cell>())
+        foreach (Cell cell in GetComponentsInChildren<Cell>(true))
             cellDirectory.Add(cell.Coordinate, cell);
     }
 

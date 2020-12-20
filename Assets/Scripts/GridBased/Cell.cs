@@ -24,19 +24,6 @@ public class Cell : MonoBehaviour
     [SerializeField][HideInInspector]
     private Vector2Int coordinate;
 
-    private void OnDrawGizmos()
-    {
-        Vector3 corner1 = transform.TransformPoint(new Vector3(-Extents.x, -Extents.y));
-        Vector3 corner2 = transform.TransformPoint(new Vector3(-Extents.x, Extents.y));
-        Vector3 corner3 = transform.TransformPoint(new Vector3(Extents.x, Extents.y));
-        Vector3 corner4 = transform.TransformPoint(new Vector3(Extents.x, -Extents.y));
-
-        Gizmos.DrawLine(corner1, corner2);
-        Gizmos.DrawLine(corner2, corner3);
-        Gizmos.DrawLine(corner3, corner4);
-        Gizmos.DrawLine(corner4, corner1);
-    }
-
     /// <summary>
     /// Gets all the cells neighbouring this one.
     /// </summary>
