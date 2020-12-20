@@ -7,12 +7,14 @@ using UnityEngine;
 /// </summary>
 public class BattleManager : MonoSingleton<BattleManager>
 {
+    public MonoGrid Grid { get; private set; }
     public Formation[] Formations { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
 
+        Grid = FindObjectOfType<MonoGrid>();
         Formations = FindObjectsOfType<Formation>();
 
         TurnManager.Instance.OnTurnStart += HandleOnTurnStart;

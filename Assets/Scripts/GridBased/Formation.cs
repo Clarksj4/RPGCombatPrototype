@@ -54,17 +54,17 @@ public class Formation : MonoBehaviour
         transform.localPosition = localPosition;
     }
 
-    private bool Contains(Cell cell)
+    public bool Contains(Cell cell)
     {
         return Contains(cell.Coordinate);
     }
 
-    private bool Contains(Vector2Int coordinate)
+    public bool Contains(Vector2Int coordinate)
     {
         return Contains(coordinate.x, coordinate.y);
     }
 
-    private bool Contains(int x, int y)
+    public bool Contains(int x, int y)
     {
         return x >= origin.x &&
                 x < (origin.x + nCells.x) &&
@@ -72,19 +72,28 @@ public class Formation : MonoBehaviour
                 y <= (origin.y + nCells.y);
     }
 
-    private IEnumerable<Cell> GetCells()
+    public IEnumerable<Cell> GetCells()
     {
         foreach (Vector2Int coordinate in GetCoordinates())
             yield return Grid.GetCell(coordinate);
     }
 
-    private IEnumerable<Cell> GetRankCells(Vector2Int reference, int rank)
+    public IEnumerable<Vector2Int> GetCoordinates()
+    {
+        for (int x = 0; x < nCells.x; x++)
+        {
+            for (int y = 0; y < nCells.y; y++)
+                yield return origin + new Vector2Int(x, y);
+        }
+    }
+
+    public IEnumerable<Cell> GetRankCells(Vector2Int reference, int rank)
     {
         foreach (Vector2Int coordinate in GetRankCoordinates(reference, rank))
             yield return Grid.GetCell(coordinate);
     }
 
-    private IEnumerable<Vector2Int> GetRankCoordinates(Vector2Int reference, int rank)
+    public IEnumerable<Vector2Int> GetRankCoordinates(Vector2Int reference, int rank)
     {
         // Coordinate at front of formation relative to the reference.
         Vector2Int frontOrigin = GetFrontOrigin(reference);
@@ -170,14 +179,5 @@ public class Formation : MonoBehaviour
         }
 
         return frontOrigin;
-    }
-
-    private IEnumerable<Vector2Int> GetCoordinates()
-    {
-        for (int x = 0; x < nCells.x; x++)
-        {
-            for (int y = 0; y < nCells.y; y++)
-                yield return origin + new Vector2Int(x, y);
-        }
     }
 }

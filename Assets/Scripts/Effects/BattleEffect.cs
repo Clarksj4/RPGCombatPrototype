@@ -45,7 +45,7 @@ public abstract class BattleEffect
         {
             Actor = actor;
             OriginFormation = actor.Formation;
-            OriginPosition = actor.GridPosition;
+            OriginPosition = actor.Coordinate;
         }
         return isAble;
     }

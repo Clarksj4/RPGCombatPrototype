@@ -17,27 +17,32 @@ public class PushNode : ActionNode
         this.direction = direction;
     }
 
-    public override bool ApplyToCell(Formation formation, Vector2Int position)
+    public override bool ApplyToCell(Cell cell)
     {
-        // Get target pawn
-        Pawn target = action.TargetFormation.GetPawnAtCoordinate(position);
+        bool any = cell.Contents.Any(c => c is IDefender);
 
-        // Get closest cell on target formation to actor.
-        Vector2Int sameFormationOrigin = formation.GetClosestCoordinate(action.Actor.WorldPosition);
+        foreach (IGridBased target in cell.Contents)
+        {
+            if (target is Pawn)
+            {
+                Pawn pawn = target as Pawn;
 
-        // Get final positions
-        Vector2Int destinationDirection = position.GetRelativeDirections(sameFormationOrigin, direction).Single();
-        Vector2Int destinationCoordinate = position + (destinationDirection * distance);
-        Vector3 destinationWorldPosition = formation.CoordinateToWorldPosition(destinationCoordinate);
+                // Get final positions
+                Vector2Int destinationDirection = cell.Coordinate.GetRelativeDirections(action.Actor.Coordinate, direction).Single();
+                Vector2Int destinationCoordinate = cell.Coordinate + (destinationDirection * distance);
+                Vector3 destinationWorldPosition = action.Grid.CoordinateToWorldPosition(destinationCoordinate);
 
-        // Move target to position over time
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(target.transform.DOMove(destinationWorldPosition, 0.25f).SetEase(Ease.OutExpo));
-        sequence.OnComplete(() => {
-            // Update coordinate on arrival
-            target.SetCoordinate(destinationCoordinate);
-        });
+                // Move target to position over time
+                Sequence sequence = DOTween.Sequence();
+                sequence.Append(pawn.transform.DOMove(destinationWorldPosition, 0.25f).SetEase(Ease.OutExpo));
+                sequence.OnComplete(() => {
+                    // Update coordinate on arrival
+                    pawn.SetCoordinate(destinationCoordinate);
+                });
 
-        return true;
+            }
+        }
+
+        return any;
     }
 }

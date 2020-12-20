@@ -9,5 +9,5 @@ public abstract class TargetableStrategy
         this.action = action;
     }
 
-    public abstract IEnumerable<(Formation, Vector2Int)> GetTargetableCells();
+    public abstract IEnumerable<Cell> GetTargetableCells();
 }

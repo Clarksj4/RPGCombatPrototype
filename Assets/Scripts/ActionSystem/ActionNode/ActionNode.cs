@@ -9,5 +9,5 @@ public abstract class ActionNode : MonoBehaviour
         this.action = action;
     }
 
-    public abstract bool ApplyToCell(Formation formation, Vector2Int position);
+    public abstract bool ApplyToCell(Cell cell);
 }

@@ -59,10 +59,8 @@ public class Actor : Pawn, ITurnBased, IAttacker, ITeamBased
     }
     private Team team;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         TurnManager.Instance.Add(this);
     }
 

@@ -11,12 +11,12 @@ public class RankCells : TargetableStrategy
         this.rank = rank;
     }
 
-    public override IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
+    public override IEnumerable<Cell> GetTargetableCells()
     {
         foreach (Formation formation in action.GetTargetableFormations())
         {
-            foreach (Vector2Int coordinate in formation.GetRankCoordinates(rank))
-                yield return (formation, coordinate);
+            foreach (Cell cell in formation.GetRankCells(action.OriginPosition, rank))
+                yield return cell;
         }
     }
 }

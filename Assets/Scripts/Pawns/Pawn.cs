@@ -20,7 +20,11 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// <summary>
     /// Gets this pawns coordinate on the grid.
     /// </summary>
-    public Vector2Int GridPosition { get; private set; }
+    public Vector2Int Coordinate { get { return Cell.Coordinate; } }
+    /// <summary>
+    /// Gets the cell this pawn occupies.
+    /// </summary>
+    public Cell Cell { get { return GetComponentInParent<Cell>(); } }
     /// <summary>
     /// Gets the formation this pawn is part of.
     /// </summary>
@@ -60,32 +64,28 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
 
     private int health = 100;
 
-    protected virtual void Awake()
-    {
-        Vector2Int gridPosition;
-        bool onGrid = Grid.WorldPositionToCoordinate(transform.position, out gridPosition);
-
-        // Snap to grid - or throw an error if we're not on the grid.
-        if (onGrid)
-            GridPosition = gridPosition;
-        else
-            Debug.LogError("Pawn not on grid!");
-    }
-
     /// <summary>
     /// Sets the pawns world position without updating their map coordinate.
     /// </summary>
-    public virtual void SetPosition(Vector2 position)
+    public void SetPosition(Vector2 position)
     {
         transform.position = position;
     }
 
     /// <summary>
-    /// Moves the pawn to the given coordinate - also, updates their world position.
+    /// Moves the pawn to the given cell.
     /// </summary>
-    public virtual void SetCoordinate(Vector2Int coordinate)
+    public void SetCell(Cell cell)
     {
-        GridPosition = coordinate;
-        transform.position = Grid.CoordinateToWorldPosition(coordinate);
+        transform.SetParent(cell.transform, false);
+    }
+
+    /// <summary>
+    /// Moves the pawn to the cell at the given coordinate.
+    /// </summary>
+    public void SetCoordinate(Vector2Int coordinate)
+    {
+        Cell cell = Grid.GetCell(coordinate);
+        SetCell(cell);
     }
 }

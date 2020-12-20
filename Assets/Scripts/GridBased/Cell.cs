@@ -12,6 +12,10 @@ public class Cell : MonoBehaviour
     /// </summary>
     public IEnumerable<IGridBased> Contents { get { return GetComponentsInChildren<IGridBased>(); } }
     /// <summary>
+    /// Gets the position of this cell in world space.
+    /// </summary>
+    public Vector3 WorldPosition { get { return transform.position; } }
+    /// <summary>
     /// Gets the coordinate of this cell.
     /// </summary>
     public Vector2Int Coordinate { get { return coordinate; } }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -76,6 +77,16 @@ public class MonoGrid : MonoBehaviour
     public Cell GetCell(Vector2Int coordinate)
     {
         return cellDirectory[coordinate];
+    }
+
+    public IEnumerable<Cell> GetColumnCells(int x)
+    {
+        return grid.GetColumnCoordinates(x).Select(c => GetCell(c));
+    }
+
+    public IEnumerable<Cell> GetRowCells(int y)
+    {
+        return grid.GetRowCoordinates(y).Select(c => GetCell(c));
     }
 
     /// <summary>

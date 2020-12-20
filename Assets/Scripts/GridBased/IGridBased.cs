@@ -5,7 +5,7 @@ public interface IGridBased
     /// <summary>
     /// Gets this actors coordinate on the battlemap.
     /// </summary>
-    Vector2Int GridPosition { get; }
+    Vector2Int Coordinate { get; }
     /// <summary>
     /// Gets the grid that this actor is on.
     /// </summary>

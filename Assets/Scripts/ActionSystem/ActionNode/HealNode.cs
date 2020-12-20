@@ -1,19 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class HealNode : ActionNode
 {
     public HealNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Formation formation, Vector2Int position)
+    public override bool ApplyToCell(Cell cell)
     {
-        Pawn pawn = formation.GetPawnAtCoordinate(position);
-        if (pawn != null)
+        bool any = cell.Contents.Any(c => c is IDefender);
+
+        foreach (IGridBased target in cell.Contents)
         {
-            pawn.Health += 10;
-            return true;
+            if (target is IDefender)
+            {
+                IDefender defender = target as IDefender;
+                defender.Health += 10;
+            }
         }
-            
-        return false;
+
+        return any;
     }
 }

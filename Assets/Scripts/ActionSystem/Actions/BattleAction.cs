@@ -14,6 +14,10 @@ public abstract class BattleAction
     //
 
     /// <summary>
+    /// Gets the grid this action is performed on.
+    /// </summary>
+    public MonoGrid Grid { get { return BattleManager.Instance.Grid; } }
+    /// <summary>
     /// Gets the actor who will perform this action.
     /// </summary>
     public Actor Actor { get; protected set; }
@@ -91,7 +95,7 @@ public abstract class BattleAction
             // Set actor and originating map / position.
             Actor = actor;
             OriginFormation = actor.Formation;
-            OriginPosition = actor.GridPosition;
+            OriginPosition = actor.Coordinate;
         }
         return isAble;
     }
