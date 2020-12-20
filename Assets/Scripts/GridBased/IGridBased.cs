@@ -9,7 +9,7 @@ public interface IGridBased
     /// <summary>
     /// Gets the grid that this actor is on.
     /// </summary>
-    Grid Grid { get; }
+    MonoGrid Grid { get; }
     /// <summary>
     /// Moves the pawn to the given coordinate - also, updates their world position.
     /// </summary>

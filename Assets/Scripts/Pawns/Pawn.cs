@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 
 /// <summary>
 /// Encapsulates an entity that is locked to the grid of a
@@ -23,11 +24,11 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// <summary>
     /// Gets the formation this pawn is part of.
     /// </summary>
-    public Formation Formation { get { return Grid as Formation; } }
+    public Formation Formation { get { return BattleManager.Instance.Formations.FirstOrDefault(f => f.Pawns.Contains(this)); } }
     /// <summary>
     /// Gets the grid this pawn is on.
     /// </summary>
-    public Grid Grid { get { return GetComponentInParent<Grid>(); } }
+    public MonoGrid Grid { get { return GetComponentInParent<MonoGrid>(); } }
     /// <summary>
     /// Gets or sets this pawn's current health.
     /// </summary>

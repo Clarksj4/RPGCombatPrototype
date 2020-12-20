@@ -4,17 +4,17 @@ using UnityEngine.Events;
 
 namespace Assets.Scripts.GridBased
 {
-    [RequireComponent(typeof(Grid), typeof(Collider2D))]
+    [RequireComponent(typeof(MonoGrid), typeof(Collider2D))]
     public class GridInput : MonoBehaviour
     {
         [Tooltip("Occurs when the associated grid receives an input.")]
-        public UnityEvent<Grid, Vector2Int> OnInput;
+        public UnityEvent<MonoGrid, Vector2Int> OnInput;
 
-        private Grid grid;
+        private MonoGrid grid;
 
         private void Awake()
         {
-            grid = GetComponent<Grid>();
+            grid = GetComponent<MonoGrid>();
         }
 
         private void OnMouseDown()

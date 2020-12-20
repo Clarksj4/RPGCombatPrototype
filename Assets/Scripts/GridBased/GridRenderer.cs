@@ -4,7 +4,7 @@ using UnityEditor;
 //[RequireComponent(typeof(Grid))]
 public class GridRenderer : MonoBehaviour
 {
-    [SerializeField] private Grid grid;
+    [SerializeField] private MonoGrid grid;
     [SerializeField] private Transform cellParent;
 
     public void SetCellColour(Vector2Int coordinate, Color colour)
@@ -37,19 +37,19 @@ public class GridRenderer : MonoBehaviour
         return cellParent.GetChild(index);
     }
 
-    [ContextMenu("ArrangeCells")]
-    private void ArrangeCells()
-    {
-        for (int i = 0; i < cellParent.childCount; i++)
-        {
-            int y = i / grid.NCells.x;
-            int x = i % grid.NCells.x;
-            Vector2Int coordinate = new Vector2Int(x, y);
+    //[ContextMenu("ArrangeCells")]
+    //private void ArrangeCells()
+    //{
+    //    for (int i = 0; i < cellParent.childCount; i++)
+    //    {
+    //        int y = i / grid.NCells.x;
+    //        int x = i % grid.NCells.x;
+    //        Vector2Int coordinate = new Vector2Int(x, y);
 
-            Transform child = cellParent.GetChild(i);
-            child.name = new Vector2Int(x, y).ToString();
+    //        Transform child = cellParent.GetChild(i);
+    //        child.name = new Vector2Int(x, y).ToString();
 
-            child.position = grid.CoordinateToWorldPosition(coordinate);
-        }
-    }
+    //        child.position = grid.CoordinateToWorldPosition(coordinate);
+    //    }
+    //}
 }

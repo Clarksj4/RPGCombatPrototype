@@ -2,7 +2,7 @@
 
 public class FormationInputManager : MonoSingleton<FormationInputManager>
 {
-    public void OnFormationInput(Grid grid, Vector2Int coordinate)
+    public void OnFormationInput(MonoGrid grid, Vector2Int coordinate)
     {
         // If for some reason the grid is not actually a formation
         // don't proceed

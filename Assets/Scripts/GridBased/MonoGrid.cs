@@ -37,7 +37,6 @@ public class MonoGrid : MonoBehaviour
 
     private void OnValidate()
     {
-        //grid = new GridRefactor();
         // Update scaled cell size of grid - it's not a
         // monobehaviour so it doesn't know about scale
         grid.CellSize = cellSize * transform.lossyScale;
@@ -50,6 +49,14 @@ public class MonoGrid : MonoBehaviour
 
         foreach (Cell cell in GetComponentsInChildren<Cell>())
             cell.UpdatePosition();
+    }
+    
+    /// <summary>
+    /// Gets all the cells on this grid.
+    /// </summary>
+    public IEnumerable<Cell> GetCells()
+    {
+        return cellDirectory.Values;
     }
 
     /// <summary>
