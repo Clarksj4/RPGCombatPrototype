@@ -92,12 +92,17 @@ public class MonoGrid : MonoBehaviour
 
     public IEnumerable<Cell> GetColumnCells(int x)
     {
-        return grid.GetColumnCoordinates(x).Select(c => GetCell(c));
+        return grid.GetColumnCoordinates(x).Select(GetCell);
     }
 
     public IEnumerable<Cell> GetRowCells(int y)
     {
-        return grid.GetRowCoordinates(y).Select(c => GetCell(c));
+        return grid.GetRowCoordinates(y).Select(GetCell);
+    }
+
+    public IEnumerable<Cell> GetLineCells(Cell cell, Vector2Int step, int nSteps)
+    {
+        return grid.GetLine(cell.Coordinate, step, nSteps).Select(GetCell);
     }
 
     /// <summary>

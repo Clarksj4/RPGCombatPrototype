@@ -10,7 +10,7 @@ public class FlameWaveAction : BattleAction
         // Knowing what we can target
         targetableFormation = TargetableFormation.Other;
         targetableStrategy = new RankCells(this, 0);
-        targetedStrategy = new TargetedRank(this);
+        targetedStrategy = new TargetedLine(this, RelativeDirection.Left | RelativeDirection.Right, 1);
 
         // Knowing what we do.
         actionSequence = new List<ActionNode>()

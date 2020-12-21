@@ -6,8 +6,8 @@ public class TargetedPoint : TargetedStrategy
     public TargetedPoint(BattleAction action)
         : base(action) { /* Nothing */ }
 
-    public override IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
+    public override IEnumerable<Cell> GetAffectedCoordinates()
     {
-        yield return (action.TargetFormation, action.TargetPosition);
+        yield return action.TargetCell;
     }
 }

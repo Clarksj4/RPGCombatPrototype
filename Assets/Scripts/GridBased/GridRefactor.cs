@@ -121,6 +121,16 @@ public class GridRefactor
     }
 
     /// <summary>
+    /// Returns all the coordinates in the line including the origin
+    /// </summary>
+    public IEnumerable<Vector2Int> GetLine(Vector2Int origin, Vector2Int step, int nSteps)
+    {
+        yield return origin;
+        for (int i = 1; i < nSteps + 1; i++)
+            yield return origin + (step * i);
+    }
+
+    /// <summary>
     /// Gets all the coordinates on this grid.
     /// </summary>
     public IEnumerable<Vector2Int> GetCoordinates()

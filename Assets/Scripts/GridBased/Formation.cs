@@ -116,26 +116,6 @@ public class Formation : MonoBehaviour
             yield return rankOrigin + (i * step);
     }
 
-    //private IEnumerable<Vector2Int> GetFrontCoordinates(Vector2Int reference)
-    //{
-    //    // Coordinate at front of formation relative to the reference.
-    //    Vector2Int frontOrigin = GetFrontOrigin(reference);
-
-    //    // Increment to step through all coordinates in front rank.
-    //    Vector2Int step = GetFrontStep(reference);
-
-    //    // Direction and length of front of formation.
-    //    Vector2Int frontVector = step * nCells;
-
-    //    // Number of files in front rank.
-    //    int steps = (int)frontVector.magnitude;
-
-    //    // Always return the origin (in case formation is a single cell)
-    //    yield return frontOrigin;
-    //    for (int i = 1; i < steps; i++)
-    //        yield return frontOrigin + (i * step);
-    //}
-
     private bool WithinXRange(Vector2Int coordinate)
     {
         return coordinate.x >= origin.x &&

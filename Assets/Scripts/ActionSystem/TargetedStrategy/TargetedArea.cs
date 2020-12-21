@@ -11,7 +11,7 @@ public class TargetedArea : TargetedStrategy
         this.area = area;
     }
 
-    public override IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
+    public override IEnumerable<Cell> GetAffectedCoordinates()
     {
         foreach (Vector2Int coordinate in action.TargetFormation.GetCoordinatesInRange(action.TargetPosition, area))
             yield return (action.TargetFormation, coordinate);

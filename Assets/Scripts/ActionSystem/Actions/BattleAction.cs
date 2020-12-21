@@ -188,7 +188,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the coordinates that will be affected by this action.
     /// </summary>
-    public IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
+    public IEnumerable<Cell> GetAffectedCoordinates()
     {
         return targetedStrategy.GetAffectedCoordinates();
     }
@@ -199,12 +199,12 @@ public abstract class BattleAction
     /// </summary>
     public virtual IEnumerator Do()
     {
-        foreach ((Formation formation, Vector2Int coordinate) in GetAffectedCoordinates())
+        foreach (Cell cell in GetAffectedCoordinates())
         {
             // Apply action sequence to each affected cell.
             foreach (ActionNode action in actionSequence)
             {
-                bool success = action.ApplyToCell(formation, coordinate);
+                bool success = action.ApplyToCell(cell);
                 if (!success)
                     break;
             }
