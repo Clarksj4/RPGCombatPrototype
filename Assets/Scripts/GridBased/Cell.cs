@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -27,6 +28,23 @@ public class Cell : MonoBehaviour
     public bool Traversable;
     [SerializeField][HideInInspector]
     private Vector2Int coordinate;
+
+    /// <summary>
+    /// Checks whether this cell is occupied by aything.
+    /// </summary>
+    public bool IsOccupied()
+    {
+        return Contents.Any();
+    }
+
+    /// <summary>
+    /// Checks whether this cell is occupied by anything of
+    /// the given type.
+    /// </summary>
+    public bool IsOccupied<T>()
+    {
+        return Contents.Any(c => c is T);
+    }
 
     /// <summary>
     /// Gets all the cells neighbouring this one.

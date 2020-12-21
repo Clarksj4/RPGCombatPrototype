@@ -9,5 +9,5 @@ public abstract class TargetedStrategy
         this.action = action;
     }
 
-    public abstract IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates();
+    public abstract IEnumerable<Cell> GetAffectedCoordinates();
 }

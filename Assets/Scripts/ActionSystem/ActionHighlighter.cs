@@ -64,22 +64,22 @@ namespace Assets.Scripts.Actions
             return colour;
         }
 
-        private void SetCellColour(IEnumerable<(Formation, Vector2Int)> cells, Color colour)
+        private void SetCellColour(IEnumerable<Cell> cells, Color colour)
         {
             // Highlight possible targets 
-            foreach ((Formation formation, Vector2Int coordinate) in cells)
+            foreach (Cell cell in cells)
             {
-                GridRenderer renderer = formation.GetComponent<GridRenderer>();
-                renderer.SetCellColour(coordinate, colour);
+                GridRenderer renderer = SelectedAction.Grid.GetComponent<GridRenderer>();
+                renderer.SetCellColour(cell.Coordinate, colour);
             }
         }
 
-        private IEnumerable<(Formation, Vector2Int)> GetAffectedCoordinates()
+        private IEnumerable<Cell> GetAffectedCoordinates()
         {
             return SelectedAction.GetAffectedCoordinates();
         }
 
-        private IEnumerable<(Formation, Vector2Int)> GetPossibleTargets()
+        private IEnumerable<Cell> GetPossibleTargets()
         {
             return SelectedAction.GetTargetableCells();
         }

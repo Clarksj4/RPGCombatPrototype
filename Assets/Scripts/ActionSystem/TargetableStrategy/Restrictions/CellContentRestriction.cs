@@ -10,9 +10,9 @@ public class CellContentRestriction : TargetableCellRestriction
         this.targetableContent = targetableContent;
     }
 
-    public override bool IsTargetValid(Formation formation, Vector2Int coordinate)
+    public override bool IsTargetValid(Cell cell)
     {
-        bool isCellValid = IsTargetCellContentValid(formation, coordinate);
+        bool isCellValid = IsTargetCellContentValid(cell);
         return isCellValid;
     }
 
@@ -20,7 +20,7 @@ public class CellContentRestriction : TargetableCellRestriction
     /// Checks whether the thing in the targeted cell is 
     /// a valid target.
     /// </summary>
-    private bool IsTargetCellContentValid(Formation formation, Vector2Int position)
+    private bool IsTargetCellContentValid(Cell cell)
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
@@ -30,7 +30,7 @@ public class CellContentRestriction : TargetableCellRestriction
         // Assume the target is invalid and then include
         // cases as it meets their requirements
         bool valid = false;
-        Pawn pawn = formation.GetPawnAtCoordinate(position);
+        Pawn pawn = cell.Contents.FirstOfTypeOrDefault<IGridBased, Pawn>();
         bool isSelf = pawn == action.Actor;
         bool pawnExists = pawn != null;
         bool isActorOnSameTeam = IsActorOnSameTeam(pawn);

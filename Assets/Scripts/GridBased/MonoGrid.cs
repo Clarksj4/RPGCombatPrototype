@@ -51,6 +51,14 @@ public class MonoGrid : MonoBehaviour
         foreach (Cell cell in GetComponentsInChildren<Cell>())
             cell.UpdatePosition();
     }
+
+    /// <summary>
+    /// Checks whether this grid contains the given coordinate.
+    /// </summary>
+    public bool Contains(Vector2Int coordinate)
+    {
+        return grid.Contains(coordinate);
+    }
     
     /// <summary>
     /// Gets all the cells on this grid.
@@ -76,7 +84,10 @@ public class MonoGrid : MonoBehaviour
     /// </summary>
     public Cell GetCell(Vector2Int coordinate)
     {
-        return cellDirectory[coordinate];
+        if (cellDirectory.ContainsKey(coordinate))
+            return cellDirectory[coordinate];
+        
+        return null;
     }
 
     public IEnumerable<Cell> GetColumnCells(int x)

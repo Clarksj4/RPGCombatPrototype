@@ -30,6 +30,10 @@ public abstract class BattleAction
     /// </summary>
     public Vector2Int TargetPosition { get; protected set; }
     /// <summary>
+    /// Gets the cell that this action is targeting.
+    /// </summary>
+    public Cell TargetCell { get { return Grid.GetCell(TargetPosition); } }
+    /// <summary>
     /// Gets the map where this action originates from.
     /// </summary>
     public Formation OriginFormation { get; protected set; }
@@ -37,6 +41,10 @@ public abstract class BattleAction
     /// Gets the coordinate that this action originates from.
     /// </summary>
     public Vector2Int OriginPosition { get; protected set; }
+    /// <summary>
+    /// Gets the cell that this action originates from.
+    /// </summary>
+    public Cell OriginCell { get { return Grid.GetCell(OriginPosition); } }
 
     //
     // Target Validation.
@@ -137,25 +145,25 @@ public abstract class BattleAction
     /// <summary>
     /// Gets all the cells that can be targeted by this action.
     /// </summary>
-    public virtual IEnumerable<(Formation, Vector2Int)> GetTargetableCells()
+    public virtual IEnumerable<Cell> GetTargetableCells()
     {
-        IEnumerable<(Formation, Vector2Int)> cells = targetableStrategy.GetTargetableCells();
+        IEnumerable<Cell> cells = targetableStrategy.GetTargetableCells();
 
         // Return all cells that meet restrictions
         if (targetRestrictions != null && targetRestrictions.Count > 0)
         {
-            foreach ((Formation formation, Vector2Int coordinate) in cells)
+            foreach (Cell cell in cells)
             {
-                if (targetRestrictions.All(r => r.IsTargetValid(formation, coordinate)))
-                    yield return (formation, coordinate);
+                if (targetRestrictions.All(r => r.IsTargetValid(cell)))
+                    yield return cell;
             }
         }
 
         // Return all cells - no restrictions
         else
         {
-            foreach ((Formation formation, Vector2Int coordinate) in cells)
-                yield return (formation, coordinate);
+            foreach (Cell cell in cells)
+                yield return cell;
         }
     }
 

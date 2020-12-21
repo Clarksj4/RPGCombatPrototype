@@ -10,7 +10,7 @@ public class FireboltAction : BattleAction
 
         // Knowing what we can target
         targetableFormation = TargetableFormation.Other;
-        targetableStrategy = new SameRowCells(this);
+        targetableStrategy = new LinearCells(this);
         targetRestrictions = new List<TargetableCellRestriction>()
         {
             new CellContentRestriction(this, TargetableCellContent.Enemy)

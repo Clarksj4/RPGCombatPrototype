@@ -14,52 +14,56 @@ public class EmptyAdjacentRestriction : TargetableCellRestriction
         this.allEmpty = allEmpty;
     }
 
-    public override bool IsTargetValid(Formation formation, Vector2Int coordinate)
+    public override bool IsTargetValid(Cell cell)
     {
         bool valid;
         if (allEmpty)
-            valid = AllAdjacentCellsEmpty(formation, coordinate);
+            valid = AllAdjacentCellsEmpty(cell);
         else
-            valid = AnyAdjacentCellsEmpty(formation, coordinate);
+            valid = AnyAdjacentCellsEmpty(cell);
         return valid;
     }
 
-    private bool AllAdjacentCellsEmpty(Formation formation, Vector2Int coordinate)
+    private bool AllAdjacentCellsEmpty(Cell cell)
     {
         // Get closest cell on target formation to actor.
-        Vector2Int sameFormationOrigin = formation.GetClosestCoordinate(action.Actor.WorldPosition);
-        IEnumerable<Vector2Int> relativeDirections = coordinate.GetRelativeDirections(sameFormationOrigin, directions);
+        IEnumerable<Vector2Int> relativeDirections = cell.Coordinate.GetRelativeDirections(action.OriginPosition, directions);
 
         foreach (Vector2Int relativeDirection in relativeDirections)
         {
-            Vector2Int adjacentPosition = coordinate + relativeDirection;
+            Vector2Int adjacentPosition = cell.Coordinate + relativeDirection;
+            Cell adjacentCell = action.Grid.GetCell(adjacentPosition);
 
-            bool containsCoordinate = formation.ContainsCoordinate(adjacentPosition);
-            bool empty = formation.GetPawnAtCoordinate(adjacentPosition) == null;
-
-            if (!containsCoordinate ||
-                !empty)
+            // Cells that don't exist are considered to be empty.
+            bool empty = true;
+            if (adjacentCell != null)
+                empty = adjacentCell.IsOccupied<IDefender>();
+            
+            // If its not empty then halt iteration.
+            if (!empty)
                 return false;
         }
 
         return true;
     }
 
-    private bool AnyAdjacentCellsEmpty(Formation formation, Vector2Int coordinate)
+    private bool AnyAdjacentCellsEmpty(Cell cell)
     {
         // Get closest cell on target formation to actor.
-        Vector2Int sameFormationOrigin = formation.GetClosestCoordinate(action.Actor.WorldPosition);
-        IEnumerable<Vector2Int> relativeDirections = coordinate.GetRelativeDirections(sameFormationOrigin, directions);
+        IEnumerable<Vector2Int> relativeDirections = cell.Coordinate.GetRelativeDirections(action.OriginPosition, directions);
 
         foreach (Vector2Int relativeDirection in relativeDirections)
         {
-            Vector2Int adjacentPosition = coordinate + relativeDirection;
+            Vector2Int adjacentPosition = cell.Coordinate + relativeDirection;
+            Cell adjacentCell = action.Grid.GetCell(adjacentPosition);
 
-            bool containsCoordinate = formation.ContainsCoordinate(adjacentPosition);
-            bool empty = formation.GetPawnAtCoordinate(adjacentPosition) == null;
+            // Cells that don't exist are considered to be empty.
+            bool empty = true;
+            if (adjacentCell != null)
+                empty = adjacentCell.IsOccupied<IDefender>();
 
-            if (containsCoordinate &&
-                empty)
+            // If its empty then halt iteration.
+            if (empty)
                 return true;
         }
 
