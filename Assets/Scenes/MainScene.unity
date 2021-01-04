@@ -1822,10 +1822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98a0cf4e3bdb804babcdb4679a6dcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontFlankCoordinate: {x: 0, y: 2}
-  forward: {x: -1, y: 0}
-  nCells: {x: 3, y: 3}
-  cellSize: {x: 1, y: 1}
 --- !u!114 &722404957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2816,10 +2812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98a0cf4e3bdb804babcdb4679a6dcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontFlankCoordinate: {x: 2, y: 0}
-  forward: {x: 1, y: 0}
-  nCells: {x: 3, y: 3}
-  cellSize: {x: 1, y: 1}
 --- !u!61 &1153853545
 BoxCollider2D:
   m_ObjectHideFlags: 0

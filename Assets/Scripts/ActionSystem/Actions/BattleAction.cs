@@ -24,7 +24,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the map that this action is targeted to.
     /// </summary>
-    public Formation TargetFormation { get; protected set; }
+    public Formation TargetFormation { get { return BattleManager.Instance.Formations.FirstOrDefault(f => f.Contains(TargetPosition)); } }
     /// <summary>
     /// Gets the coordinate that this action is targeting.
     /// </summary>
@@ -112,15 +112,14 @@ public abstract class BattleAction
     /// Sets the target for this action if valid. Returns true
     /// if the target is a valid one.
     /// </summary>
-    public virtual bool SetTarget(Formation formation, Vector2Int position)
+    public virtual bool SetTarget(MonoGrid grid, Vector2Int position)
     {
-        bool validTarget = IsTargetCellValid(formation, position);
+        bool validTarget = IsTargetCellValid(grid, position);
+        
+        // Set target map / position
         if (validTarget)
-        {
-            // Set target map / position
-            TargetFormation = formation;
             TargetPosition = position;
-        }
+
         return validTarget;
     }
 
@@ -129,7 +128,6 @@ public abstract class BattleAction
     /// </summary>
     public void DeselectTarget()
     {
-        TargetFormation = null;
         TargetPosition = Vector2Int.zero;
     }
 
@@ -244,8 +242,8 @@ public abstract class BattleAction
     /// <summary>
     /// Checks whether the given cell is a valid target.
     /// </summary>
-    private bool IsTargetCellValid(Formation formation, Vector2Int position)
+    private bool IsTargetCellValid(MonoGrid grid, Vector2Int position)
     {
-        return GetTargetableCells().Any(cell => cell.Item1 == formation && cell.Item2 == position);
+        return GetTargetableCells().Any(cell => cell.Coordinate == position);
     }
 }

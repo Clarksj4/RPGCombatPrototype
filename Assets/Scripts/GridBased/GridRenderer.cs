@@ -9,7 +9,7 @@ public class GridRenderer : MonoBehaviour
 
     public void SetCellColour(Vector2Int coordinate, Color colour)
     {
-        Transform cell = GetCellAtCoordinate(coordinate);
+        Cell cell = grid.GetCell(coordinate);
         SpriteRenderer renderer = cell.GetComponent<SpriteRenderer>();
         renderer.color = colour;
         renderer.sortingOrder++;
@@ -29,12 +29,6 @@ public class GridRenderer : MonoBehaviour
     public void SetCellColour(int x, int y, Color colour)
     {
         //SetCellColour(coordinate.x, coordinate.y, colour);
-    }
-
-    private Transform GetCellAtCoordinate(Vector2Int coordinate)
-    {
-        int index = coordinate.x + (coordinate.y * grid.NCells.x);
-        return cellParent.GetChild(index);
     }
 
     //[ContextMenu("ArrangeCells")]

@@ -108,9 +108,9 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Sets the target for the current action.
     /// </summary>
-    public bool SetTarget(Formation formation, Vector2Int target)
+    public bool SetTarget(MonoGrid grid, Vector2Int target)
     {
-        bool validTarget = SelectedAction.SetTarget(formation, target);
+        bool validTarget = SelectedAction.SetTarget(grid, target);
         if (validTarget)
             OnTargetSelected?.Invoke(SelectedAction);
         return validTarget;

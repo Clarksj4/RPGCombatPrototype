@@ -8,11 +8,14 @@ namespace Assets.Scripts.Actions
     public class ActionHighlighter : MonoBehaviour
     {
         // Convenience properties
-        private IEnumerable<Formation> Formations { get { return BattleManager.Instance.Formations; } }
         private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
+
+        private MonoGrid grid;
 
         private void Awake()
         {
+            grid = FindObjectOfType<MonoGrid>();
+
             ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
             ActionManager.Instance.OnActionDeselected += HandleOnActionDeselected;
             ActionManager.Instance.OnTargetSelected += HandleOnTargetSelected;
@@ -44,11 +47,8 @@ namespace Assets.Scripts.Actions
         private void UnhighlightAll()
         {
             // Unhighlight everything
-            foreach (Formation formation in Formations)
-            {
-                GridRenderer renderer = formation.GetComponent<GridRenderer>();
-                renderer.SetAllCellColours(Color.grey);
-            }
+            GridRenderer renderer = grid.GetComponent<GridRenderer>();
+            renderer.SetAllCellColours(Color.grey);
         }
 
         private Color GetActionColour()

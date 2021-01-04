@@ -105,6 +105,12 @@ public class MonoGrid : MonoBehaviour
         return grid.GetLine(cell.Coordinate, step, nSteps).Select(GetCell);
     }
 
+    public IEnumerable<Cell> GetRange(Vector2Int origin, int range)
+    {
+        foreach (Vector2Int coordinate in grid.GetRange(origin, range))
+            yield return GetCell(coordinate);
+    }
+
     /// <summary>
     /// Gets the world position of the centre of the cell at the given position.
     /// </summary>

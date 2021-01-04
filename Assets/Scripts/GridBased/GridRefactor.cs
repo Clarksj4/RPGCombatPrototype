@@ -131,6 +131,19 @@ public class GridRefactor
     }
 
     /// <summary>
+    /// Gets all the coordinates within the given range of the origin.
+    /// </summary>
+    public IEnumerable<Vector2Int> GetRange(Vector2Int origin, int range)
+    {
+        for (int x = -range; x <= range; x++)
+        {
+            int maxY = range - x;
+            for (int y = -maxY; y <= maxY; y++)
+                yield return new Vector2Int(origin.x + x, origin.y + y);
+        }
+    }
+
+    /// <summary>
     /// Gets all the coordinates on this grid.
     /// </summary>
     public IEnumerable<Vector2Int> GetCoordinates()
