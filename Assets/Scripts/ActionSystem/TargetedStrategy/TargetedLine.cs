@@ -17,7 +17,7 @@ public class TargetedLine : TargetedStrategy
     public override IEnumerable<Cell> GetAffectedCoordinates()
     {
         // Get step in each of the given directions
-        IEnumerable<Vector2Int> relativeSteps = action.TargetPosition.GetRelativeDirections(action.OriginPosition, directions);
+        IEnumerable<Vector2Int> relativeSteps = action.TargetCell.Coordinate.GetRelativeDirections(action.OriginCell.Coordinate, directions);
         foreach (Vector2Int relativeStep in relativeSteps)
         {
             // Foreach direction mark out a line of cells that extends up to range.

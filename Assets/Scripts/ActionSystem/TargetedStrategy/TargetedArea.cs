@@ -13,7 +13,7 @@ public class TargetedArea : TargetedStrategy
 
     public override IEnumerable<Cell> GetAffectedCoordinates()
     {
-        foreach (Cell cell in action.Grid.GetRange(action.TargetPosition, area))
+        foreach (Cell cell in action.Grid.GetRange(action.TargetCell.Coordinate, area))
             yield return cell;
     }
 }

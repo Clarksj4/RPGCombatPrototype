@@ -10,12 +10,11 @@ namespace Assets.Scripts.Actions
         // Convenience properties
         private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
 
-        private MonoGrid grid;
+        [SerializeField]
+        private GridRenderer gridRenderer;
 
         private void Awake()
         {
-            grid = FindObjectOfType<MonoGrid>();
-
             ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
             ActionManager.Instance.OnActionDeselected += HandleOnActionDeselected;
             ActionManager.Instance.OnTargetSelected += HandleOnTargetSelected;
@@ -47,8 +46,7 @@ namespace Assets.Scripts.Actions
         private void UnhighlightAll()
         {
             // Unhighlight everything
-            GridRenderer renderer = grid.GetComponent<GridRenderer>();
-            renderer.SetAllCellColours(Color.grey);
+            gridRenderer.SetAllCellColours(Color.grey);
         }
 
         private Color GetActionColour()
@@ -68,10 +66,7 @@ namespace Assets.Scripts.Actions
         {
             // Highlight possible targets 
             foreach (Cell cell in cells)
-            {
-                GridRenderer renderer = SelectedAction.Grid.GetComponent<GridRenderer>();
-                renderer.SetCellColour(cell.Coordinate, colour);
-            }
+                gridRenderer.SetCellColour(cell.Coordinate, colour);
         }
 
         private IEnumerable<Cell> GetAffectedCoordinates()

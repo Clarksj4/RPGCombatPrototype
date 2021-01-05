@@ -125,7 +125,11 @@ public class MonoGrid : MonoBehaviour
     public IEnumerable<Cell> GetRange(Vector2Int origin, int range)
     {
         foreach (Vector2Int coordinate in grid.GetRange(origin, range))
-            yield return GetCell(coordinate);
+        {
+            Cell cell = GetCell(coordinate);
+            if (cell != null)
+                yield return cell;
+        }
     }
 
     /// <summary>

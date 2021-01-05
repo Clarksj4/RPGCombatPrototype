@@ -22,29 +22,13 @@ public abstract class BattleAction
     /// </summary>
     public Actor Actor { get; protected set; }
     /// <summary>
-    /// Gets the map that this action is targeted to.
-    /// </summary>
-    public Formation TargetFormation { get { return BattleManager.Instance.Formations.FirstOrDefault(f => f.Contains(TargetPosition)); } }
-    /// <summary>
-    /// Gets the coordinate that this action is targeting.
-    /// </summary>
-    public Vector2Int TargetPosition { get; protected set; }
-    /// <summary>
     /// Gets the cell that this action is targeting.
     /// </summary>
-    public Cell TargetCell { get { return Grid.GetCell(TargetPosition); } }
-    /// <summary>
-    /// Gets the map where this action originates from.
-    /// </summary>
-    public Formation OriginFormation { get; protected set; }
-    /// <summary>
-    /// Gets the coordinate that this action originates from.
-    /// </summary>
-    public Vector2Int OriginPosition { get; protected set; }
+    public Cell TargetCell { get; private set; }
     /// <summary>
     /// Gets the cell that this action originates from.
     /// </summary>
-    public Cell OriginCell { get { return Grid.GetCell(OriginPosition); } }
+    public Cell OriginCell { get { return Actor.Cell; } }
 
     //
     // Target Validation.
@@ -102,8 +86,6 @@ public abstract class BattleAction
         {
             // Set actor and originating map / position.
             Actor = actor;
-            OriginFormation = actor.Formation;
-            OriginPosition = actor.Coordinate;
         }
         return isAble;
     }
@@ -112,13 +94,13 @@ public abstract class BattleAction
     /// Sets the target for this action if valid. Returns true
     /// if the target is a valid one.
     /// </summary>
-    public virtual bool SetTarget(MonoGrid grid, Vector2Int position)
+    public virtual bool SetTarget(Cell cell)
     {
-        bool validTarget = IsTargetCellValid(grid, position);
+        bool validTarget = IsTargetCellValid(cell);
         
         // Set target map / position
         if (validTarget)
-            TargetPosition = position;
+            TargetCell = cell;
 
         return validTarget;
     }
@@ -128,7 +110,7 @@ public abstract class BattleAction
     /// </summary>
     public void DeselectTarget()
     {
-        TargetPosition = Vector2Int.zero;
+        TargetCell = null;
     }
 
     /// <summary>
@@ -242,8 +224,8 @@ public abstract class BattleAction
     /// <summary>
     /// Checks whether the given cell is a valid target.
     /// </summary>
-    private bool IsTargetCellValid(MonoGrid grid, Vector2Int position)
+    private bool IsTargetCellValid(Cell tagetCell)
     {
-        return GetTargetableCells().Any(cell => cell.Coordinate == position);
+        return GetTargetableCells().Any(cell => cell == tagetCell);
     }
 }

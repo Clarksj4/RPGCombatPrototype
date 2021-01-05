@@ -8,7 +8,7 @@ public class RangeRestriction : TargetableCellRestriction
     public override bool IsTargetValid(Cell cell)
     {
         bool infiniteRange = action.Range < 0;
-        int distance = action.OriginPosition.GetTravelDistance(cell.Coordinate);
+        int distance = action.OriginCell.Coordinate.GetTravelDistance(cell.Coordinate);
         bool positionInRange = distance <= action.Range;
 
         bool isRangeValid = infiniteRange || positionInRange;

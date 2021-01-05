@@ -137,9 +137,13 @@ public class GridRefactor
     {
         for (int x = -range; x <= range; x++)
         {
-            int maxY = range - x;
+            int maxY = range - Mathf.Abs(x);
             for (int y = -maxY; y <= maxY; y++)
-                yield return new Vector2Int(origin.x + x, origin.y + y);
+            {
+                Vector2Int coordinate = new Vector2Int(origin.x + x, origin.y + y);
+                Debug.Log(coordinate);
+                yield return coordinate;
+            }
         }
     }
 

@@ -23,7 +23,7 @@ public class LinearExposedCells : LinearCells
             // TODO: step through cells in that direction until the axis
             // we care about is equal to the origins value for that axis
             Vector2Int from = target.Coordinate * step.Abs();
-            Vector2Int to = action.OriginPosition * step.Abs();
+            Vector2Int to = action.OriginCell.Coordinate * step.Abs();
             int nSteps = from.GetTravelDistance(to);
 
             // Check each cell between target and action origin to see

@@ -9,8 +9,8 @@ public class LinearCells : TargetableStrategy
 
     public override IEnumerable<Cell> GetTargetableCells()
     {
-        return action.Grid.GetRowCells(action.OriginPosition.y).Concat(
-                action.Grid.GetColumnCells(action.OriginPosition.x))
+        return action.Grid.GetRowCells(action.OriginCell.Coordinate.y).Concat(
+                action.Grid.GetColumnCells(action.OriginCell.Coordinate.x))
                 .Where(TargetableFormationsContain);
     }
 

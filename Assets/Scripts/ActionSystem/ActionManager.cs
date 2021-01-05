@@ -51,7 +51,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// Gets whether an actor is currently confirming whether
     /// to do an action at the target position.
     /// </summary>
-    public bool HasTarget { get { return HasAction && SelectedAction.TargetFormation != null; } }
+    public bool HasTarget { get { return HasAction && SelectedAction.TargetCell != null; } }
     /// <summary>
     /// Gets the actor that the action originates from.
     /// </summary>
@@ -108,9 +108,9 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Sets the target for the current action.
     /// </summary>
-    public bool SetTarget(MonoGrid grid, Vector2Int target)
+    public bool SetTarget(Cell cell)
     {
-        bool validTarget = SelectedAction.SetTarget(grid, target);
+        bool validTarget = SelectedAction.SetTarget(cell);
         if (validTarget)
             OnTargetSelected?.Invoke(SelectedAction);
         return validTarget;

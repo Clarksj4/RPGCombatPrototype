@@ -27,7 +27,7 @@ public class EmptyAdjacentRestriction : TargetableCellRestriction
     private bool AllAdjacentCellsEmpty(Cell cell)
     {
         // Get closest cell on target formation to actor.
-        IEnumerable<Vector2Int> relativeDirections = cell.Coordinate.GetRelativeDirections(action.OriginPosition, directions);
+        IEnumerable<Vector2Int> relativeDirections = cell.Coordinate.GetRelativeDirections(action.OriginCell.Coordinate, directions);
 
         foreach (Vector2Int relativeDirection in relativeDirections)
         {
@@ -50,7 +50,7 @@ public class EmptyAdjacentRestriction : TargetableCellRestriction
     private bool AnyAdjacentCellsEmpty(Cell cell)
     {
         // Get closest cell on target formation to actor.
-        IEnumerable<Vector2Int> relativeDirections = cell.Coordinate.GetRelativeDirections(action.OriginPosition, directions);
+        IEnumerable<Vector2Int> relativeDirections = cell.Coordinate.GetRelativeDirections(action.OriginCell.Coordinate, directions);
 
         foreach (Vector2Int relativeDirection in relativeDirections)
         {

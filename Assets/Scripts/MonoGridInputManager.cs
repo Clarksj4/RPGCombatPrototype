@@ -6,7 +6,7 @@ public class MonoGridInputManager : MonoSingleton<MonoGridInputManager>
     {
         // If tapping again in same position.
         if (ActionManager.Instance.HasTarget &&
-            ActionManager.Instance.SelectedAction.TargetPosition == cell.Coordinate)
+            ActionManager.Instance.SelectedAction.TargetCell == cell)
             ActionManager.Instance.DoAction();
 
 
@@ -14,7 +14,7 @@ public class MonoGridInputManager : MonoSingleton<MonoGridInputManager>
         else if (ActionManager.Instance.HasAction)
         {
             // Set target if its valid
-            ActionManager.Instance.SetTarget(grid, cell.Coordinate);
+            ActionManager.Instance.SetTarget(cell);
             //if (ActionManager.Instance.SetTarget(formation, coordinate))
             //    ActionManager.Instance.DoAction();
         }
