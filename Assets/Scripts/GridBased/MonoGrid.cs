@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 [ExecuteInEditMode]
 public class MonoGrid : MonoBehaviour
@@ -26,12 +27,17 @@ public class MonoGrid : MonoBehaviour
     [SerializeField]
     [Tooltip("The size of each cell on the grid.")]
     private Vector2 cellSize;
+    [SerializeField]
+    [Tooltip("Occurs when a cell is tapped or clicked on.")]
+    private UnityEvent<MonoGrid, Cell> OnCellInput;
 
+    private new BoxCollider collider;
     private Dictionary<Vector2Int, Cell> cellDirectory = new Dictionary<Vector2Int, Cell>();
     private GridRefactor grid = new GridRefactor();
 
     private void Awake()
     {
+        collider = GetComponent<BoxCollider>();
         foreach (Cell cell in GetComponentsInChildren<Cell>(true))
             cellDirectory.Add(cell.Coordinate, cell);
     }
@@ -50,6 +56,17 @@ public class MonoGrid : MonoBehaviour
 
         foreach (Cell cell in GetComponentsInChildren<Cell>())
             cell.UpdatePosition();
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (collider.Raycast(cameraRay, out var hitInfo, 100f))
+        {
+            Cell cell = WorldPositionToCell(hitInfo.point);
+            if (cell != null)
+                OnCellInput?.Invoke(this, cell);
+        }
     }
 
     /// <summary>
@@ -129,6 +146,14 @@ public class MonoGrid : MonoBehaviour
         Vector3 localPosition = transform.InverseTransformPoint(worldPosition);
         bool contains = grid.PositionToCoordinate(localPosition, out coordinate);
         return contains;
+    }
+
+    public Cell WorldPositionToCell(Vector3 worldPosition)
+    {
+        if (WorldPositionToCoordinate(worldPosition, out var coordinate))
+            return GetCell(coordinate);
+
+        return null;
     }
 
     [ContextMenu("MakeCells")]
