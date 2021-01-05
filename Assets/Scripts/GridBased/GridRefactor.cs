@@ -141,7 +141,6 @@ public class GridRefactor
             for (int y = -maxY; y <= maxY; y++)
             {
                 Vector2Int coordinate = new Vector2Int(origin.x + x, origin.y + y);
-                Debug.Log(coordinate);
                 yield return coordinate;
             }
         }
