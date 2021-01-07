@@ -127,7 +127,11 @@ public class GridRefactor
     {
         yield return origin;
         for (int i = 1; i < nSteps + 1; i++)
-            yield return origin + (step * i);
+        {
+            Vector2Int coordinate = origin + (step * i);
+            if (Contains(coordinate))
+                yield return coordinate;
+        }
     }
 
     /// <summary>

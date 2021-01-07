@@ -113,7 +113,11 @@ public class Formation : MonoBehaviour
         // Always return the origin (in case formation is a single cell)
         yield return rankOrigin;
         for (int i = 1; i < steps; i++)
-            yield return rankOrigin + (i * step);
+        {
+            Vector2Int coordinate = rankOrigin + (i * step);
+            if (Grid.Contains(coordinate) && Contains(coordinate))
+                yield return coordinate;
+        }
     }
 
     private bool WithinXRange(Vector2Int coordinate)
