@@ -29,10 +29,34 @@ public class Formation : MonoBehaviour
         } 
     }
 
+    public int NFiles 
+    { 
+        get
+        {
+            Vector2Int asVector = nCells * facing.Perpendicular();
+            int axisMagnitude = asVector.MaxAxisMagnitude();
+            int nFiles = Mathf.Abs(axisMagnitude);
+            return nFiles;
+        } 
+    }
+
+    public int NRanks
+    {
+        get
+        {
+            Vector2Int asVector = nCells * facing;
+            int axisMagnitude = asVector.MaxAxisMagnitude();
+            int nRanks = Mathf.Abs(axisMagnitude);
+            return nRanks;
+        }
+    }
+
     [SerializeField]
     private Vector2Int nCells;
     [SerializeField]
     private Vector2Int origin;
+    [SerializeField]
+    private Vector2Int facing;
 
     private void OnDrawGizmos()
     {
@@ -67,7 +91,7 @@ public class Formation : MonoBehaviour
     public bool Contains(int x, int y)
     {
         return x >= origin.x &&
-                x < (origin.x + nCells.x) &&
+                x <= (origin.x + nCells.x) &&
                 y >= origin.y &&
                 y <= (origin.y + nCells.y);
     }
@@ -87,49 +111,37 @@ public class Formation : MonoBehaviour
         }
     }
 
-    public IEnumerable<Cell> GetRankCells(Vector2Int reference, int rank)
+    public IEnumerable<Cell> GetRankCells(int rank)
     {
-        foreach (Vector2Int coordinate in GetRankCoordinates(reference, rank))
+        foreach (Vector2Int coordinate in GetRankCoordinates(rank))
             yield return Grid.GetCell(coordinate);
     }
 
-    public IEnumerable<Vector2Int> GetRankCoordinates(Vector2Int reference, int rank)
+    public IEnumerable<Vector2Int> GetRankCoordinates(int rank)
     {
         // Coordinate at front of formation relative to the reference.
-        Vector2Int frontOrigin = GetFrontOrigin(reference);
+        Vector2Int frontOrigin = GetFrontOrigin();
 
-        // Increment to step through all coordinates in the given rank.
-        Vector2Int step = GetRankStep(reference);
+        Vector2Int stepAwayFromFront = -facing;
+        Vector2Int rankOrigin = frontOrigin + (stepAwayFromFront * rank);
 
-        // Coordinate at the start of the given rank
-        Vector2Int rankOrigin = frontOrigin + step.Perpendicular() * rank;
+        Vector2Int stepAlongRank = stepAwayFromFront.Perpendicular().Abs();
 
-        // Direction and length of the rank.
-        Vector2Int rankVector = step * nCells;
+        int steps = NFiles;
 
-        // Number of files in rank.
-        int steps = (int)rankVector.magnitude;
+        print($"origin: {origin}, nCells: {nCells}");
 
         // Always return the origin (in case formation is a single cell)
         yield return rankOrigin;
         for (int i = 1; i < steps; i++)
         {
-            Vector2Int coordinate = rankOrigin + (i * step);
+            Vector2Int coordinate = rankOrigin + (i * stepAlongRank);
+            bool gridContains = Grid.Contains(coordinate);
+            bool formationContains = Contains(coordinate);
+            print($"{coordinate}, gridContains: {gridContains}, formationContains: {formationContains}");
             if (Grid.Contains(coordinate) && Contains(coordinate))
                 yield return coordinate;
         }
-    }
-
-    private bool WithinXRange(Vector2Int coordinate)
-    {
-        return coordinate.x >= origin.x &&
-            coordinate.x <= origin.x + nCells.x;
-    }
-
-    private bool WithinYRange(Vector2Int coordinate)
-    {
-        return coordinate.y >= origin.y &&
-            coordinate.y <= origin.y + nCells.y;
     }
 
     private Vector2Int GetRankStep(Vector2Int reference)
@@ -144,24 +156,17 @@ public class Formation : MonoBehaviour
         return step;
     }
 
-    private Vector2Int GetFrontOrigin(Vector2Int reference)
+    private Vector2Int Clamp(Vector2Int coordinate)
     {
-        bool withinX = WithinXRange(reference);
-        bool withinY = WithinYRange(reference);
+        int x = Mathf.Clamp(coordinate.x, origin.x, origin.x + nCells.x);
+        int y = Mathf.Clamp(coordinate.y, origin.y, origin.y + nCells.y);
+        return new Vector2Int(x, y);
+    }
 
-        Vector2Int frontOrigin = origin;
-        if (withinY)
-        {
-            if (reference.x > origin.x)
-                frontOrigin.x = origin.x + nCells.x;
-        }
-
-        else if (withinX)
-        {
-            if (reference.y > origin.y)
-                frontOrigin.y = origin.y + nCells.y;
-        }
-
-        return frontOrigin;
+    private Vector2Int GetFrontOrigin()
+    {
+        Vector2Int step = facing * nCells;
+        Vector2Int towardsFront = origin + step;
+        return Clamp(towardsFront);
     }
 }

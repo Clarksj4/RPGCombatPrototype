@@ -15,7 +15,7 @@ public class RankCells : TargetableStrategy
     {
         foreach (Formation formation in action.GetTargetableFormations())
         {
-            foreach (Cell cell in formation.GetRankCells(action.OriginCell.Coordinate, rank))
+            foreach (Cell cell in formation.GetRankCells(rank))
                 yield return cell;
         }
     }
