@@ -114,7 +114,12 @@ public class Formation : MonoBehaviour
     public IEnumerable<Cell> GetRankCells(int rank)
     {
         foreach (Vector2Int coordinate in GetRankCoordinates(rank))
-            yield return Grid.GetCell(coordinate);
+        {
+            Cell cell = Grid.GetCell(coordinate);
+            print(coordinate);
+            print(cell.name);
+            yield return cell;
+        }
     }
 
     public IEnumerable<Vector2Int> GetRankCoordinates(int rank)
@@ -129,7 +134,7 @@ public class Formation : MonoBehaviour
 
         int steps = NFiles;
 
-        print($"origin: {origin}, nCells: {nCells}");
+        //print($"origin: {origin}, nCells: {nCells}");
 
         // Always return the origin (in case formation is a single cell)
         yield return rankOrigin;
@@ -138,7 +143,7 @@ public class Formation : MonoBehaviour
             Vector2Int coordinate = rankOrigin + (i * stepAlongRank);
             bool gridContains = Grid.Contains(coordinate);
             bool formationContains = Contains(coordinate);
-            print($"{coordinate}, gridContains: {gridContains}, formationContains: {formationContains}");
+            //print($"{coordinate}, gridContains: {gridContains}, formationContains: {formationContains}");
             if (Grid.Contains(coordinate) && Contains(coordinate))
                 yield return coordinate;
         }
@@ -158,8 +163,8 @@ public class Formation : MonoBehaviour
 
     private Vector2Int Clamp(Vector2Int coordinate)
     {
-        int x = Mathf.Clamp(coordinate.x, origin.x, origin.x + nCells.x);
-        int y = Mathf.Clamp(coordinate.y, origin.y, origin.y + nCells.y);
+        int x = Mathf.Clamp(coordinate.x, origin.x, origin.x + nCells.x - 1);
+        int y = Mathf.Clamp(coordinate.y, origin.y, origin.y + nCells.y - 1);
         return new Vector2Int(x, y);
     }
 
