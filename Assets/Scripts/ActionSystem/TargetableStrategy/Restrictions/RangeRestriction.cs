@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RangeRestriction : TargetableCellRestriction
+public class RangeRestriction : TargetingRestriction
 {
     public RangeRestriction(BattleAction action)
         : base(action) { /* Nothing! */ }

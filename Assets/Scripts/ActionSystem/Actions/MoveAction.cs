@@ -12,7 +12,7 @@ public class MoveAction : BattleAction
         // Knowing what we can target
         targetableFormation = TargetableFormation.Self;
         targetableStrategy = new AnyCells(this);
-        targetRestrictions = new List<TargetableCellRestriction>()
+        targetRestrictions = new List<TargetingRestriction>()
         {
             new RangeRestriction(this),
             new CellContentRestriction(this, TargetableCellContent.Empty)

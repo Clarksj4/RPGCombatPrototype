@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public abstract class TargetableCellRestriction
+public abstract class TargetingRestriction
 {
     protected BattleAction action;
 
-    public TargetableCellRestriction(BattleAction action)
+    public TargetingRestriction(BattleAction action)
     {
         this.action = action;
     }

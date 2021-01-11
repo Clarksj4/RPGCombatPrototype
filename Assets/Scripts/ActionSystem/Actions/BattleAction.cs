@@ -46,7 +46,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the collection of restrictions on cells that can be targeted.
     /// </summary>
-    protected List<TargetableCellRestriction> targetRestrictions = null;
+    protected List<TargetingRestriction> targetRestrictions = null;
     /// <summary>
     /// Gets the strategy for selecting which cells are affected based
     /// upon a targeted cell.

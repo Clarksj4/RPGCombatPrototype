@@ -10,7 +10,7 @@ public class HookAction : BattleAction
         // Knowing what we can target
         targetableFormation = TargetableFormation.Other | TargetableFormation.Self;
         targetableStrategy = new LinearCells(this);
-        targetRestrictions = new List<TargetableCellRestriction>()
+        targetRestrictions = new List<TargetingRestriction>()
         {
             new EmptyAdjacentRestriction(this, RelativeDirection.Towards),
             new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)

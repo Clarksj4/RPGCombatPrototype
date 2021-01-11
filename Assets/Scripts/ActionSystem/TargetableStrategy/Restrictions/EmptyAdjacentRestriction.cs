@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public class EmptyAdjacentRestriction : TargetableCellRestriction
+public class EmptyAdjacentRestriction : TargetingRestriction
 {
     private RelativeDirection directions;
     private bool allEmpty;

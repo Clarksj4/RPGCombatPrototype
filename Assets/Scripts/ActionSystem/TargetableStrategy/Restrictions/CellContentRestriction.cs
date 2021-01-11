@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CellContentRestriction : TargetableCellRestriction
+public class CellContentRestriction : TargetingRestriction
 {
     private TargetableCellContent targetableContent;
 
