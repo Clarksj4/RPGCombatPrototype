@@ -11,10 +11,10 @@ public class FireboltAction : BattleAction
         // Knowing what we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCells(this),
+            new LinearCellsRestriction(this),
             new FormationRestriction(this, TargetableFormation.Other),
             new CellContentRestriction(this, TargetableCellContent.Enemy),
-            new ExposedCells(this)
+            new ExposedCellsRestriction(this)
         };
         targetedStrategy = new TargetedPoint(this);
 

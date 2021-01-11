@@ -11,7 +11,7 @@ public class FlameWaveAction : BattleAction
         targetRestrictions = new List<TargetingRestriction>()
         {
             new FormationRestriction(this, TargetableFormation.Other),
-            new RankCells(this, 0)
+            new RankCellsRestriction(this, 0)
         };
 
         targetedStrategy = new TargetedRank(this, 0);

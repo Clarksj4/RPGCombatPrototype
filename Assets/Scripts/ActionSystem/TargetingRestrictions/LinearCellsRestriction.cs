@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using System.Linq;
 
-public class LinearCells : TargetingRestriction
+public class LinearCellsRestriction : TargetingRestriction
 {
-    public LinearCells(BattleAction action)
+    public LinearCellsRestriction(BattleAction action)
         : base(action) { /* Nothing! */ }
 
     public override bool IsTargetValid(Cell cell)

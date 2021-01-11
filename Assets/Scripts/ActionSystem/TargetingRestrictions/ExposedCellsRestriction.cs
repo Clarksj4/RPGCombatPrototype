@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Linq;
 
-public class ExposedCells : TargetingRestriction
+public class ExposedCellsRestriction : TargetingRestriction
 {
-    public ExposedCells(BattleAction action)
+    public ExposedCellsRestriction(BattleAction action)
         : base(action) { /* Nothing! */ }
 
     public override bool IsTargetValid(Cell cell)
     {
-        Debug.Log($"{cell.name}");
         Formation formation = cell.Formation;
         Vector2Int facing = formation.Facing;
 

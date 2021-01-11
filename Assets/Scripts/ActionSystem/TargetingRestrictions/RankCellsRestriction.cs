@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class RankCells : TargetingRestriction
+public class RankCellsRestriction : TargetingRestriction
 {
     private int rank;
 
-    public RankCells(BattleAction action, int rank)
+    public RankCellsRestriction(BattleAction action, int rank)
         : base(action)
     {
         this.rank = rank;
