@@ -5,18 +5,24 @@ public class HookAction : BattleAction
     public HookAction()
     : base()
     {
+        // Misc information about the ability
         Tags = ActionTag.Movement | ActionTag.Forced | ActionTag.Damage;
 
-        // Knowing what we can target
+        // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
             new LinearCellsRestriction(this),
-            new EmptyAdjacentRestriction(this, RelativeDirection.Towards),
+            new AdjcentCellContentRestriction(this, TargetableCellContent.Empty, RelativeDirection.Towards),
             new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)
         };
-        targetedStrategy = new TargetedPoint(this);
 
-        // Knowing what we do.
+        // The cells that will be affected
+        areaOfEffect = new List<AffectedArea>()
+        {
+            new AffectedPoint(this)
+        };
+
+        // The effect upon those cells.
         actionSequence = new List<ActionNode>()
         {
             new IsHitNode(this),

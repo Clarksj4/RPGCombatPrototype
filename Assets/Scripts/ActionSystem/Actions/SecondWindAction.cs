@@ -7,14 +7,19 @@ public class SecondWindAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Heal;
 
-        // Knowing what we can target
+        // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this,TargetableCellContent.Self)
+            new CellContentRestriction(this, TargetableCellContent.Self)
         };
-        targetedStrategy = new TargetedPoint(this);
 
-        // Knowing what we do.
+        // The cells that will be affected
+        areaOfEffect = new List<AffectedArea>()
+        {
+            new AffectedPoint(this)
+        };
+
+        // The effect upon those cells.
         actionSequence = new List<ActionNode>()
         {
             new HealNode(this)

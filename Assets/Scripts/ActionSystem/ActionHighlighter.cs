@@ -71,7 +71,7 @@ namespace Assets.Scripts.Actions
 
         private IEnumerable<Cell> GetAffectedCoordinates()
         {
-            return SelectedAction.GetAffectedCoordinates();
+            return SelectedAction.AffectedCells;
         }
 
         private IEnumerable<Cell> GetPossibleTargets()

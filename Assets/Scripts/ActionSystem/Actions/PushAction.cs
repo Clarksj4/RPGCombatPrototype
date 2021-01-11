@@ -7,19 +7,25 @@ public class PushAction : BattleAction
     public PushAction()
         : base()
     {
+        // Misc information about the ability
         Tags = ActionTag.Movement | ActionTag.Forced;
 
-        // Knowing what we can target
+        // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
             new FormationRestriction(this, TargetableFormation.Self),
             new RangeRestriction(this),
-            new EmptyAdjacentRestriction(this, RelativeDirection.Away),
+            new AdjcentCellContentRestriction(this, TargetableCellContent.Empty, RelativeDirection.Away),
             new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)
         };
-        targetedStrategy = new TargetedPoint(this);
 
-        // Knowing what we do.
+        // The cells that will be affected
+        areaOfEffect = new List<AffectedArea>()
+        {
+            new AffectedPoint(this)
+        };
+
+        // The effect upon those cells.
         actionSequence = new List<ActionNode>()
         {
             new PushNode(this, Range, RelativeDirection.Away)

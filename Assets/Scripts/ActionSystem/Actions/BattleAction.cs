@@ -38,10 +38,9 @@ public abstract class BattleAction
     /// </summary>
     protected List<TargetingRestriction> targetRestrictions = null;
     /// <summary>
-    /// Gets the strategy for selecting which cells are affected based
-    /// upon a targeted cell.
+    /// Gets a list of areas that this action will affect.
     /// </summary>
-    protected TargetedStrategy targetedStrategy = null;
+    protected List<AffectedArea> areaOfEffect = null;
     /// <summary>
     /// The sequence of things this battle action with do.
     /// </summary>
@@ -59,14 +58,26 @@ public abstract class BattleAction
     /// Gest a collection of informative tags about this action.
     /// </summary>
     public ActionTag Tags { get; protected set; } = ActionTag.None;
-
+    
+    //
     // Targetable cells cache
+    //
 
     /// <summary>
     /// Gets all the cells targetable by this action.
     /// </summary>
     public IEnumerable<Cell> TargetableCells { get { return targetableCells; } }
     private IList<Cell> targetableCells = null;
+
+    //
+    // Affected cells cache
+    //
+
+    /// <summary>
+    /// Gets all the cells affected by this action.
+    /// </summary>
+    public IEnumerable<Cell> AffectedCells { get { return affectedCells; } }
+    private IList<Cell> affectedCells = null;
 
     //
     // Methods
@@ -99,7 +110,10 @@ public abstract class BattleAction
         
         // Set target map / position
         if (validTarget)
+        {
             TargetCell = cell;
+            affectedCells = GetAffectedCells().ToList();
+        }
 
         return validTarget;
     }
@@ -110,6 +124,7 @@ public abstract class BattleAction
     public void DeselectTarget()
     {
         TargetCell = null;
+        affectedCells = null;
     }
 
     /// <summary>
@@ -136,6 +151,14 @@ public abstract class BattleAction
     }
 
     /// <summary>
+    /// Gets the coordinates that will be affected by this action.
+    /// </summary>
+    protected IEnumerable<Cell> GetAffectedCells()
+    {
+        return areaOfEffect.SelectMany(a => a.GetAffectedArea());
+    }
+
+    /// <summary>
     /// Checks if the given actor is currently able to perform
     /// this action.
     /// </summary>
@@ -154,20 +177,12 @@ public abstract class BattleAction
     }
 
     /// <summary>
-    /// Gets the coordinates that will be affected by this action.
-    /// </summary>
-    public IEnumerable<Cell> GetAffectedCoordinates()
-    {
-        return targetedStrategy.GetAffectedCoordinates();
-    }
-
-    /// <summary>
     /// Performs this action. Returns true if the action was
     /// successful.
     /// </summary>
     public virtual IEnumerator Do()
     {
-        foreach (Cell cell in GetAffectedCoordinates())
+        foreach (Cell cell in affectedCells)
         {
             // Apply action sequence to each affected cell.
             foreach (ActionNode action in actionSequence)

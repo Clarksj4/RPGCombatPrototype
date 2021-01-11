@@ -13,7 +13,7 @@ public class ImmolateAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Damage;
 
-        // Knowing what we can target
+        // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
             new FormationRestriction(this, TargetableFormation.Other),
@@ -21,9 +21,14 @@ public class ImmolateAction : BattleAction
             new ExposedCellsRestriction(this),
             new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
-        targetedStrategy = new TargetedArea(this, AREA);
 
-        // Knowing what we do.
+        // The cells that will be affected
+        areaOfEffect = new List<AffectedArea>()
+        {
+            new AffectedRange(this, AREA)
+        };
+
+        // The effect upon those cells.
         actionSequence = new List<ActionNode>()
         {
             new IsHitNode(this),

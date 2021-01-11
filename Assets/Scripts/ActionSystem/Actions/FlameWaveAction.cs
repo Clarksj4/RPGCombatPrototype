@@ -7,16 +7,20 @@ public class FlameWaveAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Damage;
 
-        // Knowing what we can target
+        // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
             new FormationRestriction(this, TargetableFormation.Other),
             new RankCellsRestriction(this, 0)
         };
 
-        targetedStrategy = new TargetedRank(this, 0);
+        // The cells that will be affected
+        areaOfEffect = new List<AffectedArea>()
+        {
+            new AffectedRank(this, 0)
+        };
 
-        // Knowing what we do.
+        // The effect upon those cells.
         actionSequence = new List<ActionNode>()
         {
             new DoDamageNode(this)

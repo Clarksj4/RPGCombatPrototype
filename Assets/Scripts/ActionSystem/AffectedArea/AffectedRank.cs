@@ -2,17 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TargetedRank : TargetedStrategy
+public class AffectedRank : AffectedArea
 {
     private int rank;
 
-    public TargetedRank(BattleAction action, int rank)
+    public AffectedRank(BattleAction action, int rank)
         : base(action) 
     {
         this.rank = rank;
     }
 
-    public override IEnumerable<Cell> GetAffectedCoordinates()
+    public override IEnumerable<Cell> GetAffectedArea()
     {
         Formation formation = action.TargetCell.Formation;
         foreach (Cell cell in formation.GetRankCells(rank))

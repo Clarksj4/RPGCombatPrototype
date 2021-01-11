@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class TargetedPoint : TargetedStrategy
+public class AffectedPoint : AffectedArea
 {
-    public TargetedPoint(BattleAction action)
+    public AffectedPoint(BattleAction action)
         : base(action) { /* Nothing */ }
 
-    public override IEnumerable<Cell> GetAffectedCoordinates()
+    public override IEnumerable<Cell> GetAffectedArea()
     {
         yield return action.TargetCell;
     }

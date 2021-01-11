@@ -118,12 +118,7 @@ public class Formation : MonoBehaviour
     public IEnumerable<Cell> GetRankCells(int rank)
     {
         foreach (Vector2Int coordinate in GetRankCoordinates(rank))
-        {
-            Cell cell = Grid.GetCell(coordinate);
-            print(coordinate);
-            print(cell.name);
-            yield return cell;
-        }
+            yield return Grid.GetCell(coordinate);
     }
 
     public int GetRank(Vector2Int coordinate)
