@@ -125,9 +125,9 @@ public class MonoGrid : MonoBehaviour
         return grid.GetLine(cell.Coordinate, step, nSteps).Select(GetCell).Where(c => c != null);
     }
 
-    public IEnumerable<Cell> GetRange(Vector2Int origin, int range)
+    public IEnumerable<Cell> GetRange(Vector2Int origin, int min, int max)
     {
-        return grid.GetRange(origin, range).Select(GetCell).Where(c => c != null);
+        return grid.GetRange(origin, min, max).Select(GetCell).Where(c => c != null);
     }
 
     /// <summary>

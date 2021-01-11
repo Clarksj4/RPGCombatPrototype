@@ -25,7 +25,7 @@ public class ImmolateAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedRange(this, AREA)
+            new AffectedRange(this, 0, AREA)
         };
 
         // The effect upon those cells.
