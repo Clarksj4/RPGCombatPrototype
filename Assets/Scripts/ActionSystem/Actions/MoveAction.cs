@@ -14,6 +14,7 @@ public class MoveAction : BattleAction
         targetableStrategy = new AnyCells(this);
         targetRestrictions = new List<TargetableCellRestriction>()
         {
+            new RangeRestriction(this),
             new CellContentRestriction(this, TargetableCellContent.Empty)
         };
         targetedStrategy = new TargetedPoint(this);

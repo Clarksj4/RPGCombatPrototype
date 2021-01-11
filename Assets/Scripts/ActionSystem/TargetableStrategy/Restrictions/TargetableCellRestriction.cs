@@ -9,5 +9,5 @@ public abstract class TargetableCellRestriction
         this.action = action;
     }
 
-    public abstract bool IsTargetValid(Cell cell);
+    public abstract bool IsTargetValid(Cell cell); 
 }
