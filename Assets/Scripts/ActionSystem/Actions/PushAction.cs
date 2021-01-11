@@ -10,10 +10,9 @@ public class PushAction : BattleAction
         Tags = ActionTag.Movement | ActionTag.Forced;
 
         // Knowing what we can target
-        targetableFormation = TargetableFormation.Self;
-        targetableStrategy = new AnyCells(this);
         targetRestrictions = new List<TargetingRestriction>()
         {
+            new FormationRestriction(this, TargetableFormation.Self),
             new RangeRestriction(this),
             new EmptyAdjacentRestriction(this, RelativeDirection.Away),
             new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)

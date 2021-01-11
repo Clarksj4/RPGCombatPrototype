@@ -33,16 +33,6 @@ public abstract class BattleAction
     //
     // Target Validation.
     //
-
-    /// <summary>
-    /// Gets whether this action can target a formation other than
-    /// the one the actor is currently on.
-    /// </summary>
-    protected TargetableFormation targetableFormation = TargetableFormation.None;
-    /// <summary>
-    /// Gets the strategy for selecting which cells are targetable.
-    /// </summary>
-    protected TargetableStrategy targetableStrategy = null;
     /// <summary>
     /// Gets the collection of restrictions on cells that can be targeted.
     /// </summary>
@@ -70,6 +60,14 @@ public abstract class BattleAction
     /// </summary>
     public ActionTag Tags { get; protected set; } = ActionTag.None;
 
+    // Targetable cells cache
+
+    /// <summary>
+    /// Gets all the cells targetable by this action.
+    /// </summary>
+    public IEnumerable<Cell> TargetableCells { get { return targetableCells; } }
+    private IList<Cell> targetableCells = null;
+
     //
     // Methods
     //
@@ -86,6 +84,7 @@ public abstract class BattleAction
         {
             // Set actor and originating map / position.
             Actor = actor;
+            targetableCells = GetTargetableCells().ToList();
         }
         return isAble;
     }
@@ -114,25 +113,14 @@ public abstract class BattleAction
     }
 
     /// <summary>
-    /// Gets all the formations that are valid targets for
-    /// this action.
-    /// </summary>
-    public IEnumerable<Formation> GetTargetableFormations()
-    {
-        return BattleManager.Instance.Formations.Where(IsTargetFormationValid);
-    }
-
-    /// <summary>
     /// Gets all the cells that can be targeted by this action.
     /// </summary>
-    public virtual IEnumerable<Cell> GetTargetableCells()
+    protected virtual IEnumerable<Cell> GetTargetableCells()
     {
-        IEnumerable<Cell> cells = targetableStrategy.GetTargetableCells();
-
         // Return all cells that meet restrictions
         if (targetRestrictions != null && targetRestrictions.Count > 0)
         {
-            foreach (Cell cell in cells)
+            foreach (Cell cell in Grid.GetCells())
             {
                 if (targetRestrictions.All(r => r.IsTargetValid(cell)))
                     yield return cell;
@@ -142,7 +130,7 @@ public abstract class BattleAction
         // Return all cells - no restrictions
         else
         {
-            foreach (Cell cell in cells)
+            foreach (Cell cell in Grid.GetCells())
                 yield return cell;
         }
     }
@@ -194,38 +182,10 @@ public abstract class BattleAction
     }
 
     /// <summary>
-    /// Checks whether the given formation is a valid target.
-    /// </summary>
-    private bool IsTargetFormationValid(Formation formation)
-    {
-        // Check for all or nothing cases first to see
-        // if we can skip the other checks.
-        if (targetableFormation == TargetableFormation.All) return true;
-        if (targetableFormation == TargetableFormation.None) return false;
-
-        // Assume the formation is invalid and then include
-        // cases as it meets their requirements
-        bool valid = false;
-        bool isSelfFormation = formation == Actor.Formation;
-
-        // Can target own formation.
-        if (targetableFormation.HasFlag(TargetableFormation.Self) &&
-            isSelfFormation)
-            valid = true;
-
-        // Can target other formations.
-        else if (targetableFormation.HasFlag(TargetableFormation.Other) &&
-            !isSelfFormation)
-            valid = true;
-
-        return valid;
-    }
-
-    /// <summary>
     /// Checks whether the given cell is a valid target.
     /// </summary>
     private bool IsTargetCellValid(Cell tagetCell)
     {
-        return GetTargetableCells().Any(cell => cell == tagetCell);
+        return targetableCells.Any(cell => cell == tagetCell);
     }
 }

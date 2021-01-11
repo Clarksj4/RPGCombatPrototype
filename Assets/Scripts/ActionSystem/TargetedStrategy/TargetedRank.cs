@@ -14,10 +14,8 @@ public class TargetedRank : TargetedStrategy
 
     public override IEnumerable<Cell> GetAffectedCoordinates()
     {
-        foreach (Formation formation in action.GetTargetableFormations())
-        {
-            foreach (Cell cell in formation.GetRankCells(rank))
-                yield return cell;
-        }
+        Formation formation = action.TargetCell.Formation;
+        foreach (Cell cell in formation.GetRankCells(rank))
+            yield return cell;
     }
 }

@@ -76,7 +76,7 @@ namespace Assets.Scripts.Actions
 
         private IEnumerable<Cell> GetPossibleTargets()
         {
-            return SelectedAction.GetTargetableCells();
+            return SelectedAction.TargetableCells;
         }
 
         private void HandleOnTargetSelected(BattleAction action)

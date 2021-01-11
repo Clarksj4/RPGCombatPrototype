@@ -10,10 +10,9 @@ public class MoveAction : BattleAction
         Tags = ActionTag.Movement;
 
         // Knowing what we can target
-        targetableFormation = TargetableFormation.Self;
-        targetableStrategy = new AnyCells(this);
         targetRestrictions = new List<TargetingRestriction>()
         {
+            new FormationRestriction(this, TargetableFormation.Self),
             new RangeRestriction(this),
             new CellContentRestriction(this, TargetableCellContent.Empty)
         };

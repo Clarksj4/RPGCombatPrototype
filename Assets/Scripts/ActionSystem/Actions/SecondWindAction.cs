@@ -8,8 +8,6 @@ public class SecondWindAction : BattleAction
         Tags = ActionTag.Heal;
 
         // Knowing what we can target
-        targetableFormation = TargetableFormation.Self;
-        targetableStrategy = new AnyCells(this);
         targetRestrictions = new List<TargetingRestriction>()
         {
             new CellContentRestriction(this,TargetableCellContent.Self)

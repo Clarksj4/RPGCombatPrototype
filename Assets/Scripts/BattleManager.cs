@@ -8,14 +8,12 @@ using UnityEngine;
 public class BattleManager : MonoSingleton<BattleManager>
 {
     public MonoGrid Grid { get; private set; }
-    public Formation[] Formations { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
 
         Grid = FindObjectOfType<MonoGrid>();
-        Formations = FindObjectsOfType<Formation>();
 
         TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
         TurnManager.Instance.OnRoundEnd += HandleOnRoundEnd;
@@ -26,7 +24,7 @@ public class BattleManager : MonoSingleton<BattleManager>
         PrioritizedStartManager.Instance.InitializeAll(() => {
             // TODO: assign things to teams!
             int i = 1;
-            foreach(Formation formation in Formations)
+            foreach(Formation formation in FormationManager.Instance.Formations)
             {
                 TeamManager.Instance.AddTeamAndMembers
                 (

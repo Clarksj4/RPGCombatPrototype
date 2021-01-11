@@ -8,8 +8,12 @@ public class FlameWaveAction : BattleAction
         Tags = ActionTag.Damage;
 
         // Knowing what we can target
-        targetableFormation = TargetableFormation.Other;
-        targetableStrategy = new RankCells(this, 0);
+        targetRestrictions = new List<TargetingRestriction>()
+        {
+            new FormationRestriction(this, TargetableFormation.Other),
+            new RankCells(this, 0)
+        };
+
         targetedStrategy = new TargetedRank(this, 0);
 
         // Knowing what we do.

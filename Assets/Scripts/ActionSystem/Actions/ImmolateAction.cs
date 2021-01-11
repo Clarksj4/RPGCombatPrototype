@@ -14,10 +14,11 @@ public class ImmolateAction : BattleAction
         Tags = ActionTag.Damage;
 
         // Knowing what we can target
-        targetableFormation = TargetableFormation.Other;
-        targetableStrategy = new LinearExposedCells(this);
         targetRestrictions = new List<TargetingRestriction>()
         {
+            new FormationRestriction(this, TargetableFormation.Other),
+            new LinearCells(this),
+            new ExposedCells(this),
             new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
         targetedStrategy = new TargetedArea(this, AREA);

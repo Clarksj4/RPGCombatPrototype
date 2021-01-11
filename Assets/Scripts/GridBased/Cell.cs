@@ -28,6 +28,10 @@ public class Cell : MonoBehaviour
     /// Gets whether this cell is currently active.
     /// </summary>
     public bool Active { get { return gameObject.activeSelf; } }
+    /// <summary>
+    /// Gets the formation that this cell belongs to.
+    /// </summary>
+    public Formation Formation { get { return FormationManager.Instance.GetFormation(this); } }
 
     [Tooltip("Whether or not this cell is traversable.")]
     public bool Traversable;

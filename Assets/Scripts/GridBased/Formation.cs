@@ -126,6 +126,19 @@ public class Formation : MonoBehaviour
         }
     }
 
+    public int GetRank(Vector2Int coordinate)
+    {
+        // Get the distance from the front rank
+        Vector2Int frontOrigin = GetFrontOrigin();
+        Vector2Int delta = frontOrigin - coordinate;
+
+        // Delete information in the axis we don't care about
+        delta *= facing.Abs();
+
+        // Remaining axis contains rank
+        return delta.Abs().MaxAxisMagnitude();
+    }
+
     public IEnumerable<Vector2Int> GetRankCoordinates(int rank)
     {
         // Coordinate at front of formation relative to the reference.

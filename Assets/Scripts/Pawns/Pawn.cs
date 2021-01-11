@@ -28,7 +28,7 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// <summary>
     /// Gets the formation this pawn is part of.
     /// </summary>
-    public Formation Formation { get { return BattleManager.Instance.Formations.FirstOrDefault(f => f.Pawns.Contains(this)); } }
+    public Formation Formation { get { return Cell.Formation; } }
     /// <summary>
     /// Gets the direction this pawn is facing.
     /// </summary>

@@ -82,7 +82,7 @@ public class MonoGrid : MonoBehaviour
     /// </summary>
     public IEnumerable<Cell> GetCells()
     {
-        return cellDirectory.Values;
+        return cellDirectory.Values.Where(c => c.Active);
     }
 
     /// <summary>
