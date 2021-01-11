@@ -101,35 +101,33 @@ public class MonoGrid : MonoBehaviour
     /// </summary>
     public Cell GetCell(Vector2Int coordinate)
     {
-        if (cellDirectory.ContainsKey(coordinate))
-            return cellDirectory[coordinate];
+        if (cellDirectory.TryGetValue(coordinate, out var cell))
+        {
+            if (cell.Active)
+                return cell;
+        }
         
         return null;
     }
 
     public IEnumerable<Cell> GetColumnCells(int x)
     {
-        return grid.GetColumnCoordinates(x).Select(GetCell);
+        return grid.GetColumnCoordinates(x).Select(GetCell).Where(c => c != null);
     }
 
     public IEnumerable<Cell> GetRowCells(int y)
     {
-        return grid.GetRowCoordinates(y).Select(GetCell);
+        return grid.GetRowCoordinates(y).Select(GetCell).Where(c => c != null);
     }
 
     public IEnumerable<Cell> GetLineCells(Cell cell, Vector2Int step, int nSteps)
     {
-        return grid.GetLine(cell.Coordinate, step, nSteps).Select(GetCell);
+        return grid.GetLine(cell.Coordinate, step, nSteps).Select(GetCell).Where(c => c != null);
     }
 
     public IEnumerable<Cell> GetRange(Vector2Int origin, int range)
     {
-        foreach (Vector2Int coordinate in grid.GetRange(origin, range))
-        {
-            Cell cell = GetCell(coordinate);
-            if (cell != null)
-                yield return cell;
-        }
+        return grid.GetRange(origin, range).Select(GetCell).Where(c => c != null);
     }
 
     /// <summary>

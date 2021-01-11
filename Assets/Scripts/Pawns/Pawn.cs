@@ -30,6 +30,10 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// </summary>
     public Formation Formation { get { return BattleManager.Instance.Formations.FirstOrDefault(f => f.Pawns.Contains(this)); } }
     /// <summary>
+    /// Gets the direction this pawn is facing.
+    /// </summary>
+    public Vector2Int Facing { get { return Formation.Facing; } }
+    /// <summary>
     /// Gets the grid this pawn is on.
     /// </summary>
     public MonoGrid Grid { get { return GetComponentInParent<MonoGrid>(); } }
@@ -78,6 +82,7 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     public void SetCell(Cell cell)
     {
         transform.SetParent(cell.transform, false);
+        transform.localPosition = Vector3.zero;
     }
 
     /// <summary>

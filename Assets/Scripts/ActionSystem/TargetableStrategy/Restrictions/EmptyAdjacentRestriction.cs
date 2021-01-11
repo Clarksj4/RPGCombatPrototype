@@ -34,10 +34,10 @@ public class EmptyAdjacentRestriction : TargetableCellRestriction
             Vector2Int adjacentPosition = cell.Coordinate + relativeDirection;
             Cell adjacentCell = action.Grid.GetCell(adjacentPosition);
 
-            // Cells that don't exist are considered to be empty.
-            bool empty = true;
+            // There's gota be a cell there to test
+            bool empty = false;
             if (adjacentCell != null)
-                empty = adjacentCell.IsOccupied<IDefender>();
+                empty = !adjacentCell.IsOccupied<IDefender>();
             
             // If its not empty then halt iteration.
             if (!empty)

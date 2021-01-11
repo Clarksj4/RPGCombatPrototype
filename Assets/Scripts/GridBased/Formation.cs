@@ -17,6 +17,10 @@ public class Formation : MonoBehaviour
     /// </summary>
     public Vector3 Extents { get { return Size / 2; } }
     /// <summary>
+    /// Gets the direction that this formation is facing.
+    /// </summary>
+    public Vector2Int Facing { get { return facing; } }
+    /// <summary>
     /// Gets all the pawns currently in this formation.
     /// </summary>
     public IEnumerable<Pawn> Pawns 

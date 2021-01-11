@@ -24,6 +24,11 @@ public class Cell : MonoBehaviour
     /// Gets the extents of this cell - equal to half its width and height
     /// </summary>
     public Vector3 Extents { get { return Parent.CellSize / 2; } }
+    /// <summary>
+    /// Gets whether this cell is currently active.
+    /// </summary>
+    public bool Active { get { return gameObject.activeSelf; } }
+
     [Tooltip("Whether or not this cell is traversable.")]
     public bool Traversable;
     [SerializeField][HideInInspector]
@@ -34,7 +39,7 @@ public class Cell : MonoBehaviour
     /// </summary>
     public bool IsOccupied()
     {
-        return Contents.Any();
+        return Contents.Any(c => c != null);
     }
 
     /// <summary>
@@ -43,7 +48,7 @@ public class Cell : MonoBehaviour
     /// </summary>
     public bool IsOccupied<T>()
     {
-        return Contents.Any(c => c is T);
+        return Contents.Any(c => c is T && c != null);
     }
 
     /// <summary>
