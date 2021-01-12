@@ -19,30 +19,37 @@ public class PushNode : ActionNode
 
     public override bool ApplyToCell(Cell cell)
     {
-        bool any = cell.Contents.Any(c => c is IDefender);
-
-        foreach (IGridBased target in cell.Contents)
+        Pawn target = cell.GetContent<Pawn>();
+        if (target != null)
         {
-            if (target is Pawn)
+            Cell destination = GetDestinationCell(cell);
+            if (destination != null && !destination.IsOccupied())
             {
-                Pawn pawn = target as Pawn;
-
-                // Get final positions
-                Vector2Int destinationDirection = cell.Coordinate.GetRelativeDirections(action.Actor.Coordinate, direction).Single();
-                Vector2Int destinationCoordinate = cell.Coordinate + (destinationDirection * distance);
-                Vector3 destinationWorldPosition = action.Grid.CoordinateToWorldPosition(destinationCoordinate);
-
                 // Move target to position over time
                 Sequence sequence = DOTween.Sequence();
-                sequence.Append(pawn.transform.DOMove(destinationWorldPosition, 0.25f).SetEase(Ease.OutExpo));
+                sequence.Append(target.transform.DOMove(cell.WorldPosition, 0.25f).SetEase(Ease.OutExpo));
                 sequence.OnComplete(() => {
                     // Update coordinate on arrival
-                    pawn.SetCoordinate(destinationCoordinate);
+                    target.SetCell(destination);
                 });
 
+                return true;
             }
         }
 
-        return any;
+        return false;
+    }
+
+    private Cell GetDestinationCell(Cell cell)
+    {
+        // Get direction of push
+        Vector2Int destinationDirection = cell.Coordinate.GetRelativeDirections(action.Actor.Coordinate, direction).Single();
+
+        // Convert to coordinate
+        Vector2Int destinationCoordinate = cell.Coordinate + (destinationDirection * distance);
+
+        // Get cell at coordinate
+        return cell.Grid.GetCell(destinationCoordinate);
+
     }
 }

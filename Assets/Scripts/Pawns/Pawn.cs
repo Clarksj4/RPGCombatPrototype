@@ -13,6 +13,8 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// </summary>
     public event Action<int> OnHealthChanged;
 
+    [SerializeField] private PawnStats stats;
+
     /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
@@ -56,17 +58,22 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// <summary>
     /// Gets this pawns defense.
     /// </summary>
-    public float Defense { get; protected set; } = 0f;
+    public float Defense { get; set; }
     /// <summary>
     /// Gets this pawns evasion.
     /// </summary>
-    public float Evasion { get; protected set; } = 0f;
+    public float Evasion { get; set; }
     /// <summary>
     /// Gets the maximum health of this pawn.
     /// </summary>
-    public int MaxHealth { get; protected set; } = 100;
+    public int MaxHealth { get; set; }
 
     private int health = 100;
+
+    protected virtual void Awake()
+    {
+        stats.SetStats(this);
+    }
 
     /// <summary>
     /// Sets the pawns world position without updating their map coordinate.
@@ -92,5 +99,12 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     {
         Cell cell = Grid.GetCell(coordinate);
         SetCell(cell);
+    }
+
+    protected virtual void LoadStats()
+    {
+        Defense = stats.Defense;
+        Evasion = stats.Evasion;
+        MaxHealth = stats.MaxHealth;
     }
 }

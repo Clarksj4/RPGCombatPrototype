@@ -8,9 +8,6 @@ public class DoDamageNode : ActionNode
 
     public override bool ApplyToCell(Cell cell)
     {
-        // Are there any targets for this action?
-        bool any = cell.Contents.Any(c => c is IDefender);
-
         foreach (IGridBased target in cell.Contents)
         {
             if (target is IDefender)
@@ -25,6 +22,6 @@ public class DoDamageNode : ActionNode
             }
         }
 
-        return any;
+        return true;
     }
 }

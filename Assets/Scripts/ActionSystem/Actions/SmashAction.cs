@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
 
-public class MoveAction : BattleAction
+public class SmashAction : BattleAction
 {
-    public override int Range { get { return Actor.Movement; } }
-
-    public MoveAction()
+    public SmashAction()
+        : base()
     {
         // Misc information about the ability
-        Tags = ActionTag.Movement;
+        Tags = ActionTag.Damage;
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction(this, TargetableFormation.Self),
-            new RangeRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Empty)
+            new RankCellsRestriction(this, 0),
+            new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
 
         // The cells that will be affected
@@ -26,7 +24,9 @@ public class MoveAction : BattleAction
         // The effect upon those cells.
         actionSequence = new List<ActionNode>()
         {
-            new MoveNode(this)
+            new IsHitNode(this),
+            new DoDamageNode(this),
+            new PushNode(this, 1, RelativeDirection.Away)
         };
     }
 }

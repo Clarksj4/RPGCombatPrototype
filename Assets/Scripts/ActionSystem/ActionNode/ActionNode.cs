@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class ActionNode : MonoBehaviour
+public abstract class ActionNode
 {
     protected BattleAction action;
 

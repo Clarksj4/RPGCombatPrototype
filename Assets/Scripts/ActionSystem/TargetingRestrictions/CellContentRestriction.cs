@@ -42,7 +42,7 @@ public class CellContentRestriction : TargetingRestriction
 
         // Can target allies.
         else if (targetableContent.HasFlag(TargetableCellContent.Ally) &&
-            pawnExists && isActorOnSameTeam)
+            pawnExists && isActorOnSameTeam && !isSelf)
             valid = true;
 
         // Can target enemies.

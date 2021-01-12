@@ -115,10 +115,45 @@ public class Formation : MonoBehaviour
         }
     }
 
-    public IEnumerable<Cell> GetRankCells(int rank)
+    public int GetFile(Vector2Int coordinate)
     {
-        foreach (Vector2Int coordinate in GetRankCoordinates(rank))
+        // Get the distance from the front rank
+        Vector2Int frontOrigin = GetFrontOrigin();
+        Vector2Int delta = frontOrigin - coordinate;
+
+        // Delete information in the axis we don't care about
+        delta *= facing.Perpendicular().Abs();
+
+        // Remaining axis contains file
+        return delta.Abs().MaxAxisMagnitude();
+    }
+
+    public IEnumerable<Cell> GetFileCells(int file)
+    {
+        foreach (Vector2Int coordinate in GetFileCoordinates(file))
             yield return Grid.GetCell(coordinate);
+    }
+
+    public IEnumerable<Vector2Int> GetFileCoordinates(int file)
+    {
+        // Coordinate at front of formation relative to the reference.
+        Vector2Int frontOrigin = GetFrontOrigin();
+
+        Vector2Int stepAwayFromOrigin = facing.Perpendicular().Abs();
+        Vector2Int fileOrigin = frontOrigin + (stepAwayFromOrigin * file);
+
+        Vector2Int stepAlongFile = -facing;
+
+        int steps = NFiles;
+
+        // Always return the origin (in case formation is a single cell)
+        yield return fileOrigin;
+        for (int i = 1; i < steps; i++)
+        {
+            Vector2Int coordinate = fileOrigin + (i * stepAlongFile);
+            if (Grid.Contains(coordinate) && Contains(coordinate))
+                yield return coordinate;
+        }
     }
 
     public int GetRank(Vector2Int coordinate)
@@ -134,6 +169,12 @@ public class Formation : MonoBehaviour
         return delta.Abs().MaxAxisMagnitude();
     }
 
+    public IEnumerable<Cell> GetRankCells(int rank)
+    {
+        foreach (Vector2Int coordinate in GetRankCoordinates(rank))
+            yield return Grid.GetCell(coordinate);
+    }
+
     public IEnumerable<Vector2Int> GetRankCoordinates(int rank)
     {
         // Coordinate at front of formation relative to the reference.
@@ -146,31 +187,14 @@ public class Formation : MonoBehaviour
 
         int steps = NFiles;
 
-        //print($"origin: {origin}, nCells: {nCells}");
-
         // Always return the origin (in case formation is a single cell)
         yield return rankOrigin;
         for (int i = 1; i < steps; i++)
         {
             Vector2Int coordinate = rankOrigin + (i * stepAlongRank);
-            bool gridContains = Grid.Contains(coordinate);
-            bool formationContains = Contains(coordinate);
-            //print($"{coordinate}, gridContains: {gridContains}, formationContains: {formationContains}");
             if (Grid.Contains(coordinate) && Contains(coordinate))
                 yield return coordinate;
         }
-    }
-
-    private Vector2Int GetRankStep(Vector2Int reference)
-    {
-        Vector2Int direction = reference - origin;
-        Vector2Int step = direction.Perpendicular().Reduce();
-        
-        // Reverse the direction of step so we move away from the edge.
-        if (reference.sqrMagnitude < origin.sqrMagnitude)
-            step = -step;
-        
-        return step;
     }
 
     private Vector2Int Clamp(Vector2Int coordinate)

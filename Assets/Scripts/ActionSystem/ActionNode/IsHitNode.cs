@@ -13,22 +13,21 @@ public class IsHitNode : ActionNode
 
     public override bool ApplyToCell(Cell cell)
     {
-        foreach (IGridBased target in cell.Contents)
+        Pawn target = cell.GetContent<Pawn>();
+        if (target != null)
         {
-            if (target is IDefender)
-            {
-                IDefender defender = target as IDefender;
+            // Always have a minimum chance to hit
+            float hitChance = 1f - Mathf.Max(MINIMUM_HIT_CHANCE, action.Actor.Accuracy - target.Evasion);
+            float roll = Random.Range(0f, 1f);
+            bool hits = roll >= hitChance;
+            
+            Debug.Log($"Roll: {roll} vs {hitChance}. Attack hits: {hits}!");
 
-                // Always have a minimum chance to hit
-                float hitChance = 1f - Mathf.Max(MINIMUM_HIT_CHANCE, action.Actor.Accuracy - defender.Evasion);
-                float roll = Random.Range(0f, 1f);
-                bool hits = roll >= hitChance;
-                Debug.Log($"Roll: {roll} vs {hitChance}. Attack hits: {hits}!");
-                
-                return true;
-            }
+            return hits;
         }
-        
-        return false;
+
+        Debug.Log("Cell empty - counts as a hit.");
+        // Counts as a hit.
+        return true;
     }
 }

@@ -55,10 +55,14 @@ public abstract class BattleAction
     /// </summary>
     public virtual int Range { get { return -1; } }
     /// <summary>
-    /// Gest a collection of informative tags about this action.
+    /// Gets a collection of informative tags about this action.
     /// </summary>
     public ActionTag Tags { get; protected set; } = ActionTag.None;
-    
+    /// <summary>
+    /// Gets or sets how action node failures are handled.
+    /// </summary>
+    public bool AffectedCellsIndependent { get; set; } = true;
+
     //
     // Targetable cells cache
     //
@@ -189,7 +193,17 @@ public abstract class BattleAction
             {
                 bool success = action.ApplyToCell(cell);
                 if (!success)
-                    break;
+                {
+                    // If cells are affected independent of one another,
+                    // continue affecting the remaining cells.
+                    if (AffectedCellsIndependent)
+                        break;
+
+                    // If cells are not independent then abort the remainder
+                    // of the action.
+                    else
+                        return null;
+                }
             }
         }
 

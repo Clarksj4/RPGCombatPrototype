@@ -7,7 +7,7 @@ public class Cell : MonoBehaviour
     /// <summary>
     /// Gets the grid this cell belongs to.
     /// </summary>
-    public MonoGrid Parent { get { return GetComponentInParent<MonoGrid>(); } }
+    public MonoGrid Grid { get { return GetComponentInParent<MonoGrid>(); } }
     /// <summary>
     /// Gets the contents of this cell.
     /// </summary>
@@ -23,7 +23,7 @@ public class Cell : MonoBehaviour
     /// <summary>
     /// Gets the extents of this cell - equal to half its width and height
     /// </summary>
-    public Vector3 Extents { get { return Parent.CellSize / 2; } }
+    public Vector3 Extents { get { return Grid.CellSize / 2; } }
     /// <summary>
     /// Gets whether this cell is currently active.
     /// </summary>
@@ -56,14 +56,25 @@ public class Cell : MonoBehaviour
     }
 
     /// <summary>
+    /// Gets the first item in the cell that is of the given type.
+    /// </summary>
+    public T GetContent<T>() where T : IGridBased
+    {
+        IGridBased content = Contents.FirstOrDefault(c => c is T);
+        if (content != null)
+            return (T)content;
+        return default;
+    }
+
+    /// <summary>
     /// Gets all the cells neighbouring this one.
     /// </summary>
     public IEnumerable<Cell> GetNeighbours()
     {
-        yield return Parent.GetCell(coordinate + Vector2Int.up);
-        yield return Parent.GetCell(coordinate + Vector2Int.right);
-        yield return Parent.GetCell(coordinate + Vector2Int.down);
-        yield return Parent.GetCell(coordinate + Vector2Int.left);
+        yield return Grid.GetCell(coordinate + Vector2Int.up);
+        yield return Grid.GetCell(coordinate + Vector2Int.right);
+        yield return Grid.GetCell(coordinate + Vector2Int.down);
+        yield return Grid.GetCell(coordinate + Vector2Int.left);
     }
 
     /// <summary>
@@ -91,7 +102,7 @@ public class Cell : MonoBehaviour
     /// </summary>
     public void UpdatePosition()
     {
-        transform.localPosition = -Parent.Extents + (Parent.CellSize * Coordinate) + (Parent.CellSize / 2);
+        transform.localPosition = -Grid.Extents + (Grid.CellSize * Coordinate) + (Grid.CellSize / 2);
     }
 
     private void SetParent(MonoGrid parent)

@@ -699,16 +699,17 @@ MonoBehaviour:
   priority: 90
   attack: 10
   accuracy: 1
-  movement: 2
+  movement: 1
   reach: 1
   actions:
   - Move
   - Hook
-  - Push
+  - Decoy
   - Firebolt
   - Immolate
-  - SecondWind
+  - Flood
   - FlameWave
+  - Decoy
 --- !u!114 &7303308842043825205
 MonoBehaviour:
   m_ObjectHideFlags: 0

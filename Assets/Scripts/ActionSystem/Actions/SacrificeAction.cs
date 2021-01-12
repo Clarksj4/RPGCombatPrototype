@@ -1,20 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
-public class MoveAction : BattleAction
+public class SacrificeAction : BattleAction
 {
-    public override int Range { get { return Actor.Movement; } }
-
-    public MoveAction()
+    public SacrificeAction()
+        : base()
     {
         // Misc information about the ability
-        Tags = ActionTag.Movement;
+        Tags = ActionTag.Heal;
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction(this, TargetableFormation.Self),
-            new RangeRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Empty)
+            new CellContentRestriction(this, TargetableCellContent.Ally)
         };
 
         // The cells that will be affected
@@ -26,7 +25,7 @@ public class MoveAction : BattleAction
         // The effect upon those cells.
         actionSequence = new List<ActionNode>()
         {
-            new MoveNode(this)
+            new GiveHealthNode(this, 10)
         };
     }
 }
