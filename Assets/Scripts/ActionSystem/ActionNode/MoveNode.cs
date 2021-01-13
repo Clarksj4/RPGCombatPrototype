@@ -6,11 +6,17 @@ public class MoveNode : ActionNode
     public MoveNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Cell cell)
+    public override bool ApplyToCell(Cell originCell, Cell targetCell)
     {
-        TranslatePawn(action.Actor, cell);
+        Pawn mover = originCell.GetContent<Pawn>();
 
-        return true;
+        if (mover != null)
+        {
+            TranslatePawn(mover, targetCell);
+            return true;
+        }
+
+        return false;
     }
 
     protected void TranslatePawn(Pawn pawn, Cell cell)

@@ -17,17 +17,18 @@ public class PushNode : ActionNode
         this.direction = direction;
     }
 
-    public override bool ApplyToCell(Cell cell)
+    public override bool ApplyToCell(Cell originCell, Cell targetCell)
     {
-        Pawn target = cell.GetContent<Pawn>();
+        Pawn target = targetCell.GetContent<Pawn>();
+
         if (target != null)
         {
-            Cell destination = GetDestinationCell(cell);
+            Cell destination = GetDestinationCell(originCell, targetCell);
             if (destination != null && !destination.IsOccupied())
             {
                 // Move target to position over time
                 Sequence sequence = DOTween.Sequence();
-                sequence.Append(target.transform.DOMove(cell.WorldPosition, 0.25f).SetEase(Ease.OutExpo));
+                sequence.Append(target.transform.DOMove(targetCell.WorldPosition, 0.25f).SetEase(Ease.OutExpo));
                 sequence.OnComplete(() => {
                     // Update coordinate on arrival
                     target.SetCell(destination);
@@ -40,16 +41,16 @@ public class PushNode : ActionNode
         return false;
     }
 
-    private Cell GetDestinationCell(Cell cell)
+    private Cell GetDestinationCell(Cell originCell, Cell targetCell)
     {
         // Get direction of push
-        Vector2Int destinationDirection = cell.Coordinate.GetRelativeDirections(action.Actor.Coordinate, direction).Single();
+        Vector2Int destinationDirection = targetCell.Coordinate.GetRelativeDirections(originCell.Coordinate, direction).Single();
 
         // Convert to coordinate
-        Vector2Int destinationCoordinate = cell.Coordinate + (destinationDirection * distance);
+        Vector2Int destinationCoordinate = targetCell.Coordinate + (destinationDirection * distance);
 
         // Get cell at coordinate
-        return cell.Grid.GetCell(destinationCoordinate);
+        return targetCell.Grid.GetCell(destinationCoordinate);
 
     }
 }

@@ -6,22 +6,21 @@ public class DoDamageNode : ActionNode
     public DoDamageNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Cell cell)
+    public override bool ApplyToCell(Cell originCell, Cell targetCell)
     {
-        foreach (IGridBased target in cell.Contents)
-        {
-            if (target is IDefender)
-            {
-                // Do damage to all targets in cell
-                IDefender defender = target as IDefender;
+        Actor attacker = originCell.GetContent<Actor>();
+        Pawn defender = targetCell.GetContent<Pawn>();
 
-                // Damage can't be below 0
-                int damage = (int)Mathf.Max(0, action.Actor.Attack - defender.Defense);
-                Debug.Log($"Defender takes {damage} damage.");
-                defender.Health -= damage;
-            }
+        if (attacker != null && defender != null)
+        {
+            // Damage can't be below 0
+            int damage = (int)Mathf.Max(0, attacker.Attack - defender.Defense);
+            Debug.Log($"{attacker.name} deals {defender.name} {damage} damage.");
+            defender.Health -= damage;
+
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

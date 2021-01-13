@@ -11,17 +11,20 @@ public class IsHitNode : ActionNode
     public IsHitNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Cell cell)
+    public override bool ApplyToCell(Cell originCell, Cell targetCell)
     {
-        Pawn target = cell.GetContent<Pawn>();
-        if (target != null)
+        Actor attacker = originCell.GetContent<Actor>();
+        Pawn defender = targetCell.GetContent<Pawn>();
+
+        if (attacker != null && defender != null)
         {
             // Always have a minimum chance to hit
-            float hitChance = 1f - Mathf.Max(MINIMUM_HIT_CHANCE, action.Actor.Accuracy - target.Evasion);
+            float hitChance = 1f - Mathf.Max(MINIMUM_HIT_CHANCE, attacker.Accuracy - defender.Evasion);
             float roll = Random.Range(0f, 1f);
             bool hits = roll >= hitChance;
-            
-            Debug.Log($"Roll: {roll} vs {hitChance}. Attack hits: {hits}!");
+            string hitInfo = hits ? "hits" : "misses";
+
+            Debug.Log($"{attacker.name} {hitInfo} {defender.name}: Roll: {roll} vs {hitChance}.");
 
             return hits;
         }

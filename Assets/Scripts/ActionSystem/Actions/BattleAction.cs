@@ -209,7 +209,7 @@ public abstract class BattleAction
             foreach (ActionNode action in originActions)
             {
                 // Apply action sequence to the actors cell.
-                bool success = action.ApplyToCell(OriginCell);
+                bool success = action.ApplyToCell(null, OriginCell);
                 if (!success)
                     break;
             }
@@ -222,7 +222,7 @@ public abstract class BattleAction
                 // Apply action sequence to each affected cell.
                 foreach (ActionNode action in targetActions)
                 {
-                    bool success = action.ApplyToCell(cell);
+                    bool success = action.ApplyToCell(OriginCell, TargetCell);
                     if (!success)
                     {
                         // If cells are affected independent of one another,

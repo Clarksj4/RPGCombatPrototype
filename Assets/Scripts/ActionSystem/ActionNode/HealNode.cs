@@ -6,19 +6,16 @@ public class HealNode : ActionNode
     public HealNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Cell cell)
+    public override bool ApplyToCell(Cell originCell, Cell targetCell)
     {
-        bool any = cell.Contents.Any(c => c is IDefender);
+        Pawn target = targetCell.GetContent<Pawn>();
 
-        foreach (IGridBased target in cell.Contents)
+        if (target != null)
         {
-            if (target is IDefender)
-            {
-                IDefender defender = target as IDefender;
-                defender.Health += 10;
-            }
+            target.Health += 10;
+            return true;
         }
 
-        return any;
+        return false;
     }
 }

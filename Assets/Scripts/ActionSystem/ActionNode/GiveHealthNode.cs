@@ -11,15 +11,17 @@ public class GiveHealthNode : ActionNode
         this.amount = amount;
     }
 
-    public override bool ApplyToCell(Cell cell)
+    public override bool ApplyToCell(Cell originCell, Cell targetCell)
     {
-        Pawn target = cell.GetContent<Pawn>();
-        if (target != null)
+        Pawn giver = originCell.GetContent<Pawn>();
+        Pawn receiver = targetCell.GetContent<Pawn>();
+
+        if (giver != null && receiver != null)
         {
             // Can only give as much health as actor has.
-            int healthToGive = Mathf.Min(amount, action.Actor.Health);
-            action.Actor.Health -= healthToGive;
-            target.Health += healthToGive;
+            int healthToGive = Mathf.Min(amount, giver.Health);
+            giver.Health -= healthToGive;
+            receiver.Health += healthToGive;
             
             return true;
         }

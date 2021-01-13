@@ -9,5 +9,5 @@ public abstract class ActionNode
         this.action = action;
     }
 
-    public abstract bool ApplyToCell(Cell cell);
+    public abstract bool ApplyToCell(Cell originCell, Cell targetCell);
 }
