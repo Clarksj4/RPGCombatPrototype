@@ -2,7 +2,10 @@
 
 public class FlameWaveAction : BattleAction
 {
-    public FlameWaveAction()
+    public FlameWaveAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Damage;
@@ -21,7 +24,7 @@ public class FlameWaveAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new DoDamageNode(this)
         };

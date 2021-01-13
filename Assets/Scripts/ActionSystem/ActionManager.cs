@@ -86,21 +86,8 @@ public class ActionManager : MonoSingleton<ActionManager>
     public void SelectAction(string name)
     {
         // Create an instance of the action
-        SelectedAction = (BattleAction)Activator.CreateInstance(Type.GetType(name));
-        SelectedAction.SetActor(SelectedActor);
-
-        OnActionSelected?.Invoke(SelectedAction);
-    }
-
-    /// <summary>
-    /// Selects the action, by type, that will be performed by the actor.
-    /// </summary>
-    public void SelectAction<TBattleAction>() 
-        where TBattleAction : BattleAction
-    {
-        // Create an instance of the action
-        SelectedAction = (BattleAction)Activator.CreateInstance(typeof(TBattleAction));
-        SelectedAction.SetActor(SelectedActor);
+        SelectedAction = (BattleAction)Activator.CreateInstance(Type.GetType(name), args: SelectedActor);
+        //SelectedAction.SetActor(SelectedActor);
 
         OnActionSelected?.Invoke(SelectedAction);
     }

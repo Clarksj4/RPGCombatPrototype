@@ -2,8 +2,10 @@
 
 public class FireboltAction : BattleAction
 {
-    public FireboltAction()
-        : base()
+    public FireboltAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Damage;
@@ -16,7 +18,7 @@ public class FireboltAction : BattleAction
             new CellContentRestriction(this, TargetableCellContent.Enemy),
             new ExposedCellsRestriction(this)
         };
-       
+
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
@@ -24,7 +26,7 @@ public class FireboltAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new DoDamageNode(this)

@@ -4,8 +4,10 @@ public class PushAction : BattleAction
 {
     public override int Range { get { return 1; } }
 
-    public PushAction()
-        : base()
+    public PushAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Movement | ActionTag.Forced;
@@ -26,7 +28,7 @@ public class PushAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new PushNode(this, Range, RelativeDirection.Away)
         };

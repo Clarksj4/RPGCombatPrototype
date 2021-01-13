@@ -2,8 +2,10 @@
 
 public class PierceAction : BattleAction
 {
-    public PierceAction()
-        : base()
+    public PierceAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Damage;
@@ -11,7 +13,7 @@ public class PierceAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FileCellsRestriction(this, () => { return Actor.Formation.GetFile(Actor.Cell.Coordinate); }),
+            new FileCellsRestriction(this, Actor.File),
             new ExposedCellsRestriction(this),
             new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
@@ -21,11 +23,11 @@ public class PierceAction : BattleAction
         {
             // Hits the same file that the actor is in BUT actor is null
             // when the action is created.
-            new AffectedFile(this, () => { return Actor.Formation.GetFile(Actor.Cell.Coordinate); })
+            new AffectedFile(this, Actor.File)
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new DoDamageNode(this)

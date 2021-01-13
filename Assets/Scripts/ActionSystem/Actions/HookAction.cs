@@ -2,8 +2,10 @@
 
 public class HookAction : BattleAction
 {
-    public HookAction()
-    : base()
+    public HookAction(Actor actor)
+    : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Movement | ActionTag.Forced | ActionTag.Damage;
@@ -23,7 +25,7 @@ public class HookAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new PushNode(this, 1, RelativeDirection.Towards),

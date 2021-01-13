@@ -7,8 +7,10 @@ public class ImmolateAction : BattleAction
     /// </summary>
     private const int AREA = 1;
 
-    public ImmolateAction()
-        : base()
+    public ImmolateAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Damage;
@@ -29,7 +31,7 @@ public class ImmolateAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new DoDamageNode(this)

@@ -1,20 +1,16 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System;
-
+﻿
 public class FileCellsRestriction : TargetingRestriction
 {
-    private Func<int> getFile;
+    private int file;
 
-    public FileCellsRestriction(BattleAction action, Func<int> getFile)
+    public FileCellsRestriction(BattleAction action, int file)
         : base(action)
     {
-        this.getFile = getFile;
+        this.file = file;
     }
 
     public override bool IsTargetValid(Cell cell)
     {
-        int file = getFile();
         return cell.Formation.GetFile(cell.Coordinate) == file;
     }
 }

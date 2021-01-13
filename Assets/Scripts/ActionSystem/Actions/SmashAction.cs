@@ -2,8 +2,10 @@
 
 public class SmashAction : BattleAction
 {
-    public SmashAction()
-        : base()
+    public SmashAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Damage;
@@ -22,7 +24,7 @@ public class SmashAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new DoDamageNode(this),

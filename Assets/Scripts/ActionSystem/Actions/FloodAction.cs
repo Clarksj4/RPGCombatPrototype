@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class FloodAction : BattleAction
 {
-    public FloodAction()
-        : base()
+    public FloodAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Damage;
@@ -23,7 +25,7 @@ public class FloodAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new DoDamageNode(this)
         };

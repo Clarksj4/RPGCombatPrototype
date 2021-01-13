@@ -32,6 +32,14 @@ public class Actor : Pawn, ITurnBased, IAttacker, ITeamBased
     /// </summary>
     public int Movement { get; set; }
     /// <summary>
+    /// Gets the rank this actor is in.
+    /// </summary>
+    public int Rank { get { return Formation.GetRank(Coordinate); } }
+    /// <summary>
+    /// Gets the file this actor is in.
+    /// </summary>
+    public int File { get { return Formation.GetFile(Coordinate); } }
+    /// <summary>
     /// Gets the actions available to this actor.
     /// </summary>
     public List<string> Actions { get; set; }

@@ -2,8 +2,10 @@
 
 public class DecoyAction : BattleAction
 {
-    public DecoyAction()
-        : base()
+    public DecoyAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Movement;
@@ -22,7 +24,7 @@ public class DecoyAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new SwapNode(this)
         };

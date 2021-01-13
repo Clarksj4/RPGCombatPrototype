@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
 
-public class SecondWindAction : BattleAction
+public class BullRushAction : BattleAction
 {
-    public SecondWindAction(Actor actor) 
+    public BullRushAction(Actor actor) 
         : base(actor) { /* Nothing! */ }
 
     protected override void Setup()
     {
         // Misc information about the ability
-        Tags = ActionTag.Heal;
+        Tags = ActionTag.Movement | ActionTag.Damage | ActionTag.Forced;
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Self)
+            new FileCellsRestriction(this, Actor.File),
+            new ExposedCellsRestriction(this),
+            new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
 
         // The cells that will be affected
@@ -25,7 +27,9 @@ public class SecondWindAction : BattleAction
         // The effect upon those cells.
         targetActions = new List<ActionNode>()
         {
-            new HealNode(this)
+            // TODO: move actor as far forward as possible.
+            // TODO: move target as far back as possible.
+            new PushNode(this, 3, RelativeDirection.Away)
         };
     }
 }

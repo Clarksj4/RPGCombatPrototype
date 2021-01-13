@@ -4,7 +4,10 @@ public class MoveAction : BattleAction
 {
     public override int Range { get { return Actor.Movement; } }
 
-    public MoveAction()
+    public MoveAction(Actor actor) 
+        : base (actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Movement;
@@ -24,7 +27,7 @@ public class MoveAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new MoveNode(this)
         };

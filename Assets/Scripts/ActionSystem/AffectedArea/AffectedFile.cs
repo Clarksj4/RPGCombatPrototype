@@ -5,18 +5,18 @@ using System;
 
 public class AffectedFile : AffectedArea
 {
-    private Func<int> getFile;
+    private int file;
 
-    public AffectedFile(BattleAction action, Func<int> getFile)
+    public AffectedFile(BattleAction action, int file)
         : base(action)
     {
-        this.getFile = getFile;
+        this.file = file;
     }
 
     public override IEnumerable<Cell> GetAffectedArea()
     {
         Formation formation = action.TargetCell.Formation;
-        foreach (Cell cell in formation.GetFileCells(getFile()))
+        foreach (Cell cell in formation.GetFileCells(file))
             yield return cell;
     }
 }

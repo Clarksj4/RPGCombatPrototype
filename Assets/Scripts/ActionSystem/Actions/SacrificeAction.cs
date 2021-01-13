@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class SacrificeAction : BattleAction
 {
-    public SacrificeAction()
-        : base()
+    public SacrificeAction(Actor actor)
+        : base(actor) { /* Nothing! */ }
+
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Heal;
@@ -23,7 +25,7 @@ public class SacrificeAction : BattleAction
         };
 
         // The effect upon those cells.
-        actionSequence = new List<ActionNode>()
+        targetActions = new List<ActionNode>()
         {
             new GiveHealthNode(this, 10)
         };
