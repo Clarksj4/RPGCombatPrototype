@@ -1,20 +1,16 @@
-﻿using DG.Tweening;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class SwapNode : MoveNode
+public class SwapNode : ActionNode
 {
     public SwapNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Cell originCell, Cell targetCell)
+    public override bool Do()
     {
-        // Move actor to target cell
-        base.ApplyToCell(originCell, targetCell);
-
-        // Move the target to the actor's cell
-        Pawn target = targetCell.GetContent<Pawn>();
-        if (target != null)
-            TranslatePawn(target, originCell);
+        Pawn pawn = Target.GetContent<Pawn>();
+        if (pawn != null)
+            action.Actor.Swap(pawn);
 
         return true;
     }

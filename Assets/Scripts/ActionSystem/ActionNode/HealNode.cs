@@ -3,19 +3,17 @@ using UnityEngine;
 
 public class HealNode : ActionNode
 {
+    public int Amount { get; set; }
+
     public HealNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Cell originCell, Cell targetCell)
+    public override bool Do()
     {
-        Pawn target = targetCell.GetContent<Pawn>();
+        Pawn pawn = Target.GetContent<Pawn>();
+        if (pawn != null)
+            pawn.GainHealth(Amount);
 
-        if (target != null)
-        {
-            target.Health += 10;
-            return true;
-        }
-
-        return false;
+        return true;
     }
 }

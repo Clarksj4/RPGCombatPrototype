@@ -1,6 +1,7 @@
 ﻿
 public interface IDefender
 {
+    string name { get; }
     int MaxHealth { get; }
     int Health { get; set; }
     float Defense { get; }

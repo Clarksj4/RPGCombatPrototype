@@ -2,6 +2,11 @@
 
 public abstract class ActionNode
 {
+    /// <summary>
+    /// Gets or sets the cell that this action will target.
+    /// </summary>
+    public Cell Target { get; set; }
+
     protected BattleAction action;
 
     public ActionNode(BattleAction action)
@@ -9,5 +14,5 @@ public abstract class ActionNode
         this.action = action;
     }
 
-    public abstract bool ApplyToCell(Cell originCell, Cell targetCell);
+    public abstract bool Do();
 }

@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RankCellsRestriction : TargetingRestriction
 {
-    private int rank;
+    private int[] ranks;
 
-    public RankCellsRestriction(BattleAction action, int rank)
+    public RankCellsRestriction(BattleAction action, params int[] ranks)
         : base(action)
     {
-        this.rank = rank;
+        this.ranks = ranks;
     }
 
     public override bool IsTargetValid(Cell cell)
     {
-        return cell.Formation.GetRank(cell.Coordinate) == rank;
+        return ranks.Contains(cell.Formation.GetRank(cell.Coordinate));
     }
 }

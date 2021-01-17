@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class ActionManager : MonoSingleton<ActionManager>
@@ -83,13 +84,39 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Selects the action, by name, that will be performed by the actor.
     /// </summary>
-    public void SelectAction(string name)
+    public void SelectAction(string actionName)
     {
         // Create an instance of the action
-        SelectedAction = (BattleAction)Activator.CreateInstance(Type.GetType(name), args: SelectedActor);
-        //SelectedAction.SetActor(SelectedActor);
-
+        SelectedAction = CreateAction(actionName);
         OnActionSelected?.Invoke(SelectedAction);
+    }
+
+    /// <summary>
+    /// Checks if the current actor can perform the action
+    /// with the given name.
+    /// </summary>
+    public bool CanDo(string actionName)
+    {
+        BattleAction action = CreateAction(actionName);
+        return CanDo(action);
+    }
+
+    /// <summary>
+    /// Checks if the current actor can perform the
+    /// given action.
+    /// </summary>
+    public bool CanDo(BattleAction action)
+    {
+        return action.CanDo() &&
+       action.TargetableCells.Count() > 0;
+    }
+
+    private BattleAction CreateAction(string actionName)
+    {
+        // Create an instance of the action
+        BattleAction action = (BattleAction)Activator.CreateInstance(Type.GetType(actionName), args: SelectedActor);
+        return action;
+
     }
 
     /// <summary>

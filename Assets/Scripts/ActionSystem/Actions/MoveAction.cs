@@ -27,7 +27,7 @@ public class MoveAction : BattleAction
         };
 
         // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        targetedActions = new List<ActionNode>()
         {
             new MoveNode(this)
         };

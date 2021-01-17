@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TurnOrder : IEnumerable<ITurnBased>
 {
+    // TODO: fuck this shit up! so that things can be at the same priority order
+    // and removing one of them doesn't mess things up.
+    // ALSO: don't need to maintain func to give actors multiple turns if their
+    // priority is waaay higher that others
+
     /// <summary>
     /// The granularity of each round - the higher this value the more
     /// opportunity actors will have to act in any single round.

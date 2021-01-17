@@ -10,6 +10,12 @@ public class FlameWaveAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Damage;
 
+        // Only usable from front rank
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new RankCellsRestriction(this, 0)
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
@@ -24,7 +30,7 @@ public class FlameWaveAction : BattleAction
         };
 
         // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        targetedActions = new List<ActionNode>()
         {
             new DoDamageNode(this)
         };

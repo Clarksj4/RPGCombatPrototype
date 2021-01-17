@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class SacrificeAction : BattleAction
 {
+    private int AMOUNT = 10;
+
     public SacrificeAction(Actor actor)
         : base(actor) { /* Nothing! */ }
 
@@ -11,6 +13,11 @@ public class SacrificeAction : BattleAction
     {
         // Misc information about the ability
         Tags = ActionTag.Heal;
+
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new HealthRestriction(this, AMOUNT + 1)
+        };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
@@ -24,10 +31,15 @@ public class SacrificeAction : BattleAction
             new AffectedPoint(this)
         };
 
-        // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        beginningActions = new List<ActionNode>()
         {
-            new GiveHealthNode(this, 10)
+            new DoDamageNode(this) { Target = Actor.Cell, Amount = AMOUNT }
+        };
+
+        // The effect upon those cells.
+        targetedActions = new List<ActionNode>()
+        {
+            new HealNode(this) { Amount = AMOUNT }
         };
     }
 }

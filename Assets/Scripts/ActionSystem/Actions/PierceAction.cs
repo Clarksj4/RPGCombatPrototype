@@ -10,6 +10,12 @@ public class PierceAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Damage;
 
+        // Only usable from the front rank
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new RankCellsRestriction(this, 0)
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
@@ -21,13 +27,11 @@ public class PierceAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            // Hits the same file that the actor is in BUT actor is null
-            // when the action is created.
             new AffectedFile(this, Actor.File)
         };
 
         // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new DoDamageNode(this)

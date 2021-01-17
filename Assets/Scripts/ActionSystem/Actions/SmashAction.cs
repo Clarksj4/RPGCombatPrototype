@@ -10,25 +10,31 @@ public class SmashAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Damage;
 
-        // The cells we can target
+        // Actor must be in the front rank to use this ability
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new RankCellsRestriction(this, 0)
+        };
+
+        // Can target enemies in the front rank
         targetRestrictions = new List<TargetingRestriction>()
         {
             new RankCellsRestriction(this, 0),
             new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
 
-        // The cells that will be affected
+        // Affects only the targeted cell
         areaOfEffect = new List<AffectedArea>()
         {
             new AffectedPoint(this)
         };
 
-        // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        // Swings, hits, and pushes away
+        targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new DoDamageNode(this),
-            new PushNode(this, 1, RelativeDirection.Away)
+            new PushNode(this) { RelativeDirection = RelativeDirection.Away, Distance = 1 }
         };
     }
 }

@@ -12,6 +12,12 @@ public class FloodAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Damage;
 
+        // Only usable when not in front rank
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new RankCellsRestriction(this, 1, 2)
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
@@ -25,7 +31,7 @@ public class FloodAction : BattleAction
         };
 
         // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        targetedActions = new List<ActionNode>()
         {
             new DoDamageNode(this)
         };

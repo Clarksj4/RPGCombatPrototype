@@ -15,7 +15,7 @@ public class HookAction : BattleAction
         {
             new LinearCellsRestriction(this),
             new AdjcentCellContentRestriction(this, TargetableCellContent.Empty, RelativeDirection.Towards),
-            new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)
+            new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
 
         // The cells that will be affected
@@ -25,10 +25,10 @@ public class HookAction : BattleAction
         };
 
         // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
-            new PushNode(this, 1, RelativeDirection.Towards),
+            new PushNode(this) { RelativeDirection = RelativeDirection.Towards, Distance = 1},
             new DoDamageNode(this)
         };
     }

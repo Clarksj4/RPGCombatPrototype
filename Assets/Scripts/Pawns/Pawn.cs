@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Linq;
+using DG.Tweening;
 
 /// <summary>
 /// Encapsulates an entity that is locked to the grid of a
@@ -8,6 +9,11 @@ using System.Linq;
 /// </summary>
 public class Pawn : MonoBehaviour, IGridBased, IDefender
 {
+    /// <summary>
+    /// The minimum chance for an attack to hit.
+    /// </summary>
+    private const float MINIMUM_HIT_CHANCE = 0.1f;
+
     /// <summary>
     /// Occurs when this pawn's health changes.
     /// </summary>
@@ -76,20 +82,18 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     }
 
     /// <summary>
-    /// Sets the pawns world position without updating their map coordinate.
-    /// </summary>
-    public void SetPosition(Vector2 position)
-    {
-        transform.position = position;
-    }
-
-    /// <summary>
     /// Moves the pawn to the given cell.
     /// </summary>
     public void SetCell(Cell cell)
     {
-        transform.SetParent(cell.transform, false);
-        transform.localPosition = Vector3.zero;
+        if (cell != null)
+        {
+            transform.SetParent(cell.transform, true);
+            transform.localPosition = Vector3.zero;
+        }
+
+        else
+            transform.SetParent(null);
     }
 
     /// <summary>
@@ -99,6 +103,129 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     {
         Cell cell = Grid.GetCell(coordinate);
         SetCell(cell);
+    }
+
+    /// <summary>
+    /// Moves this pawn to the given cell.
+    /// </summary>
+    public void Move(Cell cell)
+    {
+        if (cell != null)
+        {
+            // Get final position
+            Vector3 targetWorldPosition = cell.WorldPosition;
+
+            // Move actor to position over time
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOMove(targetWorldPosition, 0.5f).SetEase(Ease.OutQuad));
+            sequence.OnComplete(() => {
+                // Update coordinate on arrival
+                SetCell(cell);
+            });
+        }
+    }
+
+    /// <summary>
+    /// Pushes this pawn relative to the given cell.
+    /// </summary>
+    public void TakePush(Cell origin, RelativeDirection direction, int amount)
+    {
+        // Get direction of push
+        Vector2Int travelDirection = Coordinate.GetRelativeDirections(origin.Coordinate, direction).Single();
+        TakePush(travelDirection, amount);
+    }
+
+    /// <summary>
+    /// Pushes this pawn in the given direction by amount.
+    /// </summary>
+    public void TakePush(Vector2Int direction, int amount)
+    {
+        print($"push in direction: {direction}");
+
+        Cell furthestUnoccupiedCell = null;
+        for (int i = 1; i <= amount; i++)
+        {
+            // Get cell at coordinate
+            Vector2Int coordinate = Coordinate + (direction * i);
+            Cell cell = Grid.GetCell(coordinate);
+
+            // If its empty mark it as a possible destination
+            if (cell != null && !cell.IsOccupied())
+                furthestUnoccupiedCell = cell;
+
+            // If its not empty, pawn can't be pushed any further.
+            else break;
+        }
+
+        // Move as far as possible
+        Move(furthestUnoccupiedCell);
+    }
+
+    /// <summary>
+    /// Swaps the positions of these two pawns.
+    /// </summary>
+    public void Swap(Pawn other)
+    {
+        Move(other.Cell);
+        other.Move(Cell);
+    }
+
+    /// <summary>
+    /// Tests whether the given attack hits this pawn.
+    /// </summary>
+    public bool IsHit(IAttacker attacker)
+    {
+        // Always have a minimum chance to hit
+        float hitChance = 1f - Mathf.Max(MINIMUM_HIT_CHANCE, attacker.Accuracy - Evasion);
+
+        // Roll to hit
+        float roll = UnityEngine.Random.Range(0f, 1f);
+        bool hit = roll >= hitChance;
+
+        string hitString = hit ? "hits" : "misses";
+        print($"{attacker.name} {hitString} {name} with roll: {roll} vs {hitChance}");
+
+        return hit;
+    }
+
+    /// <summary>
+    /// Deals damage to this pawn taking attack and defense
+    /// values into account.
+    public void TakeAttack(IAttacker attacker)
+    {
+        LoseHealth((int)(attacker.Attack - Defense));
+    }
+
+    /// <summary>
+    /// Reduces this pawn's health by the given amount.
+    /// </summary>
+    public int LoseHealth(int amount)
+    {
+        int clamped = Mathf.Min(Health, amount);
+        Health -= clamped;
+        return clamped;
+    }
+
+    /// <summary>
+    /// Increases this pawn's health by the given amount.
+    /// </summary>
+    public int GainHealth(int amount)
+    {
+        int clamped = Mathf.Min(amount, MaxHealth - Health);
+        Health += clamped;
+        return clamped;
+    }
+
+    public void Destroy()
+    {
+        SetCell(null);
+
+        // Scale out the pawn then remove it.
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOScale(0, 0.5f).SetEase(Ease.InQuad));
+        sequence.OnComplete(() => {
+            Destroy(gameObject);
+        });
     }
 
     protected virtual void LoadStats()

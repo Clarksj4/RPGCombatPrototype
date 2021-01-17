@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class DoDamageNode : ActionNode
 {
+    public int Amount { get; set; }
+
     public DoDamageNode(BattleAction action)
         : base(action) { /* Nothing! */ }
 
-    public override bool ApplyToCell(Cell originCell, Cell targetCell)
+    public override bool Do()
     {
-        Actor attacker = originCell.GetContent<Actor>();
-        Pawn defender = targetCell.GetContent<Pawn>();
-
-        if (attacker != null && defender != null)
+        Pawn defender = Target.GetContent<Pawn>();
+        if (defender != null)
         {
-            // Damage can't be below 0
-            int damage = (int)Mathf.Max(0, attacker.Attack - defender.Defense);
-            Debug.Log($"{attacker.name} deals {defender.name} {damage} damage.");
-            defender.Health -= damage;
-
-            return true;
+            // If target is same as origin then lose health instead of taking attack
+            if (defender == action.Actor)
+                defender.LoseHealth(Amount);
+            else
+                defender.TakeAttack(action.Actor);
         }
+            
 
-        return false;
+        return true;
     }
 }

@@ -24,12 +24,16 @@ public class BullRushAction : BattleAction
             new AffectedPoint(this)
         };
 
-        // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        // Things to do before affecting the cells.
+        beginningActions = new List<ActionNode>()
         {
-            // TODO: move actor as far forward as possible.
-            // TODO: move target as far back as possible.
-            new PushNode(this, 3, RelativeDirection.Away)
+            new PushNode(this) { Direction = Actor.Formation.Facing, Distance = 3 }
+        };
+
+        // The effect upon those cells.
+        targetedActions = new List<ActionNode>()
+        {
+            new PushNode(this) { RelativeDirection = RelativeDirection.Away, Distance = 3 }
         };
     }
 }

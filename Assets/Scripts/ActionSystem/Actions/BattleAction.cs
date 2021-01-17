@@ -33,22 +33,42 @@ public abstract class BattleAction
     //
     // Target Validation.
     //
+
     /// <summary>
-    /// Gets the collection of restrictions on cells that can be targeted.
+    /// The collection of restrictions on the state of the actor.
+    /// using this ability.
+    /// </summary>
+    protected List<TargetingRestriction> actorRestrictions = null;
+    /// <summary>
+    /// The collection of restrictions on cells that can be targeted.
     /// </summary>
     protected List<TargetingRestriction> targetRestrictions = null;
     /// <summary>
-    /// Gets a list of areas that this action will affect.
+    /// The collection of areas that this action with affect.
     /// </summary>
     protected List<AffectedArea> areaOfEffect = null;
     /// <summary>
-    /// Gest the list of things to do on the cell where this action originates.
+    /// The collection of restrictions on what cells this action will affect.
     /// </summary>
-    protected List<ActionNode> originActions = null;
+    protected List<TargetingRestriction> areaOfEffectRestrictions = null;
+
+    //
+    // Performed actions.
+    //
+
     /// <summary>
-    /// The sequence of things this battle action with do.
+    /// The sequence of things this battle action will do first.
     /// </summary>
-    protected List<ActionNode> targetActions = null;
+    protected List<ActionNode> beginningActions = null;
+    /// <summary>
+    /// The sequence of things this battle action with do to 
+    /// each of the targeted cells.
+    /// </summary>
+    protected List<ActionNode> targetedActions = null;
+    /// <summary>
+    /// The sequence of things this battle action will do last.
+    /// </summary>
+    protected List<ActionNode> endActions = null;
 
     //
     // Action params
@@ -62,11 +82,6 @@ public abstract class BattleAction
     /// Gets a collection of informative tags about this action.
     /// </summary>
     public ActionTag Tags { get; protected set; } = ActionTag.None;
-    /// <summary>
-    /// Gets whether the target actions will be carried out should
-    /// the origin actions fail.
-    /// </summary>
-    public bool TargetActionsDependOnOriginActions = true;
     /// <summary>
     /// Gets or sets how action node failures are handled.
     /// </summary>
@@ -103,33 +118,19 @@ public abstract class BattleAction
         targetableCells = GetTargetableCells().ToList();
     }
 
-    protected abstract void Setup();
-
     /// <summary>
-    /// Sets the actor who will perform this action. Returns
-    /// true if the actor is able to perform the action.
+    /// Setup the action internal state once the actor is konwn.
     /// </summary>
-    //public virtual bool SetActor(Actor actor)
-    //{
-    //    // Check if actor is able to do action.
-    //    bool isAble = IsActorAble(actor);
-    //    if (isAble)
-    //    {
-    //        // Set actor and originating map / position.
-    //        Actor = actor;
-    //        targetableCells = GetTargetableCells().ToList();
-    //    }
-    //    return isAble;
-    //}
+    protected abstract void Setup();
 
     /// <summary>
     /// Sets the target for this action if valid. Returns true
     /// if the target is a valid one.
     /// </summary>
-    public virtual bool SetTarget(Cell cell)
+    public bool SetTarget(Cell cell)
     {
         bool validTarget = IsTargetCellValid(cell);
-        
+
         // Set target map / position
         if (validTarget)
         {
@@ -177,25 +178,28 @@ public abstract class BattleAction
     /// </summary>
     protected IEnumerable<Cell> GetAffectedCells()
     {
-        return areaOfEffect.SelectMany(a => a.GetAffectedArea());
-    }
-
-    /// <summary>
-    /// Checks if the given actor is currently able to perform
-    /// this action.
-    /// </summary>
-    public virtual bool IsActorAble(Actor actor)
-    {
-        return !actor.Incapacitated;
+        IEnumerable<Cell> area = areaOfEffect.SelectMany(a => a.GetAffectedArea());
+        
+        // If there are further restrictions, only return cells that conform
+        if (areaOfEffectRestrictions != null &&
+            areaOfEffectRestrictions.Count > 0)
+            return area.Where(cell => areaOfEffectRestrictions.All(restriction => restriction.IsTargetValid(cell)));
+     
+        // Otherwise, return the area as it is.
+        else
+            return area;
     }
 
     /// <summary>
     /// Gets whether the assigned actor is able to complete
     /// the action with its current parameters.
     /// </summary>
-    public virtual bool CanDo()
+    public bool CanDo()
     {
-        return IsActorAble(Actor);
+        // No restreictions OR conforms to all restrictions.
+        return actorRestrictions == null || 
+               actorRestrictions.Count == 0 ||
+               actorRestrictions.All(r => r.IsTargetValid(OriginCell));
     }
 
     /// <summary>
@@ -204,42 +208,74 @@ public abstract class BattleAction
     /// </summary>
     public virtual IEnumerator Do()
     {
-        if (originActions != null)
+        bool success = DoBeginningActions();
+
+        if (success)
+            DoTargetedActions();
+
+        DoEndActions();
+        
+        return null;
+    }
+
+    private bool DoBeginningActions()
+    {
+        // Don't do anything if there's nothing to do.
+        if (beginningActions != null &&
+            beginningActions.Count > 0)
         {
-            foreach (ActionNode action in originActions)
+            foreach (ActionNode node in beginningActions)
             {
-                // Apply action sequence to the actors cell.
-                bool success = action.ApplyToCell(null, OriginCell);
-                if (!success)
+                if (!node.Do())
+                    return false;
+            }
+        }
+
+        // Also assumes success if there was nothing to do.
+        return true;
+    }
+
+    private void DoTargetedActions()
+    {
+        if (targetedActions != null &&
+            targetedActions.Count > 0)
+        {
+            bool success;
+            foreach (Cell cell in affectedCells)
+            {
+                foreach (ActionNode node in targetedActions)
+                {
+                    node.Target = cell;
+                    success = node.Do();
+
+                    // If one of the nodes fails - abort subsequent 
+                    // node execution
+                    if (!success)
+                        break;
+                }
+
+                // If we don't mind about failures between cells
+                // then reset the success state
+                if (AffectedCellsIndependent)
+                    success = true;
+
+                // Otherwise, end iteration.
+                else break;
+            }
+        }
+    }
+
+    private void DoEndActions()
+    {
+        if (endActions != null &&
+            endActions.Count > 0)
+        {
+            foreach (ActionNode node in endActions)
+            {
+                if (!node.Do())
                     break;
             }
         }
-
-        if (targetActions != null)
-        {
-            foreach (Cell cell in affectedCells)
-            {
-                // Apply action sequence to each affected cell.
-                foreach (ActionNode action in targetActions)
-                {
-                    bool success = action.ApplyToCell(OriginCell, TargetCell);
-                    if (!success)
-                    {
-                        // If cells are affected independent of one another,
-                        // continue affecting the remaining cells.
-                        if (AffectedCellsIndependent)
-                            break;
-
-                        // If cells are not independent then abort the remainder
-                        // of the action.
-                        else
-                            return null;
-                    }
-                }
-            }
-        }
-
-        return null;
     }
 
     /// <summary>

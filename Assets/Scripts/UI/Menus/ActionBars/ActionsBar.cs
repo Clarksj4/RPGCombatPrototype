@@ -25,15 +25,20 @@ public class ActionsBar : Menu
         // Populate bar actions with actor's attacks
         for (int i = 0; i < actionButtons.Length; i++)
         {
+            Button button = actionButtons[i];
+
             // Enable / Disable button
             bool enabled = i < ActionCount;
-            actionButtons[i].gameObject.SetActive(enabled);
+            button.gameObject.SetActive(enabled);
 
             if (enabled)
             {
+                string actionName = ActionManager.Instance.SelectedActor.Actions[i];
+
                 // Set text to action name
                 Text text = actionButtons[i].GetComponentInChildren<Text>();
-                text.text = ActionManager.Instance.SelectedActor.Actions[i];
+                text.text = actionName;
+                button.interactable = ActionManager.Instance.CanDo(actionName + "Action");
             }
         }
     }

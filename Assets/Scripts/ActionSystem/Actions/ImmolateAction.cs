@@ -31,7 +31,7 @@ public class ImmolateAction : BattleAction
         };
 
         // The effect upon those cells.
-        targetActions = new List<ActionNode>()
+        targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
             new DoDamageNode(this)

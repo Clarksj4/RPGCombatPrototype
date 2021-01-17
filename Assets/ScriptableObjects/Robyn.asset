@@ -22,5 +22,5 @@ MonoBehaviour:
   Actions:
   - Move
   - Decoy
-  - Sacrifice
+  - FrostWall
   - Firebolt
