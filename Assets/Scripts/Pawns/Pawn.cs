@@ -2,17 +2,18 @@
 using System;
 using System.Linq;
 using DG.Tweening;
+using System.Collections.Generic;
 
 /// <summary>
 /// Encapsulates an entity that is locked to the grid of a
 /// battlemap and is targetable.
 /// </summary>
-public class Pawn : MonoBehaviour, IGridBased, IDefender
+public class Pawn : MonoBehaviour, IGridBased, IDefender, ITurnBased
 {
     /// <summary>
     /// The minimum chance for an attack to hit.
     /// </summary>
-    private const float MINIMUM_HIT_CHANCE = 0.1f;
+    private const int MINIMUM_HIT_CHANCE = 10;
 
     /// <summary>
     /// Occurs when this pawn's health changes.
@@ -64,21 +65,39 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     /// <summary>
     /// Gets this pawns defense.
     /// </summary>
-    public float Defense { get; set; }
+    public int Defense { get; set; }
     /// <summary>
     /// Gets this pawns evasion.
     /// </summary>
-    public float Evasion { get; set; }
+    public int Evasion { get; set; }
     /// <summary>
     /// Gets the maximum health of this pawn.
     /// </summary>
     public int MaxHealth { get; set; }
+    /// <summary>
+    /// Gets the priority of this pawn in the turn order.
+    /// </summary>
+    public float Priority { get; set; }
+
+    private List<PawnStatus> statuses = new List<PawnStatus>();
 
     private int health = 100;
 
     protected virtual void Awake()
     {
         stats.SetStats(this);
+    }
+
+    public void AddStatus(PawnStatus status)
+    {
+        bool collated = statuses.Any(s => s.Collate(status));
+        if (!collated)
+            statuses.Add(status);
+    }
+
+    public void RemoveStatus(PawnStatus status)
+    {
+        statuses.Remove(status);
     }
 
     /// <summary>
@@ -176,10 +195,10 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender
     public bool IsHit(IAttacker attacker)
     {
         // Always have a minimum chance to hit
-        float hitChance = 1f - Mathf.Max(MINIMUM_HIT_CHANCE, attacker.Accuracy - Evasion);
+        float hitChance = 100 - Mathf.Max(MINIMUM_HIT_CHANCE, attacker.Accuracy - Evasion);
 
         // Roll to hit
-        float roll = UnityEngine.Random.Range(0f, 1f);
+        float roll = UnityEngine.Random.Range(0, 101);
         bool hit = roll >= hitChance;
 
         string hitString = hit ? "hits" : "misses";

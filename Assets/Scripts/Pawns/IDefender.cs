@@ -4,6 +4,6 @@ public interface IDefender
     string name { get; }
     int MaxHealth { get; }
     int Health { get; set; }
-    float Defense { get; }
-    float Evasion { get; }
+    int Defense { get; }
+    int Evasion { get; }
 }

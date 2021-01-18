@@ -8,11 +8,8 @@ public class ActorStats : PawnStats
     public int Movement;
 
     [Header("Attack")]
-    public float Attack;
-    public float Accuracy;
-
-    [Header("Initiative")]
-    public float Priority;
+    public int Attack;
+    public int Accuracy;
 
     [Header("Actions")]
     public List<string> Actions;
@@ -27,7 +24,6 @@ public class ActorStats : PawnStats
             actor.Movement = Movement;
             actor.Attack = Attack;
             actor.Accuracy = Accuracy;
-            actor.Priority = Priority;
             actor.Actions = Actions;
         }
     }

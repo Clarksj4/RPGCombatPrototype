@@ -11,11 +11,6 @@ public class Actor : Pawn, ITurnBased, IAttacker, ITeamBased
     public event Action OnTeamChanged;
 
     /// <summary>
-    /// Gets this actors priority in the turn order. Determines
-    /// how frequently it gets to act.
-    /// </summary>
-    public float Priority { get; set; }
-    /// <summary>
     /// Gets whether this actor is currently able to take actions.
     /// </summary>
     public bool Incapacitated { get; set; }
@@ -23,11 +18,11 @@ public class Actor : Pawn, ITurnBased, IAttacker, ITeamBased
     /// Gets the amount of damage this actor can do with each
     /// attack.
     /// </summary>
-    public float Attack { get; set; }
+    public int Attack { get; set; }
     /// <summary>
     /// Gets how accurate this actor with their actions.
     /// </summary>
-    public float Accuracy { get; set; }
+    public int Accuracy { get; set; }
     /// <summary>
     /// Gets how far this actor can move in their turn.
     /// </summary>
