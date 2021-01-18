@@ -38,9 +38,9 @@ public class TurnManager : MonoSingleton<TurnManager>
     /// <summary>
     /// Adds the given actor to the turn order.
     /// </summary>
-    public bool Add(ITurnBased actor)
+    public void Add(ITurnBased actor)
     {
-        return turnOrder.Add(actor);
+        turnOrder.Add(actor);
     }
 
     /// <summary>
