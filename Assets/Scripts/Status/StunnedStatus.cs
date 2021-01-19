@@ -2,9 +2,6 @@
 
 public class StunnedStatus : PawnStatus
 {
-    public StunnedStatus(Pawn pawn, int duration)
-        : base (pawn, duration) { /* Nothing! */ }
-
     protected override void OnApplication()
     {
         base.OnApplication();

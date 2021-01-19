@@ -3,12 +3,7 @@ using System.Collections;
 
 public class AccurateStatus : PawnStatus
 {
-    private int bonusAccuracy;
-    public AccurateStatus(Pawn pawn, int duration, int bonusAccuracy)
-        : base(pawn, duration)
-    {
-        this.bonusAccuracy = bonusAccuracy;
-    }
+    public int BonusAccuracy { get; set; }
 
     protected override void OnApplication()
     {
@@ -16,7 +11,7 @@ public class AccurateStatus : PawnStatus
         if (Pawn is Actor)
         {
             Actor actor = Pawn as Actor;
-            actor.Accuracy += bonusAccuracy;
+            actor.Accuracy += BonusAccuracy;
         }
 
         else
@@ -28,6 +23,6 @@ public class AccurateStatus : PawnStatus
         base.OnExpired();
         Actor actor = Pawn as Actor;
 
-        actor.Accuracy = Mathf.Max(0, actor.Accuracy - bonusAccuracy);
+        actor.Accuracy = Mathf.Max(0, actor.Accuracy - BonusAccuracy);
     }
 }

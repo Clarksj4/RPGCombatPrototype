@@ -6,12 +6,6 @@ public abstract class PawnStatus
     public Pawn Pawn { get; set; }
     public int Duration { get; set; }
 
-    public PawnStatus(Pawn pawn, int duration)
-    {
-        Pawn = pawn;
-        Duration = duration;
-    }
-
     public void Apply()
     {
         TurnManager.Instance.OnTurnStart += HandleOnTurnBegin;

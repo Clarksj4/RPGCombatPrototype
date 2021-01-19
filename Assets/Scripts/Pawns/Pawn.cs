@@ -90,6 +90,7 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender, ITurnBased
 
     public void AddStatus(PawnStatus status)
     {
+        status.Pawn = this;
         bool collated = statuses.Any(s => s.Collate(status));
         if (!collated)
             statuses.Add(status);

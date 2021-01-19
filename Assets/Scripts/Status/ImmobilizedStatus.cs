@@ -5,9 +5,6 @@ public class ImmobilizedStatus : PawnStatus
 {
     private int removedMovement = 0;
 
-    public ImmobilizedStatus(Pawn pawn, int duration)
-        : base(pawn, duration) { /* Nothing! */ }
-
     protected override void OnApplication()
     {
         base.OnApplication();

@@ -3,13 +3,7 @@ using System.Collections;
 
 public class AgilityStatus : PawnStatus
 {
-    private int bonusMovement;
-
-    public AgilityStatus(Pawn pawn, int duration, int bonusMovement)
-        : base(pawn, duration)
-    {
-        this.bonusMovement = bonusMovement;
-    }
+    public int BonusMovement { get; set; }
 
     protected override void OnApplication()
     {
@@ -17,7 +11,7 @@ public class AgilityStatus : PawnStatus
         if (Pawn is Actor)
         {
             Actor actor = Pawn as Actor;
-            actor.Movement += bonusMovement;
+            actor.Movement += BonusMovement;
         }
 
         else
@@ -30,6 +24,6 @@ public class AgilityStatus : PawnStatus
         Actor actor = Pawn as Actor;
         
         // Remove the movement again, but don't let movement fall below 0
-        actor.Movement = Mathf.Max(0, actor.Movement - bonusMovement);
+        actor.Movement = Mathf.Max(0, actor.Movement - BonusMovement);
     }
 }

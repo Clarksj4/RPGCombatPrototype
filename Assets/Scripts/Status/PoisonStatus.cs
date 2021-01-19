@@ -3,9 +3,6 @@ using System.Collections;
 
 public class PoisonStatus : PawnStatus
 {
-    public PoisonStatus(Pawn pawn, int duration)
-        : base(pawn, duration) { /* Nothing! */ }
-
     protected override void DoEffect()
     {
         base.DoEffect();
