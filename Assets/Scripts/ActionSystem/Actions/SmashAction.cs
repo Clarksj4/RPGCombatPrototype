@@ -33,7 +33,7 @@ public class SmashAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
-            new DoDamageNode(this),
+            new DoDamageNode(this, 20),
             new PushNode(this) { RelativeDirection = RelativeDirection.Away, Distance = 1 }
         };
     }

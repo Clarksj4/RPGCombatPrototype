@@ -7,10 +7,6 @@ public class ActorStats : PawnStats
     [Header("Movement")]
     public int Movement;
 
-    [Header("Attack")]
-    public int Attack;
-    public int Accuracy;
-
     [Header("Actions")]
     public List<string> Actions;
 
@@ -22,8 +18,6 @@ public class ActorStats : PawnStats
         {
             Actor actor = pawn as Actor;
             actor.Movement = Movement;
-            actor.Attack = Attack;
-            actor.Accuracy = Accuracy;
             actor.Actions = Actions;
         }
     }

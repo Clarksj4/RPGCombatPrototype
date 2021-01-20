@@ -10,7 +10,7 @@ public class IsHitNode : ActionNode
     {
         Pawn defender = Target.GetContent<Pawn>();
         if (defender != null)
-            return defender.IsHit(action.Actor);
+            return defender.IsHit();
 
         // Fudge it if there is no defender
         return true;

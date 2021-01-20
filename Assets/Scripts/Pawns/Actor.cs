@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Actor : Pawn, ITurnBased, IAttacker, ITeamBased
+public class Actor : Pawn, ITurnBased, ITeamBased
 {
     /// <summary>
     /// Occurs when this actor's allegience changes.
@@ -14,15 +14,6 @@ public class Actor : Pawn, ITurnBased, IAttacker, ITeamBased
     /// Gets whether this actor is currently able to take actions.
     /// </summary>
     public bool Incapacitated { get; set; }
-    /// <summary>
-    /// Gets the amount of damage this actor can do with each
-    /// attack.
-    /// </summary>
-    public int Attack { get; set; }
-    /// <summary>
-    /// Gets how accurate this actor with their actions.
-    /// </summary>
-    public int Accuracy { get; set; }
     /// <summary>
     /// Gets how far this actor can move in their turn.
     /// </summary>

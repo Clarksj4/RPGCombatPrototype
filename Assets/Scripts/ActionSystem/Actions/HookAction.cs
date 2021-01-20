@@ -29,7 +29,7 @@ public class HookAction : BattleAction
         {
             new IsHitNode(this),
             new PushNode(this) { RelativeDirection = RelativeDirection.Towards, Distance = 1},
-            new DoDamageNode(this)
+            new DoDamageNode(this, 15)
         };
     }
 }

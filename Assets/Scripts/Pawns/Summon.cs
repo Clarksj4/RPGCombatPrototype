@@ -1,8 +1,6 @@
 ﻿
 public class Summon : Pawn, ITurnBased
 {
-    public float Priority { get; private set; }
-
     public int Duration { get; set; }
 
     public void Setup(float priority, int duration)

@@ -34,7 +34,7 @@ public class ImmolateAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
-            new DoDamageNode(this)
+            new DoDamageNode(this, 10)
         };
     }
 }

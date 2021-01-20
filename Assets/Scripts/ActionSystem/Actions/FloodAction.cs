@@ -33,7 +33,7 @@ public class FloodAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new DoDamageNode(this)
+            new DoDamageNode(this, 10)
         };
     }
 }

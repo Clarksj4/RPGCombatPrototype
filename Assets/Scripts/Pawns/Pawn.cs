@@ -8,13 +8,8 @@ using System.Collections.Generic;
 /// Encapsulates an entity that is locked to the grid of a
 /// battlemap and is targetable.
 /// </summary>
-public class Pawn : MonoBehaviour, IGridBased, IDefender, ITurnBased
+public class Pawn : MonoBehaviour, IGridBased, ITurnBased
 {
-    /// <summary>
-    /// The minimum chance for an attack to hit.
-    /// </summary>
-    private const int MINIMUM_HIT_CHANCE = 10;
-
     /// <summary>
     /// Occurs when this pawn's health changes.
     /// </summary>
@@ -78,6 +73,14 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender, ITurnBased
     /// Gets the priority of this pawn in the turn order.
     /// </summary>
     public float Priority { get; set; }
+    /// <summary>
+    /// Gets the damage amplification amount.
+    /// </summary>
+    public float Power { get; set; }
+    /// <summary>
+    /// Gets whether this pawn can be hit by abilities.
+    /// </summary>
+    public bool Evasive { get; set; }
 
     private List<PawnStatus> statuses = new List<PawnStatus>();
 
@@ -193,37 +196,19 @@ public class Pawn : MonoBehaviour, IGridBased, IDefender, ITurnBased
     /// <summary>
     /// Tests whether the given attack hits this pawn.
     /// </summary>
-    public bool IsHit(IAttacker attacker)
+    public bool IsHit()
     {
-        // Always have a minimum chance to hit
-        float hitChance = 100 - Mathf.Max(MINIMUM_HIT_CHANCE, attacker.Accuracy - Evasion);
-
-        // Roll to hit
-        float roll = UnityEngine.Random.Range(0, 101);
-        bool hit = roll >= hitChance;
-
-        string hitString = hit ? "hits" : "misses";
-        print($"{attacker.name} {hitString} {name} with roll: {roll} vs {hitChance}");
-
-        return hit;
+        return !Evasive;
     }
 
     /// <summary>
     /// Deals damage to this pawn taking attack and defense
     /// values into account.
-    public void TakeAttack(IAttacker attacker)
+    public void TakeDamage(int amount, bool defendable)
     {
-        LoseHealth((int)(attacker.Attack - Defense));
-    }
-
-    /// <summary>
-    /// Reduces this pawn's health by the given amount.
-    /// </summary>
-    public int LoseHealth(int amount)
-    {
-        int clamped = Mathf.Min(Health, amount);
+        int inflicted = defendable ? Mathf.Max(0, amount - Defense) : amount;
+        int clamped = Mathf.Min(Health, inflicted);
         Health -= clamped;
-        return clamped;
     }
 
     /// <summary>

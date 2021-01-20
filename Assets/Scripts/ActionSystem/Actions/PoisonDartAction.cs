@@ -27,7 +27,7 @@ public class PoisonDartAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
-            new DoDamageNode(this),
+            new DoDamageNode(this, 5),
             new ApplyStatusNode(this) { Status = new PoisonStatus() { Duration = 2} }
         };
     }
