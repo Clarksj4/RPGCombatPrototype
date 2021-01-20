@@ -1,20 +1,15 @@
 ﻿using System.Collections.Generic;
 
-public class FireboltAction : BattleAction
+public class FreezeAction : BattleAction
 {
-    public FireboltAction(Actor actor)
+    public FreezeAction(Actor actor)
         : base(actor) { /* Nothing! */ }
 
     protected override void Setup()
     {
-        // Misc information about the ability
-        Tags = ActionTag.Damage;
-
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction(this),
-            new FormationRestriction(this, TargetableFormation.Other),
             new CellContentRestriction(this, TargetableCellContent.Enemy),
             new ExposedCellsRestriction(this)
         };
@@ -29,7 +24,8 @@ public class FireboltAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
-            new DoDamageNode(this, 15)
+            new DoDamageNode(this, 10),
+            new ApplyStatusNode(this) { Status = new ImmobilizedStatus(2) }
         };
     }
 }

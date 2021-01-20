@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-public class FireboltAction : BattleAction
+public class PreachAction : BattleAction
 {
-    public FireboltAction(Actor actor)
+    public PreachAction(Actor actor)
         : base(actor) { /* Nothing! */ }
 
     protected override void Setup()
@@ -13,10 +13,8 @@ public class FireboltAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction(this),
-            new FormationRestriction(this, TargetableFormation.Other),
-            new CellContentRestriction(this, TargetableCellContent.Enemy),
-            new ExposedCellsRestriction(this)
+            new ExposedCellsRestriction(this),
+            new CellContentRestriction(this, TargetableCellContent.Enemy)
         };
 
         // The cells that will be affected
@@ -29,7 +27,9 @@ public class FireboltAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode(this),
-            new DoDamageNode(this, 15)
+            new DoDamageNode(this, 5),
+            new HasStatusNode<WeakenedStatus>(this),
+            new DoDamageNode(this, 10)
         };
     }
 }

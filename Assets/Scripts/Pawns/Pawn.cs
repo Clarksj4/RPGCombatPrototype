@@ -105,6 +105,11 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
         statuses.Remove(status);
     }
 
+    public bool HasStatus<T>() where T : PawnStatus
+    {
+        return statuses.Any(s => s is T);
+    }
+
     /// <summary>
     /// Moves the pawn to the given cell.
     /// </summary>

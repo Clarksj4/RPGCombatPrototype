@@ -11,20 +11,31 @@ public class BlessAction : BattleAction
 
     protected override void Setup()
     {
-        // The cells we can target
+        // Need to have enough health to cast it
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new HealthRestriction(this, 10 + 1)
+        };
+
+        // Can only target self
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new RangeRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Ally),
+            new CellContentRestriction(this, TargetableCellContent.Self),
         };
 
-        // The cells that will be affected
+        // Affects adjacent cells
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedRange(this, 1, 1)
         };
 
-        // The effect upon those cells.
+        // Costs health
+        beginningActions = new List<ActionNode>()
+        {
+            new DoDamageNode(this, 10, true, false) { Target = Actor.Cell }
+        };
+
+        // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
             new HealNode(this) { Amount = 5 },
