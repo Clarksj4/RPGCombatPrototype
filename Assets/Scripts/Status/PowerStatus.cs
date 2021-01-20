@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PowerStatus : PawnStatus
 {
-    public float BonusPower { get; set; }
+    public PowerStatus(int duration)
+        : base(duration) { /* Nothing! */ }
 
     protected override void OnApplication()
     {
@@ -11,7 +12,7 @@ public class PowerStatus : PawnStatus
         if (Pawn is Actor)
         {
             Actor actor = Pawn as Actor;
-            actor.Power += BonusPower;
+            actor.Power += 0.2f;
         }
     }
 
@@ -19,6 +20,6 @@ public class PowerStatus : PawnStatus
     {
         base.OnExpired();
         Actor actor = Pawn as Actor;
-        actor.Power = Mathf.Max(0, actor.Power - BonusPower);
+        actor.Power = Mathf.Max(0, actor.Power - 0.2f);
     }
 }

@@ -4,11 +4,17 @@ using System.Collections;
 public abstract class PawnStatus
 {
     public Pawn Pawn { get; set; }
-    public int Duration { get; set; }
+    public int Duration { get; protected set; }
+
+    public PawnStatus(int duration)
+    {
+        Duration = duration;
+    }
 
     public void Apply()
     {
         TurnManager.Instance.OnTurnStart += HandleOnTurnBegin;
+        TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
 
         OnApplication();
     }
@@ -23,6 +29,9 @@ public abstract class PawnStatus
 
     protected void Expire()
     {
+        TurnManager.Instance.OnTurnStart -= HandleOnTurnBegin;
+        TurnManager.Instance.OnTurnEnd -= HandleOnTurnEnd;
+
         OnExpired();
         Pawn.RemoveStatus(this);
     }
@@ -30,16 +39,18 @@ public abstract class PawnStatus
     private void HandleOnTurnBegin(ITurnBased ent)
     {
         if (ent == Pawn)
+            DoEffect();
+    }
+
+    private void HandleOnTurnEnd(ITurnBased ent)
+    {
+        if (ent == Pawn)
         {
             Duration -= 1;
 
-            // Expired - remove without doing effect.
+            // Expired!
             if (Duration == 0)
                 Expire();
-
-            // Not expired - do the thing.
-            else
-                DoEffect();
         }
     }
 }

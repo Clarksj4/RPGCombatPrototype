@@ -2,14 +2,15 @@
 
 public class StunnedStatus : PawnStatus
 {
+    public StunnedStatus(int duration)
+        : base(duration) { /* Nothing! */ }
+
     protected override void OnApplication()
     {
-        base.OnApplication();
-
         if (Pawn is Actor)
         {
             Actor actor = Pawn as Actor;
-            actor.Incapacitated = true;
+            actor.Stunned = true;
         }
 
         else
@@ -18,10 +19,11 @@ public class StunnedStatus : PawnStatus
 
     protected override void OnExpired()
     {
-        base.OnExpired();
-
-        Actor actor = Pawn as Actor;
-        actor.Incapacitated = false;
+        if (Pawn is Actor)
+        {
+            Actor actor = Pawn as Actor;
+            actor.Stunned = false;
+        }
     }
 
     public override bool Collate(PawnStatus other)

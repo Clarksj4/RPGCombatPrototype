@@ -13,7 +13,15 @@ public class Actor : Pawn, ITurnBased, ITeamBased
     /// <summary>
     /// Gets whether this actor is currently able to take actions.
     /// </summary>
-    public bool Incapacitated { get; set; }
+    public bool Incapacitated { get { return Sleeping || Stunned; } }
+    /// <summary>
+    /// Gets whether this actor is currently sleeping.
+    /// </summary>
+    public bool Sleeping { get; set; }
+    /// <summary>
+    /// Gets whether this actor is currently stunned.
+    /// </summary>
+    public bool Stunned { get; set; }
     /// <summary>
     /// Gets how far this actor can move in their turn.
     /// </summary>

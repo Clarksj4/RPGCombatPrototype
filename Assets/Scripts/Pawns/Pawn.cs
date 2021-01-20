@@ -14,6 +14,11 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// Occurs when this pawn's health changes.
     /// </summary>
     public event Action<int> OnHealthChanged;
+    /// <summary>
+    /// Occurs when the pawn is targeted by an ability. Whether
+    /// the pawn is hit or not is passed as an argument.
+    /// </summary>
+    public event Action<bool> OnAttacked;
 
     [SerializeField] private PawnStats stats;
 
@@ -192,7 +197,9 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// </summary>
     public bool IsHit()
     {
-        return !Evasive;
+        bool hit = !Evasive;
+        OnAttacked?.Invoke(hit);
+        return hit;
     }
 
     /// <summary>

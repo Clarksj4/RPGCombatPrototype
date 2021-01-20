@@ -3,7 +3,13 @@ using System.Collections;
 
 public class AgilityStatus : PawnStatus
 {
-    public int BonusMovement { get; set; }
+    public int BonusMovement { get; private set; }
+
+    public AgilityStatus(int duration, int bonusMovement)
+        : base(duration)
+    {
+        BonusMovement = bonusMovement;
+    }
 
     protected override void OnApplication()
     {

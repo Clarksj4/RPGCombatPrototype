@@ -28,7 +28,7 @@ public class BlessAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new HealNode(this) { Amount = 5 },
-            new ApplyStatusNode(this) { Status = new PowerStatus() { Duration = 2, BonusPower = 0.1f } }
+            new ApplyStatusNode(this) { Status = new PowerStatus(1) }
         };
     }
 }
