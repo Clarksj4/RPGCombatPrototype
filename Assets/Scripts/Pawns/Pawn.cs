@@ -62,10 +62,6 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// </summary>
     public int Defense { get; set; }
     /// <summary>
-    /// Gets this pawns evasion.
-    /// </summary>
-    public int Evasion { get; set; }
-    /// <summary>
     /// Gets the maximum health of this pawn.
     /// </summary>
     public int MaxHealth { get; set; }
@@ -163,8 +159,6 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// </summary>
     public void TakePush(Vector2Int direction, int amount)
     {
-        print($"push in direction: {direction}");
-
         Cell furthestUnoccupiedCell = null;
         for (int i = 1; i <= amount; i++)
         {
@@ -231,12 +225,5 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
         sequence.OnComplete(() => {
             Destroy(gameObject);
         });
-    }
-
-    protected virtual void LoadStats()
-    {
-        Defense = stats.Defense;
-        Evasion = stats.Evasion;
-        MaxHealth = stats.MaxHealth;
     }
 }

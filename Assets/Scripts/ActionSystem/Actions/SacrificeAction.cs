@@ -14,13 +14,14 @@ public class SacrificeAction : BattleAction
 
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction(this, 10 + 1)
+            new HealthRestriction(this, 20 + 1)
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Ally)
+            new CellContentRestriction(this, TargetableCellContent.Ally),
+            new HealthRestriction(this, -1)
         };
 
         // The cells that will be affected
@@ -31,13 +32,13 @@ public class SacrificeAction : BattleAction
 
         beginningActions = new List<ActionNode>()
         {
-            new DoDamageNode(this, 10) { Target = Actor.Cell }
+            new DoDamageNode(this, 20) { Target = Actor.Cell }
         };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 10 }
+            new HealNode(this) { Amount = 20 }
         };
     }
 }

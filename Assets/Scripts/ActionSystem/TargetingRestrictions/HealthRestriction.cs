@@ -14,6 +14,14 @@ public class HealthRestriction : TargetingRestriction
     public override bool IsTargetValid(Cell cell)
     {
         Pawn pawn = cell.GetContent<Pawn>();
-        return pawn != null && pawn.Health >= amount;
+        if (pawn != null)
+        {
+            if (amount >= 0)
+                return pawn.Health >= amount;
+            else
+                return pawn.MaxHealth - pawn.Health >= Mathf.Abs(amount);
+        }
+
+        return true;
     }
 }

@@ -8,7 +8,6 @@ public class PawnStats : ScriptableObject
 
     [Header("Defense")]
     public int Defense;
-    public int Evasion;
     public int MaxHealth;
 
     [Header("Attack")]
@@ -18,7 +17,6 @@ public class PawnStats : ScriptableObject
     {
         pawn.name = name;
         pawn.Defense = Defense;
-        pawn.Evasion = Evasion;
         pawn.MaxHealth = MaxHealth;
         pawn.Health = MaxHealth;
         pawn.Priority = Priority;
