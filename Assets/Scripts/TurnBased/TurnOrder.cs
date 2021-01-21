@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class TurnOrder : IEnumerable<ITurnBased>
 {
-    // TODO: fuck this shit up! so that things can be at the same priority order
-    // and removing one of them doesn't mess things up.
-    // ALSO: don't need to maintain func to give actors multiple turns if their
-    // priority is waaay higher that others
-
     /// <summary>
     /// The current actor whose turn it is.
     /// </summary>
@@ -50,6 +45,15 @@ public class TurnOrder : IEnumerable<ITurnBased>
         // OR maybe the local ref handles this already?
 
         return turnOrder.Remove(actor);
+    }
+
+    /// <summary>
+    /// Updates the actors position in the turn order.
+    /// </summary>
+    public void UpdatePosition(ITurnBased actor)
+    {
+        Remove(actor);
+        Add(actor);
     }
 
     /// <summary>

@@ -52,6 +52,14 @@ public class TurnManager : MonoSingleton<TurnManager>
     }
 
     /// <summary>
+    /// Updates the given actors order in the turn.
+    /// </summary>
+    public void UpdatePosition(ITurnBased actor)
+    {
+        turnOrder.UpdatePosition(actor);
+    }
+
+    /// <summary>
     /// Proceeds to the next thing in the turn order if
     /// there is one.
     /// </summary>

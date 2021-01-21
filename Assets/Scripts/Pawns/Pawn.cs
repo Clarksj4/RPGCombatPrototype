@@ -15,13 +15,14 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// </summary>
     public event Action<int> OnHealthChanged;
     /// <summary>
+    /// Occurs when this pawn defers damage to another.
+    /// </summary>
+    public event Action<Pawn, int> OnHealthLossDelegated;
+    /// <summary>
     /// Occurs when the pawn is targeted by an ability. Whether
     /// the pawn is hit or not is passed as an argument.
     /// </summary>
     public event Action<bool> OnAttacked;
-
-    [SerializeField] private PawnStats stats;
-
     /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
@@ -47,21 +48,17 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// </summary>
     public MonoGrid Grid { get { return GetComponentInParent<MonoGrid>(); } }
     /// <summary>
+    /// Gets the rank this actor is in.
+    /// </summary>
+    public int Rank { get { return Formation.GetRank(Coordinate); } }
+    /// <summary>
+    /// Gets the file this actor is in.
+    /// </summary>
+    public int File { get { return Formation.GetFile(Coordinate); } }
+    /// <summary>
     /// Gets or sets this pawn's current health.
     /// </summary>
-    public int Health
-    {
-        get { return health; }
-        set
-        {
-            int delta = health - value;
-            if (delta != 0)
-            {
-                health = Mathf.Clamp(value, 0, MaxHealth);
-                OnHealthChanged?.Invoke(delta);
-            }
-        }
-    }
+    public int Health { get; set; }
     /// <summary>
     /// Gets this pawns defense.
     /// </summary>
@@ -82,16 +79,41 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// Gets whether this pawn can be hit by abilities.
     /// </summary>
     public bool Evasive { get; set; }
-
+    /// <summary>
+    /// Gets whether this actor is currently able to take actions.
+    /// </summary>
+    public bool Incapacitated { get { return Sleeping || Stunned; } }
+    /// <summary>
+    /// Gets whether this actor is currently sleeping.
+    /// </summary>
+    public bool Sleeping { get; set; }
+    /// <summary>
+    /// Gets whether this actor is currently stunned.
+    /// </summary>
+    public bool Stunned { get; set; }
+    /// <summary>
+    /// Gets how far this actor can move in their turn.
+    /// </summary>
+    public int Movement { get; set; }
+    
+    [SerializeField]
+    private PawnStats stats;
+    private List<Pawn> surrogates = new List<Pawn>();
     private List<PawnStatus> statuses = new List<PawnStatus>();
-
-    private int health = 100;
 
     protected virtual void Awake()
     {
         stats.SetStats(this);
+
+        // Add to turn order
+        TurnManager.Instance.Add(this);
+        TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
+        TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
     }
 
+    /// <summary>
+    /// Adds the given status to this pawn.
+    /// </summary>
     public void AddStatus(PawnStatus status)
     {
         status.Pawn = this;
@@ -100,14 +122,57 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
             statuses.Add(status);
     }
 
+    /// <summary>
+    /// Removes the given status from this pawn.
+    /// </summary>
     public void RemoveStatus(PawnStatus status)
     {
         statuses.Remove(status);
     }
 
+    /// <summary>
+    /// Checks if this pawn is currently affected by
+    /// a status of the given type.
+    /// </summary>
     public bool HasStatus<T>() where T : PawnStatus
     {
         return statuses.Any(s => s is T);
+    }
+
+    /// <summary>
+    /// Adds the given pawn as a surrogate for
+    /// this pawn.
+    /// </summary>
+    public void AddSurrogate(Pawn pawn)
+    {
+        if (!IsSurrogate(pawn))
+            surrogates.Add(pawn);
+    }
+
+    /// <summary>
+    /// Removes the given pawn as a surrogate for
+    /// this pawn.
+    /// </summary>
+    public void RemoveSurrogate(Pawn pawn)
+    {
+        surrogates.Remove(pawn);
+    }
+
+    /// <summary>
+    /// Checks if this pawn has any surrogates.
+    /// </summary>
+    public bool HasSurrogate()
+    {
+        return surrogates.Any();
+    }
+
+    /// <summary>
+    /// Checks if the given pawn is a surrogate for
+    /// this pawn.
+    /// </summary>
+    public bool IsSurrogate(Pawn pawn)
+    {
+        return surrogates.Contains(pawn);
     }
 
     /// <summary>
@@ -210,11 +275,52 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// <summary>
     /// Deals damage to this pawn taking attack and defense
     /// values into account.
-    public void TakeDamage(int amount, bool defendable)
+    public int TakeDamage(int amount, bool defendable = true)
     {
-        int inflicted = defendable ? Mathf.Max(0, amount - Defense) : amount;
-        int clamped = Mathf.Min(Health, inflicted);
-        Health -= clamped;
+        int resolved = Mathf.Min(amount, Health);
+        int healthDelta;
+        
+        if (!defendable)
+            healthDelta = resolved;
+
+        else
+        {
+            int amountResolved = 0;
+            if (surrogates != null &&
+                surrogates.Count > 0)
+            {
+                // Divide the damage between surrogates
+                int div = amount / surrogates.Count;
+                foreach (Pawn surrogate in surrogates)
+                {
+                    // Deal damage to surrogate
+                    amountResolved += surrogate.TakeDamage(div);
+                    OnHealthLossDelegated?.Invoke(surrogate, div);
+
+                    // Update remaining damage to be dealt
+                    div = (amount - amountResolved) / surrogates.Count;
+                }
+            }
+
+            // Any remaining damage will be dealt to this pawn
+            int remainder = amount - amountResolved;
+            int inflicted = Mathf.Max(remainder - Defense, 0);
+            int excess = Mathf.Max(inflicted - Health, 0);
+
+            resolved = amount - excess;
+            healthDelta = Mathf.Min(inflicted, Health);
+        }
+
+        // If any damage was actually inflicted
+        if (healthDelta > 0)
+        {
+            Health -= healthDelta;
+            OnHealthChanged?.Invoke(-healthDelta);
+        }
+            
+        // Return the amount of damage this pawn abosrbed with 
+        // health and or defense.
+        return resolved;
     }
 
     /// <summary>
@@ -227,8 +333,12 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
         return clamped;
     }
 
+    /// <summary>
+    /// Destroys this pawn and tidies up all its bits.
+    /// </summary>
     public void Destroy()
     {
+        TurnManager.Instance.Remove(this);
         SetCell(null);
 
         // Scale out the pawn then remove it.
@@ -237,5 +347,29 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
         sequence.OnComplete(() => {
             Destroy(gameObject);
         });
+    }
+
+    protected virtual void TurnStart()
+    {
+        // Automatically go to the next turn unless this
+        // method is overridden.
+        TurnManager.Instance.Next();
+    }
+
+    protected virtual void TurnEnd()
+    {
+        /* Nothing! */
+    }
+
+    private void HandleOnTurnStart(ITurnBased obj)
+    {
+        if (obj == (ITurnBased)this)
+            TurnStart();
+    }
+
+    private void HandleOnTurnEnd(ITurnBased obj)
+    {
+        if (obj == (ITurnBased)this)
+            TurnEnd();
     }
 }

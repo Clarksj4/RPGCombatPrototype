@@ -14,20 +14,11 @@ public class GuardedStatus : PawnStatus
 
     protected override void OnApplication()
     {
-        Pawn.OnHealthChanged += HandleOnHealthChanged;
+        Pawn.AddSurrogate(Protector);
     }
 
     protected override void OnExpired()
     {
-        Pawn.OnHealthChanged -= HandleOnHealthChanged;
-    }
-
-    private void HandleOnHealthChanged(int delta)
-    {
-        if (delta < 0)
-        {
-            Protector.TakeDamage(-delta, false);
-            Pawn.GainHealth(-delta);
-        }
+        Pawn.RemoveSurrogate(Protector);
     }
 }

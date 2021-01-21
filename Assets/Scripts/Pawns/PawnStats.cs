@@ -13,6 +13,9 @@ public class PawnStats : ScriptableObject
     [Header("Attack")]
     public float Power = 1.0f;
 
+    [Header("Movement")]
+    public int Movement;
+
     public virtual void SetStats(Pawn pawn)
     {
         pawn.name = name;
@@ -21,5 +24,6 @@ public class PawnStats : ScriptableObject
         pawn.Health = MaxHealth;
         pawn.Priority = Priority;
         pawn.Power = Power;
+        pawn.Movement = Movement;
     }
 }

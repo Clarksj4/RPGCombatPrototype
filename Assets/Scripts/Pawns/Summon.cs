@@ -1,32 +1,33 @@
 ﻿
-public class Summon : Pawn, ITurnBased
+using UnityEngine;
+
+public class Summon : MonoBehaviour
 {
     public int Duration { get; set; }
+    public Pawn Pawn { get; private set; }
 
-    public void Setup(float priority, int duration)
+    private void Awake()
     {
-        Priority = priority;
-        TurnManager.Instance.Add(this);
-        TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
-
-        Duration = duration;
+        Pawn = GetComponent<Pawn>();
     }
 
-    private void HandleOnTurnStart(ITurnBased obj)
+    public void Setup(int duration, float priority)
     {
-        if (obj == this)
-        {
-            // Automatically go to the next turn in order.
-            TurnManager.Instance.Next();
+        Duration = duration;
+        Pawn.Priority = priority;
 
-            print($"{name}'s turn! Remaining duration: {Duration}");
+        TurnManager.Instance.UpdatePosition(Pawn);
+        TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
+    }
+
+    private void HandleOnTurnEnd(ITurnBased ent)
+    {
+        if (ent == (ITurnBased)Pawn)
+        {
             // Reduce duration and kill self if expired.
             Duration -= 1;
             if (Duration <= 0)
-            {
-                Destroy();
-                TurnManager.Instance.Remove(this);
-            }
+                Pawn.Destroy();
         }
     }
 }

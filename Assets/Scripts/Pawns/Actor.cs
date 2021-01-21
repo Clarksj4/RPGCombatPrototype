@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
 
 public class Actor : Pawn, ITurnBased, ITeamBased
 {
@@ -9,31 +7,6 @@ public class Actor : Pawn, ITurnBased, ITeamBased
     /// Occurs when this actor's allegience changes.
     /// </summary>
     public event Action OnTeamChanged;
-
-    /// <summary>
-    /// Gets whether this actor is currently able to take actions.
-    /// </summary>
-    public bool Incapacitated { get { return Sleeping || Stunned; } }
-    /// <summary>
-    /// Gets whether this actor is currently sleeping.
-    /// </summary>
-    public bool Sleeping { get; set; }
-    /// <summary>
-    /// Gets whether this actor is currently stunned.
-    /// </summary>
-    public bool Stunned { get; set; }
-    /// <summary>
-    /// Gets how far this actor can move in their turn.
-    /// </summary>
-    public int Movement { get; set; }
-    /// <summary>
-    /// Gets the rank this actor is in.
-    /// </summary>
-    public int Rank { get { return Formation.GetRank(Coordinate); } }
-    /// <summary>
-    /// Gets the file this actor is in.
-    /// </summary>
-    public int File { get { return Formation.GetFile(Coordinate); } }
     /// <summary>
     /// Gets the actions available to this actor.
     /// </summary>
@@ -52,18 +25,8 @@ public class Actor : Pawn, ITurnBased, ITeamBased
     }
     private Team team;
 
-    protected override void Awake()
+    protected override void TurnStart()
     {
-        base.Awake();
-
-        TurnManager.Instance.Add(this);
-    }
-
-    /// <summary>
-    /// Ends this actors turn.
-    /// </summary>
-    public void EndTurn()
-    {
-        // Thing!
+        /* Nothing! */
     }
 }

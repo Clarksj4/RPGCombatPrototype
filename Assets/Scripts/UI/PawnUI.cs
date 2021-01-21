@@ -17,6 +17,7 @@ public class PawnUI : MonoBehaviour
     private void HandleOnPawnHealthChanged(int change)
     {
         float fill = (float)pawn.Health / pawn.MaxHealth;
+        print($"{fill} = {pawn.Health} / {pawn.MaxHealth}");
         healthBar.SetHealth(fill);
     }
 }

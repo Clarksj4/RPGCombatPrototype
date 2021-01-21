@@ -145,7 +145,6 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// </summary>
     public void EndSelectedActorTurn()
     {
-        SelectedActor.EndTurn();
         ClearSelectedActor();
 
         TurnManager.Instance.Next();

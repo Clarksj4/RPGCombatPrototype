@@ -565,7 +565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3721897763412088450}
-  - component: {fileID: 438601120131399127}
+  - component: {fileID: 4619419213257574360}
   m_Layer: 0
   m_Name: FrostWall
   m_TagString: Untagged
@@ -589,7 +589,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &438601120131399127
+--- !u!114 &4619419213257574360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3721897763412088449}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a099fd918056b87419c079528e1393e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 054869fecdcfcff449e6aeef3e5af0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 0b16d3a165c07e3429164605e58fe68d, type: 2}

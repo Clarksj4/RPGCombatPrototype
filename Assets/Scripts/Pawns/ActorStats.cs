@@ -4,9 +4,6 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "New Character", menuName = "Actor Stats")]
 public class ActorStats : PawnStats
 {
-    [Header("Movement")]
-    public int Movement;
-
     [Header("Actions")]
     public List<string> Actions;
 
@@ -17,7 +14,6 @@ public class ActorStats : PawnStats
         if (pawn is Actor)
         {
             Actor actor = pawn as Actor;
-            actor.Movement = Movement;
             actor.Actions = Actions;
         }
     }
