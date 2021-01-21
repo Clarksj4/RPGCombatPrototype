@@ -57,13 +57,13 @@ namespace Assets.Scripts
 
         private void HandleOnTurnStart(ITurnBased turnBasedEntity)
         {
-            if (actor == turnBasedEntity)
+            if (turnBasedEntity == (ITurnBased)actor)
                 ApplySelectionColour();
         }
 
         private void HandleOnTurnEnd(ITurnBased turnBasedEntity)
         {
-            if (actor == turnBasedEntity)
+            if (turnBasedEntity == (ITurnBased)actor)
                 ApplyTeamColour();
         }
 

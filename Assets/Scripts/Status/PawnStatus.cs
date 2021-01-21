@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class PawnStatus
 {
+    public event Action<PawnStatus> OnStatusExpired;
+
     public Pawn Pawn { get; set; }
     public int Duration { get; protected set; }
 
@@ -34,6 +37,7 @@ public abstract class PawnStatus
 
         OnExpired();
         Pawn.RemoveStatus(this);
+        OnStatusExpired?.Invoke(this);
     }
 
     private void HandleOnTurnBegin(ITurnBased ent)
