@@ -23,15 +23,15 @@ public class MonoGrid : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The number of cells on each axis of this grid.")]
-    private Vector2Int nCells;
+    private Vector2Int nCells = default;
     [SerializeField]
     [Tooltip("The size of each cell on the grid.")]
-    private Vector2 cellSize;
+    private Vector2 cellSize = default;
     [SerializeField]
     [Tooltip("Occurs when a cell is tapped or clicked on.")]
-    private UnityEvent<MonoGrid, Cell> OnCellInput;
+    private UnityEvent<MonoGrid, Cell> OnCellInput = null;
 
-    private new BoxCollider collider;
+    private new BoxCollider collider = null;
     private Dictionary<Vector2Int, Cell> cellDirectory = new Dictionary<Vector2Int, Cell>();
     private GridRefactor grid = new GridRefactor();
 

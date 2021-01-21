@@ -7,20 +7,20 @@ public class CameraManager : MonoBehaviour
 
     [Header("Components")]
     [SerializeField]
-    private new Camera camera;
+    private new Camera camera = null;
     [SerializeField]
-    private Transform translationTransform;
+    private Transform translationTransform = null;
 
     [Header("Movement")]
     [SerializeField] private float movementDuration = 0.5f;
     [SerializeField] private float orthographicSizePunchFactor = 1.2f;
-    [SerializeField] private Ease movementEasing;
-    [SerializeField] private Ease orthographicSizePunchOutEasing;
-    [SerializeField] private Ease orthographicSizePunchReturnEasing;
+    [SerializeField] private Ease movementEasing = Ease.Unset;
+    [SerializeField] private Ease orthographicSizePunchOutEasing = Ease.Unset;
+    [SerializeField] private Ease orthographicSizePunchReturnEasing = Ease.Unset;
 
-    private Sequence lookAtSequence;
+    private Sequence lookAtSequence = null;
 
-    private float startOrthographicSize;
+    private float startOrthographicSize = 0f;
 
     void Awake()
     {

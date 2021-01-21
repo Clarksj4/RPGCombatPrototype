@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class PawnUI : MonoBehaviour
 {
     [SerializeField]
-    private HealthBar healthBar;
-    private Pawn pawn;
+    private HealthBar healthBar = null;
+    private Pawn pawn = null;
 
     private void Awake()
     {

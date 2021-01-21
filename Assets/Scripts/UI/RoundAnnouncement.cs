@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class RoundAnnouncement : MonoBehaviour
 {
     [SerializeField]
-    private Image background;
+    private Image background = null;
     [SerializeField]
-    private Text text;
+    private Text text = null;
     [SerializeField]
     private float stallRange = 40;
-    private float alpha;
+    private float alpha = 0;
     
 
     private float OffScreenX { get { return (background.rectTransform.rect.width / 2) + (text.rectTransform.rect.width / 2); } }

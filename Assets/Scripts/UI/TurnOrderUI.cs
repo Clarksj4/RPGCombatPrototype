@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class TurnOrderUI : MonoBehaviour, IStartable
 {
     [SerializeField][Range(1, 10)] private int nVisibleActors = 4;
-    [SerializeField] private bool horizontal;
+    [SerializeField] private bool horizontal = false;
     [SerializeField] private float slideDuration = 1f;
-    [SerializeField] private LayoutGroup slideyBit;
-    [SerializeField] private TurnOrderUIFrame FramePrefab;
+    [SerializeField] private LayoutGroup slideyBit = null;
+    [SerializeField] private TurnOrderUIFrame FramePrefab = null;
 
     //Properties
     private float FrameSize {  get { return horizontal ? FrameSizeDelta.y : FrameSizeDelta.x; } }
@@ -19,11 +19,11 @@ public class TurnOrderUI : MonoBehaviour, IStartable
     private float Spacing { get { return horizontal ? (slideyBit as HorizontalLayoutGroup).spacing : (slideyBit as VerticalLayoutGroup).spacing; } }
 
     // Components
-    private RectTransform slideyBitRectTransform;
-    private RectTransform rectTransform;
+    private RectTransform slideyBitRectTransform = null;
+    private RectTransform rectTransform = null;
 
     // Fields
-    private Sequence slideSequence;
+    private Sequence slideSequence = null;
 
     private void Awake()
     {

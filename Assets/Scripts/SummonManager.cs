@@ -5,7 +5,7 @@ using System.Linq;
 public class SummonManager : MonoSingleton<SummonManager>
 {
     [SerializeField]
-    private List<Pawn> Pawns;
+    private List<Pawn> Pawns = null;
 
     public Pawn Spawn(string name, Cell cell, float priority, int duration)
     {

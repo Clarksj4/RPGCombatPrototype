@@ -5,18 +5,18 @@ using DG.Tweening;
 public class HealthBar : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private Image frontBar;
-    [SerializeField] private Image backBar;
+    [SerializeField] private Image frontBar = null;
+    [SerializeField] private Image backBar = null;
 
     [Header("Fill Animation")]
-    [SerializeField] private Color fillColour;
-    [SerializeField] private Ease fillEasing;
-    [SerializeField] private float fillDuration;
+    [SerializeField] private Color fillColour = default;
+    [SerializeField] private Ease fillEasing = Ease.Unset;
+    [SerializeField] private float fillDuration = 0f;
 
     [Header("Drain Animation")]
-    [SerializeField] private Color drainColour;
-    [SerializeField] private Ease drainEasing;
-    [SerializeField] private float drainDuration;
+    [SerializeField] private Color drainColour = default;
+    [SerializeField] private Ease drainEasing = Ease.Unset;
+    [SerializeField] private float drainDuration = 0f;
 
     private float currentFill = 1f;
 

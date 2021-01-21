@@ -56,11 +56,11 @@ public class Formation : MonoBehaviour
     }
 
     [SerializeField]
-    private Vector2Int nCells;
+    private Vector2Int nCells = default;
     [SerializeField]
-    private Vector2Int origin;
+    private Vector2Int origin = default;
     [SerializeField]
-    private Vector2Int facing;
+    private Vector2Int facing = default;
 
     private void OnDrawGizmos()
     {

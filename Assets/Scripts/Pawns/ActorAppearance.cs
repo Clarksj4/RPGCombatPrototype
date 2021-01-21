@@ -9,13 +9,13 @@ namespace Assets.Scripts
     public class ActorAppearance : MonoBehaviour
     {
         [SerializeField]
-        private SpriteRenderer frameImage;
+        private SpriteRenderer frameImage = null;
         [SerializeField]
-        private SpriteRenderer actorImage;
+        private SpriteRenderer actorImage = null;
         [SerializeField]
-        private SortingGroup maskSortingGroup;
+        private SortingGroup maskSortingGroup = null;
 
-        private Actor actor;
+        private Actor actor = null;
 
         private void Awake()
         {

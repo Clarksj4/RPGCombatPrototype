@@ -13,7 +13,7 @@ public class TurnOrderUIFrame : MonoBehaviour
     public RectTransform RectTransform { get { return transform as RectTransform; } }
 
     [SerializeField][Tooltip("The image component that will hold the actor's portrait.")]
-    private Image portrait;
+    private Image portrait = null;
 
     /// <summary>
     /// Sets the actor whose place in the turn order this frame

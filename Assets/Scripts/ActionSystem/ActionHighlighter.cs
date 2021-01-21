@@ -11,7 +11,7 @@ namespace Assets.Scripts.Actions
         private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
 
         [SerializeField]
-        private GridRenderer gridRenderer;
+        private GridRenderer gridRenderer = null;
 
         private void Awake()
         {

@@ -4,8 +4,8 @@ using UnityEditor;
 //[RequireComponent(typeof(Grid))]
 public class GridRenderer : MonoBehaviour
 {
-    [SerializeField] private MonoGrid grid;
-    [SerializeField] private Transform cellParent;
+    [SerializeField] private MonoGrid grid = null;
+    [SerializeField] private Transform cellParent = null;
 
     public void SetCellColour(Vector2Int coordinate, Color colour)
     {

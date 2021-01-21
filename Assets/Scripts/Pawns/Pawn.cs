@@ -102,7 +102,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     public bool Invulnerable { get; set; }
     
     [SerializeField]
-    private PawnStats stats;
+    private PawnStats stats = null;
     private List<Pawn> surrogates = new List<Pawn>();
     private List<PawnStatus> statuses = new List<PawnStatus>();
 

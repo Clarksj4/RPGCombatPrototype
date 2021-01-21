@@ -7,7 +7,7 @@ public class ActionsBar : Menu
     private int ActionCount { get { return ActionManager.Instance.SelectedActor.Actions.Count; } }
 
     [SerializeField]
-    private Button[] actionButtons;
+    private Button[] actionButtons = null;
 
     protected override void Awake()
     {
