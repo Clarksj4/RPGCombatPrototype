@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-public class SecondWindAction : BattleAction
+public class HibernateAction : BattleAction
 {
-    public SecondWindAction(Actor actor) 
+    public HibernateAction(Actor actor)
         : base(actor) { /* Nothing! */ }
 
     protected override void Setup()
@@ -25,9 +25,8 @@ public class SecondWindAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 10 },
-            new ApplyStatusNode(this) { Status = new PowerStatus(2) },
-            new ApplyStatusNode(this) { Status = new AgilityStatus(2, 1) }
+            new ApplyStatusNode(this) { Status = new SleepStatus(4) },
+            new ApplyStatusNode(this) { Status = new RenewStatus(4, 5) }
         };
     }
 }

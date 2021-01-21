@@ -10,7 +10,7 @@ public class PoisonStatus : PawnStatus
     {
         base.DoEffect();
 
-        Pawn.Health -= (int)(Pawn.MaxHealth * 0.1f);
+        Pawn.TakeDamage((int)(Pawn.MaxHealth * 0.1f), false);
     }
 
     public override bool Collate(PawnStatus other)

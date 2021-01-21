@@ -38,19 +38,22 @@ public abstract class PawnStatus
 
     private void HandleOnTurnBegin(ITurnBased ent)
     {
-        if (ent == Pawn)
+        if (ent == (ITurnBased)Pawn)
+        {
             DoEffect();
+
+            // Duration reduced at the START of turn
+            // so that the duration only decreased if
+            // the status actually did something.
+            Duration -= 1;
+        }
     }
 
     private void HandleOnTurnEnd(ITurnBased ent)
     {
-        if (ent == Pawn)
-        {
-            Duration -= 1;
-
-            // Expired!
-            if (Duration == 0)
-                Expire();
-        }
+        // If expired...
+        if (ent == (ITurnBased)Pawn && 
+            Duration == 0)
+            Expire();
     }
 }

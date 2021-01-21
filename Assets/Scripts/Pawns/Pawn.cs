@@ -95,6 +95,11 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// Gets how far this actor can move in their turn.
     /// </summary>
     public int Movement { get; set; }
+    /// <summary>
+    /// Gets whether this actor is immune to damage from
+    /// defendable sources.
+    /// </summary>
+    public bool Invulnerable { get; set; }
     
     [SerializeField]
     private PawnStats stats;
@@ -280,11 +285,20 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
         int resolved = Mathf.Min(amount, Health);
         int healthDelta;
         
+        // Can't defend against the damage, just take it
         if (!defendable)
             healthDelta = resolved;
 
+        // CAN defend against damage, AND pawn is invulnerable
+        // take NOTHING! muhahah!
+        else if (Invulnerable)
+            healthDelta = 0;
+
+        // CAN defend...
         else
         {
+            // Check for surrogates that will take damage on
+            // behalf of this pawn.
             int amountResolved = 0;
             if (surrogates != null &&
                 surrogates.Count > 0)
@@ -331,6 +345,17 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
         int clamped = Mathf.Min(amount, MaxHealth - Health);
         Health += clamped;
         return clamped;
+    }
+
+    /// <summary>
+    /// Sets the pawns health to the given value regardless of other factors.
+    /// </summary>
+    public void SetHealth(int value)
+    {
+        int clamped = Mathf.Clamp(value, 0, MaxHealth);
+        int delta = clamped - Health;
+        Health = clamped;
+        OnHealthChanged?.Invoke(delta);
     }
 
     /// <summary>

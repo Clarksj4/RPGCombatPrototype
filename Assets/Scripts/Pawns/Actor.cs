@@ -27,6 +27,9 @@ public class Actor : Pawn, ITurnBased, ITeamBased
 
     protected override void TurnStart()
     {
-        /* Nothing! */
+        // If actor is incapacitated, it doesn't get a turn.
+        // Hard luck, bud.
+        if (Incapacitated)
+            TurnManager.Instance.Next();
     }
 }

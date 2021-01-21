@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
-public class SecondWindAction : BattleAction
+public class SleepingDraughtAction : BattleAction
 {
-    public SecondWindAction(Actor actor) 
+    public SleepingDraughtAction(Actor actor)
         : base(actor) { /* Nothing! */ }
 
     protected override void Setup()
     {
-        // Misc information about the ability
-        Tags = ActionTag.Heal;
-
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Self)
+            new CellContentRestriction(this, TargetableCellContent.Enemy),
+            new ExposedCellsRestriction(this)
         };
 
         // The cells that will be affected
@@ -25,9 +25,7 @@ public class SecondWindAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 10 },
-            new ApplyStatusNode(this) { Status = new PowerStatus(2) },
-            new ApplyStatusNode(this) { Status = new AgilityStatus(2, 1) }
+            new ApplyStatusNode(this) { Status = new DrowsyStatus(1, 2) }
         };
     }
 }
