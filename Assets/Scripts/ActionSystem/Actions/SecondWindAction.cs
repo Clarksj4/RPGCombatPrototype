@@ -2,9 +2,6 @@
 
 public class SecondWindAction : BattleAction
 {
-    public SecondWindAction(Actor actor) 
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -25,9 +22,9 @@ public class SecondWindAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 10 },
-            new ApplyStatusNode(this) { Status = new PowerStatus() { Duration = 2 } },
-            new ApplyStatusNode(this) { Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } }
+            new HealNode() { Actor = Actor, Amount = 10 },
+            new ApplyStatusNode() { Actor = Actor, Status = new PowerStatus() { Duration = 2 } },
+            new ApplyStatusNode() { Actor = Actor, Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } }
         };
     }
 }

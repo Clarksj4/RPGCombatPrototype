@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class WindWalkAction : BattleAction
 {
-    public WindWalkAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Target any ally
@@ -28,8 +23,8 @@ public class WindWalkAction : BattleAction
         // Move faster and evade an attack...
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = evasive },
-            new ApplyStatusNode(this) { Status = agility }
+            new ApplyStatusNode() { Actor = Actor, Status = evasive },
+            new ApplyStatusNode() { Actor = Actor, Status = agility }
         };
     }
 }

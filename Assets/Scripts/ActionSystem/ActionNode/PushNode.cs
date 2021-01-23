@@ -25,14 +25,11 @@ public class PushNode : MoveNode
                 return direction;
 
             // Caluclate relative direction
-            return Target.Coordinate.GetRelativeDirections(action.OriginCell.Coordinate, RelativeDirection).Single();
+            return Target.Coordinate.GetRelativeDirections(Actor.Coordinate, RelativeDirection).Single();
         }
         set { direction = value; }
     }
     private Vector2Int direction;
-
-    public PushNode(BattleAction action)
-        : base(action) { /* Nothing! */ }
 
     public override bool Do()
     {

@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class TransmogrifyAction : BattleAction
 {
-    public TransmogrifyAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // The cells we can target
@@ -24,7 +19,7 @@ public class TransmogrifyAction : BattleAction
         // Take damage on behalf of ally
         targetedActions = new List<ActionNode>()
         {
-            new SwapHealthNode(this) 
+            new SwapHealthNode() { Actor = Actor }
         };
     }
 }

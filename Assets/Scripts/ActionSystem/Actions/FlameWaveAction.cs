@@ -2,9 +2,6 @@
 
 public class FlameWaveAction : BattleAction
 {
-    public FlameWaveAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -32,7 +29,8 @@ public class FlameWaveAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new DoDamageNode(this, 20)
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 20 }
         };
     }
 }

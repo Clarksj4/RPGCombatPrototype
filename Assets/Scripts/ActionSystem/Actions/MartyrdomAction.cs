@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class MartyrdomAction : BattleAction
 {
-    public MartyrdomAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // The cells we can target
@@ -24,7 +19,7 @@ public class MartyrdomAction : BattleAction
         // Take damage on behalf of ally
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new GuardedStatus() { Duration = 2, Protector = Actor } }
+            new ApplyStatusNode() { Actor = Actor, Status = new GuardedStatus() { Duration = 2, Protector = Actor } }
         };
     }
 }

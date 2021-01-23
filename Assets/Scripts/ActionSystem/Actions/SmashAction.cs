@@ -2,9 +2,6 @@
 
 public class SmashAction : BattleAction
 {
-    public SmashAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -32,9 +29,9 @@ public class SmashAction : BattleAction
         // Swings, hits, and pushes away
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 20),
-            new PushNode(this) { RelativeDirection = RelativeDirection.Away, Distance = 1 }
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 20 },
+            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = 1 }
         };
     }
 }

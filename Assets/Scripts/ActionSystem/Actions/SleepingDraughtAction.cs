@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class SleepingDraughtAction : BattleAction
 {
-    public SleepingDraughtAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // The cells we can target
@@ -25,7 +20,7 @@ public class SleepingDraughtAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new DrowsyStatus() { Duration = 1, SleepDuration = 2 } }
+            new ApplyStatusNode() { Actor = Actor, Status = new DrowsyStatus() { Duration = 1, SleepDuration = 2 } }
         };
     }
 }

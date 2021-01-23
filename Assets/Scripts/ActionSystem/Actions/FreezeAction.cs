@@ -2,9 +2,6 @@
 
 public class FreezeAction : BattleAction
 {
-    public FreezeAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // The cells we can target
@@ -23,9 +20,9 @@ public class FreezeAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 10),
-            new ApplyStatusNode(this) { Status = new ImmobilizedStatus() { Duration = 2 } }
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 10 },
+            new ApplyStatusNode() { Actor = Actor, Status = new ImmobilizedStatus() { Duration = 2 } }
         };
     }
 }

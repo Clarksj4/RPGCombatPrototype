@@ -5,15 +5,18 @@ using System.Linq;
 public class SummonManager : MonoSingleton<SummonManager>
 {
     [SerializeField]
-    private List<Pawn> Pawns = null;
+    private Pawn Prefab = null;
+    [SerializeField]
+    private List<PawnStats> Stats = null;
 
     public Pawn Spawn(string name, Cell cell, float priority, int duration)
     {
-        Pawn prefab = Pawns.FirstOrDefault(p => p.name == name);
-        if (prefab != null)
+        PawnStats stats = Stats.FirstOrDefault(p => p.name == name);
+        if (stats != null)
         {
             // Create new pawn
-            Pawn instance = Instantiate(prefab);
+            Pawn instance = Instantiate(Prefab);
+            instance.Stats = stats;
             instance.SetCell(cell);
 
             // Attack summon countdown

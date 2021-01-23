@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class CauterizeAction : BattleAction
 {
-    public CauterizeAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // The cells we can target
@@ -24,8 +19,8 @@ public class CauterizeAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 20 },
-            new ApplyStatusNode(this) { Status = new VulnerabilityStatus() { Duration = 2 } }
+            new HealNode() { Actor = Actor, Amount = 20 },
+            new ApplyStatusNode() { Actor = Actor, Status = new VulnerabilityStatus() { Duration = 2 } }
         };
     }
 }

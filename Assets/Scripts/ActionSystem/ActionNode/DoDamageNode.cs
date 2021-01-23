@@ -1,27 +1,28 @@
-﻿using System.Linq;
-using UnityEngine;
-
+﻿
 public class DoDamageNode : ActionNode
 {
-    private int baseDamage;
-    private bool amplifyable;
-    private bool defendable;
-
-    public DoDamageNode(BattleAction action, int baseDamage, bool amplifyable = true, bool defendable = true)
-        : base(action) 
-    {
-        this.baseDamage = baseDamage;
-        this.amplifyable = amplifyable;
-        this.defendable = defendable;
-    }
+    /// <summary>
+    /// Gets or sets the amount of damage this action will do.
+    /// </summary>
+    public int BaseDamage { get; set; }
+    /// <summary>
+    /// Gets or sets whether the damage is amplified by the
+    /// actor's power level.
+    /// </summary>
+    public bool Amplifyable { get; set; } = true;
+    /// <summary>
+    /// Gets or sets whether this damage can be reduced by
+    /// defense or delegated to a surrogate.
+    /// </summary>
+    public bool Defendable { get; set; } = true;
 
     public override bool Do()
     {
         Pawn defender = Target.GetContent<Pawn>();
         if (defender != null)
         {
-            int inflicted = amplifyable ? (int)(baseDamage * action.Actor.Power) : baseDamage;
-            defender.TakeDamage(inflicted, defendable);
+            int inflicted = Amplifyable ? (int)(BaseDamage * Actor.Power) : BaseDamage;
+            defender.TakeDamage(inflicted, Defendable);
         }
         
         return true;

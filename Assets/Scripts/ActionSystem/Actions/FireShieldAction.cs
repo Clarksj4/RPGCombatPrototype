@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class FireShieldAction : BattleAction
 {
-    public FireShieldAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Can only target self
@@ -24,8 +19,8 @@ public class FireShieldAction : BattleAction
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new PoisonStatus() { Duration = 3 } },
-            new ApplyStatusNode(this) { Status = new InvulnerabilityStatus() { Duration = 1 } }
+            new ApplyStatusNode() { Actor = Actor, Status = new PoisonStatus() { Duration = 3 } },
+            new ApplyStatusNode() { Actor = Actor, Status = new InvulnerabilityStatus() { Duration = 1 } }
         };
     }
 }

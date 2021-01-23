@@ -2,9 +2,6 @@
 
 public class PierceAction : BattleAction
 {
-    public PierceAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -33,8 +30,8 @@ public class PierceAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 20)
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 20 }
         };
 
         // If one of the targets is not hit, then no subsequent targets are hit

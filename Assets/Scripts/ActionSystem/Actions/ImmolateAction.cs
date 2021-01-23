@@ -2,14 +2,6 @@
 
 public class ImmolateAction : BattleAction
 {
-    /// <summary>
-    /// The area from the targeted cell that will be affected.
-    /// </summary>
-    private const int AREA = 1;
-
-    public ImmolateAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -32,20 +24,27 @@ public class ImmolateAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedRange(this, 0, AREA)
+            new AffectedRange(this, 0, 1)
         };
 
         beginningActions = new List<ActionNode>()
         {
-            new DoDamageNode(this, 10, false, false) { Target = Actor.Cell }
+            new DoDamageNode() 
+            { 
+                Actor = Actor, 
+                BaseDamage = 10, 
+                Amplifyable = false, 
+                Defendable = false, 
+                Target = Actor.Cell 
+            }
         };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 5),
-            new ApplyStatusNode(this) { Status = new VulnerabilityStatus() { Duration = 1 } }
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 5 },
+            new ApplyStatusNode() { Actor = Actor, Status = new VulnerabilityStatus() { Duration = 1 } }
         };
     }
 }

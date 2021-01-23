@@ -2,9 +2,6 @@
 
 public class FireboltAction : BattleAction
 {
-    public FireboltAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -28,8 +25,8 @@ public class FireboltAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 15)
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 15 }
         };
     }
 }

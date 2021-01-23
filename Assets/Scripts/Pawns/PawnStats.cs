@@ -20,6 +20,9 @@ public class PawnStats : ScriptableObject
     [Header("Statuses")]
     public List<ClassTable> Statuses = null;
 
+    [Header("Actions")]
+    public List<string> Actions;
+
     public virtual void SetStats(Pawn pawn)
     {
         pawn.name = name;
@@ -29,6 +32,7 @@ public class PawnStats : ScriptableObject
         pawn.Priority = Priority;
         pawn.Power = Power;
         pawn.Movement = Movement;
+        pawn.Actions = Actions;
 
         // Apply statuses
         if (Statuses != null)

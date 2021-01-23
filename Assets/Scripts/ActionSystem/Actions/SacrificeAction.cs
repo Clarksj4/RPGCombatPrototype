@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class SacrificeAction : BattleAction
 {
-    public SacrificeAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -32,13 +27,13 @@ public class SacrificeAction : BattleAction
 
         beginningActions = new List<ActionNode>()
         {
-            new DoDamageNode(this, 20) { Target = Actor.Cell }
+            new DoDamageNode() { Actor = Actor, BaseDamage = 20, Target = Actor.Cell }
         };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 20 }
+            new HealNode() { Actor = Actor, Amount = 20 }
         };
     }
 }

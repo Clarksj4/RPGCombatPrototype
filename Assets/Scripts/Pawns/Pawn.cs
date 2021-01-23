@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// Encapsulates an entity that is locked to the grid of a
 /// battlemap and is targetable.
 /// </summary>
-public class Pawn : MonoBehaviour, IGridBased, ITurnBased
+public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 {
     /// <summary>
     /// Occurs when this pawn's health changes.
@@ -31,6 +31,10 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// Occurs when a status is removed from this pawn.
     /// </summary>
     public event Action<PawnStatus> OnStatusExpired;
+    /// <summary>
+    /// Occurs when this pawn's allegience changes.
+    /// </summary>
+    public event Action OnTeamChanged;
     /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
@@ -108,20 +112,54 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// defendable sources.
     /// </summary>
     public bool Invulnerable { get; set; }
-    
-    [SerializeField]
-    private PawnStats stats = null;
-    private List<Pawn> surrogates = new List<Pawn>();
+    /// <summary>
+    /// Gets whether this pawn has been setup successfully.
+    /// </summary>
+    public bool Initialized { get; private set; }
+    /// <summary>
+    /// Gets whether this pawn has abilities they can use.
+    /// </summary>
+    public bool IsActor { get { return Actions != null && Actions.Count > 0; } }
+    /// <summary>
+    /// Gets the actions available to this actor.
+    /// </summary>
+    public List<string> Actions { get; set; }
+    /// <summary>
+    /// Gets or sets the team this pawn is allied with.
+    /// </summary>
+    public Team Team
+    {
+        get { return team; }
+        set
+        {
+            team = value;
+            OnTeamChanged?.Invoke();
+        }
+    }
+    [Tooltip("The vital statistics of this pawn.")]
+    public PawnStats Stats = null;
+
+    private Team team;
+        private List<Pawn> surrogates = new List<Pawn>();
     private List<PawnStatus> statuses = new List<PawnStatus>();
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
-        stats.SetStats(this);
+        if (!Initialized)
+            Setup();
+    }
+
+    public void Setup()
+    {
+        if (Stats != null)
+            Stats.SetStats(this);
 
         // Add to turn order
         TurnManager.Instance.Add(this);
         TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
+
+        Initialized = true;
     }
 
     /// <summary>
@@ -388,9 +426,10 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
 
     protected virtual void TurnStart()
     {
-        // Automatically go to the next turn unless this
-        // method is overridden.
-        TurnManager.Instance.Next();
+        // If actor is incapacitated, it doesn't get a turn.
+        // Hard luck, bud.
+        if (Incapacitated || !IsActor)
+            TurnManager.Instance.Next();
     }
 
     protected virtual void TurnEnd()

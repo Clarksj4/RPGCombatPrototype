@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class FrostWallAction : BattleAction
 {
-    public FrostWallAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Can only target empty cells on the same rank
@@ -30,7 +25,7 @@ public class FrostWallAction : BattleAction
 
         targetedActions = new List<ActionNode>()
         {
-            new SummonNode(this) { Name = "FrostWall", Priority = Actor.Priority, Duration = 3 }
+            new SummonNode() { Actor = Actor, Name = "FrostWall", Priority = Actor.Priority, Duration = 3 }
         };
     }
 }

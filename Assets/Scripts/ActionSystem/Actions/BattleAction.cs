@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 /// <summary>
 /// Encapsulates any action / ability used by an actor
@@ -20,7 +19,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the actor who will perform this action.
     /// </summary>
-    public Actor Actor { get; protected set; }
+    public Actor Actor { get; private set; }
     /// <summary>
     /// Gets the cell that this action is targeting.
     /// </summary>
@@ -111,7 +110,10 @@ public abstract class BattleAction
     // Methods
     //
 
-    public BattleAction(Actor actor)
+    /// <summary>
+    /// Sets the actor that this action originates from.
+    /// </summary>
+    public void SetActor(Actor actor)
     {
         Actor = actor;
         Setup();

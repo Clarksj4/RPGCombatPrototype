@@ -2,9 +2,6 @@
 
 public class HookAction : BattleAction
 {
-    public HookAction(Actor actor)
-    : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -27,9 +24,9 @@ public class HookAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new PushNode(this) { RelativeDirection = RelativeDirection.Towards, Distance = 1},
-            new DoDamageNode(this, 15)
+            new IsHitNode() { Actor = Actor },
+            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Towards, Distance = 1},
+            new DoDamageNode() { Actor = Actor, BaseDamage = 15 }
         };
     }
 }

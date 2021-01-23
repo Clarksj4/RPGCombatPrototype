@@ -2,9 +2,6 @@
 
 public class PoisonDartAction : BattleAction
 {
-    public PoisonDartAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // The cells we can target
@@ -24,9 +21,9 @@ public class PoisonDartAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 5),
-            new ApplyStatusNode(this) { Status = new PoisonStatus() { Duration = 2 } }
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 5 },
+            new ApplyStatusNode() { Actor = Actor, Status = new PoisonStatus() { Duration = 2 } }
         };
     }
 }

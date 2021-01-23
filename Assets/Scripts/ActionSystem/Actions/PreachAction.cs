@@ -2,9 +2,6 @@
 
 public class PreachAction : BattleAction
 {
-    public PreachAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -26,10 +23,10 @@ public class PreachAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 5),
-            new HasStatusNode<WeakenedStatus>(this),
-            new DoDamageNode(this, 10)
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 5 },
+            new HasStatusNode<WeakenedStatus>() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 10 }
         };
     }
 }

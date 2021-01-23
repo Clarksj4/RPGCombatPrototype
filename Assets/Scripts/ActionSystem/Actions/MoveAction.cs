@@ -4,9 +4,6 @@ public class MoveAction : BattleAction
 {
     public override int Range { get { return Actor.Movement; } }
 
-    public MoveAction(Actor actor) 
-        : base (actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -29,7 +26,7 @@ public class MoveAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new MoveNode(this)
+            new MoveNode() { Actor = Actor }
         };
     }
 }

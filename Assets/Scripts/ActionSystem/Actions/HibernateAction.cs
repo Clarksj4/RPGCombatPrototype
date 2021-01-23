@@ -2,9 +2,6 @@
 
 public class HibernateAction : BattleAction
 {
-    public HibernateAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -28,8 +25,8 @@ public class HibernateAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = sleep },
-            new ApplyStatusNode(this) { Status = renew }
+            new ApplyStatusNode() { Actor = Actor, Status = sleep },
+            new ApplyStatusNode() { Actor = Actor, Status = renew }
         };
     }
 }

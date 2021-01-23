@@ -2,9 +2,6 @@
 
 public class BullRushAction : BattleAction
 {
-    public BullRushAction(Actor actor) 
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -32,15 +29,20 @@ public class BullRushAction : BattleAction
         // Move to front of grid.
         beginningActions = new List<ActionNode>()
         {
-            new PushNode(this) { Direction = Actor.Formation.Facing, Distance = 3 }
+            new PushNode() 
+            { 
+                Actor = Actor,
+                Direction = Actor.Formation.Facing, 
+                Distance = 3 
+            }
         };
 
         // Stomp em!
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode(this),
-            new DoDamageNode(this, 20),
-            new PushNode(this) { RelativeDirection = RelativeDirection.Away, Distance = 3 }
+            new IsHitNode() { Actor = Actor },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 20 },
+            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = 3 }
         };
     }
 }

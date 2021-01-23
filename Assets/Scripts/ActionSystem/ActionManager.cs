@@ -114,7 +114,8 @@ public class ActionManager : MonoSingleton<ActionManager>
     private BattleAction CreateAction(string actionName)
     {
         // Create an instance of the action
-        BattleAction action = (BattleAction)Activator.CreateInstance(Type.GetType(actionName), args: SelectedActor);
+        BattleAction action = (BattleAction)Activator.CreateInstance(Type.GetType(actionName));
+        action.SetActor(SelectedActor);
         return action;
 
     }

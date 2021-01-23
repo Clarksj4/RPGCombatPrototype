@@ -2,15 +2,11 @@
 
 public class DecoyAction : BattleAction
 {
-    public DecoyAction(Actor actor)
-        : base(actor) 
+    protected override void Setup()
     {
         // Misc information about the ability
         Tags = ActionTag.Movement;
-    }
 
-    protected override void Setup()
-    {
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
@@ -27,13 +23,13 @@ public class DecoyAction : BattleAction
         // Heal self at start of action
         beginningActions = new List<ActionNode>()
         {
-            new HealNode(this) { Target = OriginCell, Amount = 10 }
+            new HealNode() { Actor = Actor, Target = OriginCell, Amount = 10 }
         };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new SwapNode(this)
+            new SwapNode() { Actor = Actor }
         };
     }
 }

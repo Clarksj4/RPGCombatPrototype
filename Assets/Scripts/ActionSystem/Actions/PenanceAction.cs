@@ -2,9 +2,6 @@
 
 public class PenanceAction : BattleAction
 {
-    public PenanceAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Not usable at the front of the grid
@@ -28,8 +25,8 @@ public class PenanceAction : BattleAction
         // Heal and stun self
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 20 },
-            new ApplyStatusNode(this) { Status = new StunnedStatus() { Duration = 1 } }
+            new HealNode() { Actor = Actor, Amount = 20 },
+            new ApplyStatusNode() { Actor = Actor, Status = new StunnedStatus() { Duration = 1 } }
         };
     }
 }

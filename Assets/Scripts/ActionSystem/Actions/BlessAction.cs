@@ -1,14 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class BlessAction : BattleAction
 {
-    public override int Range { get { return 1; } }
-
-    public BlessAction(Actor actor)
-        : base(actor) { /* Nothing! */ }
-
     protected override void Setup()
     {
         // Need to have enough health to cast it
@@ -32,14 +25,21 @@ public class BlessAction : BattleAction
         // Costs health
         beginningActions = new List<ActionNode>()
         {
-            new DoDamageNode(this, 10, true, false) { Target = Actor.Cell }
+            new DoDamageNode() 
+            { 
+                Actor = Actor, 
+                BaseDamage = 10, 
+                Defendable = false, 
+                Amplifyable = false, 
+                Target = Actor.Cell 
+            }
         };
 
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            new HealNode(this) { Amount = 5 },
-            new ApplyStatusNode(this) { Status = new PowerStatus() { Duration = 1 } }
+            new HealNode() { Actor = Actor, Amount = 5 },
+            new ApplyStatusNode() { Actor = Actor, Status = new PowerStatus() { Duration = 1 } }
         };
     }
 }
