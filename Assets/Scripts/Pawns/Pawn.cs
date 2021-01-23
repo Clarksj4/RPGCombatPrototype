@@ -24,6 +24,14 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// </summary>
     public event Action<bool> OnAttacked;
     /// <summary>
+    /// Occurs when a status is applied to this pawn.
+    /// </summary>
+    public event Action<PawnStatus> OnStatusApplied;
+    /// <summary>
+    /// Occurs when a status is removed from this pawn.
+    /// </summary>
+    public event Action<PawnStatus> OnStatusExpired;
+    /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
     public Vector2 WorldPosition { get { return transform.position; } }
@@ -126,6 +134,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
         {
             statuses.Add(status);
             status.Apply(this);
+            OnStatusApplied?.Invoke(status);
         }
     }
 
@@ -135,6 +144,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     public void RemoveStatus(PawnStatus status)
     {
         statuses.Remove(status);
+        OnStatusExpired?.Invoke(status);
     }
 
     /// <summary>

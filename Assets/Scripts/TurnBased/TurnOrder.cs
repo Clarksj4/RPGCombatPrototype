@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class TurnOrder : IEnumerable<ITurnBased>
 {
@@ -12,6 +10,7 @@ public class TurnOrder : IEnumerable<ITurnBased>
     
     private LinkedListNode<ITurnBased> current;
     private LinkedList<ITurnBased> turnOrder = new LinkedList<ITurnBased>();
+    private LinkedListNode<ITurnBased> toBeRemoved;
 
     /// <summary>
     /// Adds the given actor to the current round order.
@@ -43,8 +42,22 @@ public class TurnOrder : IEnumerable<ITurnBased>
     {
         // If its their turn - don't remove them until the end of the round
         // OR maybe the local ref handles this already?
+        if (current != null &&
+            current.Value == actor)
+        {
+            toBeRemoved = current;
+            return true;
+        }
+            
+        else
+            return turnOrder.Remove(actor);
+    }
 
-        return turnOrder.Remove(actor);
+    private bool IsRemoved(ITurnBased actor)
+    {
+        return toBeRemoved != null &&
+                toBeRemoved.Value != null &&
+                toBeRemoved.Value == actor;
     }
 
     /// <summary>
@@ -52,8 +65,11 @@ public class TurnOrder : IEnumerable<ITurnBased>
     /// </summary>
     public void UpdatePosition(ITurnBased actor)
     {
-        Remove(actor);
-        Add(actor);
+        if (!IsRemoved(actor))
+        {
+            Remove(actor);
+            Add(actor);
+        }
     }
 
     /// <summary>
@@ -61,11 +77,20 @@ public class TurnOrder : IEnumerable<ITurnBased>
     /// </summary>
     public bool MoveNext()
     {
+        // At the end of the order, loop back to the start
         if (current == null)
             current = turnOrder.First;
         
+        // Go to next in order
         else
             current = current.Next;
+
+        // Clean up anything waiting to be destroyed.
+        if (toBeRemoved != null)
+        {
+            turnOrder.Remove(toBeRemoved);
+            toBeRemoved = null;
+        }
         
         return current != null;
     }
