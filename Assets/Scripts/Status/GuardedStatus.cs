@@ -8,15 +8,7 @@ public class GuardedStatus : PawnStatus
     /// Gets the pawn that will take damage on behalf of
     /// the targeted pawn.
     /// </summary>
-    public Pawn Protector { get { return protector; } }
-    [SerializeField]
-    private Pawn protector;
-
-    public GuardedStatus(int duration, Pawn protector)
-        : base(duration) 
-    {
-        this.protector = protector;
-    }
+    public Pawn Protector { get; set; }
 
     protected override void OnApplication()
     {

@@ -4,9 +4,6 @@ using System;
 [Serializable]
 public class PowerStatus : PawnStatus
 {
-    public PowerStatus(int duration)
-        : base(duration) { /* Nothing! */ }
-
     protected override void OnApplication()
     {
         base.OnApplication();

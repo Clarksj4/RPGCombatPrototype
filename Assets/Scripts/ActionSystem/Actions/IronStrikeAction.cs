@@ -31,7 +31,7 @@ public class IronStrikeAction : BattleAction
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new DefenseStatus(1) },
+            new ApplyStatusNode(this) { Status = new DefenseStatus() { Duration = 1 } },
             new IsHitNode(this),
             new DoDamageNode(this, 20)
         };

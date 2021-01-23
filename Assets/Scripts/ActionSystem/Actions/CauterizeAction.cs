@@ -25,7 +25,7 @@ public class CauterizeAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new HealNode(this) { Amount = 20 },
-            new ApplyStatusNode(this) { Status = new VulnerabilityStatus(2) }
+            new ApplyStatusNode(this) { Status = new VulnerabilityStatus() { Duration = 2 } }
         };
     }
 }

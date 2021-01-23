@@ -121,10 +121,12 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased
     /// </summary>
     public void AddStatus(PawnStatus status)
     {
-        status.Pawn = this;
         bool collated = statuses.Any(s => s.Collate(status));
         if (!collated)
+        {
             statuses.Add(status);
+            status.Apply(this);
+        }
     }
 
     /// <summary>

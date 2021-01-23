@@ -7,14 +7,7 @@ public class EvasiveStatus : PawnStatus
     /// Gets the number of attacks the afflicted pawn
     /// will evade while affected by this status.
     /// </summary>
-    public int AttacksToEvade { get { return attacksToEvade; } }
-    private int attacksToEvade;
-
-    public EvasiveStatus(int duration, int attacksToEvade)
-        : base(duration)
-    {
-        this.attacksToEvade = attacksToEvade;
-    }
+    public int AttacksToEvade { get; set; }
 
     protected override void OnApplication()
     {
@@ -34,7 +27,7 @@ public class EvasiveStatus : PawnStatus
     private void Pawn_OnAttacked(bool obj)
     {
         // Reduce counter - expire if out of evades
-        attacksToEvade--;
+        AttacksToEvade--;
         if (AttacksToEvade == 0)
             Expire();
     }

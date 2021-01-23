@@ -39,7 +39,7 @@ public class BlessAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new HealNode(this) { Amount = 5 },
-            new ApplyStatusNode(this) { Status = new PowerStatus(1) }
+            new ApplyStatusNode(this) { Status = new PowerStatus() { Duration = 1 } }
         };
     }
 }

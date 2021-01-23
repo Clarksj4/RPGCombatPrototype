@@ -24,8 +24,8 @@ public class FireShieldAction : BattleAction
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new PoisonStatus(3) },
-            new ApplyStatusNode(this) { Status = new InvulnerabilityStatus(1) }
+            new ApplyStatusNode(this) { Status = new PoisonStatus() { Duration = 3 } },
+            new ApplyStatusNode(this) { Status = new InvulnerabilityStatus() { Duration = 1 } }
         };
     }
 }

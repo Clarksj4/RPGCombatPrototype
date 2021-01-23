@@ -26,8 +26,8 @@ public class SecondWindAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new HealNode(this) { Amount = 10 },
-            new ApplyStatusNode(this) { Status = new PowerStatus(2) },
-            new ApplyStatusNode(this) { Status = new AgilityStatus(2, 1) }
+            new ApplyStatusNode(this) { Status = new PowerStatus() { Duration = 2 } },
+            new ApplyStatusNode(this) { Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } }
         };
     }
 }

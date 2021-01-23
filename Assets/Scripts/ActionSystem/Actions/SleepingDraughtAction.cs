@@ -25,7 +25,7 @@ public class SleepingDraughtAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new DrowsyStatus(1, 2) }
+            new ApplyStatusNode(this) { Status = new DrowsyStatus() { Duration = 1, SleepDuration = 2 } }
         };
     }
 }

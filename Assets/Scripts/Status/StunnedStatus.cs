@@ -4,9 +4,6 @@ using UnityEngine;
 [Serializable]
 public class StunnedStatus : PawnStatus
 {
-    public StunnedStatus(int duration)
-        : base(duration) { /* Nothing! */ }
-
     protected override void OnApplication()
     {
         base.OnApplication();

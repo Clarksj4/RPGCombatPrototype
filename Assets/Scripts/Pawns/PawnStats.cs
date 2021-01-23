@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Character", menuName = "Pawn Stats")]
 public class PawnStats : ScriptableObject
@@ -16,6 +17,9 @@ public class PawnStats : ScriptableObject
     [Header("Movement")]
     public int Movement;
 
+    [Header("Statuses")]
+    public List<ClassTable> Statuses = null;
+
     public virtual void SetStats(Pawn pawn)
     {
         pawn.name = name;
@@ -25,5 +29,15 @@ public class PawnStats : ScriptableObject
         pawn.Priority = Priority;
         pawn.Power = Power;
         pawn.Movement = Movement;
+
+        // Apply statuses
+        if (Statuses != null)
+        {
+            foreach (ClassTable table in Statuses)
+            {
+                object status = table.CreateClass();
+                pawn.AddStatus((PawnStatus)status);
+            }
+        }
     }
 }

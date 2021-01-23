@@ -45,7 +45,7 @@ public class ImmolateAction : BattleAction
         {
             new IsHitNode(this),
             new DoDamageNode(this, 5),
-            new ApplyStatusNode(this) { Status = new VulnerabilityStatus(1) }
+            new ApplyStatusNode(this) { Status = new VulnerabilityStatus() { Duration = 1 } }
         };
     }
 }

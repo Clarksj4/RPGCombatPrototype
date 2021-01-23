@@ -9,22 +9,14 @@ public class DrowsyStatus : PawnStatus
     /// Gets the number of turns that the targeted pawn will
     /// sleep for when drowsy expires.
     /// </summary>
-    public int SleepDuration { get { return sleepDuration; } }
-    [SerializeField]
-    private int sleepDuration;
-
-    public DrowsyStatus(int duration, int sleepDuration)
-        : base(duration)
-    {
-        this.sleepDuration = sleepDuration;
-    }
+    public int SleepDuration { get; set; }
 
     protected override void OnExpired()
     {
         base.OnExpired();
 
         // Put pawn to sleep.
-        Pawn.AddStatus(new SleepStatus(SleepDuration));
+        Pawn.AddStatus(new SleepStatus() { Duration = SleepDuration });
     }
 
     public override bool Collate(PawnStatus other)

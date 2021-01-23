@@ -4,9 +4,6 @@ using System;
 [Serializable]
 public class SleepStatus : PawnStatus
 {
-    public SleepStatus(int duration)
-        : base(duration) { /* Nothing! */ }
-
     protected override void OnApplication()
     {
         Pawn.Sleeping = true;

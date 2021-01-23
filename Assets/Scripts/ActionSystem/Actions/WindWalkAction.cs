@@ -24,8 +24,8 @@ public class WindWalkAction : BattleAction
         // Move faster and evade an attack...
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new EvasiveStatus(2, 1) },
-            new ApplyStatusNode(this) { Status = new AgilityStatus(2, 1) },
+            new ApplyStatusNode(this) { Status = new EvasiveStatus() { Duration = 2, AttacksToEvade = 1 } },
+            new ApplyStatusNode(this) { Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } },
         };
         
         // TODO: Make agility end once evasive ends?

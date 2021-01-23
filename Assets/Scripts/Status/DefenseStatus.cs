@@ -3,9 +3,6 @@
 [Serializable]
 public class DefenseStatus : PawnStatus
 {
-    public DefenseStatus(int duration)
-        : base(duration) { /* Nothing! */ }
-
     protected override void OnApplication()
     {
         base.OnApplication();

@@ -29,7 +29,7 @@ public class PenanceAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new HealNode(this) { Amount = 20 },
-            new ApplyStatusNode(this) { Status = new StunnedStatus(1) }
+            new ApplyStatusNode(this) { Status = new StunnedStatus() { Duration = 1 } }
         };
     }
 }

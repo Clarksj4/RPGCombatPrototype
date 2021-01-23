@@ -25,7 +25,7 @@ public class FreezeAction : BattleAction
         {
             new IsHitNode(this),
             new DoDamageNode(this, 10),
-            new ApplyStatusNode(this) { Status = new ImmobilizedStatus(2) }
+            new ApplyStatusNode(this) { Status = new ImmobilizedStatus() { Duration = 2 } }
         };
     }
 }

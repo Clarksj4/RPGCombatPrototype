@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5aaf882535644a8011f1cc1741fbc, type: 3}
   m_Name: FrostWall
   m_EditorClassIdentifier: 
+  Priority: 0
   Defense: 0
-  Evasion: 0
   MaxHealth: 20
+  Power: 1
+  Movement: 0
+  Statuses:
+  - className: PoisonStatus
+    properties:
+    - Name: Duration
+      Value: 2

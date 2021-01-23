@@ -25,8 +25,8 @@ public class HibernateAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new SleepStatus(4) },
-            new ApplyStatusNode(this) { Status = new RenewStatus(4, 5) }
+            new ApplyStatusNode(this) { Status = new SleepStatus() { Duration = 4 } },
+            new ApplyStatusNode(this) { Status = new RenewStatus() { Duration = 4, HealPerTurn = 5} }
         };
     }
 }

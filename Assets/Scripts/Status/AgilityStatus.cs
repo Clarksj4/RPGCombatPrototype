@@ -8,15 +8,7 @@ public class AgilityStatus : PawnStatus
     /// Gets the movement bonus granted to
     /// the targeted pawn.
     /// </summary>
-    public int BonusMovement { get { return bonusMovement; } }
-    [SerializeField]
-    private int bonusMovement;
-
-    public AgilityStatus(int duration, int bonusMovement)
-        : base(duration)
-    {
-        this.bonusMovement = bonusMovement;
-    }
+    public int BonusMovement { get; set; }
 
     protected override void OnApplication()
     {

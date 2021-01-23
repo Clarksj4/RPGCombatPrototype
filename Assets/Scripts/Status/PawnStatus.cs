@@ -5,10 +5,6 @@ using System;
 [Serializable]
 public abstract class PawnStatus
 {
-    // TODO: maybe need to remove ref to Pawn for the sake of serialization?
-    // TODO: otherwise, on deserialization, would need to get the reference again.
-    // TODO: its already awkward to have to wire up listeners again on deserialization...
-
     /// <summary>
     /// Occurs when this status expires.
     /// </summary>
@@ -16,31 +12,20 @@ public abstract class PawnStatus
     /// <summary>
     /// Gets the pawn this status is applied to.
     /// </summary>
-    public Pawn Pawn { get; set; }
+    public Pawn Pawn { get; private set; }
     /// <summary>
     /// Gets or sets the remaining duration that this
     /// status will afflicted the targeted pawn.
     /// </summary>
-    public int Duration 
-    { 
-        get { return duration; }
-        set { duration = value; }
-    }
-    [SerializeField]
-    private int duration;
-    /// <summary>
-    /// Creates a new status that lasts for the given
-    /// number of turns.
-    /// </summary>
-    public PawnStatus(int duration)
-    {
-        Duration = duration;
-    }
+    public int Duration { get; set; }
+    
     /// <summary>
     /// Applies this status.
     /// </summary>
-    public void Apply()
+    public void Apply(Pawn pawn)
     {
+        Pawn = pawn;
+
         TurnManager.Instance.OnTurnStart += HandleOnTurnBegin;
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
 

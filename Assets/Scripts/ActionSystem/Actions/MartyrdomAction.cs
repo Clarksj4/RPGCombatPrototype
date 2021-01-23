@@ -24,7 +24,7 @@ public class MartyrdomAction : BattleAction
         // Take damage on behalf of ally
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new GuardedStatus(2, Actor) }
+            new ApplyStatusNode(this) { Status = new GuardedStatus() { Duration = 2, Protector = Actor } }
         };
     }
 }
