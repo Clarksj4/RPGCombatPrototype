@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
+[Serializable]
 public class WeakenedStatus : PawnStatus
 {
     public WeakenedStatus(int duration)
@@ -20,6 +22,7 @@ public class WeakenedStatus : PawnStatus
 
     public override bool Collate(PawnStatus other)
     {
+        // Can't stack weakness - just extend duration.
         if (other is WeakenedStatus)
         {
             Duration += other.Duration;

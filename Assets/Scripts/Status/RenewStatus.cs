@@ -1,8 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using UnityEngine;
 
+[Serializable]
 public class RenewStatus : PawnStatus
 {
+    public int HealPerTurn { get { return healPerTurn; } }
+    [SerializeField]
     private int healPerTurn;
 
     public RenewStatus(int duration, int healPerTurn)

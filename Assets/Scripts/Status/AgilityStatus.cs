@@ -1,35 +1,36 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
+[Serializable]
 public class AgilityStatus : PawnStatus
 {
-    public int BonusMovement { get; private set; }
+    /// <summary>
+    /// Gets the movement bonus granted to
+    /// the targeted pawn.
+    /// </summary>
+    public int BonusMovement { get { return bonusMovement; } }
+    [SerializeField]
+    private int bonusMovement;
 
     public AgilityStatus(int duration, int bonusMovement)
         : base(duration)
     {
-        BonusMovement = bonusMovement;
+        this.bonusMovement = bonusMovement;
     }
 
     protected override void OnApplication()
     {
         base.OnApplication();
-        if (Pawn is Actor)
-        {
-            Actor actor = Pawn as Actor;
-            actor.Movement += BonusMovement;
-        }
 
-        else
-            Expire();
+        // Apply bonus movement
+        Pawn.Movement += BonusMovement;
     }
 
     protected override void OnExpired()
     {
         base.OnExpired();
-        Actor actor = Pawn as Actor;
-        
+
         // Remove the movement again, but don't let movement fall below 0
-        actor.Movement = Mathf.Max(0, actor.Movement - BonusMovement);
+        Pawn.Movement = Mathf.Max(0, Pawn.Movement - BonusMovement);
     }
 }

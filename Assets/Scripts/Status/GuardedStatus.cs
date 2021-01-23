@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
+[Serializable]
 public class GuardedStatus : PawnStatus
 {
-    public Pawn Protector { get; private set; }
+    /// <summary>
+    /// Gets the pawn that will take damage on behalf of
+    /// the targeted pawn.
+    /// </summary>
+    public Pawn Protector { get { return protector; } }
+    [SerializeField]
+    private Pawn protector;
 
     public GuardedStatus(int duration, Pawn protector)
         : base(duration) 
     {
-        Protector = protector;
+        this.protector = protector;
     }
 
     protected override void OnApplication()

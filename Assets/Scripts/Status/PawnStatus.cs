@@ -5,6 +5,10 @@ using System;
 [Serializable]
 public abstract class PawnStatus
 {
+    // TODO: maybe need to remove ref to Pawn for the sake of serialization?
+    // TODO: otherwise, on deserialization, would need to get the reference again.
+    // TODO: its already awkward to have to wire up listeners again on deserialization...
+
     /// <summary>
     /// Occurs when this status expires.
     /// </summary>

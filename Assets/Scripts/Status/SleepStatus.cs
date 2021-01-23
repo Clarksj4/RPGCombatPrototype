@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
+[Serializable]
 public class SleepStatus : PawnStatus
 {
     public SleepStatus(int duration)
@@ -8,31 +9,36 @@ public class SleepStatus : PawnStatus
 
     protected override void OnApplication()
     {
+        Pawn.Sleeping = true;
         Pawn.OnHealthChanged += Pawn_OnHealthChanged;
-
-        if (Pawn is Actor)
-        {
-            Actor actor = Pawn as Actor;
-            actor.Sleeping = true;
-        }
-
-        else Expire();
     }
 
     protected override void OnExpired()
     {
         Pawn.OnHealthChanged -= Pawn_OnHealthChanged;
-
-        if (Pawn is Actor)
-        {
-            Actor actor = Pawn as Actor;
-            actor.Sleeping = false;
-        }
+        Pawn.Sleeping = false;
     }
 
     private void Pawn_OnHealthChanged(int delta)
     {
+        // If Pawn takes damage - wake up!
         if (delta < 0)
             Expire();
+    }
+
+    public override bool Collate(PawnStatus other)
+    {
+        // Can't stack sleep - just pick the longest duration.
+        if (other is SleepStatus)
+        {
+            Duration = Mathf.Max(other.Duration, Duration);
+            return true;
+        }
+
+        // Can't get drowsy while sleeping
+        else if (other is DrowsyStatus)
+            return true;
+
+        return false;
     }
 }

@@ -1,19 +1,26 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 
+[Serializable]
 public class EvasiveStatus : PawnStatus
 {
-    public int AttacksToEvade { get; private set; }
+    /// <summary>
+    /// Gets the number of attacks the afflicted pawn
+    /// will evade while affected by this status.
+    /// </summary>
+    public int AttacksToEvade { get { return attacksToEvade; } }
+    private int attacksToEvade;
 
     public EvasiveStatus(int duration, int attacksToEvade)
         : base(duration)
     {
-        AttacksToEvade = attacksToEvade;
+        this.attacksToEvade = attacksToEvade;
     }
 
     protected override void OnApplication()
     {
         base.OnApplication();
+
+        // Will evade until enough attacks are evaded
         Pawn.Evasive = true;
         Pawn.OnAttacked += Pawn_OnAttacked;
     }
@@ -27,7 +34,7 @@ public class EvasiveStatus : PawnStatus
     private void Pawn_OnAttacked(bool obj)
     {
         // Reduce counter - expire if out of evades
-        AttacksToEvade--;
+        attacksToEvade--;
         if (AttacksToEvade == 0)
             Expire();
     }

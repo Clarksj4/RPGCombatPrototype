@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
+[Serializable]
 public class PowerStatus : PawnStatus
 {
     public PowerStatus(int duration)
