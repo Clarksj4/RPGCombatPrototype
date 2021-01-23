@@ -18,6 +18,11 @@ public abstract class PawnStatus
     /// status will afflicted the targeted pawn.
     /// </summary>
     public int Duration { get; set; }
+    /// <summary>
+    /// Gets or sets the status that this status' lifetime
+    /// is linked to.
+    /// </summary>
+    public PawnStatus LinkedTo { get; set; }
     
     /// <summary>
     /// Applies this status.
@@ -28,6 +33,11 @@ public abstract class PawnStatus
 
         TurnManager.Instance.OnTurnStart += HandleOnTurnBegin;
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
+        
+        // If linked to another status - check for its expiry
+        // so can also expire this status.
+        if (LinkedTo != null)
+            pawn.OnStatusExpired += HandleOnStatusExpired;
 
         OnApplication();
     }
@@ -78,6 +88,12 @@ public abstract class PawnStatus
         // If expired...
         if (ent == (ITurnBased)Pawn && 
             Duration == 0)
+            Expire();
+    }
+
+    private void HandleOnStatusExpired(PawnStatus status)
+    {
+        if (LinkedTo == status)
             Expire();
     }
 }

@@ -21,13 +21,15 @@ public class WindWalkAction : BattleAction
             new AffectedPoint(this)
         };
 
+        // Instantiate instances separately because need to link em.
+        EvasiveStatus evasive = new EvasiveStatus() { Duration = 2, AttacksToEvade = 1 };
+        AgilityStatus agility = new AgilityStatus() { Duration = 1, BonusMovement = 1, LinkedTo = evasive };
+
         // Move faster and evade an attack...
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new EvasiveStatus() { Duration = 2, AttacksToEvade = 1 } },
-            new ApplyStatusNode(this) { Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } },
+            new ApplyStatusNode(this) { Status = evasive },
+            new ApplyStatusNode(this) { Status = agility }
         };
-        
-        // TODO: Make agility end once evasive ends?
     }
 }

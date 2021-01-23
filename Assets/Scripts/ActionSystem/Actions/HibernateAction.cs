@@ -22,11 +22,14 @@ public class HibernateAction : BattleAction
             new AffectedPoint(this)
         };
 
+        SleepStatus sleep = new SleepStatus() { Duration = 4 };
+        RenewStatus renew = new RenewStatus() { Duration = 4, HealPerTurn = 10, LinkedTo = sleep };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode(this) { Status = new SleepStatus() { Duration = 4 } },
-            new ApplyStatusNode(this) { Status = new RenewStatus() { Duration = 4, HealPerTurn = 5} }
+            new ApplyStatusNode(this) { Status = sleep },
+            new ApplyStatusNode(this) { Status = renew }
         };
     }
 }
