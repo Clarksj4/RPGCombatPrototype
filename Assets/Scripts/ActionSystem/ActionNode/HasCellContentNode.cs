@@ -1,15 +1,15 @@
 ﻿
 public class HasCellContentNode : ActionNode
 {
+    /// <summary>
+    /// Gets or sets the content that is valid for the
+    /// targeted cell.
+    /// </summary>
     public TargetableCellContent Content { get; set; }
 
     public override bool Do()
     {
-        Pawn defender = Target.GetContent<Pawn>();
-        if (defender != null)
-            return defender.HasStatus();
-
-        // Fudge it if there is no defender
-        return true;
+        CellContentRestriction restriction = new CellContentRestriction() { Actor = Actor, Content = Content };
+        return restriction.IsTargetValid(Target);
     }
 }
