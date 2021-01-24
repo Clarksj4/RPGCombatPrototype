@@ -12,9 +12,9 @@ public class MoveAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction(this, TargetableFormation.Self),
-            new RangeRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Empty)
+            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Self },
+            new RangeRestriction() { Actor = Actor, Range = Actor.Movement },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty }
         };
 
         // The cells that will be affected

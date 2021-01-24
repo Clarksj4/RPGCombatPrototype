@@ -10,7 +10,7 @@ public class HibernateAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Self)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self }
         };
 
         // The cells that will be affected

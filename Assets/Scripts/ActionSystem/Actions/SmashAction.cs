@@ -10,14 +10,14 @@ public class SmashAction : BattleAction
         // Actor must be in the front rank to use this ability
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 0)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
         };
 
         // Can target enemies in the front rank
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 0),
-            new CellContentRestriction(this, TargetableCellContent.Enemy)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
         };
 
         // Affects only the targeted cell

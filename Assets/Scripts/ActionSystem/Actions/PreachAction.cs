@@ -10,8 +10,8 @@ public class PreachAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new ExposedCellsRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Enemy)
+            new ExposedCellsRestriction() { Actor = Actor },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected

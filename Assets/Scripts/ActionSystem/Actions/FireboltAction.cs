@@ -10,10 +10,10 @@ public class FireboltAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction(this),
-            new FormationRestriction(this, TargetableFormation.Other),
-            new CellContentRestriction(this, TargetableCellContent.Enemy),
-            new ExposedCellsRestriction(this)
+            new LinearCellsRestriction()  { Actor = Actor },
+            new FormationRestriction()    { Actor = Actor, Formations = TargetableFormation.Other },
+            new CellContentRestriction()  { Actor = Actor, Content = TargetableCellContent.Enemy },
+            new ExposedCellsRestriction() { Actor = Actor }
         };
 
         // The cells that will be affected

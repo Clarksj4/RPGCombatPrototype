@@ -7,7 +7,7 @@ public class FireShieldAction : BattleAction
         // Can only target self
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Self),
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self },
         };
 
         // Affects adjacent cells

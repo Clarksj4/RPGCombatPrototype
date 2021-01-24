@@ -7,14 +7,14 @@ public class IronStrikeAction : BattleAction
         // Need to have enough health to cast it
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 0)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
         };
 
         // Can only target self
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Enemy),
-            new RankCellsRestriction(this, 0)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy },
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
         };
 
         // Affects adjacent cells

@@ -1,16 +1,14 @@
 ﻿
 public class FileCellsRestriction : TargetingRestriction
 {
-    private int file;
-
-    public FileCellsRestriction(BattleAction action, int file)
-        : base(action)
-    {
-        this.file = file;
-    }
+    /// <summary>
+    /// Gets or sets the file that the targeted cells
+    /// much be on to be valid.
+    /// </summary>
+    public int File { get; set; }
 
     public override bool IsTargetValid(Cell cell)
     {
-        return cell.Formation.GetFile(cell.Coordinate) == file;
+        return cell.Formation.GetFile(cell.Coordinate) == File;
     }
 }

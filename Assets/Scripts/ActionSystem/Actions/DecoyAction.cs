@@ -10,8 +10,8 @@ public class DecoyAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Ally)
+            new LinearCellsRestriction() { Actor = Actor },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally }
         };
 
         // The cells that will be affected

@@ -10,13 +10,13 @@ public class FloodAction : BattleAction
         // Only usable when not in front rank
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 1, 2)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 1, 2 } }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction(this, TargetableFormation.Other),
+            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Other },
         };
 
         // The cells that will be affected

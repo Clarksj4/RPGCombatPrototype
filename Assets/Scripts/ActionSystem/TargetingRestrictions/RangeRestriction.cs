@@ -2,14 +2,17 @@
 
 public class RangeRestriction : TargetingRestriction
 {
-    public RangeRestriction(BattleAction action)
-        : base(action) { /* Nothing! */ }
+    /// <summary>
+    /// Gets or sets the range the targeted cells
+    /// must be within to be valid.
+    /// </summary>
+    public int Range { get; set; }
 
     public override bool IsTargetValid(Cell cell)
     {
-        bool infiniteRange = action.Range < 0;
-        int distance = action.OriginCell.Coordinate.GetTravelDistance(cell.Coordinate);
-        bool positionInRange = distance <= action.Range;
+        bool infiniteRange = Range < 0;
+        int distance = Actor.Coordinate.GetTravelDistance(cell.Coordinate);
+        bool positionInRange = distance <= Range;
 
         bool isRangeValid = infiniteRange || positionInRange;
         return isRangeValid;

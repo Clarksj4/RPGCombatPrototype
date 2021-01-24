@@ -1,13 +1,11 @@
-﻿using UnityEngine;
-
+﻿
 public abstract class TargetingRestriction
 {
-    protected BattleAction action;
-
-    public TargetingRestriction(BattleAction action)
-    {
-        this.action = action;
-    }
+    /// <summary>
+    /// Gets or sets the actor who is targeting
+    /// the cells.
+    /// </summary>
+    public Pawn Actor { get; set; }
 
     public abstract bool IsTargetValid(Cell cell); 
 }

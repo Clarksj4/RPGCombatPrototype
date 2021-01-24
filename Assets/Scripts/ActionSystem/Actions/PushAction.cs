@@ -12,10 +12,10 @@ public class PushAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction(this, TargetableFormation.Self),
-            new RangeRestriction(this),
-            new AdjcentCellContentRestriction(this, TargetableCellContent.Empty, RelativeDirection.Away),
-            new CellContentRestriction(this, TargetableCellContent.Ally | TargetableCellContent.Enemy)
+            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Self },
+            new RangeRestriction() { Actor = Actor },
+            new AdjcentCellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty, Directions = RelativeDirection.Away },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally | TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected

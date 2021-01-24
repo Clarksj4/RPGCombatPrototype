@@ -9,16 +9,16 @@ public class ImmolateAction : BattleAction
 
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction(this, 10 + 1)
+            new HealthRestriction() { Actor = Actor, Amount = 10 }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction(this, TargetableFormation.Other),
-            new LinearCellsRestriction(this),
-            new ExposedCellsRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Enemy)
+            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Other },
+            new LinearCellsRestriction() { Actor = Actor },
+            new ExposedCellsRestriction() { Actor = Actor },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected

@@ -10,9 +10,9 @@ public class HookAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction(this),
-            new AdjcentCellContentRestriction(this, TargetableCellContent.Empty, RelativeDirection.Towards),
-            new CellContentRestriction(this, TargetableCellContent.Enemy)
+            new LinearCellsRestriction() { Actor = Actor },
+            new AdjcentCellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty, Directions = RelativeDirection.Towards },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected

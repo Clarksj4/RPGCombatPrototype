@@ -9,14 +9,14 @@ public class SacrificeAction : BattleAction
 
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction(this, 20 + 1)
+            new HealthRestriction() { Actor = Actor, Amount = 20 }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Ally),
-            new HealthRestriction(this, -1)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally },
+            new HealthRestriction() { Actor = Actor, Amount = -1 }
         };
 
         // The cells that will be affected

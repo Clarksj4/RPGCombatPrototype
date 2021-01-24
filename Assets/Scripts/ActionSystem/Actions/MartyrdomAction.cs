@@ -7,7 +7,7 @@ public class MartyrdomAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Ally)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally }
         };
 
         // The cells that will be affected

@@ -7,8 +7,8 @@ public class FrostWallAction : BattleAction
         // Can only target empty cells on the same rank
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Empty),
-            new FormationRestriction(this, TargetableFormation.Self)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty },
+            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Self }
         };
 
         // Affects all cells in targeted rank
@@ -20,7 +20,7 @@ public class FrostWallAction : BattleAction
         // Will only affect empty cells
         areaOfEffectRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Empty)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty }
         };
 
         targetedActions = new List<ActionNode>()

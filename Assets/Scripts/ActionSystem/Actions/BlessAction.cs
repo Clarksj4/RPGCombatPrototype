@@ -7,13 +7,13 @@ public class BlessAction : BattleAction
         // Need to have enough health to cast it
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction(this, 10 + 1)
+            new HealthRestriction() { Actor = Actor, Amount = 10 }
         };
 
         // Can only target self
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Self),
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self }
         };
 
         // Affects adjacent cells

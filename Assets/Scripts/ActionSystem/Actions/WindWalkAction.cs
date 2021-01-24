@@ -7,7 +7,7 @@ public class WindWalkAction : BattleAction
         // Target any ally
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Ally)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally }
         };
 
         // Just the one ally actually...

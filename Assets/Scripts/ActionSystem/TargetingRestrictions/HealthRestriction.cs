@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class HealthRestriction : TargetingRestriction
 {
-    private int amount;
-
-    public HealthRestriction(BattleAction action, int amount)
-        : base(action)
-    {
-        this.amount = amount;
-    }
+    /// <summary>
+    /// Gets or sets the amount of health the target
+    /// must be over or equal to to be valid. A negative
+    /// value means within that value from max health.
+    /// </summary>
+    public int Amount { get; set; }
 
     public override bool IsTargetValid(Cell cell)
     {
         Pawn pawn = cell.GetContent<Pawn>();
         if (pawn != null)
         {
-            if (amount >= 0)
-                return pawn.Health >= amount;
+            if (Amount >= 0)
+                return pawn.Health > Amount;
             else
-                return pawn.MaxHealth - pawn.Health >= Mathf.Abs(amount);
+                return pawn.MaxHealth - pawn.Health > Mathf.Abs(Amount);
         }
 
         return true;

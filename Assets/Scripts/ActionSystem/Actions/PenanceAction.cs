@@ -7,13 +7,13 @@ public class PenanceAction : BattleAction
         // Not usable at the front of the grid
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 1, 2)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 1, 2 } }
         };
 
         // Self
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction(this, TargetableCellContent.Self)
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self }
         };
 
         // Just the one target actually...

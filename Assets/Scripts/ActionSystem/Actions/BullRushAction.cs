@@ -10,14 +10,14 @@ public class BullRushAction : BattleAction
         // Only usable from the back of the grid
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 2)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 2 } }
         };
 
         // Only targets enemies in the fron rank
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 0),
-            new CellContentRestriction(this, TargetableCellContent.Enemy)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
         };
 
         // Just the one target actually...

@@ -10,15 +10,15 @@ public class PierceAction : BattleAction
         // Only usable from the front rank
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction(this, 0)
+            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FileCellsRestriction(this, Actor.File),
-            new ExposedCellsRestriction(this),
-            new CellContentRestriction(this, TargetableCellContent.Enemy)
+            new FileCellsRestriction() { Actor = Actor, File = Actor.File },
+            new ExposedCellsRestriction() { Actor = Actor },
+            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected

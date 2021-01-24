@@ -1,16 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-
-
+﻿
 public class FormationRestriction : TargetingRestriction
 {
-    private TargetableFormation targets;
-
-    public FormationRestriction(BattleAction action, TargetableFormation targets) 
-        : base (action)
-    {
-        this.targets = targets;
-    }
+    /// <summary>
+    /// Gets or sets the formations that are valid targets.
+    /// </summary>
+    public TargetableFormation Formations { get; set; }
 
     public override bool IsTargetValid(Cell cell)
     {
@@ -24,21 +18,21 @@ public class FormationRestriction : TargetingRestriction
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
-        if (targets == TargetableFormation.All) return true;
-        if (targets == TargetableFormation.None) return false;
+        if (Formations == TargetableFormation.All) return true;
+        if (Formations == TargetableFormation.None) return false;
 
         // Assume the formation is invalid and then include
         // cases as it meets their requirements
         bool valid = false;
-        bool isSelfFormation = formation == action.Actor.Formation;
+        bool isSelfFormation = formation == Actor.Formation;
 
         // Can target own formation.
-        if (targets.HasFlag(TargetableFormation.Self) &&
+        if (Formations.HasFlag(TargetableFormation.Self) &&
             isSelfFormation)
             valid = true;
 
         // Can target other formations.
-        else if (targets.HasFlag(TargetableFormation.Other) &&
+        else if (Formations.HasFlag(TargetableFormation.Other) &&
             !isSelfFormation)
             valid = true;
 

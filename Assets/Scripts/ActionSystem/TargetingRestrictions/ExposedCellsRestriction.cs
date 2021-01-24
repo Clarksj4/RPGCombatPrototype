@@ -3,9 +3,6 @@ using System.Linq;
 
 public class ExposedCellsRestriction : TargetingRestriction
 {
-    public ExposedCellsRestriction(BattleAction action)
-        : base(action) { /* Nothing! */ }
-
     public override bool IsTargetValid(Cell cell)
     {
         Formation formation = cell.Formation;

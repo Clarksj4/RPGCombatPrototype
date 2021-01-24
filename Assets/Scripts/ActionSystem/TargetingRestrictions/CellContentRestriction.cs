@@ -2,13 +2,11 @@
 
 public class CellContentRestriction : TargetingRestriction
 {
-    private TargetableCellContent targetableContent;
-
-    public CellContentRestriction(BattleAction action, TargetableCellContent targetableContent)
-        : base(action)
-    {
-        this.targetableContent = targetableContent;
-    }
+    /// <summary>
+    /// Gets or sets the type of content permitted in the
+    /// targeted cells.
+    /// </summary>
+    public TargetableCellContent Content { get; set; }
 
     public override bool IsTargetValid(Cell cell)
     {
@@ -24,34 +22,34 @@ public class CellContentRestriction : TargetingRestriction
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
-        if (targetableContent == TargetableCellContent.All) return true;
-        if (targetableContent == TargetableCellContent.None) return false;
+        if (Content == TargetableCellContent.All) return true;
+        if (Content == TargetableCellContent.None) return false;
 
         // Assume the target is invalid and then include
         // cases as it meets their requirements
         bool valid = false;
         Pawn pawn = cell.Contents.FirstOfTypeOrDefault<IGridBased, Pawn>();
-        bool isSelf = pawn == action.Actor;
+        bool isSelf = pawn == Actor;
         bool pawnExists = pawn != null;
         bool isActorOnSameTeam = IsActorOnSameTeam(pawn);
 
         // Can target self.
-        if (targetableContent.HasFlag(TargetableCellContent.Self) &&
+        if (Content.HasFlag(TargetableCellContent.Self) &&
             pawnExists && isSelf)
             valid = true;
 
         // Can target allies.
-        else if (targetableContent.HasFlag(TargetableCellContent.Ally) &&
+        else if (Content.HasFlag(TargetableCellContent.Ally) &&
             pawnExists && isActorOnSameTeam && !isSelf)
             valid = true;
 
         // Can target enemies.
-        else if (targetableContent.HasFlag(TargetableCellContent.Enemy) &&
+        else if (Content.HasFlag(TargetableCellContent.Enemy) &&
             pawnExists && !isActorOnSameTeam)
             valid = true;
 
         // Can target empty cells.
-        else if (targetableContent.HasFlag(TargetableCellContent.Empty) &&
+        else if (Content.HasFlag(TargetableCellContent.Empty) &&
             !pawnExists)
             valid = true;
 
@@ -65,6 +63,6 @@ public class CellContentRestriction : TargetingRestriction
     private bool IsActorOnSameTeam(Pawn actor)
     {
         return actor != null && 
-               actor.Team == action.Actor.Team;
+               actor.Team == Actor.Team;
     }
 }
