@@ -19,6 +19,11 @@ public class HibernateAction : BattleAction
             new AffectedPoint(this)
         };
 
+        beginningActions = new List<ActionNode>()
+        {
+            new HealNode() { Actor = Actor, Target = Actor.Cell, Amount = 10 }
+        };
+
         SleepStatus sleep = new SleepStatus() { Duration = 4 };
         RenewStatus renew = new RenewStatus() { Duration = 4, HealPerTurn = 10, LinkedTo = sleep };
 
