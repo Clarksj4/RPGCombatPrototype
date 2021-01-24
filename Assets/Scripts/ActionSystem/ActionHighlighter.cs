@@ -102,7 +102,7 @@ namespace Assets.Scripts.Actions
             UnhighlightAll();
         }
 
-        private void HandleOnActionStarted(Actor actor, BattleAction action)
+        private void HandleOnActionStarted(Pawn pawn, BattleAction action)
         {
             UnhighlightAll();
         }

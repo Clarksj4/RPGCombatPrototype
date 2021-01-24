@@ -28,3 +28,4 @@ MonoBehaviour:
     properties:
     - Name: Duration
       Value: -1
+  Actions: []

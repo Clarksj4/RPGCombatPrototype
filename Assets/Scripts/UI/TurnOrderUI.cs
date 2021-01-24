@@ -44,8 +44,10 @@ public class TurnOrderUI : MonoBehaviour, IStartable
     {
         foreach (ITurnBased turnbased in TurnManager.Instance.OrderOfActors)
         {
-            Actor actor = turnbased as Actor;
-            AddFrame(actor, true);
+            // Only add pawns that can act
+            Pawn pawn = turnbased as Pawn;
+            if (pawn.IsActor)
+                AddFrame(pawn, true);
             yield return null;
         }
 
@@ -84,7 +86,7 @@ public class TurnOrderUI : MonoBehaviour, IStartable
         });
     }
 
-    private void AddFrame(Actor actor, bool first = false)
+    private void AddFrame(Pawn actor, bool first = false)
     {
         // Create as first child
         TurnOrderUIFrame frame = Instantiate(FramePrefab, slideyBit.transform, false);

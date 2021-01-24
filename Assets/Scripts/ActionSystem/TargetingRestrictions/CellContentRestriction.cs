@@ -62,16 +62,9 @@ public class CellContentRestriction : TargetingRestriction
     /// Checks if the given pawn is an actor who is on the same
     /// team as this action's actor.
     /// </summary>
-    private bool IsActorOnSameTeam(Pawn pawn)
+    private bool IsActorOnSameTeam(Pawn actor)
     {
-        if (pawn is Actor)
-        {
-            // Convert to actor and check its allegience.
-            Actor actor = pawn as Actor;
-            return actor.Team == action.Actor.Team;
-        }
-
-        // Pawn is not an actor - it doesn't have a team.
-        return false;
+        return actor != null && 
+               actor.Team == action.Actor.Team;
     }
 }

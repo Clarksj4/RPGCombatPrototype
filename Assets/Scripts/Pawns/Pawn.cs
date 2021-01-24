@@ -36,6 +36,10 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// </summary>
     public event Action OnTeamChanged;
     /// <summary>
+    /// Occurs once this pawn has had its stats set.
+    /// </summary>
+    public event Action<Pawn> OnInitialized;
+    /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
     public Vector2 WorldPosition { get { return transform.position; } }
@@ -140,7 +144,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     public PawnStats Stats = null;
 
     private Team team;
-        private List<Pawn> surrogates = new List<Pawn>();
+    private List<Pawn> surrogates = new List<Pawn>();
     private List<PawnStatus> statuses = new List<PawnStatus>();
 
     protected virtual void Start()
@@ -160,6 +164,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
 
         Initialized = true;
+        OnInitialized?.Invoke(this);
     }
 
     /// <summary>
@@ -394,6 +399,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     {
         int clamped = Mathf.Min(amount, MaxHealth - Health);
         Health += clamped;
+        OnHealthChanged?.Invoke(clamped);
         return clamped;
     }
 

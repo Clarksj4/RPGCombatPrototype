@@ -32,7 +32,7 @@ public class CameraManager : MonoBehaviour
     {
         if (focusOnCurrentActor)
         {
-            Actor actor = obj as Actor;
+            Pawn actor = obj as Pawn;
             Vector3 actorWorldPosition = actor.WorldPosition;
             Vector3 freezeZPos = new Vector3(actorWorldPosition.x, actorWorldPosition.y, translationTransform.position.z);
 

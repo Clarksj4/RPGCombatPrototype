@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dae5aaf882535644a8011f1cc1741fbc, type: 3}
-  m_Name: FrostWall
+  m_Name: Lina
   m_EditorClassIdentifier: 
-  Priority: 0
+  Priority: 50
   Defense: 0
-  MaxHealth: 20
+  MaxHealth: 100
   Power: 1
-  Movement: 0
-  Statuses:
-  - className: PoisonStatus
-    properties:
-    - Name: Duration
-      Value: 2
+  Movement: 1
+  Statuses: []
+  Actions:
+  - Move
+  - FlameWave
+  - Cauterize
+  - Firebolt
+  - FireShield

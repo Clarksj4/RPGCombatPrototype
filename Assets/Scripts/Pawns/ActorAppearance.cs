@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace Assets.Scripts
 {
-    [RequireComponent(typeof(Actor))]
+    [RequireComponent(typeof(Pawn))]
     public class ActorAppearance : MonoBehaviour
     {
         [SerializeField]
@@ -15,20 +14,16 @@ namespace Assets.Scripts
         [SerializeField]
         private SortingGroup maskSortingGroup = null;
 
-        private Actor actor = null;
+        private Pawn actor = null;
 
         private void Awake()
         {
-            actor = GetComponent<Actor>();
+            actor = GetComponent<Pawn>();
+            actor.OnInitialized += HandleOnInitialized;
             actor.OnTeamChanged += HandleOnTeamChanged;
 
             TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
             TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
-        }
-
-        private void Start()
-        {
-            RefreshActorImage();
         }
 
         private void RefreshActorImage()
@@ -65,6 +60,11 @@ namespace Assets.Scripts
         {
             if (turnBasedEntity == (ITurnBased)actor)
                 ApplyTeamColour();
+        }
+
+        private void HandleOnInitialized(Pawn pawn)
+        {
+            RefreshActorImage();
         }
 
         private void HandleOnTeamChanged()

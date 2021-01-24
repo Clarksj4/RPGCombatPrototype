@@ -45,7 +45,7 @@ public class BattleManager : MonoSingleton<BattleManager>
     {
         // Clear old actor, get the one whose turn it is.
         ActionManager.Instance.ClearSelectedActor();
-        ActionManager.Instance.SelectActor(obj as Actor);
+        ActionManager.Instance.SelectActor(obj as Pawn);
     }
 
     private void HandleOnRoundEnd()

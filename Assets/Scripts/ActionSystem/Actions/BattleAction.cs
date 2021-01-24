@@ -19,7 +19,7 @@ public abstract class BattleAction
     /// <summary>
     /// Gets the actor who will perform this action.
     /// </summary>
-    public Actor Actor { get; private set; }
+    public Pawn Actor { get; private set; }
     /// <summary>
     /// Gets the cell that this action is targeting.
     /// </summary>
@@ -113,7 +113,7 @@ public abstract class BattleAction
     /// <summary>
     /// Sets the actor that this action originates from.
     /// </summary>
-    public void SetActor(Actor actor)
+    public void SetActor(Pawn actor)
     {
         Actor = actor;
         Setup();

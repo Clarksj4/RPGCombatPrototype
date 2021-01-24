@@ -17,7 +17,7 @@ public abstract class BattleEffect
     /// <summary>
     /// Gets the actor that this effect is attached to, if any.
     /// </summary>
-    public Actor Actor { get; protected set; }
+    public Pawn Actor { get; protected set; }
     /// <summary>
     /// Gets the map that this effect originates from.
     /// </summary>
@@ -32,13 +32,13 @@ public abstract class BattleEffect
     /// Checks if the actor is able to have this effect
     /// attached to it.
     /// </summary>
-    public abstract bool IsActorAble(Actor actor);
+    public abstract bool IsActorAble(Pawn actor);
 
     /// <summary>
     /// Sets the actor that this effect will be attached to
     /// if able. Returns true if the actor is able.
     /// </summary>
-    public virtual bool SetActor(Actor actor)
+    public virtual bool SetActor(Pawn actor)
     {
         bool isAble = IsActorAble(actor);
         if (isAble)

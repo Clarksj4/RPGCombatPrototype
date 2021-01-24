@@ -8,11 +8,11 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Occurs when an actor is selected.
     /// </summary>
-    public event Action<Actor> OnActorSelected;
+    public event Action<Pawn> OnActorSelected;
     /// <summary>
     /// Occurs when an actor is deselected.
     /// </summary>
-    public event Action<Actor> OnActorDeselected;
+    public event Action<Pawn> OnActorDeselected;
     /// <summary>
     /// Occurs when any battle action is selected.
     /// </summary>
@@ -35,11 +35,11 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Occurs after any action is successfully completed
     /// </summary>
-    public event Action<Actor, BattleAction> OnActionStarted;
+    public event Action<Pawn, BattleAction> OnActionStarted;
     /// <summary>
     /// Occurs after any action is successfully completed
     /// </summary>
-    public event Action<Actor, BattleAction> OnActionComplete;
+    public event Action<Pawn, BattleAction> OnActionComplete;
     /// <summary>
     /// Gets whether an actor is currently selected.
     /// </summary>
@@ -56,7 +56,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Gets the actor that the action originates from.
     /// </summary>
-    public Actor SelectedActor { get; private set; }
+    public Pawn SelectedActor { get; private set; }
     /// <summary>
     /// Gets the action the actor will perform.
     /// </summary>
@@ -68,7 +68,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// Selects the given actor - setting it as the originator of
     /// the action.
     /// </summary>
-    public void SelectActor(Actor actor)
+    public void SelectActor(Pawn actor)
     {
         // Deselect current actor if one is selected
         ClearSelectedActor();
@@ -184,7 +184,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     {
         // Local actor so can pass it to event after
         // clearing instance actor.
-        Actor actor = SelectedActor;
+        Pawn actor = SelectedActor;
         
         // Get rid of instance actor and any action
         // being assembled

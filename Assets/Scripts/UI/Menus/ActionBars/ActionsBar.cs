@@ -59,17 +59,17 @@ public class ActionsBar : Menu
         ActionManager.Instance.ClearSelectedAction();
     }
 
-    private void HandleOnActorSelected(Actor obj)
+    private void HandleOnActorSelected(Pawn actor)
     {
         MenuStack.Instance.Show(this);
     }
 
-    private void HandleOnActorDeselected(Actor obj)
+    private void HandleOnActorDeselected(Pawn actor)
     {
         MenuStack.Instance.Hide();
     }
 
-    private void HandleOnActionStarted(Actor arg1, BattleAction arg2)
+    private void HandleOnActionStarted(Pawn actor, BattleAction action)
     {
         MenuStack.Instance.HideAll();
     }
