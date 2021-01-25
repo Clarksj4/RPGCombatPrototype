@@ -4,6 +4,8 @@ using DG.Tweening;
 
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField] private bool empties = true;
+
     [Header("Components")]
     [SerializeField] private Image frontBar = null;
     [SerializeField] private Image backBar = null;
@@ -18,12 +20,14 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Ease drainEasing = Ease.Unset;
     [SerializeField] private float drainDuration = 0f;
 
+    private float currentHealth = 1f;
     private float currentFill = 1f;
 
     public void SetHealth(float amount, bool animate = true)
     {
-        bool filling = amount > currentFill;
-        currentFill = amount;
+        bool filling = amount > currentHealth;
+        currentHealth = amount;
+        currentFill = empties ? amount : 1 - amount;
         if (!animate)
         {
             frontBar.fillAmount = currentFill;
@@ -31,10 +35,21 @@ public class HealthBar : MonoBehaviour
         }
 
         else if (filling)
-            DoFillAnimation();
+        {
+            if (empties)
+                DoFillAnimation();
+            else
+                DoDrainAnimation();
+        }
+            
 
         else
-            DoDrainAnimation();
+        {
+            if (empties)
+                DoDrainAnimation();
+            else
+                DoFillAnimation();
+        }
     }
 
     private void DoFillAnimation()

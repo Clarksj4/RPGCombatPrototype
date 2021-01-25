@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -8,11 +9,11 @@ namespace Assets.Scripts
     public class ActorAppearance : MonoBehaviour
     {
         [SerializeField]
-        private SpriteRenderer frameImage = null;
+        private Image frameImage = null;
         [SerializeField]
-        private SpriteRenderer actorImage = null;
-        [SerializeField]
-        private SortingGroup maskSortingGroup = null;
+        private Image[] actorImages = null;
+        //[SerializeField]
+        //private Image maskSortingGroup = null;
 
         private Pawn actor = null;
 
@@ -28,26 +29,27 @@ namespace Assets.Scripts
 
         private void RefreshActorImage()
         {
-            actorImage.sprite = SpriteManager.Instance.GetSpriteByName(name);
+            foreach (Image image in actorImages)
+                image.sprite = SpriteManager.Instance.GetSpriteByName(name);
         }
 
-        private void IncrementSortOrders(int amount)
-        {
-            frameImage.sortingOrder += amount;
-            actorImage.sortingOrder += amount;
-            maskSortingGroup.sortingOrder += amount;
-        }
+        //private void IncrementSortOrders(int amount)
+        //{
+        //    frameImage.sortingOrder += amount;
+        //    actorImage.sortingOrder += amount;
+        //    maskSortingGroup.sortingOrder += amount;
+        //}
 
         private void ApplySelectionColour()
         {
             frameImage.color = Color.green;
-            IncrementSortOrders(1);
+            //IncrementSortOrders(1);
         }
 
         private void ApplyTeamColour()
         {
             frameImage.color = actor.Team.Colour;
-            IncrementSortOrders(-1);
+            //IncrementSortOrders(-1);
         }
 
         private void HandleOnTurnStart(ITurnBased turnBasedEntity)
