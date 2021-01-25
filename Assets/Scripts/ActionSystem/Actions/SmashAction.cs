@@ -30,7 +30,7 @@ public class SmashAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 20 },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 30 },
             new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = 1 }
         };
     }

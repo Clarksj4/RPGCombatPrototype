@@ -41,7 +41,7 @@ public class BullRushAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 20 },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 25 },
             new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = 3 }
         };
     }

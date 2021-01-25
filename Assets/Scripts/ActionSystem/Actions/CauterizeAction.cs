@@ -19,7 +19,7 @@ public class CauterizeAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 20 },
+            new HealNode() { Actor = Actor, Amount = 25 },
             new ApplyStatusNode() { Actor = Actor, Status = new VulnerabilityStatus() { Duration = 2 } }
         };
     }

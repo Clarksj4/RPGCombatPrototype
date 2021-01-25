@@ -24,9 +24,9 @@ public class PreachAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 5 },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 10 },
             new HasStatusNode<WeakenedStatus>() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 10 }
+            new DoDamageNode() { Actor = Actor, BaseDamage = 20 }
         };
     }
 }

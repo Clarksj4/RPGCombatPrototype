@@ -9,7 +9,7 @@ public class SacrificeAction : BattleAction
 
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction() { Actor = Actor, Amount = 20 }
+            new HealthRestriction() { Actor = Actor, Amount = 25 }
         };
 
         // The cells we can target
@@ -27,13 +27,13 @@ public class SacrificeAction : BattleAction
 
         beginningActions = new List<ActionNode>()
         {
-            new DoDamageNode() { Actor = Actor, BaseDamage = 20, Target = Actor.Cell }
+            new DoDamageNode() { Actor = Actor, BaseDamage = 25, Target = Actor.Cell }
         };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 20 }
+            new HealNode() { Actor = Actor, Amount = 25 }
         };
     }
 }

@@ -32,7 +32,7 @@ public class ImmolateAction : BattleAction
             new DoDamageNode() 
             { 
                 Actor = Actor, 
-                BaseDamage = 10, 
+                BaseDamage = 15, 
                 Amplifyable = false, 
                 Defendable = false, 
                 Target = Actor.Cell 
@@ -43,7 +43,7 @@ public class ImmolateAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 5 },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 15 },
             new ApplyStatusNode() { Actor = Actor, Status = new VulnerabilityStatus() { Duration = 1 } }
         };
     }

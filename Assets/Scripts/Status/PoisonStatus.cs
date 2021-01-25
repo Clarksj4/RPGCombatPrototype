@@ -8,7 +8,7 @@ public class PoisonStatus : PawnStatus
         base.DoEffect();
 
         // Take 10% max health damage each tick.
-        Pawn.TakeDamage((int)(Pawn.MaxHealth * 0.1f), false);
+        Pawn.TakeDamage((int)(Pawn.MaxHealth * 0.15f), false);
     }
 
     public override bool Collate(PawnStatus other)

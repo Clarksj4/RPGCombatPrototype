@@ -21,11 +21,11 @@ public class HibernateAction : BattleAction
 
         beginningActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Target = Actor.Cell, Amount = 10 }
+            new HealNode() { Actor = Actor, Target = Actor.Cell, Amount = 20 }
         };
 
         SleepStatus sleep = new SleepStatus() { Duration = 4 };
-        RenewStatus renew = new RenewStatus() { Duration = 4, HealPerTurn = 10, LinkedTo = sleep };
+        RenewStatus renew = new RenewStatus() { Duration = 4, HealPerTurn = 15, LinkedTo = sleep };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()

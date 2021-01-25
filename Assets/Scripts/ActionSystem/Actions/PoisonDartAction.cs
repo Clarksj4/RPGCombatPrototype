@@ -22,7 +22,7 @@ public class PoisonDartAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 5 },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 15 },
             new ApplyStatusNode() { Actor = Actor, Status = new PoisonStatus() { Duration = 2 } }
         };
     }

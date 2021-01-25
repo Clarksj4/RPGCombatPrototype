@@ -31,7 +31,7 @@ public class PierceAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 20 }
+            new DoDamageNode() { Actor = Actor, BaseDamage = 25 }
         };
 
         // If one of the targets is not hit, then no subsequent targets are hit

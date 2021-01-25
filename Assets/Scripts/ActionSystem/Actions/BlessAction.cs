@@ -38,7 +38,7 @@ public class BlessAction : BattleAction
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 5 },
+            new HealNode() { Actor = Actor, Amount = 15 },
             new ApplyStatusNode() { Actor = Actor, Status = new PowerStatus() { Duration = 1 } }
         };
     }

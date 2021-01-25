@@ -21,7 +21,7 @@ public class FreezeAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 10 },
+            new DoDamageNode() { Actor = Actor, BaseDamage = 15 },
             new ApplyStatusNode() { Actor = Actor, Status = new ImmobilizedStatus() { Duration = 2 } }
         };
     }

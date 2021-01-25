@@ -28,7 +28,7 @@ public class IronStrikeAction : BattleAction
         {
             new ApplyStatusNode() { Actor = Actor, Status = new DefenseStatus() { Duration = 1 } },
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 20 }
+            new DoDamageNode() { Actor = Actor, BaseDamage = 25 }
         };
     }
 }

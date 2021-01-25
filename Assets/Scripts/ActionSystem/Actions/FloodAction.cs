@@ -29,7 +29,7 @@ public class FloodAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 10 }
+            new DoDamageNode() { Actor = Actor, BaseDamage = 15 }
         };
     }
 }

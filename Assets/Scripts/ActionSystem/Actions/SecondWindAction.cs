@@ -22,7 +22,7 @@ public class SecondWindAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 20 },
+            new HealNode() { Actor = Actor, Amount = 25 },
             new ApplyStatusNode() { Actor = Actor, Status = new PowerStatus() { Duration = 2 } },
             new ApplyStatusNode() { Actor = Actor, Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } }
         };
