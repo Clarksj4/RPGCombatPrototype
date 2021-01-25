@@ -41,7 +41,6 @@ public class HealthBar : MonoBehaviour
             else
                 DoDrainAnimation();
         }
-            
 
         else
         {
