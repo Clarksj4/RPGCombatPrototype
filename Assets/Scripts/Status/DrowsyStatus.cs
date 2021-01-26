@@ -23,8 +23,12 @@ public class DrowsyStatus : PawnStatus
     {
         // Get outta town!
         if (other is DrowsyStatus)
-            return false;
+            return true;
 
-        return true;
+        // Sleep overrides drowsy - remove this status
+        else if (other is SleepStatus)
+            Expire();
+
+        return false;
     }
 }

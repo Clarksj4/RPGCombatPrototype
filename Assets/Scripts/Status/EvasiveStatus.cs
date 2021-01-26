@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 [Serializable]
 public class EvasiveStatus : PawnStatus
@@ -8,6 +9,23 @@ public class EvasiveStatus : PawnStatus
     /// will evade while affected by this status.
     /// </summary>
     public int AttacksToEvade { get; set; }
+
+    public override bool Collate(PawnStatus other)
+    {
+        // Extend duration and combined the number of attacks to evade
+        if (other is EvasiveStatus)
+        {
+            Duration = Mathf.Max(Duration, other.Duration);
+            AttacksToEvade += ((EvasiveStatus)other).AttacksToEvade;
+            return true;
+        }
+
+        // Immobilized removes evasive
+        else if (other is ImmobilizedStatus)
+            Expire();
+
+        return false;
+    }
 
     protected override void OnApplication()
     {

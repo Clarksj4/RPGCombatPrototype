@@ -23,10 +23,15 @@ public class IronStrikeAction : BattleAction
             new AffectedPoint(this)
         };
 
+        beginningActions = new List<ActionNode>()
+        {
+            new ApplyStatusNode() { Actor = Actor, Target = Actor.Cell, Status = new DefenseStatus() { Duration = 1 } }
+        };
+
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Actor = Actor, Status = new DefenseStatus() { Duration = 1 } },
+            
             new IsHitNode() { Actor = Actor },
             new DoDamageNode() { Actor = Actor, BaseDamage = 25 }
         };

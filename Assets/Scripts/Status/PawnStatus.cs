@@ -24,6 +24,8 @@ public abstract class PawnStatus
     /// </summary>
     public PawnStatus LinkedTo { get; set; }
     
+    private bool expiring;
+    
     /// <summary>
     /// Applies this status.
     /// </summary>
@@ -62,12 +64,16 @@ public abstract class PawnStatus
     /// </summary>
     protected void Expire()
     {
-        TurnManager.Instance.OnTurnStart -= HandleOnTurnBegin;
-        TurnManager.Instance.OnTurnEnd -= HandleOnTurnEnd;
+        if (!expiring)
+        {
+            expiring = true;
+            TurnManager.Instance.OnTurnStart -= HandleOnTurnBegin;
+            TurnManager.Instance.OnTurnEnd -= HandleOnTurnEnd;
 
-        OnExpired();
-        Pawn.RemoveStatus(this);
-        OnStatusExpired?.Invoke(this);
+            OnExpired();
+            Pawn.RemoveStatus(this);
+            OnStatusExpired?.Invoke(this);
+        }
     }
 
     private void HandleOnTurnBegin(ITurnBased ent)

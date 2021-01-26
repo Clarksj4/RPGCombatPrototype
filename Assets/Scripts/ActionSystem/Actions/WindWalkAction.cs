@@ -18,7 +18,7 @@ public class WindWalkAction : BattleAction
 
         // Instantiate instances separately because need to link em.
         EvasiveStatus evasive = new EvasiveStatus() { Duration = 2, AttacksToEvade = 1 };
-        AgilityStatus agility = new AgilityStatus() { Duration = 1, BonusMovement = 1, LinkedTo = evasive };
+        AgilityStatus agility = new AgilityStatus() { Duration = 2, BonusMovement = 1, LinkedTo = evasive };
 
         // Move faster and evade an attack...
         targetedActions = new List<ActionNode>()

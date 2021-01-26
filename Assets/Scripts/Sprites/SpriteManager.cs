@@ -1,18 +1,9 @@
 ﻿using UnityEngine;
 
-public class SpriteManager : Singleton<SpriteManager>
+public class SpriteManager : MonoSingleton<SpriteManager>
 {
-    private SpriteCatalogue SpriteCatalogue
-    {
-        get
-        {
-            // Lazy loading
-            if (spriteCatalogue == null)
-                spriteCatalogue = SpriteCatalogue.FromResources();
-            return spriteCatalogue;
-        }
-    }
-    private SpriteCatalogue spriteCatalogue;
+    [SerializeField]
+    private SpriteCatalogue SpriteCatalogue;
 
     /// <summary>
     /// Gets a sprite with the given name. Returns null

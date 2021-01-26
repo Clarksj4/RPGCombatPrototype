@@ -4,23 +4,14 @@ using UnityEngine;
 /// <summary>
 /// Class for holding a reference to a collection of sprites.
 /// </summary>
-public class SpriteCatalogue
+[CreateAssetMenu(fileName = "Sprite Catalogue", menuName = "Sprite Catalogue")]
+public class SpriteCatalogue : ScriptableObject
 {
     /// <summary>
     /// Just a big ol array of sprites.
     /// </summary>
+    [SerializeField]
     private Sprite[] sprites;
-
-    /// <summary>
-    /// Creates a sprite catalogue containing all of
-    /// the sprites in the Resources folder.
-    /// </summary>
-    public static SpriteCatalogue FromResources()
-    {
-        SpriteCatalogue catalogue = new SpriteCatalogue();
-        catalogue.sprites = Resources.LoadAll<Sprite>("Sprites");
-        return catalogue;
-    }
 
     /// <summary>
     /// Gets a sprite with the given name. Returns null
