@@ -7704,6 +7704,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: VerticalTurnOrder
       objectReference: {fileID: 0}
+    - target: {fileID: 5304767642791932289, guid: 1ec7dd375916e8a49aae373a17211016, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: aa5255a69e18ad54f99790104a168424, type: 3}
+    - target: {fileID: 5304767642791932289, guid: 1ec7dd375916e8a49aae373a17211016, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5304767642791932291, guid: 1ec7dd375916e8a49aae373a17211016, type: 3}
       propertyPath: m_SizeDelta.y
       value: 58
