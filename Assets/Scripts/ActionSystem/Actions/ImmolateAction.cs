@@ -44,7 +44,7 @@ public class ImmolateAction : BattleAction
         {
             new IsHitNode() { Actor = Actor },
             new DoDamageNode() { Actor = Actor, BaseDamage = 15 },
-            new ApplyStatusNode() { Actor = Actor, Status = new VulnerabilityStatus() { Duration = 1 } }
+            new ApplyStatusNode() { Actor = Actor, Status = new WeakenedStatus() { Duration = 1 } }
         };
     }
 }

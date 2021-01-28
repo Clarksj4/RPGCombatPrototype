@@ -17,9 +17,5 @@ MonoBehaviour:
   MaxHealth: 20
   Power: 1
   Movement: 0
-  Statuses:
-  - className: PoisonStatus
-    properties:
-    - Name: Duration
-      Value: 2
+  Statuses: []
   Actions: []
