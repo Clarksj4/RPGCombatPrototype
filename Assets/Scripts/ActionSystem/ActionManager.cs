@@ -84,10 +84,17 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Selects the action, by name, that will be performed by the actor.
     /// </summary>
-    public void SelectAction(string actionName)
+    public void SelectAction(int index)
+    {
+        // Get action name from actor
+        string name = SelectedActor.Actions[index];
+        SelectAction(name);
+    }
+
+    public void SelectAction(string name)
     {
         // Create an instance of the action
-        SelectedAction = CreateAction(actionName);
+        SelectedAction = CreateAction(name + "Action");
         OnActionSelected?.Invoke(SelectedAction);
     }
 
@@ -118,6 +125,15 @@ public class ActionManager : MonoSingleton<ActionManager>
         action.SetActor(SelectedActor);
         return action;
 
+    }
+
+    /// <summary>
+    /// Sets the target for the current action.
+    /// </summary>
+    public bool SetTarget(Vector2Int coordinate)
+    {
+        Cell cell = SelectedActor.Grid.GetCell(coordinate);
+        return SetTarget(cell);
     }
 
     /// <summary>

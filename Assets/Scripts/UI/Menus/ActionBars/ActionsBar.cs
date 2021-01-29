@@ -45,8 +45,7 @@ public class ActionsBar : Menu
 
     public void OnActionTapped(int index)
     {
-        string action = ActionManager.Instance.SelectedActor.Actions[index];
-        ActionManager.Instance.SelectAction(action + "Action");
+        ActionManager.Instance.SelectAction(index);
     }
 
     public void OnEndTurnTapped()
