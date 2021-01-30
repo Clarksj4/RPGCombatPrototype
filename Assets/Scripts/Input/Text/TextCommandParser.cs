@@ -6,7 +6,7 @@ using System;
 
 public class TextCommandParser
 {
-    // TODO: self targets self cell
+    // TODO: "self" targets self cell
     // TODO: maybe automatically target cell if there's only EVER one target cell.
 
     private static Dictionary<string, int> numberTable = new Dictionary<string, int>
@@ -24,6 +24,7 @@ public class TextCommandParser
     private static string[] cancelKeywords = new string[] { "cancel", "back", "no", "n", "undo" };
     private static string[] endTurnKeywords = new string[] { "end turn", "end" };
     private static string[] confirmKeywords = new string[] { "confirm", "yes", "y", "go" };
+    private static string[] selfKeyWords = new string[] { "self", "me", "myself" };
     private static char[] splitCharacters = new char[] { ' ', ',', '-', '.', '\n', '_' };
 
     public Command Parse(string text)
@@ -45,6 +46,12 @@ public class TextCommandParser
         // Check for target selection
         else if (ActionManager.Instance.HasAction)
         {
+            if (words.Any(w => CollectionContainsWord(w, selfKeyWords)))
+            {
+                Vector2Int coordinate = ActionManager.Instance.SelectedActor.Coordinate;
+                return new TargetCommand() { Coordinate = coordinate };
+            }
+
             // Extract x and y axis' from text.
             List<int> numbers = ToInts(words);
 

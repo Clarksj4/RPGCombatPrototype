@@ -19,7 +19,7 @@ public class HibernateAction : BattleAction
             new AffectedPoint(this)
         };
 
-        beginningActions = new List<ActionNode>()
+        selfActions = new List<ActionNode>()
         {
             new HealNode() { Actor = Actor, Target = Actor.Cell, Amount = 20 }
         };

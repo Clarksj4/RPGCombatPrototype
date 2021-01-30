@@ -25,12 +25,13 @@ public class SacrificeAction : BattleAction
             new AffectedPoint(this)
         };
 
-        beginningActions = new List<ActionNode>()
+        // Remove own health...
+        selfActions = new List<ActionNode>()
         {
             new DoDamageNode() { Actor = Actor, BaseDamage = 25, Target = Actor.Cell }
         };
 
-        // The effect upon those cells.
+        // ... give that health to target.
         targetedActions = new List<ActionNode>()
         {
             new HealNode() { Actor = Actor, Amount = 25 }

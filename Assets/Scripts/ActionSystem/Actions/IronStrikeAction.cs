@@ -23,7 +23,7 @@ public class IronStrikeAction : BattleAction
             new AffectedPoint(this)
         };
 
-        beginningActions = new List<ActionNode>()
+        selfActions = new List<ActionNode>()
         {
             new ApplyStatusNode() { Actor = Actor, Target = Actor.Cell, Status = new DefenseStatus() { Duration = 1 } }
         };

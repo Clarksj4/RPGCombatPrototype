@@ -27,7 +27,7 @@ public class BullRushAction : BattleAction
         };
 
         // Move to front of grid.
-        beginningActions = new List<ActionNode>()
+        selfActions = new List<ActionNode>()
         {
             new PushNode() 
             { 

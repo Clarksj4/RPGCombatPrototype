@@ -27,7 +27,7 @@ public class ImmolateAction : BattleAction
             new AffectedRange(this, 0, 1)
         };
 
-        beginningActions = new List<ActionNode>()
+        selfActions = new List<ActionNode>()
         {
             new DoDamageNode() 
             { 

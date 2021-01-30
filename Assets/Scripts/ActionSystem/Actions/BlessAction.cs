@@ -23,7 +23,7 @@ public class BlessAction : BattleAction
         };
 
         // Costs health
-        beginningActions = new List<ActionNode>()
+        selfActions = new List<ActionNode>()
         {
             new DoDamageNode() 
             { 

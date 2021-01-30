@@ -58,7 +58,7 @@ public abstract class BattleAction
     /// <summary>
     /// The sequence of things this battle action will do first.
     /// </summary>
-    protected List<ActionNode> beginningActions = null;
+    protected List<ActionNode> selfActions = null;
     /// <summary>
     /// The sequence of things this battle action with do to 
     /// each of the targeted cells.
@@ -223,10 +223,10 @@ public abstract class BattleAction
     private bool DoBeginningActions()
     {
         // Don't do anything if there's nothing to do.
-        if (beginningActions != null &&
-            beginningActions.Count > 0)
+        if (selfActions != null &&
+            selfActions.Count > 0)
         {
-            foreach (ActionNode node in beginningActions)
+            foreach (ActionNode node in selfActions)
             {
                 if (!node.Do())
                     return false;

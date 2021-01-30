@@ -21,7 +21,7 @@ public class DecoyAction : BattleAction
         };
 
         // Heal self at start of action
-        beginningActions = new List<ActionNode>()
+        selfActions = new List<ActionNode>()
         {
             new HealNode() { Actor = Actor, Target = OriginCell, Amount = 20 }
         };

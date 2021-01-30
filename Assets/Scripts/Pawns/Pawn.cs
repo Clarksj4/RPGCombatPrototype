@@ -19,6 +19,10 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// </summary>
     public event Action<Pawn, int> OnHealthLossDelegated;
     /// <summary>
+    /// Occurs when this pawn's mana amount changes.
+    /// </summary>
+    public event Action<Pawn, int> OnManaChanged;
+    /// <summary>
     /// Occurs when the pawn is targeted by an ability. Whether
     /// the pawn is hit or not is passed as an argument.
     /// </summary>
@@ -83,6 +87,14 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// Gets the maximum health of this pawn.
     /// </summary>
     public int MaxHealth { get; set; }
+    /// <summary>
+    /// Gets this pawns current mana amount.
+    /// </summary>
+    public int Mana { get; set; }
+    /// <summary>
+    /// Gets the maximum amount of mana this pawn can store.
+    /// </summary>
+    public int MaxMana { get; set; }
     /// <summary>
     /// Gets the priority of this pawn in the turn order.
     /// </summary>
@@ -333,6 +345,21 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     }
 
     /// <summary>
+    /// Sets the amount of mana this pawn has stored.
+    /// </summary>
+    public void SetMana(int amount)
+    {
+        // Clamp it to sensible values.
+        int clamped = Mathf.Clamp(Mana - amount, 0, MaxMana);
+        int delta = clamped - Mana;
+        Mana = clamped;
+
+        // If the amount actually changed., notify listeners.
+        if (delta != 0)
+            OnManaChanged?.Invoke(this, delta);
+    }
+
+    /// <summary>
     /// Deals damage to this pawn taking attack and defense
     /// values into account.
     public int TakeDamage(int amount, bool defendable = true)
@@ -436,6 +463,10 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         // Hard luck, bud.
         if (Incapacitated || !IsActor)
             TurnManager.Instance.Next();
+
+        // Each pawn gains one mana at the start of their turn.
+        if (!Stunned)
+            Mana = Mathf.Min(MaxMana, Mana + 1);
     }
 
     protected virtual void TurnEnd()

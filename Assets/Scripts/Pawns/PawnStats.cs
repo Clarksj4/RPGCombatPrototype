@@ -21,6 +21,8 @@ public class PawnStats : ScriptableObject
     public List<ClassTable> Statuses = null;
 
     [Header("Actions")]
+    public int MaxMana;
+    public int StartingMana;
     public List<string> Actions;
 
     public virtual void SetStats(Pawn pawn)
@@ -32,6 +34,8 @@ public class PawnStats : ScriptableObject
         pawn.Priority = Priority;
         pawn.Power = Power;
         pawn.Movement = Movement;
+        pawn.MaxMana = MaxMana;
+        pawn.Mana = StartingMana;
         pawn.Actions = Actions;
 
         // Apply statuses
