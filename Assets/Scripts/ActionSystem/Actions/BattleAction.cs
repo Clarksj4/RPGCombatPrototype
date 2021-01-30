@@ -8,6 +8,11 @@ using System.Linq;
 /// </summary>
 public abstract class BattleAction
 {
+    /// <summary>
+    /// Gets the name of this battle action.
+    /// </summary>
+    public string Name { get { return GetType().Name.Replace("Action", ""); } }
+
     //
     // Setting up current target
     //
@@ -74,9 +79,9 @@ public abstract class BattleAction
     //
 
     /// <summary>
-    /// Gets the range of this action.
+    /// Gets or sets the maximum uses of this action per turn.
     /// </summary>
-    public virtual int Range { get { return -1; } }
+    public int MaxUsesPerTurn { get; set; } = 1;
     /// <summary>
     /// Gets a collection of informative tags about this action.
     /// </summary>
@@ -199,9 +204,10 @@ public abstract class BattleAction
     public bool CanDo()
     {
         // No restreictions OR conforms to all restrictions.
-        return actorRestrictions == null || 
+        return Actor.GetActionUseCount(Name) < MaxUsesPerTurn && 
+              (actorRestrictions == null || 
                actorRestrictions.Count == 0 ||
-               actorRestrictions.All(r => r.IsTargetValid(OriginCell));
+               actorRestrictions.All(r => r.IsTargetValid(OriginCell)));
     }
 
     /// <summary>

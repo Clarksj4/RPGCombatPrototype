@@ -158,6 +158,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     private Team team;
     private List<Pawn> surrogates = new List<Pawn>();
     private List<PawnStatus> statuses = new List<PawnStatus>();
+    private Dictionary<string, int> actionUses = new Dictionary<string, int>();
 
     protected virtual void Start()
     {
@@ -175,10 +176,21 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
 
+        ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
         ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
 
         Initialized = true;
         OnInitialized?.Invoke(this);
+    }
+
+    /// <summary>
+    /// Gets the number of times the given action has been used this turn.
+    /// </summary>
+    public int GetActionUseCount(string action)
+    {
+        if (actionUses.TryGetValue(action, out int uses))
+            return uses;
+        return 0;
     }
 
     /// <summary>
@@ -474,7 +486,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
     protected virtual void TurnEnd()
     {
-        /* Nothing! */
+        actionUses.Clear();
     }
 
     private void HandleOnTurnStart(ITurnBased obj)
@@ -498,6 +510,21 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         // Can we afford any of our current actions?
         bool anyAvailableAction = Actions.Any(a => ActionManager.Instance.CanDo(a + "Action"));
         return anyAvailableAction;
+    }
+
+    private void IncrementActionUseCount(string actionName)
+    {
+        // Increment use count.
+        if (actionUses.ContainsKey(actionName))
+            actionUses[actionName]++;
+        else
+            actionUses.Add(actionName, 1);
+    }
+
+    private void HandleOnActionStarted(Pawn pawn, BattleAction action)
+    {
+        if (pawn == this)
+            IncrementActionUseCount(action.Name);
     }
 
     private void HandleOnActionComplete(Pawn pawn, BattleAction action)

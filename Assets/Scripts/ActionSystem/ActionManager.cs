@@ -115,7 +115,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     public bool CanDo(BattleAction action)
     {
         return action.CanDo() &&
-       action.TargetableCells.Count() > 0;
+               action.TargetableCells.Count() > 0;
     }
 
     private BattleAction CreateAction(string actionName)

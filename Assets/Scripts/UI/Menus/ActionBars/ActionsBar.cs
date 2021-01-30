@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -16,12 +17,19 @@ public class ActionsBar : Menu
         ActionManager.Instance.OnActorSelected += HandleOnActorSelected;
         ActionManager.Instance.OnActorDeselected += HandleOnActorDeselected;
         ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
+        ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
     }
 
     protected override void PreShow()
     {
         base.PreShow();
 
+        RefreshButtons();
+    }
+
+    private void RefreshButtons()
+    {
+        print("refreshing buttons");
         // Populate bar actions with actor's attacks
         for (int i = 0; i < actionButtons.Length; i++)
         {
@@ -71,5 +79,10 @@ public class ActionsBar : Menu
     private void HandleOnActionStarted(Pawn actor, BattleAction action)
     {
         MenuStack.Instance.Hide();
+    }
+
+    private void HandleOnActionComplete(Pawn actor, BattleAction action)
+    {
+        RefreshButtons();
     }
 }

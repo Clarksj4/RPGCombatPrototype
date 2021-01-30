@@ -2,8 +2,6 @@
 
 public class MoveAction : BattleAction
 {
-    public override int Range { get { return Actor.Movement; } }
-
     protected override void Setup()
     {
         // Misc information about the ability

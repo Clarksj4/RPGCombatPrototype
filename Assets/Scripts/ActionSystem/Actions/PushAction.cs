@@ -2,8 +2,6 @@
 
 public class PushAction : BattleAction
 {
-    public override int Range { get { return 1; } }
-
     protected override void Setup()
     {
         // Misc information about the ability
@@ -27,7 +25,7 @@ public class PushAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = Range }
+            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = 1 }
         };
     }
 }
