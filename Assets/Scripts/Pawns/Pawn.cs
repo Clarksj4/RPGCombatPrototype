@@ -175,6 +175,8 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
 
+        ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
+
         Initialized = true;
         OnInitialized?.Invoke(this);
     }
@@ -350,7 +352,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     public void SetMana(int amount)
     {
         // Clamp it to sensible values.
-        int clamped = Mathf.Clamp(Mana - amount, 0, MaxMana);
+        int clamped = Mathf.Clamp(amount, 0, MaxMana);
         int delta = clamped - Mana;
         Mana = clamped;
 
@@ -459,14 +461,15 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
     protected virtual void TurnStart()
     {
-        // If actor is incapacitated, it doesn't get a turn.
-        // Hard luck, bud.
-        if (Incapacitated || !IsActor)
-            TurnManager.Instance.Next();
-
         // Each pawn gains one mana at the start of their turn.
         if (!Stunned)
-            Mana = Mathf.Min(MaxMana, Mana + 1);
+            SetMana(Mana + 1);
+
+        // If actor is incapacitated, it doesn't get a turn.
+        // Hard luck, bud.
+        // TODO: end turn only if there is no actions that can be done.
+        if (Incapacitated || !IsActor)
+            TurnManager.Instance.Next();
     }
 
     protected virtual void TurnEnd()
@@ -484,5 +487,22 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     {
         if (obj == (ITurnBased)this)
             TurnEnd();
+    }
+
+    private bool CanAct()
+    {
+        // If the actor is stunned they can't act
+        if (Incapacitated || !IsActor)
+            return false;
+
+        // Can we afford any of our current actions?
+        bool anyAvailableAction = Actions.Any(a => ActionManager.Instance.CanDo(a + "Action"));
+        return anyAvailableAction;
+    }
+
+    private void HandleOnActionComplete(Pawn pawn, BattleAction action)
+    {
+        if (pawn == this && !CanAct())
+            TurnManager.Instance.Next();
     }
 }

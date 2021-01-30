@@ -70,6 +70,6 @@ public class ActionsBar : Menu
 
     private void HandleOnActionStarted(Pawn actor, BattleAction action)
     {
-        MenuStack.Instance.HideAll();
+        MenuStack.Instance.Hide();
     }
 }

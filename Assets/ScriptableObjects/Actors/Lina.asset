@@ -18,6 +18,8 @@ MonoBehaviour:
   Power: 1
   Movement: 1
   Statuses: []
+  MaxMana: 3
+  StartingMana: 0
   Actions:
   - Move
   - FlameWave

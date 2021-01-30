@@ -221,8 +221,7 @@ public class ActionManager : MonoSingleton<ActionManager>
         yield return SelectedAction.Do();
         actionCoroutine = null;
 
-        // Notify senpai, and end actors turn.
+        // Notify senpai.
         OnActionComplete?.Invoke(SelectedActor, SelectedAction);
-        EndSelectedActorTurn();
     }
 }

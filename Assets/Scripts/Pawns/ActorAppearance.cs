@@ -12,6 +12,8 @@ namespace Assets.Scripts
         private Image frameImage = null;
         [SerializeField]
         private Image[] actorImages = null;
+        [SerializeField]
+        private GameObject[] highlights = null;
         //[SerializeField]
         //private Image maskSortingGroup = null;
 
@@ -43,12 +45,16 @@ namespace Assets.Scripts
         private void ApplySelectionColour()
         {
             frameImage.color = Color.green;
+            foreach (var highlight in highlights)
+                highlight.SetActive(true);
             //IncrementSortOrders(1);
         }
 
         private void ApplyTeamColour()
         {
             frameImage.color = actor.Team.Colour;
+            foreach (var highlight in highlights)
+                highlight.SetActive(false);
             //IncrementSortOrders(-1);
         }
 
