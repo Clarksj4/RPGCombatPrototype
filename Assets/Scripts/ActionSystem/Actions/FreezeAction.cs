@@ -4,11 +4,16 @@ public class FreezeAction : BattleAction
 {
     protected override void Setup()
     {
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 2 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy },
-            new ExposedCellsRestriction() { Actor = Actor }
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy },
+            new ExposedCellsRestriction()
         };
 
         // The cells that will be affected
@@ -17,12 +22,17 @@ public class FreezeAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 15 },
-            new ApplyStatusNode() { Actor = Actor, Status = new ImmobilizedStatus() { Duration = 2 } }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 15 },
+            new ApplyStatusNode() { Status = new ImmobilizedStatus() { Duration = 2 } }
         };
     }
 }

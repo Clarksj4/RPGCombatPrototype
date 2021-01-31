@@ -63,16 +63,21 @@ public abstract class BattleAction
     /// <summary>
     /// The sequence of things this battle action will do first.
     /// </summary>
+    public IEnumerable<ActionNode> SelfActions { get { return selfActions; } }
+    /// <summary>
+    /// The sequence of things this battle action with do to 
+    /// each of the targeted cells.
+    /// </summary>
+    public IEnumerable<ActionNode> TargetedActions { get { return targetedActions; } }
+    /// <summary>
+    /// The sequence of things this battle action will do first.
+    /// </summary>
     protected List<ActionNode> selfActions = null;
     /// <summary>
     /// The sequence of things this battle action with do to 
     /// each of the targeted cells.
     /// </summary>
     protected List<ActionNode> targetedActions = null;
-    /// <summary>
-    /// The sequence of things this battle action will do last.
-    /// </summary>
-    protected List<ActionNode> endActions = null;
 
     //
     // Action params
@@ -167,7 +172,7 @@ public abstract class BattleAction
         {
             foreach (Cell cell in Grid.GetCells())
             {
-                if (targetRestrictions.All(r => r.IsTargetValid(cell)))
+                if (targetRestrictions.All(r => r.IsTargetValid(Actor, cell)))
                     yield return cell;
             }
         }
@@ -190,7 +195,7 @@ public abstract class BattleAction
         // If there are further restrictions, only return cells that conform
         if (areaOfEffectRestrictions != null &&
             areaOfEffectRestrictions.Count > 0)
-            return area.Where(cell => areaOfEffectRestrictions.All(restriction => restriction.IsTargetValid(cell)));
+            return area.Where(cell => areaOfEffectRestrictions.All(restriction => restriction.IsTargetValid(Actor, cell)));
      
         // Otherwise, return the area as it is.
         else
@@ -207,7 +212,7 @@ public abstract class BattleAction
         return Actor.GetActionUseCount(Name) < MaxUsesPerTurn && 
               (actorRestrictions == null || 
                actorRestrictions.Count == 0 ||
-               actorRestrictions.All(r => r.IsTargetValid(OriginCell)));
+               actorRestrictions.All(r => r.IsTargetValid(Actor, OriginCell)));
     }
 
     /// <summary>
@@ -220,8 +225,6 @@ public abstract class BattleAction
 
         if (success)
             DoTargetedActions();
-
-        DoEndActions();
         
         return null;
     }
@@ -234,7 +237,7 @@ public abstract class BattleAction
         {
             foreach (ActionNode node in selfActions)
             {
-                if (!node.Do())
+                if (!node.Do(Actor, OriginCell))
                     return false;
             }
         }
@@ -253,8 +256,7 @@ public abstract class BattleAction
             {
                 foreach (ActionNode node in targetedActions)
                 {
-                    node.Target = cell;
-                    success = node.Do();
+                    success = node.Do(Actor, cell);
 
                     // If one of the nodes fails - abort subsequent 
                     // node execution
@@ -269,19 +271,6 @@ public abstract class BattleAction
 
                 // Otherwise, end iteration.
                 else break;
-            }
-        }
-    }
-
-    private void DoEndActions()
-    {
-        if (endActions != null &&
-            endActions.Count > 0)
-        {
-            foreach (ActionNode node in endActions)
-            {
-                if (!node.Do())
-                    break;
             }
         }
     }

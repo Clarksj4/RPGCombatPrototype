@@ -9,16 +9,17 @@ public class ImmolateAction : BattleAction
 
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction() { Actor = Actor, Amount = 10 }
+            new ManaRestriction() { Amount = 1 },
+            new HealthRestriction() { Amount = 10 }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Other },
-            new LinearCellsRestriction() { Actor = Actor },
-            new ExposedCellsRestriction() { Actor = Actor },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
+            new FormationRestriction() { Formations = TargetableFormation.Other },
+            new LinearCellsRestriction(),
+            new ExposedCellsRestriction(),
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected
@@ -29,22 +30,16 @@ public class ImmolateAction : BattleAction
 
         selfActions = new List<ActionNode>()
         {
-            new DoDamageNode() 
-            { 
-                Actor = Actor, 
-                BaseDamage = 15, 
-                Amplifyable = false, 
-                Defendable = false, 
-                Target = Actor.Cell 
-            }
+            new RemoveManaNode() { Amount = 1 },
+            new DoDamageNode() { BaseDamage = 15, Amplifyable = false, Defendable = false }
         };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 15 },
-            new ApplyStatusNode() { Actor = Actor, Status = new WeakenedStatus() { Duration = 1 } }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 15 },
+            new ApplyStatusNode() { Status = new WeakenedStatus() { Duration = 1 } }
         };
     }
 }

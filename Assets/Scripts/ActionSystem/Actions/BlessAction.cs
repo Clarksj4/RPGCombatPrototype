@@ -7,13 +7,14 @@ public class BlessAction : BattleAction
         // Need to have enough health to cast it
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction() { Actor = Actor, Amount = 10 }
+            new ManaRestriction() { Amount = 1 },
+            new HealthRestriction() { Amount = 10 }
         };
 
         // Can only target self
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self }
+            new CellContentRestriction() { Content = TargetableCellContent.Self }
         };
 
         // Affects adjacent cells
@@ -25,21 +26,15 @@ public class BlessAction : BattleAction
         // Costs health
         selfActions = new List<ActionNode>()
         {
-            new DoDamageNode() 
-            { 
-                Actor = Actor, 
-                BaseDamage = 10, 
-                Defendable = false, 
-                Amplifyable = false, 
-                Target = Actor.Cell 
-            }
+            new RemoveManaNode() { Amount = 1 },
+            new DoDamageNode() { BaseDamage = 10, Defendable = false, Amplifyable = false }
         };
 
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 15 },
-            new ApplyStatusNode() { Actor = Actor, Status = new PowerStatus() { Duration = 1 } }
+            new HealNode() { Amount = 15 },
+            new ApplyStatusNode() { Status = new PowerStatus() { Duration = 1 } }
         };
     }
 }

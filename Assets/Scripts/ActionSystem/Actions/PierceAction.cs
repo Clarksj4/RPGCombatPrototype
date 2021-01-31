@@ -10,15 +10,16 @@ public class PierceAction : BattleAction
         // Only usable from the front rank
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
+            new ManaRestriction() { Amount = 2 },
+            new RankCellsRestriction() { Ranks = new int[] { 0 } }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FileCellsRestriction() { Actor = Actor, File = Actor.File },
-            new ExposedCellsRestriction() { Actor = Actor },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
+            new FileCellsRestriction() { File = Actor.File },
+            new ExposedCellsRestriction(),
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected
@@ -27,11 +28,16 @@ public class PierceAction : BattleAction
             new AffectedFile(this, Actor.File)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 2 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 25 }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 30 }
         };
 
         // If one of the targets is not hit, then no subsequent targets are hit

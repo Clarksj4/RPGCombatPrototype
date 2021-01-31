@@ -7,10 +7,15 @@ public class HibernateAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Heal;
 
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self }
+            new CellContentRestriction() { Content = TargetableCellContent.Self }
         };
 
         // The cells that will be affected
@@ -21,7 +26,8 @@ public class HibernateAction : BattleAction
 
         selfActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Target = Actor.Cell, Amount = 20 }
+            new RemoveManaNode() { Amount = 1 },
+            new HealNode() { Amount = 20 }
         };
 
         SleepStatus sleep = new SleepStatus() { Duration = 4 };
@@ -30,8 +36,8 @@ public class HibernateAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Actor = Actor, Status = sleep },
-            new ApplyStatusNode() { Actor = Actor, Status = renew }
+            new ApplyStatusNode() { Status = sleep },
+            new ApplyStatusNode() { Status = renew }
         };
     }
 }

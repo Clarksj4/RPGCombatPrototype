@@ -9,7 +9,7 @@ public class HealthRestriction : TargetingRestriction
     /// </summary>
     public int Amount { get; set; }
 
-    public override bool IsTargetValid(Cell cell)
+    public override bool IsTargetValid(Pawn actor, Cell cell)
     {
         Pawn pawn = cell.GetContent<Pawn>();
         if (pawn != null)

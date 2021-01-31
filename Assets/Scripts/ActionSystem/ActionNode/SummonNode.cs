@@ -5,9 +5,9 @@ public class SummonNode : ActionNode
     public int Duration { get; set; }
     public float Priority { get; set; }
 
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        SummonManager.Instance.Spawn(Name, Target, Priority, Duration);
+        SummonManager.Instance.Spawn(Name, target, Priority, Duration);
         return true;
     }
 }

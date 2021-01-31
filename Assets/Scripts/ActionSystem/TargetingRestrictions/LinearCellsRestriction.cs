@@ -2,9 +2,9 @@
 
 public class LinearCellsRestriction : TargetingRestriction
 {
-    public override bool IsTargetValid(Cell cell)
+    public override bool IsTargetValid(Pawn actor, Cell cell)
     {
-        return cell.Coordinate.x == Actor.Coordinate.x ||
-                cell.Coordinate.y == Actor.Coordinate.y;
+        return cell.Coordinate.x == actor.Coordinate.x ||
+                cell.Coordinate.y == actor.Coordinate.y;
     }
 }

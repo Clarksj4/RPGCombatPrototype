@@ -1,16 +1,16 @@
 ﻿
 public class SwapHealthNode : ActionNode
 {
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Pawn pawn = Target.GetContent<Pawn>();
+        Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
         {
-            int originHealth = Actor.Health;
+            int originHealth = actor.Health;
             int targetHealth = pawn.Health;
 
             pawn.SetHealth(originHealth);
-            Actor.SetHealth(targetHealth);
+            actor.SetHealth(targetHealth);
         }
             
         return true;

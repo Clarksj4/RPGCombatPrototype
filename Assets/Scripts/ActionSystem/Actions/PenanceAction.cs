@@ -4,10 +4,14 @@ public class PenanceAction : BattleAction
 {
     protected override void Setup()
     {
-        // Self
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self }
+            new CellContentRestriction() { Content = TargetableCellContent.Self }
         };
 
         // Just the one target actually...
@@ -16,12 +20,12 @@ public class PenanceAction : BattleAction
             new AffectedPoint(this)
         };
 
-        // Heal and stun self
-        targetedActions = new List<ActionNode>()
+        selfActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 20 },
-            new ApplyStatusNode() { Actor = Actor, Status = new StunnedStatus() { Duration = 1 } },
-            new ApplyStatusNode() { Actor = Actor, Status = new RenewStatus() { Duration = 1, HealPerTurn = 20 } }
+            new RemoveManaNode() { Amount = 1 },
+            new HealNode() { Amount = 20 },
+            new ApplyStatusNode() { Status = new StunnedStatus() { Duration = 1 } },
+            new ApplyStatusNode() { Status = new RenewStatus() { Duration = 1, HealPerTurn = 20 } }
         };
     }
 }

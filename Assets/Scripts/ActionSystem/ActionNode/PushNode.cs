@@ -16,30 +16,27 @@ public class PushNode : MoveNode
     /// Gets or sets the direction the contents of the targeted cell will
     /// be pushed.
     /// </summary>
-    public Vector2Int Direction 
-    {
-        get 
-        {
-            // Use literal direction
-            if (RelativeDirection == RelativeDirection.None)
-                return direction;
+    public Vector2Int Direction { get; set; }
 
-            // Caluclate relative direction
-            return Target.Coordinate.GetRelativeDirections(Actor.Coordinate, RelativeDirection).Single();
-        }
-        set { direction = value; }
-    }
-    private Vector2Int direction;
-
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Pawn pawn = Target.GetContent<Pawn>();
+        Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
         {
-            pawn.TakePush(Direction, Distance);
+            pawn.TakePush(GetDirection(actor, target), Distance);
             return true;
         }
         
         return false;
+    }
+
+    private Vector2Int GetDirection(Pawn actor, Cell target)
+    {
+        // Use literal direction
+        if (RelativeDirection == RelativeDirection.None)
+            return Direction;
+
+        // Caluclate relative direction
+        return target.Coordinate.GetRelativeDirections(actor.Coordinate, RelativeDirection).Single();
     }
 }

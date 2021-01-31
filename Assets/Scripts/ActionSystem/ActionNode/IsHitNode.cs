@@ -1,9 +1,9 @@
 ﻿
 public class IsHitNode : ActionNode
 {
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Pawn defender = Target.GetContent<Pawn>();
+        Pawn defender = target.GetContent<Pawn>();
         if (defender != null)
             return defender.IsHit();
 

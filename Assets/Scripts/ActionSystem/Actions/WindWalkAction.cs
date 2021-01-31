@@ -4,16 +4,26 @@ public class WindWalkAction : BattleAction
 {
     protected override void Setup()
     {
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         // Target any ally
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally }
+            new CellContentRestriction() { Content = TargetableCellContent.Ally }
         };
 
         // Just the one ally actually...
         areaOfEffect = new List<AffectedArea>()
         {
             new AffectedPoint(this)
+        };
+
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
         };
 
         // Instantiate instances separately because need to link em.
@@ -23,8 +33,8 @@ public class WindWalkAction : BattleAction
         // Move faster and evade an attack...
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Actor = Actor, Status = evasive },
-            new ApplyStatusNode() { Actor = Actor, Status = agility }
+            new ApplyStatusNode() { Status = evasive },
+            new ApplyStatusNode() { Status = agility }
         };
     }
 }

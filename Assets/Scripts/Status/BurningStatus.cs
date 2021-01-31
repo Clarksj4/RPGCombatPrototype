@@ -12,13 +12,10 @@ public class BurningStatus : PawnStatus
 
     protected override void DoEffect()
     {
-        DoDamageNode damage = new DoDamageNode() { Actor = Pawn, BaseDamage = DamagePerTurn };
+        DoDamageNode damage = new DoDamageNode() { BaseDamage = DamagePerTurn };
         
         IEnumerable<Cell> adjacentCells = Pawn.Grid.GetRange(Pawn.Coordinate, 1, 1);
         foreach (Cell cell in adjacentCells)
-        {
-            damage.Target = cell;
-            damage.Do();
-        }
+            damage.Do(Pawn, cell);
     }
 }

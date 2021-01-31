@@ -36,7 +36,6 @@ public class ManaBar : MonoBehaviour
 
     private void HandleOnPawnManaChanged(Pawn pawn, int delta)
     {
-        print($"Pawn Mana Changed to: {pawn.Mana}");
         RefreshPips();
     }
 }

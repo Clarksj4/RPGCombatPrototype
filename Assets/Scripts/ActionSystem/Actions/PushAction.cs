@@ -10,10 +10,10 @@ public class PushAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Self },
-            new RangeRestriction() { Actor = Actor },
-            new AdjcentCellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty, Directions = RelativeDirection.Away },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally | TargetableCellContent.Enemy }
+            new FormationRestriction() { Formations = TargetableFormation.Self },
+            new RangeRestriction(),
+            new AdjcentCellContentRestriction() { Content = TargetableCellContent.Empty, Directions = RelativeDirection.Away },
+            new CellContentRestriction() { Content = TargetableCellContent.Ally | TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected
@@ -25,7 +25,7 @@ public class PushAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = 1 }
+            new PushNode() { RelativeDirection = RelativeDirection.Away, Distance = 1 }
         };
     }
 }

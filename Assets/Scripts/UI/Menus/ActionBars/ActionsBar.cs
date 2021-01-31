@@ -29,7 +29,6 @@ public class ActionsBar : Menu
 
     private void RefreshButtons()
     {
-        print("refreshing buttons");
         // Populate bar actions with actor's attacks
         for (int i = 0; i < actionButtons.Length; i++)
         {

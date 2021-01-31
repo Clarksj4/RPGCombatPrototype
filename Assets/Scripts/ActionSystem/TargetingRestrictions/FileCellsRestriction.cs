@@ -7,7 +7,7 @@ public class FileCellsRestriction : TargetingRestriction
     /// </summary>
     public int File { get; set; }
 
-    public override bool IsTargetValid(Cell cell)
+    public override bool IsTargetValid(Pawn actor, Cell cell)
     {
         return cell.Formation.GetFile(cell.Coordinate) == File;
     }

@@ -8,9 +8,9 @@ public class CellContentRestriction : TargetingRestriction
     /// </summary>
     public TargetableCellContent Content { get; set; }
 
-    public override bool IsTargetValid(Cell cell)
+    public override bool IsTargetValid(Pawn actor, Cell cell)
     {
-        bool isCellValid = IsTargetCellContentValid(cell);
+        bool isCellValid = IsTargetCellContentValid(actor, cell);
         return isCellValid;
     }
 
@@ -18,7 +18,7 @@ public class CellContentRestriction : TargetingRestriction
     /// Checks whether the thing in the targeted cell is 
     /// a valid target.
     /// </summary>
-    private bool IsTargetCellContentValid(Cell cell)
+    private bool IsTargetCellContentValid(Pawn actor, Cell cell)
     {
         // Check for all or nothing cases first to see
         // if we can skip the other checks.
@@ -29,9 +29,9 @@ public class CellContentRestriction : TargetingRestriction
         // cases as it meets their requirements
         bool valid = false;
         Pawn pawn = cell.Contents.FirstOfTypeOrDefault<IGridBased, Pawn>();
-        bool isSelf = pawn == Actor;
+        bool isSelf = pawn == actor;
         bool pawnExists = pawn != null;
-        bool isActorOnSameTeam = IsActorOnSameTeam(pawn);
+        bool isActorOnSameTeam = IsActorOnSameTeam(actor, pawn);
 
         // Can target self.
         if (Content.HasFlag(TargetableCellContent.Self) &&
@@ -60,9 +60,9 @@ public class CellContentRestriction : TargetingRestriction
     /// Checks if the given pawn is an actor who is on the same
     /// team as this action's actor.
     /// </summary>
-    private bool IsActorOnSameTeam(Pawn actor)
+    private bool IsActorOnSameTeam(Pawn origin, Pawn target)
     {
-        return actor != null && 
-               actor.Team == Actor.Team;
+        return target != null &&
+               target.Team == origin.Team;
     }
 }

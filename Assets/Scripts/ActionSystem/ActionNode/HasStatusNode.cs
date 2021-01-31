@@ -1,9 +1,9 @@
 ﻿
 public class HasStatusNode<T> : ActionNode where T : PawnStatus
 {
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Pawn defender = Target.GetContent<Pawn>();
+        Pawn defender = target.GetContent<Pawn>();
         if (defender != null)
             return defender.HasStatus<T>();
 

@@ -4,11 +4,16 @@ public class FrostWallAction : BattleAction
 {
     protected override void Setup()
     {
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         // Can only target empty cells on the same rank
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty },
-            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Self }
+            new CellContentRestriction() { Content = TargetableCellContent.Empty },
+            new FormationRestriction() { Formations = TargetableFormation.Self }
         };
 
         // Affects all cells in targeted rank
@@ -20,12 +25,17 @@ public class FrostWallAction : BattleAction
         // Will only affect empty cells
         areaOfEffectRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty }
+            new CellContentRestriction() { Content = TargetableCellContent.Empty }
+        };
+
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
         };
 
         targetedActions = new List<ActionNode>()
         {
-            new SummonNode() { Actor = Actor, Name = "FrostWall", Priority = Actor.Priority, Duration = 3 }
+            new SummonNode() { Name = "FrostWall", Priority = Actor.Priority, Duration = 3 }
         };
     }
 }

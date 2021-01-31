@@ -3,7 +3,7 @@ using System.Linq;
 
 public class ExposedCellsRestriction : TargetingRestriction
 {
-    public override bool IsTargetValid(Cell cell)
+    public override bool IsTargetValid(Pawn actor, Cell cell)
     {
         Formation formation = cell.Formation;
         Vector2Int facing = formation.Facing;

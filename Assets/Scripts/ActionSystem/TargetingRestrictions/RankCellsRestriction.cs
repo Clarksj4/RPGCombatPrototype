@@ -7,7 +7,7 @@ public class RankCellsRestriction : TargetingRestriction
     /// </summary>
     public int[] Ranks { get; set; }
 
-    public override bool IsTargetValid(Cell cell)
+    public override bool IsTargetValid(Pawn actor, Cell cell)
     {
         return Ranks.Contains(cell.Formation.GetRank(cell.Coordinate));
     }

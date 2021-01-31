@@ -8,10 +8,10 @@ public class RangeRestriction : TargetingRestriction
     /// </summary>
     public int Range { get; set; }
 
-    public override bool IsTargetValid(Cell cell)
+    public override bool IsTargetValid(Pawn actor, Cell cell)
     {
         bool infiniteRange = Range < 0;
-        int distance = Actor.Coordinate.GetTravelDistance(cell.Coordinate);
+        int distance = actor.Coordinate.GetTravelDistance(cell.Coordinate);
         bool positionInRange = distance <= Range;
 
         bool isRangeValid = infiniteRange || positionInRange;

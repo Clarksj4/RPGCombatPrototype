@@ -7,10 +7,15 @@ public class SecondWindAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Heal;
 
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Self }
+            new CellContentRestriction() { Content = TargetableCellContent.Self }
         };
 
         // The cells that will be affected
@@ -19,12 +24,17 @@ public class SecondWindAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 25 },
-            new ApplyStatusNode() { Actor = Actor, Status = new PowerStatus() { Duration = 2 } },
-            new ApplyStatusNode() { Actor = Actor, Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } }
+            new HealNode() { Amount = 25 },
+            new ApplyStatusNode() { Status = new PowerStatus() { Duration = 2 } },
+            new ApplyStatusNode() { Status = new AgilityStatus() { Duration = 2, BonusMovement = 1 } }
         };
     }
 }

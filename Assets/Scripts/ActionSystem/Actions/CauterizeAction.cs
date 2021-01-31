@@ -4,10 +4,15 @@ public class CauterizeAction : BattleAction
 {
     protected override void Setup()
     {
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+              new ManaRestriction() { Amount = 1 },
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally }
+            new CellContentRestriction() { Content = TargetableCellContent.Ally }
         };
 
         // The cells that will be affected
@@ -16,11 +21,16 @@ public class CauterizeAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 25 },
-            new ApplyStatusNode() { Actor = Actor, Status = new VulnerabilityStatus() { Duration = 2 } }
+            new HealNode() { Amount = 25 },
+            new ApplyStatusNode() { Status = new VulnerabilityStatus() { Duration = 2 } }
         };
     }
 }

@@ -1,9 +1,9 @@
 ﻿
 public class MoveNode : ActionNode
 {
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Actor.Move(Target);
+        actor.Move(target);
         return true;
     }
 }

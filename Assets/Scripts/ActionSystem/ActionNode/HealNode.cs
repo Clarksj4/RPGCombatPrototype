@@ -3,9 +3,9 @@ public class HealNode : ActionNode
 {
     public int Amount { get; set; }
 
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Pawn pawn = Target.GetContent<Pawn>();
+        Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
             pawn.GainHealth(Amount);
 

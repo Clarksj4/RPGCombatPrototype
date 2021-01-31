@@ -1,11 +1,11 @@
 ﻿
 public class SwapNode : ActionNode
 {
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Pawn pawn = Target.GetContent<Pawn>();
+        Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
-            Actor.Swap(pawn);
+            actor.Swap(pawn);
 
         return true;
     }

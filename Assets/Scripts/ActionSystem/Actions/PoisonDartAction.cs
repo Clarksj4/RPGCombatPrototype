@@ -4,12 +4,17 @@ public class PoisonDartAction : BattleAction
 {
     protected override void Setup()
     {
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction() { Actor = Actor },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy },
-            new ExposedCellsRestriction() { Actor = Actor }
+            new LinearCellsRestriction(),
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy },
+            new ExposedCellsRestriction()
         };
 
         // The cells that will be affected
@@ -18,12 +23,17 @@ public class PoisonDartAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 15 },
-            new ApplyStatusNode() { Actor = Actor, Status = new PoisonStatus() { Duration = 2 } }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 15 },
+            new ApplyStatusNode() { Status = new PoisonStatus() { Duration = 2 } }
         };
     }
 }

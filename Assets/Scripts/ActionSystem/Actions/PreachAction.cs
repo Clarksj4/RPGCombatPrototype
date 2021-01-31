@@ -7,11 +7,16 @@ public class PreachAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Damage;
 
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new ExposedCellsRestriction() { Actor = Actor },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
+            new ExposedCellsRestriction(),
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected
@@ -20,13 +25,18 @@ public class PreachAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 10 },
-            new HasStatusNode<WeakenedStatus>() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 20 }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 10 },
+            new HasStatusNode<WeakenedStatus>(),
+            new DoDamageNode() { BaseDamage = 10 }
         };
     }
 }

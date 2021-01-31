@@ -7,12 +7,17 @@ public class HookAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Movement | ActionTag.Forced | ActionTag.Damage;
 
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 1 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction() { Actor = Actor },
-            new AdjcentCellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Empty, Directions = RelativeDirection.Towards },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
+            new LinearCellsRestriction(),
+            new AdjcentCellContentRestriction() { Content = TargetableCellContent.Empty, Directions = RelativeDirection.Towards },
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy }
         };
 
         // The cells that will be affected
@@ -21,12 +26,17 @@ public class HookAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Towards, Distance = 1},
-            new DoDamageNode() { Actor = Actor, BaseDamage = 15 }
+            new IsHitNode(),
+            new PushNode() { RelativeDirection = RelativeDirection.Towards, Distance = 1},
+            new DoDamageNode() { BaseDamage = 15 }
         };
     }
 }

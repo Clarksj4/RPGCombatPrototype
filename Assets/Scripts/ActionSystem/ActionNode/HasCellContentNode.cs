@@ -7,9 +7,9 @@ public class HasCellContentNode : ActionNode
     /// </summary>
     public TargetableCellContent Content { get; set; }
 
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        CellContentRestriction restriction = new CellContentRestriction() { Actor = Actor, Content = Content };
-        return restriction.IsTargetValid(Target);
+        CellContentRestriction restriction = new CellContentRestriction() { Content = Content };
+        return restriction.IsTargetValid(actor, target);
     }
 }

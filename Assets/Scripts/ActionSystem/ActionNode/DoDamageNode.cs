@@ -16,12 +16,12 @@ public class DoDamageNode : ActionNode
     /// </summary>
     public bool Defendable { get; set; } = true;
 
-    public override bool Do()
+    public override bool Do(Pawn actor, Cell target)
     {
-        Pawn defender = Target.GetContent<Pawn>();
+        Pawn defender = target.GetContent<Pawn>();
         if (defender != null)
         {
-            int inflicted = Amplifyable ? (int)(BaseDamage * Actor.Power) : BaseDamage;
+            int inflicted = Amplifyable ? (int)(BaseDamage * actor.Power) : BaseDamage;
             defender.TakeDamage(inflicted, Defendable);
         }
         

@@ -4,10 +4,15 @@ public class MartyrdomAction : BattleAction
 {
     protected override void Setup()
     {
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 2 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally }
+            new CellContentRestriction() { Content = TargetableCellContent.Ally }
         };
 
         // The cells that will be affected
@@ -16,10 +21,15 @@ public class MartyrdomAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 2 }
+        };
+
         // Take damage on behalf of ally
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Actor = Actor, Status = new GuardedStatus() { Duration = 2, Protector = Actor } }
+            new ApplyStatusNode() { Status = new GuardedStatus() { Duration = 2, Protector = Actor } }
         };
     }
 }

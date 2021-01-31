@@ -10,13 +10,14 @@ public class FloodAction : BattleAction
         // Only usable when not in front rank
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 1, 2 } }
+            new ManaRestriction() { Amount = 3 },
+            new RankCellsRestriction() { Ranks = new int[] { 1, 2 } }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Other },
+            new FormationRestriction() { Formations = TargetableFormation.Other },
         };
 
         // The cells that will be affected
@@ -25,11 +26,16 @@ public class FloodAction : BattleAction
             new AffectedFormation(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 3 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 15 }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 30 }
         };
     }
 }

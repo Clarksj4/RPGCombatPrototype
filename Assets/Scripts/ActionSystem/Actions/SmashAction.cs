@@ -10,14 +10,15 @@ public class SmashAction : BattleAction
         // Actor must be in the front rank to use this ability
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
+            new ManaRestriction() { Amount = 1 },
+            new RankCellsRestriction() { Ranks = new int[] { 0 } }
         };
 
         // Can target enemies in the front rank
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy }
+            new RankCellsRestriction() { Ranks = new int[] { 0 } },
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy }
         };
 
         // Affects only the targeted cell
@@ -26,12 +27,17 @@ public class SmashAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // Swings, hits, and pushes away
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 30 },
-            new PushNode() { Actor = Actor, RelativeDirection = RelativeDirection.Away, Distance = 1 }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 20 },
+            new PushNode() { RelativeDirection = RelativeDirection.Away, Distance = 3 }
         };
     }
 }

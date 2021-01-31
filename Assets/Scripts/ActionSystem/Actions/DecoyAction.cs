@@ -7,11 +7,16 @@ public class DecoyAction : BattleAction
         // Misc information about the ability
         Tags = ActionTag.Movement;
 
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 2 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new LinearCellsRestriction() { Actor = Actor },
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally }
+            new LinearCellsRestriction(),
+            new CellContentRestriction() { Content = TargetableCellContent.Ally }
         };
 
         // The cells that will be affected
@@ -23,13 +28,14 @@ public class DecoyAction : BattleAction
         // Heal self at start of action
         selfActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Target = OriginCell, Amount = 20 }
+            new RemoveManaNode() { Amount = 2 },
+            new HealNode() { Amount = 20 }
         };
 
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new SwapNode() { Actor = Actor }
+            new SwapNode()
         };
     }
 }

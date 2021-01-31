@@ -9,14 +9,15 @@ public class SacrificeAction : BattleAction
 
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new HealthRestriction() { Actor = Actor, Amount = 25 }
+            new ManaRestriction() { Amount = 1 },
+            new HealthRestriction() { Amount = 25 }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Ally },
-            new HealthRestriction() { Actor = Actor, Amount = -1 }
+            new CellContentRestriction() { Content = TargetableCellContent.Ally },
+            new HealthRestriction() { Amount = -1 }
         };
 
         // The cells that will be affected
@@ -28,13 +29,14 @@ public class SacrificeAction : BattleAction
         // Remove own health...
         selfActions = new List<ActionNode>()
         {
-            new DoDamageNode() { Actor = Actor, BaseDamage = 25, Target = Actor.Cell }
+            new RemoveManaNode() { Amount = 1 },
+            new DoDamageNode() { BaseDamage = 25 }
         };
 
         // ... give that health to target.
         targetedActions = new List<ActionNode>()
         {
-            new HealNode() { Actor = Actor, Amount = 25 }
+            new HealNode() { Amount = 25 }
         };
     }
 }

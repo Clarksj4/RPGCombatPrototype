@@ -7,14 +7,15 @@ public class IronStrikeAction : BattleAction
         // Need to have enough health to cast it
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
+            new ManaRestriction() { Amount = 1 },
+            new RankCellsRestriction() { Ranks = new int[] { 0 } }
         };
 
         // Can only target self
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy },
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy },
+            new RankCellsRestriction() { Ranks = new int[] { 0 } }
         };
 
         // Affects adjacent cells
@@ -25,15 +26,15 @@ public class IronStrikeAction : BattleAction
 
         selfActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Actor = Actor, Target = Actor.Cell, Status = new DefenseStatus() { Duration = 1 } }
+            new RemoveManaNode() { Amount = 1 },
+            new ApplyStatusNode() { Status = new DefenseStatus() { Duration = 1 } }
         };
 
         // Heals and buffs adjacent
         targetedActions = new List<ActionNode>()
         {
-            
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 25 }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 25 }
         };
     }
 }

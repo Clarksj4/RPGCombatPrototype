@@ -10,14 +10,15 @@ public class FlameWaveAction : BattleAction
         // Only usable from front rank
         actorRestrictions = new List<TargetingRestriction>()
         {
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
+            new ManaRestriction() { Amount = 1 },
+            new RankCellsRestriction() { Ranks = new int[] { 0 } }
         };
 
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction() { Actor = Actor, Formations = TargetableFormation.Other },
-            new RankCellsRestriction() { Actor = Actor, Ranks = new int[] { 0 } }
+            new FormationRestriction() { Formations = TargetableFormation.Other },
+            new RankCellsRestriction() { Ranks = new int[] { 0 } }
         };
 
         // The cells that will be affected
@@ -26,11 +27,16 @@ public class FlameWaveAction : BattleAction
             new AffectedRank(this, 0)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new IsHitNode() { Actor = Actor },
-            new DoDamageNode() { Actor = Actor, BaseDamage = 25 }
+            new IsHitNode(),
+            new DoDamageNode() { BaseDamage = 25 }
         };
     }
 }

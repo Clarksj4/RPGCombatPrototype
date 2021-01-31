@@ -4,12 +4,17 @@ public class SleepingDraughtAction : BattleAction
 {
     protected override void Setup()
     {
+        actorRestrictions = new List<TargetingRestriction>()
+        {
+            new ManaRestriction() { Amount = 2 }
+        };
+
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new CellContentRestriction() { Actor = Actor, Content = TargetableCellContent.Enemy },
-            new ExposedCellsRestriction() { Actor = Actor },
-            new FileCellsRestriction() { Actor = Actor, File = Actor.File }
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy },
+            new ExposedCellsRestriction(),
+            new FileCellsRestriction() { File = Actor.File }
         };
 
         // The cells that will be affected
@@ -18,10 +23,15 @@ public class SleepingDraughtAction : BattleAction
             new AffectedPoint(this)
         };
 
+        selfActions = new List<ActionNode>()
+        {
+            new RemoveManaNode() { Amount = 1 }
+        };
+
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Actor = Actor, Status = new DrowsyStatus() { Duration = 1, SleepDuration = 2 } }
+            new ApplyStatusNode() { Status = new DrowsyStatus() { Duration = 1, SleepDuration = 2 } }
         };
     }
 }
