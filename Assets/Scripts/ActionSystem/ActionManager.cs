@@ -94,7 +94,14 @@ public class ActionManager : MonoSingleton<ActionManager>
     public void SelectAction(string name)
     {
         // Create an instance of the action
-        SelectedAction = CreateAction(name + "Action");
+        BattleAction action = CreateAction(name + "Action");
+        SelectAction(action);
+    }
+
+    public void SelectAction(BattleAction action)
+    {
+        // Create an instance of the action
+        SelectedAction = action;
         OnActionSelected?.Invoke(SelectedAction);
     }
 
@@ -118,7 +125,7 @@ public class ActionManager : MonoSingleton<ActionManager>
                action.TargetableCells.Count() > 0;
     }
 
-    private BattleAction CreateAction(string actionName)
+    public BattleAction CreateAction(string actionName)
     {
         // Create an instance of the action
         BattleAction action = (BattleAction)Activator.CreateInstance(Type.GetType(actionName));

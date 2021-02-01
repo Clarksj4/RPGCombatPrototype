@@ -8,7 +8,7 @@ public class ActionsBar : Menu
     private int ActionCount { get { return ActionManager.Instance.SelectedActor.Actions.Count; } }
 
     [SerializeField]
-    private Button[] actionButtons = null;
+    private ActionButton[] actionButtons = null;
 
     protected override void Awake()
     {
@@ -32,7 +32,7 @@ public class ActionsBar : Menu
         // Populate bar actions with actor's attacks
         for (int i = 0; i < actionButtons.Length; i++)
         {
-            Button button = actionButtons[i];
+            ActionButton button = actionButtons[i];
 
             // Enable / Disable button
             bool enabled = i < ActionCount;
@@ -41,11 +41,8 @@ public class ActionsBar : Menu
             if (enabled)
             {
                 string actionName = ActionManager.Instance.SelectedActor.Actions[i];
-
-                // Set text to action name
-                Text text = actionButtons[i].GetComponentInChildren<Text>();
-                text.text = actionName;
-                button.interactable = ActionManager.Instance.CanDo(actionName + "Action");
+                BattleAction action = ActionManager.Instance.CreateAction(actionName + "Action");
+                button.SetAction(action);
             }
         }
     }
