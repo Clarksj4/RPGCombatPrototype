@@ -19,6 +19,6 @@ public class SpriteCatalogue : ScriptableObject
     /// </summary>
     public Sprite GetSpriteByName(string name)
     {
-        return sprites.FirstOrDefault(s => s.name == name);
+        return sprites.FirstOrDefault(s => s != null && s.name == name);
     }
 }
