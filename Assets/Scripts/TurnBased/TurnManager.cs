@@ -67,7 +67,11 @@ public class TurnManager : MonoSingleton<TurnManager>
     {
         // Notify that the current actor's turn is ending
         if (turnOrder.Current != null)
+        {
+            turnOrder.Current.OnTurnEnd();
             OnTurnEnd?.Invoke(turnOrder.Current);
+        }
+            
 
         // If the round hasn't started notify that a new one
         // is starting
@@ -92,7 +96,11 @@ public class TurnManager : MonoSingleton<TurnManager>
         // Otherwise, let the new thing know its turn is
         // starting
         else
+        {
+            // Notify the turn based thing FIRST - then other listeners.
+            turnOrder.Current.OnTurnStart();
             OnTurnStart?.Invoke(turnOrder.Current);
+        }
         
         return anyMore;
     }

@@ -44,6 +44,11 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// </summary>
     public event Action<Pawn> OnInitialized;
     /// <summary>
+    /// Occurs at the start of this pawn's turn after it
+    /// has gained mana and statuses have been applied.
+    /// </summary>
+    public event Action<Pawn> OnTurnStarted;
+    /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
     public Vector2 WorldPosition { get { return transform.position; } }
@@ -173,8 +178,6 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
         // Add to turn order
         TurnManager.Instance.Add(this);
-        TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
-        TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
 
         ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
         ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
@@ -471,11 +474,13 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         });
     }
 
-    protected virtual void TurnStart()
+    public void OnTurnStart()
     {
         // Each pawn gains one mana at the start of their turn.
         if (!Stunned)
             SetMana(Mana + 1);
+
+        OnTurnStarted?.Invoke(this);
 
         // If actor is incapacitated, it doesn't get a turn.
         // Hard luck, bud.
@@ -484,21 +489,9 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
             TurnManager.Instance.Next();
     }
 
-    protected virtual void TurnEnd()
+    public void OnTurnEnd()
     {
         actionUses.Clear();
-    }
-
-    private void HandleOnTurnStart(ITurnBased obj)
-    {
-        if (obj == (ITurnBased)this)
-            TurnStart();
-    }
-
-    private void HandleOnTurnEnd(ITurnBased obj)
-    {
-        if (obj == (ITurnBased)this)
-            TurnEnd();
     }
 
     private bool CanAct()
