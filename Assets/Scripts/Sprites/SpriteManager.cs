@@ -3,7 +3,7 @@
 public class SpriteManager : MonoSingleton<SpriteManager>
 {
     [SerializeField]
-    private SpriteCatalogue SpriteCatalogue;
+    private SpriteCatalogue[] SpriteCatalogues;
 
     /// <summary>
     /// Gets a sprite with the given name. Returns null
@@ -11,6 +11,12 @@ public class SpriteManager : MonoSingleton<SpriteManager>
     /// </summary>
     public Sprite GetSpriteByName(string name)
     {
-        return SpriteCatalogue.GetSpriteByName(name);
+        foreach (SpriteCatalogue catalogue in SpriteCatalogues)
+        {
+            Sprite sprite = catalogue.GetSpriteByName(name);
+            if (sprite != null)
+                return sprite;
+        }
+        return null;
     }
 }

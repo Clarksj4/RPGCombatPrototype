@@ -11,7 +11,7 @@ public class SpriteCatalogue : ScriptableObject
     /// Just a big ol array of sprites.
     /// </summary>
     [SerializeField]
-    private Sprite[] sprites;
+    private SpriteRef[] sprites;
 
     /// <summary>
     /// Gets a sprite with the given name. Returns null
@@ -19,6 +19,9 @@ public class SpriteCatalogue : ScriptableObject
     /// </summary>
     public Sprite GetSpriteByName(string name)
     {
-        return sprites.FirstOrDefault(s => s != null && s.name == name);
+        SpriteRef spriteRef = sprites.FirstOrDefault(s => s != null && s.Name == name);
+        if (spriteRef != null)
+            return spriteRef.Sprite;
+        return null;
     }
 }
