@@ -17,7 +17,7 @@ public class PierceAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FileCellsRestriction() { File = Actor.File },
+            new FileCellsRestriction(),
             new ExposedCellsRestriction(),
             new CellContentRestriction() { Content = TargetableCellContent.Enemy }
         };

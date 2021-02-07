@@ -15,7 +15,7 @@ public class FireboltAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FileCellsRestriction() { File = Actor.File },
+            new FileCellsRestriction(),
             new CellContentRestriction()  { Content = TargetableCellContent.Enemy },
             new ExposedCellsRestriction()
         };

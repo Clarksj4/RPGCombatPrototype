@@ -43,14 +43,11 @@ public abstract class BattleAction
     /// using this ability.
     /// </summary>
     public IEnumerable<TargetingRestriction> ActorRestrictions { get { return actorRestrictions; } }
-    /// <summary>
-    /// The collection of restrictions on the state of the actor.
-    /// using this ability.
-    /// </summary>
     protected List<TargetingRestriction> actorRestrictions = null;
     /// <summary>
     /// The collection of restrictions on cells that can be targeted.
     /// </summary>
+    public IEnumerable<TargetingRestriction> TargetingRestrictions { get { return targetRestrictions; } }
     protected List<TargetingRestriction> targetRestrictions = null;
     /// <summary>
     /// The collection of areas that this action with affect.

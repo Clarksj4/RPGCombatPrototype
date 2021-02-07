@@ -21,6 +21,7 @@ public abstract class Menu : MonoBehaviour
     /// </summary>
     public event Action<Menu> OnHidden;
 
+    [Header("Menu Transition")]
     [Tooltip("The movement this menu will do when transitioning from on screen to off screen.")]
     public Vector2 Transition;
     [Tooltip("The duration in seconds of the transition")]

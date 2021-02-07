@@ -13,27 +13,17 @@ MonoBehaviour:
   m_Name: TargetingRestrictionIconCatalgoue
   m_EditorClassIdentifier: 
   sprites:
-  - name: 
-    Sprite: {fileID: 21300000, guid: 7d32fdd08dd4e6a488fd9fde49c6b5c3, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: b3412fe846cbbf8429c7c6321f68bcb8, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: c8a5e6f10fcc06c4c925bfc69c5a8a83, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 7351f2d5f5ae3554f8d6f8b40f7ef3c6, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: d827322d39b25484b9491bb96b6e95d2, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 94d074f1181cf884aa6dbbce7237a0cc, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 3ed7478719829e640adb31f10e4178c5, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: daa3065c616e1a94dbb9188b037a8e28, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: f61c9beac12776e44b94a958ca139df0, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 392ad92017eb84944ac954c521a69fac, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 089d5eea980b9a744a584e80df190e57, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 5a51586a501f19241a6a379611b9ec9f, type: 3}
+  - {fileID: 21300000, guid: c19536e2516c0fc47834641909cb48f5, type: 3}
+  - {fileID: 21300000, guid: b3412fe846cbbf8429c7c6321f68bcb8, type: 3}
+  - {fileID: 21300000, guid: 5aab8c738e0ce5641816b5f0659c0f5f, type: 3}
+  - {fileID: 21300000, guid: 9b69146b41d602c4f8f4ed968cb16bac, type: 3}
+  - {fileID: 21300000, guid: b1fd4d15157f7d9458442a8fd08889d9, type: 3}
+  - {fileID: 21300000, guid: 5a64165ead819b648a1651d5cb4eab3f, type: 3}
+  - {fileID: 21300000, guid: 7551d1d0e6fbacb43bf3e23cea69664b, type: 3}
+  - {fileID: 21300000, guid: 185731e563d935a48852b12d3e8df484, type: 3}
+  - {fileID: 21300000, guid: d50ba56bd46dc794aa8049027e6d8f35, type: 3}
+  - {fileID: 21300000, guid: c69ed62cb4280924b90553afd36889ba, type: 3}
+  - {fileID: 21300000, guid: 9538cf21059135b40a984fb8e190c3d9, type: 3}
+  - {fileID: 21300000, guid: 3810aa20e4ff0984f93e6998d0c2cc30, type: 3}
+  - {fileID: 21300000, guid: cbc5b8edf35ed2e4f878955946ae20fb, type: 3}
+  - {fileID: 21300000, guid: 5678d63d35dc3aa479901734ed0226b9, type: 3}

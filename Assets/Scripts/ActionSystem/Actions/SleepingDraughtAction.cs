@@ -14,7 +14,7 @@ public class SleepingDraughtAction : BattleAction
         {
             new CellContentRestriction() { Content = TargetableCellContent.Enemy },
             new ExposedCellsRestriction(),
-            new FileCellsRestriction() { File = Actor.File }
+            new FileCellsRestriction()
         };
 
         // The cells that will be affected

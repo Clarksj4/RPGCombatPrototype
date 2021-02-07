@@ -13,15 +13,9 @@ MonoBehaviour:
   m_Name: PawnCatalogue
   m_EditorClassIdentifier: 
   sprites:
-  - name: 
-    Sprite: {fileID: 21300000, guid: dce3f8393cdeff84684a2373c16a4d30, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 4d4ef24cbc7214c438576a79d30f3077, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: 5a1612740b23e5241b54f8657a8d9b64, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: ac04244f89eeefe42abc404512cd5ce8, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: d48dc6fcf69b310438ea8994df8ff7d7, type: 3}
-  - name: 
-    Sprite: {fileID: 21300000, guid: ef10465e26a253d4d88ae46fa0db7043, type: 3}
+  - {fileID: 21300000, guid: dce3f8393cdeff84684a2373c16a4d30, type: 3}
+  - {fileID: 21300000, guid: 4d4ef24cbc7214c438576a79d30f3077, type: 3}
+  - {fileID: 21300000, guid: 5a1612740b23e5241b54f8657a8d9b64, type: 3}
+  - {fileID: 21300000, guid: ac04244f89eeefe42abc404512cd5ce8, type: 3}
+  - {fileID: 21300000, guid: d48dc6fcf69b310438ea8994df8ff7d7, type: 3}
+  - {fileID: 21300000, guid: ef10465e26a253d4d88ae46fa0db7043, type: 3}
