@@ -16,8 +16,7 @@ public class ImmolateAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction() { Formations = TargetableFormation.Other },
-            new LinearCellsRestriction(),
+            new FileCellsRestriction(),
             new ExposedCellsRestriction(),
             new CellContentRestriction() { Content = TargetableCellContent.Enemy }
         };

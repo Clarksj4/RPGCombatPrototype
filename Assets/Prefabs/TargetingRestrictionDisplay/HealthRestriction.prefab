@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &252453627557923850
 MonoBehaviour:
@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -160,11 +160,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_AnchorMin.x
@@ -172,11 +172,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_AnchorMax.y
@@ -184,11 +184,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_Pivot.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4796096586140687747, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_Color.r

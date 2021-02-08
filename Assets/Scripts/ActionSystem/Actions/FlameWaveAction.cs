@@ -17,7 +17,7 @@ public class FlameWaveAction : BattleAction
         // The cells we can target
         targetRestrictions = new List<TargetingRestriction>()
         {
-            new FormationRestriction() { Formations = TargetableFormation.Other },
+            new CellContentRestriction() { Content = TargetableCellContent.Enemy },
             new RankCellsRestriction() { Ranks = new int[] { 0 } }
         };
 
