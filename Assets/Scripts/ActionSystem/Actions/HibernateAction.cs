@@ -30,14 +30,11 @@ public class HibernateAction : BattleAction
             new HealNode() { Amount = 20 }
         };
 
-        SleepStatus sleep = new SleepStatus() { Duration = 4 };
-        RenewStatus renew = new RenewStatus() { Duration = 4, HealPerTurn = 15, LinkedTo = sleep };
-
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Status = sleep },
-            new ApplyStatusNode() { Status = renew }
+            new ApplyStatusNode() { Status = new LinkedStatuses().Add(new SleepStatus() { Duration = 4 })
+                                                                 .Add(new RenewStatus() { Duration = 4, HealPerTurn = 15 }) }
         };
     }
 }

@@ -26,15 +26,11 @@ public class WindWalkAction : BattleAction
             new RemoveManaNode() { Amount = 1 }
         };
 
-        // Instantiate instances separately because need to link em.
-        EvasiveStatus evasive = new EvasiveStatus() { Duration = 2, AttacksToEvade = 1 };
-        AgilityStatus agility = new AgilityStatus() { Duration = 2, BonusMovement = 1, LinkedTo = evasive };
-
         // Move faster and evade an attack...
         targetedActions = new List<ActionNode>()
         {
-            new ApplyStatusNode() { Status = evasive },
-            new ApplyStatusNode() { Status = agility }
+            new ApplyStatusNode() { Status = new LinkedStatuses().Add(new EvasiveStatus() { Duration = 2, AttacksToEvade = 1 })
+                                                                 .Add(new AgilityStatus() { Duration = 2, BonusMovement = 1 }) }
         };
     }
 }
