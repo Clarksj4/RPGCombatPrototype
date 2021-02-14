@@ -70,7 +70,7 @@ public class BattleAction : SerializedScriptableObject
     /// The sequence of things this battle action will do first.
     /// </summary>
     public IEnumerable<ActionNode> SelfActions { get { return selfActions; } }
-    [Header("Effect on Caster")]
+    [BoxGroup("Effect on Caster", CenterLabel = true)]
     [OdinSerialize][Tooltip("The sequence of things this battle action will do on the caster.")]
     protected List<ActionNode> selfActions = new List<ActionNode>(0);
     /// <summary>
@@ -78,7 +78,7 @@ public class BattleAction : SerializedScriptableObject
     /// each of the targeted cells.
     /// </summary>
     public IEnumerable<ActionNode> TargetedActions { get { return targetedActions; } }
-    [Header("Effect on Targeted Cells")]
+    [BoxGroup("Effect on Targeted Cells", CenterLabel = true)]
     [OdinSerialize][Tooltip("The sequence of things this battle action will do on each targeted cell.")]
     protected List<ActionNode> targetedActions = new List<ActionNode>(0);
 
@@ -89,7 +89,7 @@ public class BattleAction : SerializedScriptableObject
     /// <summary>
     /// Gets or sets the maximum uses of this action per turn.
     /// </summary>
-    [Header("Misc Params")]
+    [BoxGroup("Misc Params", CenterLabel = true)]
     [Tooltip("The maximum number of uses of this action per turn.")]
     public int MaxUsesPerTurn = 1;
     /// <summary>
@@ -99,6 +99,7 @@ public class BattleAction : SerializedScriptableObject
     /// <summary>
     /// Gets or sets how action node failures are handled.
     /// </summary>
+    [BoxGroup("Misc Params")]
     [Tooltip("If true, an action node failure will only prevent subsequent action on the cell where the failure occurred.")]
     public bool AffectedCellsIndependent = true;
 
