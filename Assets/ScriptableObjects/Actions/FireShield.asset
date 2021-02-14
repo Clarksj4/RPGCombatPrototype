@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 829e95ccf56ff2b4ebd89fa6de0e2f84, type: 3}
+  m_Name: FireShield
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 1
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: ImFjdG9yUmVzdHJpY3Rpb25zIjogew0KICAgICIkaWQiOiAwLA0KICAgICIkdHlwZSI6ICIwfFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGFyZ2V0aW5nUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycF1dLCBtc2NvcmxpYiIsDQogICAgIiRybGVuZ3RoIjogMCwNCiAgICAiJHJjb250ZW50IjogWw0KICAgIF0NCn0sDQoidGFyZ2V0UmVzdHJpY3Rpb25zIjogew0KICAgICIkaWQiOiAxLA0KICAgICIkdHlwZSI6IDAsDQogICAgIiRybGVuZ3RoIjogMCwNCiAgICAiJHJjb250ZW50IjogWw0KICAgIF0NCn0sDQoiYXJlYU9mRWZmZWN0Ijogew0KICAgICIkaWQiOiAyLA0KICAgICIkdHlwZSI6ICIxfFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbQWZmZWN0ZWRBcmVhLCBBc3NlbWJseS1DU2hhcnBdXSwgbXNjb3JsaWIiLA0KICAgICIkcmxlbmd0aCI6IDAsDQogICAgIiRyY29udGVudCI6IFsNCiAgICBdDQp9LA0KImFyZWFPZkVmZmVjdFJlc3RyaWN0aW9ucyI6IHsNCiAgICAiJGlkIjogMywNCiAgICAiJHR5cGUiOiAwLA0KICAgICIkcmxlbmd0aCI6IDAsDQogICAgIiRyY29udGVudCI6IFsNCiAgICBdDQp9LA0KInNlbGZBY3Rpb25zIjogew0KICAgICIkaWQiOiA0LA0KICAgICIkdHlwZSI6ICIyfFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbQWN0aW9uTm9kZSwgQXNzZW1ibHktQ1NoYXJwXV0sIG1zY29ybGliIiwNCiAgICAiJHJsZW5ndGgiOiAwLA0KICAgICIkcmNvbnRlbnQiOiBbDQogICAgXQ0KfSwNCiJ0YXJnZXRlZEFjdGlvbnMiOiB7DQogICAgIiRpZCI6IDUsDQogICAgIiR0eXBlIjogMiwNCiAgICAiJHJsZW5ndGgiOiAwLA0KICAgICIkcmNvbnRlbnQiOiBbDQogICAgXQ0KfQ==
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  MaxUsesPerTurn: 1
+  AffectedCellsIndependent: 1
