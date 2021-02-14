@@ -25,7 +25,7 @@ public class PushAction : BattleAction
         // The effect upon those cells.
         targetedActions = new List<ActionNode>()
         {
-            new PushNode() { RelativeDirection = RelativeDirection.Away, Distance = 1 }
+            new PushNode() { relativeDirection = RelativeDirection.Away, Distance = 1 }
         };
     }
 }

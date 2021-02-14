@@ -84,35 +84,25 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// <summary>
     /// Selects the action, by name, that will be performed by the actor.
     /// </summary>
-    public void SelectAction(int index)
+    public void SelectActionByIndex(int index)
     {
         // Get action name from actor
-        string name = SelectedActor.Actions[index];
-        SelectAction(name);
+        BattleAction action = SelectedActor.BattleActions[index];
+        SelectAction(action);
     }
 
-    public void SelectAction(string name)
+    public void SelectActionByName(string name)
     {
         // Create an instance of the action
-        BattleAction action = CreateAction(name + "Action");
+        BattleAction action = SelectedActor.BattleActions
+                                           .FirstOrDefault(a => a.name.Contains(name));
         SelectAction(action);
     }
 
     public void SelectAction(BattleAction action)
     {
-        // Create an instance of the action
         SelectedAction = action;
         OnActionSelected?.Invoke(SelectedAction);
-    }
-
-    /// <summary>
-    /// Checks if the current actor can perform the action
-    /// with the given name.
-    /// </summary>
-    public bool CanDo(string actionName)
-    {
-        BattleAction action = CreateAction(actionName);
-        return CanDo(action);
     }
 
     /// <summary>
@@ -123,15 +113,6 @@ public class ActionManager : MonoSingleton<ActionManager>
     {
         return action.CanDo() &&
                action.TargetableCells.Count() > 0;
-    }
-
-    public BattleAction CreateAction(string actionName)
-    {
-        // Create an instance of the action
-        BattleAction action = (BattleAction)Activator.CreateInstance(Type.GetType(actionName));
-        action.SetActor(SelectedActor);
-        return action;
-
     }
 
     /// <summary>

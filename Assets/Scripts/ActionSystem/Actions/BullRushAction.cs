@@ -39,7 +39,7 @@ public class BullRushAction : BattleAction
         {
             new IsHitNode(),
             new DoDamageNode() { BaseDamage = 25 },
-            new PushNode() { RelativeDirection = RelativeDirection.Away, Distance = 3 }
+            new PushNode() { relativeDirection = RelativeDirection.Away, Distance = 3 }
         };
     }
 }

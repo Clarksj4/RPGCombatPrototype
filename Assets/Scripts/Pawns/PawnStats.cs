@@ -25,7 +25,7 @@ public class PawnStats : SerializedScriptableObject
 
     [Header("Actions")]
     public int MaxMana;
-    public List<string> Actions;
+    public List<BattleAction> BattleActions;
 
     public virtual void SetStats(Pawn pawn)
     {
@@ -37,8 +37,14 @@ public class PawnStats : SerializedScriptableObject
         pawn.Power = Power;
         pawn.Movement = Movement;
         pawn.MaxMana = MaxMana;
-        pawn.Actions = Actions;
+        pawn.BattleActions = BattleActions;
 
+        // Duplicate each action and give it to the pawn.        
+        if (BattleActions != null)
+            foreach (BattleAction action in BattleActions)
+                pawn.BattleActions.Add(Instantiate(action));
+
+        // Apply each status to the pawn
         if (Statuses != null)
             foreach (PawnStatus status in Statuses)
                 pawn.AddStatus(status);

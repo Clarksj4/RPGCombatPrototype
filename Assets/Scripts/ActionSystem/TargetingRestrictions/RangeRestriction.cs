@@ -6,7 +6,7 @@ public class RangeRestriction : TargetingRestriction
     /// Gets or sets the range the targeted cells
     /// must be within to be valid.
     /// </summary>
-    public int Range { get; set; }
+    public int Range;
 
     public override bool IsTargetValid(Pawn actor, Cell cell)
     {

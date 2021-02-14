@@ -100,6 +100,23 @@ public class Formation : MonoBehaviour
                 y <= (origin.y + nCells.y);
     }
 
+    public Vector2Int GetDirection(FormationMovement movement)
+    {
+        switch (movement)
+        {
+            case FormationMovement.AdvanceRank:
+                return Facing;
+            case FormationMovement.RetreatRank:
+                return -Facing;
+            case FormationMovement.IncrementFile:
+                return Facing.Perpendicular();
+            case FormationMovement.DecrementFile:
+                return -Facing.Perpendicular();
+            default:
+                return Vector2Int.zero;
+        }
+    }
+
     public IEnumerable<Cell> GetCells()
     {
         foreach (Vector2Int coordinate in GetCoordinates())

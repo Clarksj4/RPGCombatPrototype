@@ -7,7 +7,7 @@ public class HealthRestriction : TargetingRestriction
     /// must be over or equal to to be valid. A negative
     /// value means within that value from max health.
     /// </summary>
-    public int Amount { get; set; }
+    public int Amount;
 
     public override bool IsTargetValid(Pawn actor, Cell cell)
     {

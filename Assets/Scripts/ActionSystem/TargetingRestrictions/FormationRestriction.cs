@@ -4,7 +4,7 @@ public class FormationRestriction : TargetingRestriction
     /// <summary>
     /// Gets or sets the formations that are valid targets.
     /// </summary>
-    public TargetableFormation Formations { get; set; }
+    public TargetableFormation Formations;
 
     public override bool IsTargetValid(Pawn actor, Cell cell)
     {

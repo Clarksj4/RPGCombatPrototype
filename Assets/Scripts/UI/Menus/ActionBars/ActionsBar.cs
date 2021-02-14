@@ -2,10 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class ActionsBar : Menu
 {
-    private int ActionCount { get { return ActionManager.Instance.SelectedActor.Actions.Count; } }
+    private int ActionCount { get { return ActionManager.Instance.SelectedActor.BattleActions.Count; } }
 
     [SerializeField]
     private ActionButton[] actionButtons = null;
@@ -40,8 +39,7 @@ public class ActionsBar : Menu
 
             if (enabled)
             {
-                string actionName = ActionManager.Instance.SelectedActor.Actions[i];
-                BattleAction action = ActionManager.Instance.CreateAction(actionName + "Action");
+                BattleAction action = ActionManager.Instance.SelectedActor.BattleActions[i];
                 button.SetAction(action);
             }
         }
@@ -49,7 +47,7 @@ public class ActionsBar : Menu
 
     public void OnActionTapped(int index)
     {
-        ActionManager.Instance.SelectAction(index);
+        ActionManager.Instance.SelectActionByIndex(index);
     }
 
     public void OnEndTurnTapped()

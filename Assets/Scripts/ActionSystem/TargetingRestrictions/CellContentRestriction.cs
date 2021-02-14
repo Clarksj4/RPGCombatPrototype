@@ -6,7 +6,7 @@ public class CellContentRestriction : TargetingRestriction
     /// Gets or sets the type of content permitted in the
     /// targeted cells.
     /// </summary>
-    public TargetableCellContent Content { get; set; }
+    public TargetableCellContent Content;
 
     public override bool IsTargetValid(Pawn actor, Cell cell)
     {

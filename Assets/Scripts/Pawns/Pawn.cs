@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using DG.Tweening;
 using System.Collections.Generic;
+using Sirenix.Serialization;
 
 /// <summary>
 /// Encapsulates an entity that is locked to the grid of a
@@ -140,11 +141,9 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// <summary>
     /// Gets whether this pawn has abilities they can use.
     /// </summary>
-    public bool IsActor { get { return Actions != null && Actions.Count > 0; } }
-    /// <summary>
-    /// Gets the actions available to this actor.
-    /// </summary>
-    public List<string> Actions { get; set; }
+    public bool IsActor { get { return BattleActions != null && BattleActions.Count > 0; } }
+    [OdinSerialize][Tooltip("The collection of actions that this pawn can perform.")]
+    public List<BattleAction> BattleActions = null;
     /// <summary>
     /// Gets or sets the team this pawn is allied with.
     /// </summary>
@@ -510,7 +509,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
             return false;
 
         // Can we afford any of our current actions?
-        bool anyAvailableAction = Actions.Any(a => ActionManager.Instance.CanDo(a + "Action"));
+        bool anyAvailableAction = BattleActions.Any(a =>a.CanDo());
         return anyAvailableAction;
     }
 

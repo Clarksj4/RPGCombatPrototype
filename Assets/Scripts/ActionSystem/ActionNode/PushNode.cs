@@ -1,21 +1,19 @@
-﻿using System.Linq;
+﻿using Sirenix.OdinInspector;
+using System.Linq;
 using UnityEngine;
 
 public class PushNode : MoveNode
 {
-    /// <summary>
-    /// Gets or sets the distance to push the contents of the targeted cell.
-    /// </summary>
+    [Tooltip("The distance to push the target.")]
     public int Distance;
-    /// <summary>
-    /// Gets or sets the direction to push the targeted cell, relative to
-    /// the origin of the action.
-    /// </summary>
-    public RelativeDirection RelativeDirection = RelativeDirection.None;
-    /// <summary>
-    /// Gets or sets the direction the contents of the targeted cell will
-    /// be pushed.
-    /// </summary>
+    [HideIf("@this.relativeDirection != RelativeDirection.None")]
+    [Tooltip("Push in a direction relative to the target's formation.")]
+    public FormationMovement FormationDirection = FormationMovement.None;
+    [HideIf("@this.FormationDirection != FormationMovement.None")]
+    [Tooltip("Push in a direction relative to the caster.")]
+    public RelativeDirection relativeDirection = RelativeDirection.None;
+    [HideIf("@this.relativeDirection != RelativeDirection.None || this.FormationDirection != FormationMovement.None")]
+    [Tooltip("Push in a literal direction.")]
     public Vector2Int Direction;
 
     public override bool Do(Pawn actor, Cell target)
@@ -32,11 +30,16 @@ public class PushNode : MoveNode
 
     private Vector2Int GetDirection(Pawn actor, Cell target)
     {
-        // Use literal direction
-        if (RelativeDirection == RelativeDirection.None)
-            return Direction;
+        // Use relative direction
+        if (relativeDirection != RelativeDirection.None)
+            return target.Coordinate.GetRelativeDirections(actor.Coordinate, relativeDirection).Single();
 
-        // Caluclate relative direction
-        return target.Coordinate.GetRelativeDirections(actor.Coordinate, RelativeDirection).Single();
+        // Use formation based direction
+        else if (FormationDirection != FormationMovement.None)
+            return target.Formation.GetDirection(FormationDirection);
+
+        // Use literal direction
+        else
+            return Direction;
     }
 }

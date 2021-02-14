@@ -7,7 +7,7 @@ public class AdjcentCellContentRestriction : CellContentRestriction
     /// Gets the adjacent directions relative to the actor
     /// that will be checked for their content.
     /// </summary>
-    public RelativeDirection Directions { get; set; }
+    public RelativeDirection Directions;
 
     public override bool IsTargetValid(Pawn actor, Cell cell)
     {

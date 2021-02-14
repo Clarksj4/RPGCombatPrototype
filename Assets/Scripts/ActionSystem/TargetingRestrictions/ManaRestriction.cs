@@ -5,7 +5,7 @@ public class ManaRestriction : TargetingRestriction
     /// Gets or sets the amount of mana the target
     /// must have to be valid.
     /// </summary>
-    public int Amount { get; set; }
+    public int Amount;
 
     public override bool IsTargetValid(Pawn actor, Cell cell)
     {

@@ -35,7 +35,7 @@ public class HookAction : BattleAction
         targetedActions = new List<ActionNode>()
         {
             new IsHitNode(),
-            new PushNode() { RelativeDirection = RelativeDirection.Towards, Distance = 1},
+            new PushNode() { relativeDirection = RelativeDirection.Towards, Distance = 1},
             new DoDamageNode() { BaseDamage = 15 }
         };
     }

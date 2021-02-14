@@ -8,9 +8,9 @@
         if (ActionManager.Instance.HasActor)
         {
             if (!string.IsNullOrEmpty(AbilityName))
-                ActionManager.Instance.SelectAction(AbilityName);
+                ActionManager.Instance.SelectActionByName(AbilityName);
             else
-                ActionManager.Instance.SelectAction(AbilityIndex);
+                ActionManager.Instance.SelectActionByIndex(AbilityIndex);
 
         }
     }
