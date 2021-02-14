@@ -4,21 +4,12 @@ using System.Collections.Generic;
 
 public class AffectedRank : AffectedArea
 {
-    private int rank;
-
-    public AffectedRank(BattleAction action, int rank = -1)
-        : base(action) 
-    {
-        this.rank = rank;
-    }
-
-    public override IEnumerable<Cell> GetAffectedArea()
+    public override IEnumerable<Cell> GetAffectedArea(Cell targetedCell)
     {
         // Use the given rank, OR the same rank as the targeted cell
-        Formation formation = action.TargetCell.Formation;
-        int affectedRank = rank >= 0 ? rank : formation.GetRank(action.TargetCell.Coordinate);
-        
-        foreach (Cell cell in formation.GetRankCells(affectedRank))
+        Formation formation = targetedCell.Formation;
+        int rank = formation.GetRank(targetedCell.Coordinate);
+        foreach (Cell cell in formation.GetRankCells(rank))
             yield return cell;
     }
 }

@@ -8,7 +8,7 @@ public class AgilityStatus : PawnStatus
     /// Gets the movement bonus granted to
     /// the targeted pawn.
     /// </summary>
-    public int BonusMovement { get; set; }
+    public int BonusMovement;
 
     protected override void OnApplication()
     {

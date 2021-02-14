@@ -22,7 +22,7 @@ public class PreachAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         selfActions = new List<ActionNode>()
@@ -35,7 +35,7 @@ public class PreachAction : BattleAction
         {
             new IsHitNode(),
             new DoDamageNode() { BaseDamage = 10 },
-            new HasStatusNode<WeakenedStatus>(),
+            new HasStatusNode() { StatusName = "Weakened" },
             new DoDamageNode() { BaseDamage = 10 }
         };
     }

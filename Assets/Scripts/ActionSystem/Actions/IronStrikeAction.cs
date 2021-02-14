@@ -21,7 +21,7 @@ public class IronStrikeAction : BattleAction
         // Affects adjacent cells
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         selfActions = new List<ActionNode>()

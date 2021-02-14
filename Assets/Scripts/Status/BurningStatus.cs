@@ -8,7 +8,7 @@ public class BurningStatus : PawnStatus
     /// Gets or sets the amount of damage that
     /// will be done to adjacent pawns.
     /// </summary>
-    public int DamagePerTurn { get; set; }
+    public int DamagePerTurn;
 
     protected override void DoEffect()
     {

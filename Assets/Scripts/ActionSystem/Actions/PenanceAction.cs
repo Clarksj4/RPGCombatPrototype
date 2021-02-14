@@ -17,7 +17,7 @@ public class PenanceAction : BattleAction
         // Just the one target actually...
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         selfActions = new List<ActionNode>()

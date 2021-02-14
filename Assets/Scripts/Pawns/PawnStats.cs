@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Character", menuName = "Pawn Stats")]
-public class PawnStats : ScriptableObject
+public class PawnStats : SerializedScriptableObject
 {
     [Header("Initiative")]
     public float Priority = 0;
@@ -18,7 +20,8 @@ public class PawnStats : ScriptableObject
     public int Movement;
 
     [Header("Statuses")]
-    public List<ClassTable> Statuses = null;
+    [OdinSerialize]
+    public List<PawnStatus> Statuses = null;
 
     [Header("Actions")]
     public int MaxMana;
@@ -36,14 +39,8 @@ public class PawnStats : ScriptableObject
         pawn.MaxMana = MaxMana;
         pawn.Actions = Actions;
 
-        // Apply statuses
         if (Statuses != null)
-        {
-            foreach (ClassTable table in Statuses)
-            {
-                object status = table.CreateClass();
-                pawn.AddStatus((PawnStatus)status);
-            }
-        }
+            foreach (PawnStatus status in Statuses)
+                pawn.AddStatus(status);
     }
 }

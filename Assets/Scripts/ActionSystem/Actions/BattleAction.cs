@@ -192,7 +192,7 @@ public abstract class BattleAction
     /// </summary>
     protected IEnumerable<Cell> GetAffectedCells()
     {
-        IEnumerable<Cell> area = areaOfEffect.SelectMany(a => a.GetAffectedArea());
+        IEnumerable<Cell> area = areaOfEffect.SelectMany(a => a.GetAffectedArea(TargetCell));
         
         // If there are further restrictions, only return cells that conform
         if (areaOfEffectRestrictions != null &&

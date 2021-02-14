@@ -19,7 +19,7 @@ public class FreezeAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         selfActions = new List<ActionNode>()

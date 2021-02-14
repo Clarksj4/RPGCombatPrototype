@@ -1,7 +1,7 @@
 ﻿
 public class HealNode : ActionNode
 {
-    public int Amount { get; set; }
+    public int Amount;
 
     public override bool Do(Pawn actor, Cell target)
     {

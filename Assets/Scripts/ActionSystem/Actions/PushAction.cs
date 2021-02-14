@@ -19,7 +19,7 @@ public class PushAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         // The effect upon those cells.

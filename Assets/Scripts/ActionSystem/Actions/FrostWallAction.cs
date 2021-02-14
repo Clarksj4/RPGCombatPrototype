@@ -19,7 +19,7 @@ public class FrostWallAction : BattleAction
         // Affects all cells in targeted rank
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedRank(this)
+            new AffectedRank()
         };
 
         // Will only affect empty cells

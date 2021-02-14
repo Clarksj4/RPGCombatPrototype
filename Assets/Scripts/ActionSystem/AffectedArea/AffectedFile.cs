@@ -1,21 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System.Collections.Generic;
 
 public class AffectedFile : AffectedArea
 {
-    private int file;
-
-    public AffectedFile(BattleAction action, int file)
-        : base(action)
+    public override IEnumerable<Cell> GetAffectedArea(Cell targetedCell)
     {
-        this.file = file;
-    }
-
-    public override IEnumerable<Cell> GetAffectedArea()
-    {
-        Formation formation = action.TargetCell.Formation;
+        Formation formation = targetedCell.Formation;
+        int file = formation.GetFile(targetedCell.Coordinate);
         foreach (Cell cell in formation.GetFileCells(file))
             yield return cell;
     }

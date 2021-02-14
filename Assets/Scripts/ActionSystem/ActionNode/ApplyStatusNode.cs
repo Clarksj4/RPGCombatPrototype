@@ -1,7 +1,7 @@
 ﻿
 public class ApplyStatusNode : ActionNode
 {
-    public PawnStatus Status { get; set; }
+    public PawnStatus Status;
 
     public override bool Do(Pawn actor, Cell target)
     {

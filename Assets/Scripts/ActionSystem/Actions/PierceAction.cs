@@ -25,7 +25,7 @@ public class PierceAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedFile(this, Actor.File)
+            new AffectedFile()
         };
 
         selfActions = new List<ActionNode>()

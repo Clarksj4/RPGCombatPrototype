@@ -22,7 +22,7 @@ public class DecoyAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         // Heal self at start of action

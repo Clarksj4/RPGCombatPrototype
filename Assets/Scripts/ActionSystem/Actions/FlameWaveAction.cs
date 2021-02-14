@@ -24,7 +24,7 @@ public class FlameWaveAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedRank(this, 0)
+            new AffectedRank()
         };
 
         selfActions = new List<ActionNode>()

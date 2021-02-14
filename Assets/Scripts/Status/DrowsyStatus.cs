@@ -9,7 +9,7 @@ public class DrowsyStatus : PawnStatus
     /// Gets the number of turns that the targeted pawn will
     /// sleep for when drowsy expires.
     /// </summary>
-    public int SleepDuration { get; set; }
+    public int SleepDuration;
 
     protected override void OnExpired()
     {

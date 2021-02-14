@@ -80,7 +80,6 @@ public class TextCommandParser
                     return new AbilityCommand() { AbilityIndex = numbers[0] };
 
                 // Failing that, check for an ability name
-                int i = 0;
                 foreach (string actionName in ActionManager.Instance.SelectedActor.Actions)
                 {
                     if (CollectionContainsWord(actionName, words))

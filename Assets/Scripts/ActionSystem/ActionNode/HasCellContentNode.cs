@@ -5,7 +5,7 @@ public class HasCellContentNode : ActionNode
     /// Gets or sets the content that is valid for the
     /// targeted cell.
     /// </summary>
-    public TargetableCellContent Content { get; set; }
+    public TargetableCellContent Content = TargetableCellContent.All;
 
     public override bool Do(Pawn actor, Cell target)
     {

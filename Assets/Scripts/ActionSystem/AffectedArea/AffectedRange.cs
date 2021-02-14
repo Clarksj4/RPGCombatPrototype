@@ -1,21 +1,13 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class AffectedRange : AffectedArea
 {
-    private int min;
-    private int max;
+    public int Min;
+    public int Max;
 
-    public AffectedRange(BattleAction action, int min, int max)
-        : base(action)
+    public override IEnumerable<Cell> GetAffectedArea(Cell targetedCell)
     {
-        this.min = min;
-        this.max = max;
-    }
-
-    public override IEnumerable<Cell> GetAffectedArea()
-    {
-        foreach (Cell cell in action.Grid.GetRange(action.TargetCell.Coordinate, min, max))
+        foreach (Cell cell in targetedCell.Grid.GetRange(targetedCell.Coordinate, Min, Max))
             yield return cell;
     }
 }

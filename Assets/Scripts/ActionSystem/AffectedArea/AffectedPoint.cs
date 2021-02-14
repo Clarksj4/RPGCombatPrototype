@@ -1,13 +1,9 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class AffectedPoint : AffectedArea
 {
-    public AffectedPoint(BattleAction action)
-        : base(action) { /* Nothing */ }
-
-    public override IEnumerable<Cell> GetAffectedArea()
+    public override IEnumerable<Cell> GetAffectedArea(Cell targetedCell)
     {
-        yield return action.TargetCell;
+        yield return targetedCell;
     }
 }

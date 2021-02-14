@@ -12,14 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5aaf882535644a8011f1cc1741fbc, type: 3}
   m_Name: Brandon
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Statuses
+      Entry: 6
+      Data: 
+    - Name: testNode
+      Entry: 7
+      Data: 0|HasStatusNode, Assembly-CSharp
+    - Name: StatusName
+      Entry: 1
+      Data: Weakened
+    - Name: 
+      Entry: 8
+      Data: 
   Priority: 50
   Defense: 0
   MaxHealth: 100
   Power: 1
   Movement: 1
-  Statuses: []
   MaxMana: 2
-  StartingMana: 0
   Actions:
   - Move
   - Bless

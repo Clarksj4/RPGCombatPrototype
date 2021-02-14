@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class RenewStatus : PawnStatus
 {
-    public int HealPerTurn { get; set; }
+    public int HealPerTurn;
 
     protected override void DoEffect()
     {

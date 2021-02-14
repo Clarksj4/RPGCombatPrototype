@@ -6,17 +6,17 @@ public class PushNode : MoveNode
     /// <summary>
     /// Gets or sets the distance to push the contents of the targeted cell.
     /// </summary>
-    public int Distance { get; set; }
+    public int Distance;
     /// <summary>
     /// Gets or sets the direction to push the targeted cell, relative to
     /// the origin of the action.
     /// </summary>
-    public RelativeDirection RelativeDirection { get; set; }
+    public RelativeDirection RelativeDirection = RelativeDirection.None;
     /// <summary>
     /// Gets or sets the direction the contents of the targeted cell will
     /// be pushed.
     /// </summary>
-    public Vector2Int Direction { get; set; }
+    public Vector2Int Direction;
 
     public override bool Do(Pawn actor, Cell target)
     {

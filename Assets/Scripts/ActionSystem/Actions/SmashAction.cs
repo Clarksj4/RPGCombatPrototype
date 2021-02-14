@@ -24,7 +24,7 @@ public class SmashAction : BattleAction
         // Affects only the targeted cell
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         selfActions = new List<ActionNode>()

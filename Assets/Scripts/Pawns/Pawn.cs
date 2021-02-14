@@ -229,6 +229,15 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     }
 
     /// <summary>
+    /// Checks if this pawn is currently affected by
+    /// a status with the given name.
+    /// </summary>
+    public bool HasStatus(string status)
+    {
+        return statuses.Any(s => s.GetType().Name.Contains(status));
+    }
+
+    /// <summary>
     /// Adds the given pawn as a surrogate for
     /// this pawn.
     /// </summary>

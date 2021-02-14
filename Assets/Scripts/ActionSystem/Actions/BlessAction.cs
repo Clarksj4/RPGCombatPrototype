@@ -20,7 +20,7 @@ public class BlessAction : BattleAction
         // Affects adjacent cells
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedRange(this, 1, 1)
+            new AffectedRange() { Min = 1, Max = 1}
         };
 
         // Costs health

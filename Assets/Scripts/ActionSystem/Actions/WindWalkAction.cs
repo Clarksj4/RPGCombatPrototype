@@ -18,7 +18,7 @@ public class WindWalkAction : BattleAction
         // Just the one ally actually...
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedPoint(this)
+            new AffectedPoint()
         };
 
         selfActions = new List<ActionNode>()

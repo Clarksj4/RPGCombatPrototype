@@ -1,13 +1,9 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class AffectedFormation : AffectedArea
 {
-    public AffectedFormation(BattleAction action)
-        : base(action) { /* Nothing */ }
-
-    public override IEnumerable<Cell> GetAffectedArea()
+    public override IEnumerable<Cell> GetAffectedArea(Cell targetedCell)
     {
-        return action.TargetCell.Formation.GetCells();
+        return targetedCell.Formation.GetCells();
     }
 }

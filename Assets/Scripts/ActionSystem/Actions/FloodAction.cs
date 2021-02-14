@@ -23,7 +23,7 @@ public class FloodAction : BattleAction
         // The cells that will be affected
         areaOfEffect = new List<AffectedArea>()
         {
-            new AffectedFormation(this)
+            new AffectedFormation()
         };
 
         selfActions = new List<ActionNode>()

@@ -8,7 +8,7 @@ public class EvasiveStatus : PawnStatus
     /// Gets the number of attacks the afflicted pawn
     /// will evade while affected by this status.
     /// </summary>
-    public int AttacksToEvade { get; set; }
+    public int AttacksToEvade;
 
     public override bool Collate(PawnStatus other)
     {

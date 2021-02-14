@@ -8,7 +8,7 @@ public class GuardedStatus : PawnStatus
     /// Gets the pawn that will take damage on behalf of
     /// the targeted pawn.
     /// </summary>
-    public Pawn Protector { get; set; }
+    public Pawn Protector;
 
     protected override void OnApplication()
     {
