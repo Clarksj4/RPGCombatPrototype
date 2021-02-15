@@ -11,7 +11,7 @@ public class MoveAction : BattleAction
         targetRestrictions = new List<TargetingRestriction>()
         {
             new FormationRestriction() { Formations = TargetableFormation.Self },
-            new RangeRestriction() { Range = Actor.Movement },
+            new RangeRestriction() { Range = "Movement" },
             new CellContentRestriction() { Content = TargetableCellContent.Empty }
         };
 
