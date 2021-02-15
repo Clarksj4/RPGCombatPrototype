@@ -14,6 +14,10 @@ public abstract class PawnStatus
     /// </summary>
     public Pawn Pawn { get; private set; }
     /// <summary>
+    /// Gets the actor who applied this status.
+    /// </summary>
+    public Pawn Applicator { get; set; }
+    /// <summary>
     /// Gets or sets the remaining duration that this
     /// status will afflicted the targeted pawn.
     /// </summary>

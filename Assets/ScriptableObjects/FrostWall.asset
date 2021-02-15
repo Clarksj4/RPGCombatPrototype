@@ -12,10 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5aaf882535644a8011f1cc1741fbc, type: 3}
   m_Name: FrostWall
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 1
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: IlN0YXR1c2VzIjogbnVsbA==
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   Priority: 0
   Defense: 0
-  MaxHealth: 20
-  Power: 1
+  MaxHealth: 5
+  Power: 0
   Movement: 0
-  Statuses: []
-  Actions: []
+  MaxMana: 0
+  ActionsPerTurn: 0
+  BattleActions: []

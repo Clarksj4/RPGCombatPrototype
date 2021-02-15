@@ -35,7 +35,7 @@ public class FrostWallAction : BattleAction
 
         targetedActions = new List<ActionNode>()
         {
-            new SummonNode() { Name = "FrostWall", Priority = Actor.Priority, Duration = 3 }
+            new SummonNode() { Name = "FrostWall", Duration = 3 }
         };
     }
 }

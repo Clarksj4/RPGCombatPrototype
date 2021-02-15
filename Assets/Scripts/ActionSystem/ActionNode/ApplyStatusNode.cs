@@ -5,6 +5,7 @@ public class ApplyStatusNode : ActionNode
 
     public override bool Do(Pawn actor, Cell target)
     {
+        Status.Applicator = actor;
         Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
             pawn.AddStatus(Status);

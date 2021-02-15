@@ -4,19 +4,14 @@ using System;
 [Serializable]
 public class GuardedStatus : PawnStatus
 {
-    /// <summary>
-    /// Gets the pawn that will take damage on behalf of
-    /// the targeted pawn.
-    /// </summary>
-    public Pawn Protector;
 
     protected override void OnApplication()
     {
-        Pawn.AddSurrogate(Protector);
+        Pawn.AddSurrogate(Applicator);
     }
 
     protected override void OnExpired()
     {
-        Pawn.RemoveSurrogate(Protector);
+        Pawn.RemoveSurrogate(Applicator);
     }
 }

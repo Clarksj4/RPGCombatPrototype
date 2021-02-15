@@ -25,6 +25,7 @@ public class PawnStats : SerializedScriptableObject
 
     [Header("Actions")]
     public int MaxMana;
+    public int ActionsPerTurn = 1;
     public List<BattleAction> BattleActions;
 
     public virtual void SetStats(Pawn pawn)
