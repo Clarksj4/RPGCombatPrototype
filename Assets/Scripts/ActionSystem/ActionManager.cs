@@ -62,8 +62,6 @@ public class ActionManager : MonoSingleton<ActionManager>
     /// </summary>
     public BattleAction SelectedAction { get; private set; }
 
-    private Coroutine actionCoroutine;
-
     /// <summary>
     /// Selects the given actor - setting it as the originator of
     /// the action.
@@ -82,7 +80,7 @@ public class ActionManager : MonoSingleton<ActionManager>
     }
 
     /// <summary>
-    /// Selects the action, by name, that will be performed by the actor.
+    /// Selects an action by index that will be performed by the actor.
     /// </summary>
     public void SelectActionByIndex(int index)
     {
@@ -91,6 +89,9 @@ public class ActionManager : MonoSingleton<ActionManager>
         SelectAction(action);
     }
 
+    /// <summary>
+    /// Selects an action by name to be used by the current actor.
+    /// </summary>
     public void SelectActionByName(string name)
     {
         // Create an instance of the action
@@ -99,6 +100,9 @@ public class ActionManager : MonoSingleton<ActionManager>
         SelectAction(action);
     }
 
+    /// <summary>
+    /// Selects the given action to be used by the current actor.
+    /// </summary>
     public void SelectAction(BattleAction action)
     {
         SelectedAction = action;
@@ -142,7 +146,16 @@ public class ActionManager : MonoSingleton<ActionManager>
     public void DoAction()
     {
         if (SelectedAction.CanDo())
-            actionCoroutine = StartCoroutine(DoActionInternal());
+        {
+            // Action about to start!
+            OnActionStarted?.Invoke(SelectedActor, SelectedAction);
+
+            // Do the action!
+            SelectedAction.Do();
+
+            // Notify senpai.
+            OnActionComplete?.Invoke(SelectedActor, SelectedAction);
+        }
     }
 
     /// <summary>
@@ -198,18 +211,5 @@ public class ActionManager : MonoSingleton<ActionManager>
         // Notify senpai
         if (actor != null)
             OnActorDeselected?.Invoke(actor);
-    }
-
-    private IEnumerator DoActionInternal()
-    {
-        // Action about to start!
-        OnActionStarted?.Invoke(SelectedActor, SelectedAction);
-
-        // Do the action then remove coroutine ref.
-        yield return SelectedAction.Do();
-        actionCoroutine = null;
-
-        // Notify senpai.
-        OnActionComplete?.Invoke(SelectedActor, SelectedAction);
     }
 }

@@ -525,7 +525,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     private void HandleOnActionStarted(Pawn pawn, BattleAction action)
     {
         if (pawn == this)
-            IncrementActionUseCount(action.Name);
+            IncrementActionUseCount(action.name);
     }
 
     private void HandleOnActionComplete(Pawn pawn, BattleAction action)

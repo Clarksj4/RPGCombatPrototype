@@ -1,26 +1,72 @@
 ﻿using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// Encapsulates any action / ability used by an actor
+/// Encapsulates any action / ability used by an pawn
 /// during a battle.
 /// </summary>
 [CreateAssetMenu(fileName = "New Action", menuName = "Battle Action")]
 public class BattleAction : SerializedScriptableObject
 {
+    [TitleGroup("Battle Action")]
+    [HorizontalGroup("Battle Action/Misc")]
+    [VerticalGroup("Battle Action/Misc/Left")]
+    [Tooltip("The maximum number of uses of this action per turn.")]
+    public int MaxUsesPerTurn = 1;
+
+    [VerticalGroup("Battle Action/Misc/Left")]
+    [Tooltip("The minimum number of turns between uses of this action.")]
+    public int Cooldown = 1;
+
+    [VerticalGroup("Battle Action/Misc/Left")]
+    [Tooltip("If true, an action node failure will only prevent subsequent action on the cell where the failure occurred.")]
+    public bool AffectedCellsIndependent = true;
+
+    [VerticalGroup("Battle Action/Misc/Right")]
+    [HideLabel, PreviewField(Height = 100, Alignment = ObjectFieldAlignment.Right)]
+    public Sprite Sprite;
+
+    [BoxGroup("Prerequisites", CenterLabel = true)]
+    [OdinSerialize]
+    [Tooltip("The actor must conform to these restrictions in order to use this action.")]
+    protected List<TargetingRestriction> actorRestrictions = new List<TargetingRestriction>(0);
+
+    [BoxGroup("Targetable Cells", CenterLabel = true)]
+    [OdinSerialize]
+    [Tooltip("Cells must conform to these restrictions in order to be targeted.")]
+    protected List<TargetingRestriction> targetRestrictions = new List<TargetingRestriction>(0);
+
+    [BoxGroup("Area of Effect", CenterLabel = true)]
+    [OdinSerialize]
+    [Tooltip("The area that this battle action will affect - originates from the targeted cell.")]
+    protected List<AffectedArea> areaOfEffect = new List<AffectedArea>(0);
+
+    [BoxGroup("Area of Effect")]
+    [OdinSerialize]
+    [Tooltip("Targeted cells must conform to these restrictions in order to be affected.")]
+    protected List<TargetingRestriction> areaOfEffectRestrictions = new List<TargetingRestriction>(0);
+
+    [BoxGroup("Effect on Caster", CenterLabel = true)]
+    [OdinSerialize]
+    [Tooltip("The sequence of things this battle action will do on the caster.")]
+    protected List<ActionNode> selfActions = new List<ActionNode>(0);
+
+    [BoxGroup("Effect on Targeted Cells", CenterLabel = true)]
+    [OdinSerialize]
+    [Tooltip("The sequence of things this battle action will do on each targeted cell.")]
+    protected List<ActionNode> targetedActions = new List<ActionNode>(0);
+
+    //
+    // Properties
+    //
+
     /// <summary>
-    /// Gets the name of this battle action.
+    /// Gets a collection of informative tags about this action.
     /// </summary>
-    public string Name { get { return string.IsNullOrEmpty(name) ? GetType().Name.Replace("Action", "") : name; } }
-
-    //
-    // Setting up current target
-    //
-
+    public ActionTag Tags { get; protected set; } = ActionTag.None;
     /// <summary>
     /// Gets the grid this action is performed on.
     /// </summary>
@@ -37,90 +83,37 @@ public class BattleAction : SerializedScriptableObject
     /// Gets the cell that this action originates from.
     /// </summary>
     public Cell OriginCell { get { return Actor.Cell; } }
-
-    //
-    // Target Validation.
-    //
-    
+    /// <summary>
+    /// The collection of restrictions on cells that can be targeted.
+    /// </summary>
     public IEnumerable<TargetingRestriction> ActorRestrictions { get { return actorRestrictions; } }
-    [BoxGroup("Prerequisites", CenterLabel = true)]
-    [OdinSerialize][Tooltip("The actor must conform to these restrictions in order to use this action.")]
-    protected List<TargetingRestriction> actorRestrictions = new List<TargetingRestriction>(0);
     /// <summary>
     /// The collection of restrictions on cells that can be targeted.
     /// </summary>
     public IEnumerable<TargetingRestriction> TargetingRestrictions { get { return targetRestrictions; } }
-    [BoxGroup("Targetable Cells", CenterLabel = true)]
-    [OdinSerialize][Tooltip("Cells must conform to these restrictions in order to be targeted.")]
-    protected List<TargetingRestriction> targetRestrictions = new List<TargetingRestriction>(0);
-    
-    [BoxGroup("Area of Effect", CenterLabel = true)]
-    [OdinSerialize][Tooltip("The area that this battle action will affect - originates from the targeted cell.")]
-    protected List<AffectedArea> areaOfEffect = new List<AffectedArea>(0);
-    
-    [BoxGroup("Area of Effect")]
-    [OdinSerialize][Tooltip("Targeted cells must conform to these restrictions in order to be affected.")]
-    protected List<TargetingRestriction> areaOfEffectRestrictions = new List<TargetingRestriction>(0);
-
-    //
-    // Performed actions.
-    //
-
     /// <summary>
     /// The sequence of things this battle action will do first.
     /// </summary>
     public IEnumerable<ActionNode> SelfActions { get { return selfActions; } }
-    [BoxGroup("Effect on Caster", CenterLabel = true)]
-    [OdinSerialize][Tooltip("The sequence of things this battle action will do on the caster.")]
-    protected List<ActionNode> selfActions = new List<ActionNode>(0);
     /// <summary>
     /// The sequence of things this battle action with do to 
     /// each of the targeted cells.
     /// </summary>
     public IEnumerable<ActionNode> TargetedActions { get { return targetedActions; } }
-    [BoxGroup("Effect on Targeted Cells", CenterLabel = true)]
-    [OdinSerialize][Tooltip("The sequence of things this battle action will do on each targeted cell.")]
-    protected List<ActionNode> targetedActions = new List<ActionNode>(0);
-
-    //
-    // Action params
-    //
-
-    /// <summary>
-    /// Gets or sets the maximum uses of this action per turn.
-    /// </summary>
-    [BoxGroup("Misc Params", CenterLabel = true)]
-    [Tooltip("The maximum number of uses of this action per turn.")]
-    public int MaxUsesPerTurn = 1;
-    /// <summary>
-    /// Gets a collection of informative tags about this action.
-    /// </summary>
-    public ActionTag Tags { get; protected set; } = ActionTag.None;
-    /// <summary>
-    /// Gets or sets how action node failures are handled.
-    /// </summary>
-    [BoxGroup("Misc Params")]
-    [Tooltip("If true, an action node failure will only prevent subsequent action on the cell where the failure occurred.")]
-    public bool AffectedCellsIndependent = true;
-
-    //
-    // Targetable cells cache
-    //
-
     /// <summary>
     /// Gets all the cells targetable by this action.
     /// </summary>
     public IEnumerable<Cell> TargetableCells { get { return targetableCells; } }
-    private IList<Cell> targetableCells = null;
-
-    //
-    // Affected cells cache
-    //
-
     /// <summary>
     /// Gets all the cells affected by this action.
     /// </summary>
     public IEnumerable<Cell> AffectedCells { get { return affectedCells; } }
+
+    //
+    // Fields
+    //
+
+    private IList<Cell> targetableCells = null;
     private IList<Cell> affectedCells = null;
 
     //
@@ -133,14 +126,8 @@ public class BattleAction : SerializedScriptableObject
     public void SetActor(Pawn actor)
     {
         Actor = actor;
-        Setup();
         targetableCells = GetTargetableCells().ToList();
     }
-
-    /// <summary>
-    /// Setup the action internal state once the actor is konwn.
-    /// </summary>
-    protected virtual void Setup() { /* Nothing! */ }
 
     /// <summary>
     /// Sets the target for this action if valid. Returns true
@@ -161,64 +148,21 @@ public class BattleAction : SerializedScriptableObject
     }
 
     /// <summary>
-    /// Removes the action's current target.
+    /// Removes this action's current actor.
+    /// </summary>
+    public void DeselectActor()
+    {
+        Actor = null;
+        targetableCells = null;
+    }
+
+    /// <summary>
+    /// Removes this action's current target.
     /// </summary>
     public void DeselectTarget()
     {
         TargetCell = null;
         affectedCells = null;
-    }
-
-    /// <summary>
-    /// Resets this actions actor and target.
-    /// </summary>
-    public void Clear()
-    {
-        Actor = null;
-        TargetCell = null;
-
-        targetableCells.Clear();
-        affectedCells.Clear();
-    }
-
-    /// <summary>
-    /// Gets all the cells that can be targeted by this action.
-    /// </summary>
-    private IEnumerable<Cell> GetTargetableCells()
-    {
-        // Return all cells that meet restrictions
-        if (targetRestrictions != null && targetRestrictions.Count > 0)
-        {
-            foreach (Cell cell in Grid.GetCells())
-            {
-                if (targetRestrictions.All(r => r.IsTargetValid(Actor, cell)))
-                    yield return cell;
-            }
-        }
-
-        // Return all cells - no restrictions
-        else
-        {
-            foreach (Cell cell in Grid.GetCells())
-                yield return cell;
-        }
-    }
-
-    /// <summary>
-    /// Gets the coordinates that will be affected by this action.
-    /// </summary>
-    protected IEnumerable<Cell> GetAffectedCells()
-    {
-        IEnumerable<Cell> area = areaOfEffect.SelectMany(a => a.GetAffectedArea(TargetCell));
-        
-        // If there are further restrictions, only return cells that conform
-        if (areaOfEffectRestrictions != null &&
-            areaOfEffectRestrictions.Count > 0)
-            return area.Where(cell => areaOfEffectRestrictions.All(restriction => restriction.IsTargetValid(Actor, cell)));
-     
-        // Otherwise, return the area as it is.
-        else
-            return area;
     }
 
     /// <summary>
@@ -228,8 +172,8 @@ public class BattleAction : SerializedScriptableObject
     public bool CanDo()
     {
         // No restreictions OR conforms to all restrictions.
-        return Actor.GetActionUseCount(Name) < MaxUsesPerTurn && 
-              (actorRestrictions == null || 
+        return Actor.GetActionUseCount(name) < MaxUsesPerTurn &&
+              (actorRestrictions == null ||
                actorRestrictions.Count == 0 ||
                actorRestrictions.All(r => r.IsTargetValid(Actor, OriginCell)));
     }
@@ -238,17 +182,73 @@ public class BattleAction : SerializedScriptableObject
     /// Performs this action. Returns true if the action was
     /// successful.
     /// </summary>
-    public virtual IEnumerator Do()
+    public void Do()
     {
-        bool success = DoBeginningActions();
+        // Do self targeted actions FIRST!
+        bool success = DoSelfActions();
 
+        // Do targeted actions if the self actions were
+        // successful
         if (success)
             DoTargetedActions();
-        
-        return null;
     }
 
-    private bool DoBeginningActions()
+    /// <summary>
+    /// Gets all the cells that can be targeted by this action.
+    /// </summary>
+    private IEnumerable<Cell> GetTargetableCells()
+    {
+        // If there are restrictions then only return cells
+        // that conform.
+        if (targetRestrictions != null && targetRestrictions.Count > 0)
+        {
+            // Iterate through ALL cells.
+            foreach (Cell cell in Grid.GetCells())
+            {
+                // Check if EACH cell conforms to ALL
+                // restrictions.
+                if (targetRestrictions.All(r => r.IsTargetValid(Actor, cell)))
+                    yield return cell;
+            }
+        }
+
+        // There are NO restrictions - return all cells.
+        else
+        {
+            foreach (Cell cell in Grid.GetCells())
+                yield return cell;
+        }
+    }
+
+    /// <summary>
+    /// Checks whether the given cell is a valid target.
+    /// </summary>
+    private bool IsTargetCellValid(Cell tagetCell)
+    {
+        return targetableCells.Any(cell => cell == tagetCell);
+    }
+
+    /// <summary>
+    /// Gets the coordinates that will be affected by this action.
+    /// </summary>
+    private IEnumerable<Cell> GetAffectedCells()
+    {
+        // Get cells defined by area.
+        IEnumerable<Cell> area = areaOfEffect.SelectMany(a => a.GetAffectedArea(TargetCell));
+        
+        // Get rid of cells in area that don't conform to these
+        // additional restrictions - for example, some actions
+        // might require cells in the area to be empty.
+        if (areaOfEffectRestrictions != null &&
+            areaOfEffectRestrictions.Count > 0)
+            return area.Where(cell => areaOfEffectRestrictions.All(restriction => restriction.IsTargetValid(Actor, cell)));
+     
+        // Otherwise, return the area as it is.
+        else
+            return area;
+    }
+
+    private bool DoSelfActions()
     {
         // Don't do anything if there's nothing to do.
         if (selfActions != null &&
@@ -256,6 +256,7 @@ public class BattleAction : SerializedScriptableObject
         {
             foreach (ActionNode node in selfActions)
             {
+                // If the node fails - abort iteration.
                 if (!node.Do(Actor, OriginCell))
                     return false;
             }
@@ -267,9 +268,11 @@ public class BattleAction : SerializedScriptableObject
 
     private void DoTargetedActions()
     {
+        // Only do things if there ARE targeted actions to perform.
         if (targetedActions != null &&
             targetedActions.Count > 0)
         {
+            // Apply actions to each affected cell.
             bool success;
             foreach (Cell cell in affectedCells)
             {
@@ -292,13 +295,5 @@ public class BattleAction : SerializedScriptableObject
                 else break;
             }
         }
-    }
-
-    /// <summary>
-    /// Checks whether the given cell is a valid target.
-    /// </summary>
-    private bool IsTargetCellValid(Cell tagetCell)
-    {
-        return targetableCells.Any(cell => cell == tagetCell);
     }
 }

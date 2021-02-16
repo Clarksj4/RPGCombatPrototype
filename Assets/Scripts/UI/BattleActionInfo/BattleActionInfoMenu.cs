@@ -37,9 +37,9 @@ public class BattleActionInfoMenu : Menu
     public void SetAction(BattleAction action)
     {
         // TODO: mana is a special case
-        actionTitle.text = action.Name;
+        actionTitle.text = action.name;
 
-        actionImage.sprite = SpriteManager.Instance.GetSpriteByName(action.Name);
+        actionImage.sprite = SpriteManager.Instance.GetSpriteByName(action.name);
 
         restrictionsLayout.Display(action.TargetingRestrictions);
     }
