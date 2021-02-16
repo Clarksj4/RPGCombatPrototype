@@ -155,4 +155,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
   MaxUsesPerTurn: 1
+  Cooldown: 1
   AffectedCellsIndependent: 1
+  Sprite: {fileID: 21300000, guid: 2f91aa078b5e63647961be6472820041, type: 3}

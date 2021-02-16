@@ -33,22 +33,14 @@ namespace Assets.Scripts
         private void RefreshActorImage()
         {
             foreach (Image image in actorImages)
-                image.sprite = SpriteManager.Instance.GetSpriteByName(name);
+                image.sprite = actor.Stats.HeadSprite;
         }
-
-        //private void IncrementSortOrders(int amount)
-        //{
-        //    frameImage.sortingOrder += amount;
-        //    actorImage.sortingOrder += amount;
-        //    maskSortingGroup.sortingOrder += amount;
-        //}
 
         private void ApplySelectionColour()
         {
             frameImage.color = Color.green;
             foreach (var highlight in highlights)
                 highlight.SetActive(true);
-            //IncrementSortOrders(1);
         }
 
         private void ApplyTeamColour()
@@ -56,7 +48,6 @@ namespace Assets.Scripts
             frameImage.color = actor.Team.Colour;
             foreach (var highlight in highlights)
                 highlight.SetActive(false);
-            //IncrementSortOrders(-1);
         }
 
         private void HandleOnTurnStart(ITurnBased turnBasedEntity)

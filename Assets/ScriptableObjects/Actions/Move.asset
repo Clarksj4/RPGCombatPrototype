@@ -13,13 +13,130 @@ MonoBehaviour:
   m_Name: Move
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 1
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
-    SerializedBytesString: ImFjdG9yUmVzdHJpY3Rpb25zIjogew0KICAgICIkaWQiOiAwLA0KICAgICIkdHlwZSI6ICIwfFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGFyZ2V0aW5nUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycF1dLCBtc2NvcmxpYiIsDQogICAgIiRybGVuZ3RoIjogMCwNCiAgICAiJHJjb250ZW50IjogWw0KICAgIF0NCn0sDQoidGFyZ2V0UmVzdHJpY3Rpb25zIjogew0KICAgICIkaWQiOiAxLA0KICAgICIkdHlwZSI6IDAsDQogICAgIiRybGVuZ3RoIjogMywNCiAgICAiJHJjb250ZW50IjogWw0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogMiwNCiAgICAgICAgICAgICIkdHlwZSI6ICIxfFJhbmdlUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiUmFuZ2UiOiAiTW92ZW1lbnQiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAgICIkaWQiOiAzLA0KICAgICAgICAgICAgIiR0eXBlIjogIjJ8Rm9ybWF0aW9uUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiRm9ybWF0aW9ucyI6IDENCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDQsDQogICAgICAgICAgICAiJHR5cGUiOiAiM3xDZWxsQ29udGVudFJlc3RyaWN0aW9uLCBBc3NlbWJseS1DU2hhcnAiLA0KICAgICAgICAgICAgIkNvbnRlbnQiOiA4DQogICAgICAgIH0NCiAgICBdDQp9LA0KImFyZWFPZkVmZmVjdCI6IHsNCiAgICAiJGlkIjogNSwNCiAgICAiJHR5cGUiOiAiNHxTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0FmZmVjdGVkQXJlYSwgQXNzZW1ibHktQ1NoYXJwXV0sIG1zY29ybGliIiwNCiAgICAiJHJsZW5ndGgiOiAxLA0KICAgICIkcmNvbnRlbnQiOiBbDQogICAgICAgIHsNCiAgICAgICAgICAgICIkaWQiOiA2LA0KICAgICAgICAgICAgIiR0eXBlIjogIjV8QWZmZWN0ZWRQb2ludCwgQXNzZW1ibHktQ1NoYXJwIg0KICAgICAgICB9DQogICAgXQ0KfSwNCiJhcmVhT2ZFZmZlY3RSZXN0cmljdGlvbnMiOiB7DQogICAgIiRpZCI6IDcsDQogICAgIiR0eXBlIjogMCwNCiAgICAiJHJsZW5ndGgiOiAwLA0KICAgICIkcmNvbnRlbnQiOiBbDQogICAgXQ0KfSwNCiJzZWxmQWN0aW9ucyI6IHsNCiAgICAiJGlkIjogOCwNCiAgICAiJHR5cGUiOiAiNnxTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0FjdGlvbk5vZGUsIEFzc2VtYmx5LUNTaGFycF1dLCBtc2NvcmxpYiIsDQogICAgIiRybGVuZ3RoIjogMCwNCiAgICAiJHJjb250ZW50IjogWw0KICAgIF0NCn0sDQoidGFyZ2V0ZWRBY3Rpb25zIjogew0KICAgICIkaWQiOiA5LA0KICAgICIkdHlwZSI6IDYsDQogICAgIiRybGVuZ3RoIjogMSwNCiAgICAiJHJjb250ZW50IjogWw0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogMTAsDQogICAgICAgICAgICAiJHR5cGUiOiAiN3xNb3ZlTm9kZSwgQXNzZW1ibHktQ1NoYXJwIg0KICAgICAgICB9DQogICAgXQ0KfQ==
+    SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: actorRestrictions
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetRestrictions
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 2|RangeRestriction, Assembly-CSharp
+    - Name: Range
+      Entry: 1
+      Data: Movement
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|FormationRestriction, Assembly-CSharp
+    - Name: Formations
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|CellContentRestriction, Assembly-CSharp
+    - Name: Content
+      Entry: 3
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: areaOfEffect
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 6|AffectedPoint, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: areaOfEffectRestrictions
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selfActions
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetedActions
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 10|MoveNode, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   MaxUsesPerTurn: 1
+  Cooldown: 1
   AffectedCellsIndependent: 1
+  Sprite: {fileID: 21300000, guid: 220ca3508a488c44a81417879bba61fe, type: 3}

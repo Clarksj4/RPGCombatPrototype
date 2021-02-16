@@ -13,13 +13,243 @@ MonoBehaviour:
   m_Name: BullRush
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 1
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
-    SerializedBytesString: ImFjdG9yUmVzdHJpY3Rpb25zIjogew0KICAgICIkaWQiOiAwLA0KICAgICIkdHlwZSI6ICIwfFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGFyZ2V0aW5nUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycF1dLCBtc2NvcmxpYiIsDQogICAgIiRybGVuZ3RoIjogMiwNCiAgICAiJHJjb250ZW50IjogWw0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogMSwNCiAgICAgICAgICAgICIkdHlwZSI6ICIxfE1hbmFSZXN0cmljdGlvbiwgQXNzZW1ibHktQ1NoYXJwIiwNCiAgICAgICAgICAgICJBbW91bnQiOiAxDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAgICIkaWQiOiAyLA0KICAgICAgICAgICAgIiR0eXBlIjogIjJ8UmFua0NlbGxzUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiUmFua3MiOiB7DQogICAgICAgICAgICAgICAgIiRpZCI6IDMsDQogICAgICAgICAgICAgICAgIiR0eXBlIjogIjN8U3lzdGVtLkludDMyW10sIG1zY29ybGliIiwNCiAgICAgICAgICAgICAgICAiJHBsZW5ndGgiOiAxLA0KICAgICAgICAgICAgICAgICIkcGNvbnRlbnQiOiBbDQogICAgICAgICAgICAgICAgICAgIDINCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICBdDQp9LA0KInRhcmdldFJlc3RyaWN0aW9ucyI6IHsNCiAgICAiJGlkIjogNCwNCiAgICAiJHR5cGUiOiAwLA0KICAgICIkcmxlbmd0aCI6IDIsDQogICAgIiRyY29udGVudCI6IFsNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDUsDQogICAgICAgICAgICAiJHR5cGUiOiAyLA0KICAgICAgICAgICAgIlJhbmtzIjogew0KICAgICAgICAgICAgICAgICIkaWQiOiA2LA0KICAgICAgICAgICAgICAgICIkdHlwZSI6IDMsDQogICAgICAgICAgICAgICAgIiRwbGVuZ3RoIjogMSwNCiAgICAgICAgICAgICAgICAiJHBjb250ZW50IjogWw0KICAgICAgICAgICAgICAgICAgICAwDQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogNywNCiAgICAgICAgICAgICIkdHlwZSI6ICI0fENlbGxDb250ZW50UmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiQ29udGVudCI6IDQNCiAgICAgICAgfQ0KICAgIF0NCn0sDQoiYXJlYU9mRWZmZWN0Ijogew0KICAgICIkaWQiOiA4LA0KICAgICIkdHlwZSI6ICI1fFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbQWZmZWN0ZWRBcmVhLCBBc3NlbWJseS1DU2hhcnBdXSwgbXNjb3JsaWIiLA0KICAgICIkcmxlbmd0aCI6IDEsDQogICAgIiRyY29udGVudCI6IFsNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDksDQogICAgICAgICAgICAiJHR5cGUiOiAiNnxBZmZlY3RlZFBvaW50LCBBc3NlbWJseS1DU2hhcnAiDQogICAgICAgIH0NCiAgICBdDQp9LA0KImFyZWFPZkVmZmVjdFJlc3RyaWN0aW9ucyI6IHsNCiAgICAiJGlkIjogMTAsDQogICAgIiR0eXBlIjogMCwNCiAgICAiJHJsZW5ndGgiOiAwLA0KICAgICIkcmNvbnRlbnQiOiBbDQogICAgXQ0KfSwNCiJzZWxmQWN0aW9ucyI6IHsNCiAgICAiJGlkIjogMTEsDQogICAgIiR0eXBlIjogIjd8U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tBY3Rpb25Ob2RlLCBBc3NlbWJseS1DU2hhcnBdXSwgbXNjb3JsaWIiLA0KICAgICIkcmxlbmd0aCI6IDIsDQogICAgIiRyY29udGVudCI6IFsNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDEyLA0KICAgICAgICAgICAgIiR0eXBlIjogIjh8UmVtb3ZlTWFuYU5vZGUsIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiQW1vdW50IjogMQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogMTMsDQogICAgICAgICAgICAiJHR5cGUiOiAiOXxQdXNoTm9kZSwgQXNzZW1ibHktQ1NoYXJwIiwNCiAgICAgICAgICAgICJEaXN0YW5jZSI6IDMsDQogICAgICAgICAgICAiRm9ybWF0aW9uRGlyZWN0aW9uIjogMSwNCiAgICAgICAgICAgICJyZWxhdGl2ZURpcmVjdGlvbiI6IDAsDQogICAgICAgICAgICAiRGlyZWN0aW9uIjogew0KICAgICAgICAgICAgICAgICIkdHlwZSI6ICIxMHxVbml0eUVuZ2luZS5WZWN0b3IySW50LCBVbml0eUVuZ2luZS5Db3JlTW9kdWxlIiwNCiAgICAgICAgICAgICAgICAwLA0KICAgICAgICAgICAgICAgIDANCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgIF0NCn0sDQoidGFyZ2V0ZWRBY3Rpb25zIjogew0KICAgICIkaWQiOiAxNCwNCiAgICAiJHR5cGUiOiA3LA0KICAgICIkcmxlbmd0aCI6IDMsDQogICAgIiRyY29udGVudCI6IFsNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDE1LA0KICAgICAgICAgICAgIiR0eXBlIjogIjExfElzSGl0Tm9kZSwgQXNzZW1ibHktQ1NoYXJwIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogMTYsDQogICAgICAgICAgICAiJHR5cGUiOiAiMTJ8RG9EYW1hZ2VOb2RlLCBBc3NlbWJseS1DU2hhcnAiLA0KICAgICAgICAgICAgIkJhc2VEYW1hZ2UiOiAyNSwNCiAgICAgICAgICAgICJBbXBsaWZ5YWJsZSI6IHRydWUsDQogICAgICAgICAgICAiRGVmZW5kYWJsZSI6IHRydWUNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDE3LA0KICAgICAgICAgICAgIiR0eXBlIjogOSwNCiAgICAgICAgICAgICJEaXN0YW5jZSI6IDMsDQogICAgICAgICAgICAiRm9ybWF0aW9uRGlyZWN0aW9uIjogMCwNCiAgICAgICAgICAgICJyZWxhdGl2ZURpcmVjdGlvbiI6IDIsDQogICAgICAgICAgICAiRGlyZWN0aW9uIjogew0KICAgICAgICAgICAgICAgICIkdHlwZSI6IDEwLA0KICAgICAgICAgICAgICAgIDAsDQogICAgICAgICAgICAgICAgMA0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgXQ0KfQ==
+    SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: actorRestrictions
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 1|ManaRestriction, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|RankCellsRestriction, Assembly-CSharp
+    - Name: Ranks
+      Entry: 7
+      Data: 3|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetRestrictions
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 5|RankCellsRestriction, Assembly-CSharp
+    - Name: Ranks
+      Entry: 7
+      Data: 6|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|CellContentRestriction, Assembly-CSharp
+    - Name: Content
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: areaOfEffect
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 9|AffectedPoint, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: areaOfEffectRestrictions
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selfActions
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 12|RemoveManaNode, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|PushNode, Assembly-CSharp
+    - Name: Distance
+      Entry: 3
+      Data: 3
+    - Name: FormationDirection
+      Entry: 3
+      Data: 1
+    - Name: relativeDirection
+      Entry: 3
+      Data: 0
+    - Name: Direction
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetedActions
+      Entry: 7
+      Data: 14|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 15|IsHitNode, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|DoDamageNode, Assembly-CSharp
+    - Name: BaseDamage
+      Entry: 3
+      Data: 25
+    - Name: Amplifyable
+      Entry: 5
+      Data: true
+    - Name: Defendable
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 17|PushNode, Assembly-CSharp
+    - Name: Distance
+      Entry: 3
+      Data: 3
+    - Name: FormationDirection
+      Entry: 3
+      Data: 0
+    - Name: relativeDirection
+      Entry: 3
+      Data: 2
+    - Name: Direction
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   MaxUsesPerTurn: 1
+  Cooldown: 1
   AffectedCellsIndependent: 1
+  Sprite: {fileID: 21300000, guid: d67fc54ff3c844f4abf5fe623819942a, type: 3}

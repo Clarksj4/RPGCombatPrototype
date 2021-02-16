@@ -47,9 +47,9 @@ public class ActionButton : MonoBehaviour
             }
 
             // TODO: do cooldown
-            Sprite sprite = SpriteManager.Instance.GetSpriteByName(action.name);
-            if (sprite != null)
-                AbilityImage.sprite = sprite;
+            //Sprite sprite = SpriteManager.Instance.GetSpriteByName(action.name);
+            if (action.Sprite != null)
+                AbilityImage.sprite = action.Sprite;
         }
     }
 

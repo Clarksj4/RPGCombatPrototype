@@ -12,17 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5aaf882535644a8011f1cc1741fbc, type: 3}
   m_Name: Hangman
   m_EditorClassIdentifier: 
-  Priority: 50
-  Defense: 0
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Statuses
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[PawnStatus, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   MaxHealth: 100
+  MaxMana: 2
+  Defense: 0
+  Priority: 50
   Power: 1
   Movement: 1
-  Statuses: []
-  MaxMana: 2
-  StartingMana: 0
-  Actions:
-  - Move
-  - Hook
-  - SecondWind
-  - Smash
-  - IronStrike
+  ActionsPerTurn: 1
+  HeadSprite: {fileID: 21300000, guid: 4d4ef24cbc7214c438576a79d30f3077, type: 3}
+  SplashSprite: {fileID: 8945900648447485841, guid: e21b0e63459c3e94d99a7ef6875d37d4, type: 3}
+  BattleActions:
+  - {fileID: 11400000, guid: 3b3c3430a71099f4a8575cfb0ba20d13, type: 2}
+  - {fileID: 11400000, guid: 74f4320e931533a4e8d905c374de18cb, type: 2}
+  - {fileID: 11400000, guid: 9dd4d441893e07d43ba9a520d29abf31, type: 2}
+  - {fileID: 11400000, guid: 13842369957213d428da6db00054f3c5, type: 2}
+  - {fileID: 11400000, guid: 3cd5efd45e4fac34f918a50d599fba20, type: 2}

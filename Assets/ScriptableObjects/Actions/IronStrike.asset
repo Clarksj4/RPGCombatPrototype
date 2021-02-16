@@ -13,13 +13,204 @@ MonoBehaviour:
   m_Name: IronStrike
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 1
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
-    SerializedBytesString: ImFjdG9yUmVzdHJpY3Rpb25zIjogew0KICAgICIkaWQiOiAwLA0KICAgICIkdHlwZSI6ICIwfFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGFyZ2V0aW5nUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycF1dLCBtc2NvcmxpYiIsDQogICAgIiRybGVuZ3RoIjogMiwNCiAgICAiJHJjb250ZW50IjogWw0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogMSwNCiAgICAgICAgICAgICIkdHlwZSI6ICIxfE1hbmFSZXN0cmljdGlvbiwgQXNzZW1ibHktQ1NoYXJwIiwNCiAgICAgICAgICAgICJBbW91bnQiOiAxDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAgICIkaWQiOiAyLA0KICAgICAgICAgICAgIiR0eXBlIjogIjJ8UmFua0NlbGxzUmVzdHJpY3Rpb24sIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiUmFua3MiOiB7DQogICAgICAgICAgICAgICAgIiRpZCI6IDMsDQogICAgICAgICAgICAgICAgIiR0eXBlIjogIjN8U3lzdGVtLkludDMyW10sIG1zY29ybGliIiwNCiAgICAgICAgICAgICAgICAiJHBsZW5ndGgiOiAxLA0KICAgICAgICAgICAgICAgICIkcGNvbnRlbnQiOiBbDQogICAgICAgICAgICAgICAgICAgIDANCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICBdDQp9LA0KInRhcmdldFJlc3RyaWN0aW9ucyI6IHsNCiAgICAiJGlkIjogNCwNCiAgICAiJHR5cGUiOiAwLA0KICAgICIkcmxlbmd0aCI6IDIsDQogICAgIiRyY29udGVudCI6IFsNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDUsDQogICAgICAgICAgICAiJHR5cGUiOiAiNHxDZWxsQ29udGVudFJlc3RyaWN0aW9uLCBBc3NlbWJseS1DU2hhcnAiLA0KICAgICAgICAgICAgIkNvbnRlbnQiOiA0DQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAgICIkaWQiOiA2LA0KICAgICAgICAgICAgIiR0eXBlIjogMiwNCiAgICAgICAgICAgICJSYW5rcyI6IHsNCiAgICAgICAgICAgICAgICAiJGlkIjogNywNCiAgICAgICAgICAgICAgICAiJHR5cGUiOiAzLA0KICAgICAgICAgICAgICAgICIkcGxlbmd0aCI6IDEsDQogICAgICAgICAgICAgICAgIiRwY29udGVudCI6IFsNCiAgICAgICAgICAgICAgICAgICAgMA0KICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgIF0NCn0sDQoiYXJlYU9mRWZmZWN0Ijogew0KICAgICIkaWQiOiA4LA0KICAgICIkdHlwZSI6ICI1fFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbQWZmZWN0ZWRBcmVhLCBBc3NlbWJseS1DU2hhcnBdXSwgbXNjb3JsaWIiLA0KICAgICIkcmxlbmd0aCI6IDEsDQogICAgIiRyY29udGVudCI6IFsNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDksDQogICAgICAgICAgICAiJHR5cGUiOiAiNnxBZmZlY3RlZFBvaW50LCBBc3NlbWJseS1DU2hhcnAiDQogICAgICAgIH0NCiAgICBdDQp9LA0KImFyZWFPZkVmZmVjdFJlc3RyaWN0aW9ucyI6IHsNCiAgICAiJGlkIjogMTAsDQogICAgIiR0eXBlIjogMCwNCiAgICAiJHJsZW5ndGgiOiAwLA0KICAgICIkcmNvbnRlbnQiOiBbDQogICAgXQ0KfSwNCiJzZWxmQWN0aW9ucyI6IHsNCiAgICAiJGlkIjogMTEsDQogICAgIiR0eXBlIjogIjd8U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tBY3Rpb25Ob2RlLCBBc3NlbWJseS1DU2hhcnBdXSwgbXNjb3JsaWIiLA0KICAgICIkcmxlbmd0aCI6IDIsDQogICAgIiRyY29udGVudCI6IFsNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDEyLA0KICAgICAgICAgICAgIiR0eXBlIjogIjh8UmVtb3ZlTWFuYU5vZGUsIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiQW1vdW50IjogMQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgICAiJGlkIjogMTMsDQogICAgICAgICAgICAiJHR5cGUiOiAiOXxBcHBseVN0YXR1c05vZGUsIEFzc2VtYmx5LUNTaGFycCIsDQogICAgICAgICAgICAiU3RhdHVzIjogew0KICAgICAgICAgICAgICAgICIkaWQiOiAxNCwNCiAgICAgICAgICAgICAgICAiJHR5cGUiOiAiMTB8RGVmZW5zZVN0YXR1cywgQXNzZW1ibHktQ1NoYXJwIiwNCiAgICAgICAgICAgICAgICAiRHVyYXRpb24iOiAxDQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICBdDQp9LA0KInRhcmdldGVkQWN0aW9ucyI6IHsNCiAgICAiJGlkIjogMTUsDQogICAgIiR0eXBlIjogNywNCiAgICAiJHJsZW5ndGgiOiAyLA0KICAgICIkcmNvbnRlbnQiOiBbDQogICAgICAgIHsNCiAgICAgICAgICAgICIkaWQiOiAxNiwNCiAgICAgICAgICAgICIkdHlwZSI6ICIxMXxJc0hpdE5vZGUsIEFzc2VtYmx5LUNTaGFycCINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICAgIiRpZCI6IDE3LA0KICAgICAgICAgICAgIiR0eXBlIjogIjEyfERvRGFtYWdlTm9kZSwgQXNzZW1ibHktQ1NoYXJwIiwNCiAgICAgICAgICAgICJCYXNlRGFtYWdlIjogMjUsDQogICAgICAgICAgICAiQW1wbGlmeWFibGUiOiB0cnVlLA0KICAgICAgICAgICAgIkRlZmVuZGFibGUiOiB0cnVlDQogICAgICAgIH0NCiAgICBdDQp9
+    SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: actorRestrictions
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 1|ManaRestriction, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|RankCellsRestriction, Assembly-CSharp
+    - Name: Ranks
+      Entry: 7
+      Data: 3|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetRestrictions
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 5|CellContentRestriction, Assembly-CSharp
+    - Name: Content
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|RankCellsRestriction, Assembly-CSharp
+    - Name: Ranks
+      Entry: 7
+      Data: 7|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: areaOfEffect
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 9|AffectedPoint, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: areaOfEffectRestrictions
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selfActions
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 12|RemoveManaNode, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|ApplyStatusNode, Assembly-CSharp
+    - Name: Status
+      Entry: 7
+      Data: 14|DefenseStatus, Assembly-CSharp
+    - Name: Duration
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetedActions
+      Entry: 7
+      Data: 15|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 16|IsHitNode, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 17|DoDamageNode, Assembly-CSharp
+    - Name: BaseDamage
+      Entry: 3
+      Data: 25
+    - Name: Amplifyable
+      Entry: 5
+      Data: true
+    - Name: Defendable
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   MaxUsesPerTurn: 1
+  Cooldown: 1
   AffectedCellsIndependent: 1
+  Sprite: {fileID: 21300000, guid: b1e2920dab89c384db2021f7473062a2, type: 3}

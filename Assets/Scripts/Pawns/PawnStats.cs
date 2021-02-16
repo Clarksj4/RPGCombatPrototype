@@ -6,27 +6,53 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Character", menuName = "Pawn Stats")]
 public class PawnStats : SerializedScriptableObject
 {
-    [Header("Initiative")]
+    [TitleGroup("Pawn")]
+    [HorizontalGroup("Pawn/Split", LabelWidth = 100)]
+    [VerticalGroup("Pawn/Split/Left")]
+    [Tooltip("How much damage this pawn can take before perishing.")]
+    public int MaxHealth = 100;
+
+    [VerticalGroup("Pawn/Split/Left")]
+    [Tooltip("How much mana this actor can store at once.")]
+    public int MaxMana;
+
+    [VerticalGroup("Pawn/Split/Left")]
+    [Tooltip("Each attack has its damage reduced by this amount.")]
+    public int Defense = 0;
+
+    [VerticalGroup("Pawn/Split/Left")]
+    [Tooltip("This pawn's priority in the turn order. A higher value acts sooner that a lower value.")]
+    [Range(0f, 100f)]
     public float Priority = 0;
 
-    [Header("Defense")]
-    public int Defense;
-    public int MaxHealth;
-
-    [Header("Attack")]
+    [VerticalGroup("Pawn/Split/Left")]
+    [Tooltip("Damage multiplier.")]
     public float Power = 1.0f;
 
-    [Header("Movement")]
-    public int Movement;
+    [VerticalGroup("Pawn/Split/Left")]
+    [Tooltip("The number of cells this pawn can move per move action.")]
+    public int Movement = 1;
 
-    [Header("Statuses")]
-    [OdinSerialize]
-    public List<PawnStatus> Statuses = null;
-
-    [Header("Actions")]
-    public int MaxMana;
+    [VerticalGroup("Pawn/Split/Left")]
+    [Tooltip("The maximum number of actions this pawn can do per turn.")]
     public int ActionsPerTurn = 1;
-    public List<BattleAction> BattleActions;
+
+    [HorizontalGroup("Pawn/Split/Right", 100)]
+    [VerticalGroup("Pawn/Split/Right/Inner")]
+    [HideLabel, PreviewField(100)]
+    public Sprite HeadSprite;
+
+    [VerticalGroup("Pawn/Split/Right/Inner")]
+    [HideLabel, PreviewField(100)]
+    public Sprite SplashSprite;
+
+    [OdinSerialize]
+    [Tooltip("Collection of statuses currently applied to this pawn.")]
+    public List<PawnStatus> Statuses = new List<PawnStatus>(0);
+
+    [Tooltip("The actions that this actor can do.")]
+    public List<BattleAction> BattleActions = new List<BattleAction>(0);
+
 
     public virtual void SetStats(Pawn pawn)
     {
