@@ -34,10 +34,10 @@ public class BattleManager : MonoSingleton<BattleManager>
                 );
                 i++;
             }
-            
-            
+
+
             // Start the turn!
-            TurnManager.Instance.Next();
+            TurnManager.Instance.RequestTurnEnd();
         });
     }
 
@@ -52,6 +52,6 @@ public class BattleManager : MonoSingleton<BattleManager>
     {
         // Next round doesn't automatically start - need to
         // explicitly tell turn manager to go to next turn.
-        TurnManager.Instance.Next();
+        TurnManager.Instance.RequestTurnEnd();
     }
 }

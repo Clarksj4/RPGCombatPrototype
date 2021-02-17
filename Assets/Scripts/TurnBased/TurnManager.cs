@@ -32,6 +32,8 @@ public class TurnManager : MonoSingleton<TurnManager>
     /// </summary>
     public int RoundCount { get; private set; }
 
+    private bool turnEndInProgress;
+    private bool turnEndRequested;
     private bool roundStarted;
     private TurnOrder turnOrder = new TurnOrder();
 
@@ -60,18 +62,36 @@ public class TurnManager : MonoSingleton<TurnManager>
     }
 
     /// <summary>
+    /// Requests that the current turn ends - will finish
+    /// any in progress sequences before starting a new turn.
+    /// </summary>
+    public void RequestTurnEnd()
+    {
+        // If a turn is already ending - wait for it to finish
+        // before ending the next one (so that ALL listeners
+        // get notified in order)
+        if (turnEndInProgress)
+            turnEndRequested = true;
+
+        else
+            Next();
+    }
+
+    /// <summary>
     /// Proceeds to the next thing in the turn order if
     /// there is one.
     /// </summary>
-    public bool Next()
+    private void Next()
     {
+        turnEndRequested = false;
+        turnEndInProgress = true;
+
         // Notify that the current actor's turn is ending
         if (turnOrder.Current != null)
         {
             turnOrder.Current.OnTurnEnd();
             OnTurnEnd?.Invoke(turnOrder.Current);
         }
-            
 
         // If the round hasn't started notify that a new one
         // is starting
@@ -101,7 +121,10 @@ public class TurnManager : MonoSingleton<TurnManager>
             turnOrder.Current.OnTurnStart();
             OnTurnStart?.Invoke(turnOrder.Current);
         }
-        
-        return anyMore;
+
+        turnEndInProgress = false;
+
+        if (turnEndRequested)
+            Next();
     }
 }

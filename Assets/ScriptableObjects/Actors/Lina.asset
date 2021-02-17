@@ -12,17 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5aaf882535644a8011f1cc1741fbc, type: 3}
   m_Name: Lina
   m_EditorClassIdentifier: 
-  Priority: 50
-  Defense: 0
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Statuses
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[PawnStatus, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   MaxHealth: 100
+  MaxMana: 3
+  Defense: 0
+  Priority: 50
   Power: 1
   Movement: 1
-  Statuses: []
-  MaxMana: 3
-  StartingMana: 0
-  Actions:
-  - Move
-  - FlameWave
-  - Cauterize
-  - Firebolt
-  - FireShield
+  ActionsPerTurn: 1
+  HeadSprite: {fileID: 21300000, guid: 5a1612740b23e5241b54f8657a8d9b64, type: 3}
+  SplashSprite: {fileID: -565618138733698508, guid: e21b0e63459c3e94d99a7ef6875d37d4, type: 3}
+  BattleActions:
+  - {fileID: 11400000, guid: 3cd5efd45e4fac34f918a50d599fba20, type: 2}
+  - {fileID: 11400000, guid: 5fbb326b3890c0044a7c5d465cfac030, type: 2}
+  - {fileID: 11400000, guid: 9f7828170b0ce064a9cd3adc3832af16, type: 2}
+  - {fileID: 11400000, guid: e50e9db54c1b36f4e8c405af414073d6, type: 2}
+  - {fileID: 11400000, guid: 6fc64444d4f635342ac0812cebfc8742, type: 2}

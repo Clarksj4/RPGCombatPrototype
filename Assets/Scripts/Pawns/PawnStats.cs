@@ -64,12 +64,19 @@ public class PawnStats : SerializedScriptableObject
         pawn.Power = Power;
         pawn.Movement = Movement;
         pawn.MaxMana = MaxMana;
-        pawn.BattleActions = BattleActions;
+        pawn.ActionsPerTurn = ActionsPerTurn;
 
-        // Duplicate each action and give it to the pawn.        
         if (BattleActions != null)
+        {
             foreach (BattleAction action in BattleActions)
-                pawn.BattleActions.Add(Instantiate(action));
+            {
+                if (action != null)
+                {
+                    BattleAction duplicate = Instantiate(action);
+                    pawn.BattleActions.Add(duplicate);
+                }
+            }
+        }
 
         // Apply each status to the pawn
         if (Statuses != null)

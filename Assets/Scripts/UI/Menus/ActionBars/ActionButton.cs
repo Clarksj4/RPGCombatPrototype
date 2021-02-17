@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,9 @@ public class ActionButton : MonoBehaviour
     public float angryDuration;
 
     public GameObject ManaCost;
-    public Text ManaCostText;
+    public TextMeshProUGUI ManaCostText;
     public GameObject Cooldown;
-    public Text CooldownText;
+    public TextMeshProUGUI CooldownText;
     public Image AbilityImage;
 
     private Sequence angrySequence;

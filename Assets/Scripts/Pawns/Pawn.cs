@@ -130,6 +130,11 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// </summary>
     public int Movement { get; set; }
     /// <summary>
+    /// Gets or sets the maximum number of actions this
+    /// pawn can do per turn.
+    /// </summary>
+    public int ActionsPerTurn { get; set; }
+    /// <summary>
     /// Gets whether this actor is immune to damage from
     /// defendable sources.
     /// </summary>
@@ -488,13 +493,17 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         if (!Stunned)
             SetMana(Mana + 1);
 
+        // Update actions so that they recalculate the
+        // targetable cells.
+        foreach (BattleAction action in BattleActions)
+            action.SetActor(this);
+
         OnTurnStarted?.Invoke(this);
 
         // If actor is incapacitated, it doesn't get a turn.
         // Hard luck, bud.
-        // TODO: end turn only if there is no actions that can be done.
         if (Incapacitated || !IsActor)
-            TurnManager.Instance.Next();
+            TurnManager.Instance.RequestTurnEnd();
     }
 
     public void OnTurnEnd()
@@ -510,7 +519,8 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
         // Can we afford any of our current actions?
         bool anyAvailableAction = BattleActions.Any(a =>a.CanDo());
-        return anyAvailableAction;
+        bool anyUsesLeft = actionUses.Values.Sum() < ActionsPerTurn;
+        return anyAvailableAction && anyUsesLeft;
     }
 
     private void IncrementActionUseCount(string actionName)
@@ -531,6 +541,6 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     private void HandleOnActionComplete(Pawn pawn, BattleAction action)
     {
         if (pawn == this && !CanAct())
-            TurnManager.Instance.Next();
+            TurnManager.Instance.RequestTurnEnd();
     }
 }
