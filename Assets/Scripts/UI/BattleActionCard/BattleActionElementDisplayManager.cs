@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class BattleActionElementDisplayManager : MonoSingleton<BattleActionElementDisplayManager>
@@ -13,14 +12,18 @@ public class BattleActionElementDisplayManager : MonoSingleton<BattleActionEleme
         // If there is a display for the given element, make it!
         BattleActionElementDisplay prefab = GetPrefab(element);
         if (prefab != null)
-            return Instantiate(prefab);
-        
+        {
+            BattleActionElementDisplay instance = Instantiate(prefab);
+            instance.Setup(element);
+            return instance;
+        }
+            
         // No applicable display - give em nutin!
         return null;
     }
 
     private BattleActionElementDisplay GetPrefab(IBattleActionElement element)
     {
-        return Prefabs.FirstOrDefault(p => p.DisplaysFor == element.name);
+        return Prefabs.FirstOrDefault(p => element.name.Contains(p.DisplaysFor));
     }
 }

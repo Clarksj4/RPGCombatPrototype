@@ -31,7 +31,12 @@ public class BattleActionCard : MonoBehaviour
     private void OnValidate()
     {
         if (Application.isPlaying && Test != null)
-            SetAction(Test);
+            Invoke("SetAction", 0.1f);
+    }
+
+    private void SetAction()
+    {
+        SetAction(Test);
     }
 
     public void SetAction(BattleAction action)
@@ -90,7 +95,8 @@ public class BattleActionCard : MonoBehaviour
         foreach (IBattleActionElement element in action.TargetedActions)
         {
             BattleActionElementDisplay display = BattleActionElementDisplayManager.Instance.GetDisplay(element);
-            display.transform.SetParent(actionLayout);
+            if (display != null)
+                display.transform.SetParent(actionLayout, false);
         }
     }
 }

@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3872452981766206944}
-  - component: {fileID: 2212882442079873952}
+  - component: {fileID: 4365652643020133117}
   m_Layer: 0
   m_Name: ApplyStatusNodeDisplay
   m_TagString: Untagged
@@ -219,7 +219,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2212882442079873952
+--- !u!114 &4365652643020133117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3872452981766206975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c52d56ef4ffbb40b7a0cd94ebe37c4, type: 3}
+  m_Script: {fileID: 11500000, guid: fd9688ca1b0c7e940b34e45a2267ce01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DisplaysFor: ApplyStatusNode

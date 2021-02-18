@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4192393933965489708
 MonoBehaviour:
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplaysFor: ManaRestriction
-  Order: 0
+  image: {fileID: 0}
   text: {fileID: 6356865488188531792}
 --- !u!114 &8681222118548485270
 MonoBehaviour:
@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4435456689866479341, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_fontSize
-      value: 19.05
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 4435456689866479341, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_fontSizeMin
@@ -190,7 +190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5533136915816706830, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.9999924
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}

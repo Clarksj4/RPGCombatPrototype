@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7326735280044694943}
-  - component: {fileID: 4061054688032787237}
   - component: {fileID: 1221809971660803335}
+  - component: {fileID: 5816233086591681110}
   m_Layer: 0
   m_Name: ExposedCells
   m_TagString: Untagged
@@ -34,24 +34,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4061054688032787237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7326735280044694936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e771bb2c217a62346a08ef22387e1b70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisplaysFor: ExposedCells
-  Order: 3
 --- !u!114 &1221809971660803335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +52,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1
+--- !u!114 &5816233086591681110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7326735280044694936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c52d56ef4ffbb40b7a0cd94ebe37c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisplaysFor: ExposedCells
+  image: {fileID: 0}
 --- !u!1 &7326735280862993171
 GameObject:
   m_ObjectHideFlags: 0
