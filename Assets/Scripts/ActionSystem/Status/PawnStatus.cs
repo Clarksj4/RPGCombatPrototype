@@ -10,6 +10,10 @@ public abstract class PawnStatus
     /// </summary>
     public event Action<PawnStatus> OnStatusExpired;
     /// <summary>
+    /// Gets the name of this pawn status.
+    /// </summary>
+    public string Name { get { return GetType().Name; } }
+    /// <summary>
     /// Gets the pawn this status is applied to.
     /// </summary>
     public Pawn Pawn { get; private set; }

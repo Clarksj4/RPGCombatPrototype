@@ -1,19 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+using Sirenix.OdinInspector;
 
-public class FormationRestrictionDisplay : TargetingRestrictionDisplay
+public class FormationRestrictionDisplay : BattleActionElementDisplay
 {
-    [Header("Components")]
-    [SerializeField] private Image image;
-
-    [Header("Colours")]
+    [BoxGroup("Colours")]
     [SerializeField] private Color selfColour;
     [SerializeField] private Color otherColour;
 
-    public override void Setup(TargetingRestriction restriction)
+    public override void Setup(IBattleActionElement element)
     {
-        FormationRestriction formationRestriction = restriction as FormationRestriction;
+        FormationRestriction formationRestriction = element as FormationRestriction;
         TargetableFormation formations = formationRestriction.Formations;
 
         if (formations.HasFlag(TargetableFormation.Other) &&

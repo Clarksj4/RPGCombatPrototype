@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AspectMode: 2
+  m_AspectMode: 3
   m_AspectRatio: 1
 --- !u!1001 &7329035716505498301
 PrefabInstance:
@@ -74,6 +74,28 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6751747394300883935}
     m_Modifications:
+    - target: {fileID: 4435456689866479341, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
+      propertyPath: m_text
+      value: '3
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435456689866479341, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
+      propertyPath: m_fontSize
+      value: 19.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435456689866479341, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435456689866479341, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
+      propertyPath: m_overflowMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550117065766135315, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.499999
+      objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378868, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_Name
       value: ManaCost
@@ -165,6 +187,10 @@ PrefabInstance:
     - target: {fileID: 4550117066530378869, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533136915816706830, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.9999924
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}

@@ -1,20 +1,25 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
-public class CellContentRestrictionDisplay : TargetingRestrictionDisplay
+public class CellContentRestrictionDisplay : BattleActionElementDisplay
 {
-    [Header("Components")]
+    [BoxGroup("Components")]
     [SerializeField] private GameObject all;
+    [BoxGroup("Components")]
     [SerializeField] private GameObject ally;
+    [BoxGroup("Components")]
     [SerializeField] private GameObject enemy;
+    [BoxGroup("Components")]
     [SerializeField] private GameObject self;
+    [BoxGroup("Components")]
     [SerializeField] private GameObject empty;
 
-    public override void Setup(TargetingRestriction restriction)
+    public override void Setup(IBattleActionElement element)
     {
         // By default, hide all the bits
         ShowAll(false);
 
-        CellContentRestriction cellRestriction = restriction as CellContentRestriction;
+        CellContentRestriction cellRestriction = element as CellContentRestriction;
         TargetableCellContent content = cellRestriction.Content;
 
         // Everything!

@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
 using System.Linq;
+using Sirenix.OdinInspector;
 
-public class RankCellsRestrictionDisplay : TargetingRestrictionDisplay
+public class RankCellsRestrictionDisplay : BattleActionElementDisplay
 {
-    [Header("Components")]
+    [BoxGroup("Components")]
     [SerializeField] private string baseSpriteName;
-    [SerializeField] private Image image;
 
-    public override void Setup(TargetingRestriction restriction)
+    public override void Setup(IBattleActionElement element)
     {
-        RankCellsRestriction rankRestriction = restriction as RankCellsRestriction;
+        RankCellsRestriction rankRestriction = element as RankCellsRestriction;
         string spriteName = GetSpriteName(rankRestriction);
         image.sprite = SpriteManager.Instance.GetSpriteByName(spriteName);
     }
