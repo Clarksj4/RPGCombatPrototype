@@ -2577,6 +2577,7 @@ MonoBehaviour:
   - {fileID: 4192393933965489708, guid: fe264e5292101204390240ef21f1c0bb, type: 3}
   - {fileID: 2300305902522748750, guid: 5e8d7e2c3dedff64b8e2881d3aa67c34, type: 3}
   - {fileID: 4415658583867356331, guid: 2c7cffba89b80ba4c93cee7845efb4de, type: 3}
+  - {fileID: 5297580058835593485, guid: 22d6f385d82ab96448b5cfbd6e29751c, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,7 +2787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d12445fc3ace6469ba95755b245294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Test: {fileID: 11400000, guid: 486aa1842d2173348a2d9929c0dd3087, type: 2}
+  Test: {fileID: 11400000, guid: e41354be880332a46bce143d747fcbfc, type: 2}
   actionTitle: {fileID: 2045893261}
   actionImage: {fileID: 2082144524}
   actionCostLayout: {fileID: 828407533}
@@ -3655,7 +3656,7 @@ MonoBehaviour:
   - {fileID: 1048189125}
   - {fileID: 1982445120}
   - {fileID: 455394720}
-  hideEmpty: 0
+  hideEmpty: 1
 --- !u!1 &805324108
 GameObject:
   m_ObjectHideFlags: 0
@@ -3888,7 +3889,7 @@ MonoBehaviour:
   - {fileID: 1840597950}
   - {fileID: 1691624910}
   - {fileID: 1753178349}
-  hideEmpty: 0
+  hideEmpty: 1
 --- !u!114 &828407535
 MonoBehaviour:
   m_ObjectHideFlags: 0
