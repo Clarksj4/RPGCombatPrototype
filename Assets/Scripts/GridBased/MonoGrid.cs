@@ -7,11 +7,6 @@ using UnityEngine.Events;
 public class MonoGrid : MonoBehaviour
 {
     /// <summary>
-    /// Gets the number of cells in each column and row
-    /// on this grid.
-    /// </summary>
-    public Vector2Int NCells { get { return nCells; } } 
-    /// <summary>
     /// Gets the width and height of each cell on this
     /// grid unaffected by scale.
     /// </summary>
@@ -33,7 +28,7 @@ public class MonoGrid : MonoBehaviour
 
     private new BoxCollider collider = null;
     private Dictionary<Vector2Int, Cell> cellDirectory = new Dictionary<Vector2Int, Cell>();
-    private GridRefactor grid = new GridRefactor();
+    private Grid grid = new Grid();
 
     private void Awake()
     {
@@ -109,34 +104,13 @@ public class MonoGrid : MonoBehaviour
         
         return null;
     }
-
-    public IEnumerable<Cell> GetColumnCells(int x)
-    {
-        return grid.GetColumnCoordinates(x).Select(GetCell).Where(c => c != null);
-    }
-
-    public IEnumerable<Cell> GetRowCells(int y)
-    {
-        return grid.GetRowCoordinates(y).Select(GetCell).Where(c => c != null);
-    }
-
-    public IEnumerable<Cell> GetLineCells(Cell cell, Vector2Int step, int nSteps)
-    {
-        return grid.GetLine(cell.Coordinate, step, nSteps).Select(GetCell).Where(c => c != null);
-    }
-
+    
+    /// <summary>
+    /// Gets all the cells in the given range.
+    /// </summary>
     public IEnumerable<Cell> GetRange(Vector2Int origin, int min, int max)
     {
         return grid.GetRange(origin, min, max).Select(GetCell).Where(c => c != null);
-    }
-
-    /// <summary>
-    /// Gets the world position of the centre of the cell at the given position.
-    /// </summary>
-    public Vector3 CoordinateToWorldPosition(Vector2Int coordinate)
-    {
-        Vector3 localPosition = grid.CoordinateToPosition(coordinate);
-        return transform.TransformPoint(localPosition);
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class GridRefactor
+public class Grid
 {
     /// <summary>
     /// Gets or sets the number of cells in each column and row
@@ -117,20 +117,6 @@ public class GridRefactor
             Vector2Int coordinate = Vector2Int.up * i;
             coordinate.x = column;
             yield return coordinate;
-        }
-    }
-
-    /// <summary>
-    /// Returns all the coordinates in the line including the origin
-    /// </summary>
-    public IEnumerable<Vector2Int> GetLine(Vector2Int origin, Vector2Int step, int nSteps)
-    {
-        yield return origin;
-        for (int i = 1; i < nSteps + 1; i++)
-        {
-            Vector2Int coordinate = origin + (step * i);
-            if (Contains(coordinate))
-                yield return coordinate;
         }
     }
 
