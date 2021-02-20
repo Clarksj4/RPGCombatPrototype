@@ -2,21 +2,23 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public class FormationManager : MonoSingleton<FormationManager>
+public class FormationManager : Singleton<FormationManager>
 {
-    public IEnumerable<Formation> Formations { get { return formations; } }
+    public IEnumerable<Formation> Formations 
+    { 
+        get 
+        { 
+            // Lazy formation retrieval
+            if (formations == null )
+                formations = GameObject.FindObjectsOfType<Formation>();
+            return formations; 
+        } 
+    }
 
     private Formation[] formations;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        formations = FindObjectsOfType<Formation>();
-    }
-
     public Formation GetFormation(Cell cell)
     {
-        return formations.FirstOrDefault(f => f.Contains(cell));
+        return Formations.FirstOrDefault(f => f.Contains(cell));
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class TurnManager : MonoSingleton<TurnManager>
+public class TurnManager : Singleton<TurnManager>
 {
     /// <summary>
     /// Occurs when a new round is starting. A round is
