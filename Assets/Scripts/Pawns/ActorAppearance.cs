@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -15,8 +16,10 @@ namespace Assets.Scripts
         private Image[] actorImages = null;
         [SerializeField]
         private GameObject[] highlights = null;
-        //[SerializeField]
-        //private Image maskSortingGroup = null;
+        [SerializeField]
+        private TextMeshProUGUI defenseText = null;
+        [SerializeField]
+        private TextMeshProUGUI manaText = null;
 
         private Pawn actor = null;
 
@@ -25,9 +28,20 @@ namespace Assets.Scripts
             actor = GetComponent<Pawn>();
             actor.OnInitialized += HandleOnInitialized;
             actor.OnTeamChanged += HandleOnTeamChanged;
+            actor.OnStatusApplied += HandleOnStatusApplied;
+            actor.OnStatusExpired += HandleOnStatusExpired;
+
+            ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
 
             TurnManager.Instance.OnTurnStart += HandleOnTurnStart;
             TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
+        }
+
+
+        private void RefreshStats()
+        {
+            defenseText.text = actor.Defense.ToString();
+            manaText.text = actor.Mana.ToString();
         }
 
         private void RefreshActorImage()
@@ -53,13 +67,19 @@ namespace Assets.Scripts
         private void HandleOnTurnStart(ITurnBased turnBasedEntity)
         {
             if (turnBasedEntity == (ITurnBased)actor)
+            {
                 ApplySelectionColour();
+                RefreshStats();
+            }
         }
 
         private void HandleOnTurnEnd(ITurnBased turnBasedEntity)
         {
             if (turnBasedEntity == (ITurnBased)actor)
+            {
                 ApplyTeamColour();
+                RefreshStats();
+            }
         }
 
         private void HandleOnInitialized(Pawn pawn)
@@ -70,6 +90,22 @@ namespace Assets.Scripts
         private void HandleOnTeamChanged()
         {
             ApplyTeamColour();
+        }
+
+        private void HandleOnActionStarted(Pawn pawn, BattleAction action)
+        {
+            if (pawn == actor)
+                RefreshStats();
+        }
+
+        private void HandleOnStatusExpired(PawnStatus obj)
+        {
+            RefreshStats();
+        }
+
+        private void HandleOnStatusApplied(PawnStatus obj)
+        {
+            RefreshStats();
         }
     }
 }
