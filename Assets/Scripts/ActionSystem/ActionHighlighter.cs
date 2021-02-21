@@ -3,14 +3,18 @@ using UnityEngine;
 
 public class ActionHighlighter : MonoSingleton<ActionHighlighter>
 {
-    // Convenience properties
+    /// <summary>
+    /// Gets the currently selected action.
+    /// </summary>
     private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
 
-    [SerializeField]
-    private GridRenderer gridRenderer = null;
+    [Tooltip("The grid renderer to colour in.")]
+    [SerializeField] private GridRenderer gridRenderer = null;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
         ActionManager.Instance.OnActionDeselected += HandleOnActionDeselected;
         ActionManager.Instance.OnTargetSelected += HandleOnTargetSelected;
@@ -20,9 +24,14 @@ public class ActionHighlighter : MonoSingleton<ActionHighlighter>
 
     private void Start()
     {
+        // Start with nothing highlighted
         UnhighlightAll();
     }
 
+    /// <summary>
+    /// Highlight all the cells that could be targeted with
+    /// the current action.
+    /// </summary>
     private void HighlightPossibleTargets()
     {
         SetCellColour(
@@ -31,6 +40,10 @@ public class ActionHighlighter : MonoSingleton<ActionHighlighter>
         );
     }
 
+    /// <summary>
+    /// Highlight all the cells that will be affected by the
+    /// current action when used at the targeted cell.
+    /// </summary>
     private void HighlightAffectedCells()
     {
         SetCellColour(
@@ -47,6 +60,8 @@ public class ActionHighlighter : MonoSingleton<ActionHighlighter>
 
     private Color GetActionColour()
     {
+        // TODO: get coloud based on action nodes
+
         Color colour = Color.cyan;
 
         if (SelectedAction.Tags.HasFlag(ActionTag.Damage))
@@ -77,29 +92,35 @@ public class ActionHighlighter : MonoSingleton<ActionHighlighter>
 
     private void HandleOnTargetSelected(BattleAction action)
     {
+        // Highlight all the cells that will be affected.
         UnhighlightAll();
-        HighlightPossibleTargets();
         HighlightAffectedCells();
     }
 
     private void HandleOnTargetDeselected(BattleAction action)
     {
+        // Highlight all the possible targets.
         UnhighlightAll();
         HighlightPossibleTargets();
     }
 
     private void HandleOnActionSelected(BattleAction action)
     {
+        // Highlight all the possible targets.
+        UnhighlightAll();
         HighlightPossibleTargets();
     }
 
     private void HandleOnActionDeselected(BattleAction action)
     {
+        // Nothing to highlight.
         UnhighlightAll();
     }
 
     private void HandleOnActionStarted(Pawn pawn, BattleAction action)
     {
+        // Stop highlighting things so we don't obscure the view
+        // of the action being carried out.
         UnhighlightAll();
     }
 }
