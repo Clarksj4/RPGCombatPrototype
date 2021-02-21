@@ -9,14 +9,6 @@ public class Formation : MonoBehaviour
     /// </summary>
     public MonoGrid Grid { get { return GetComponentInParent<MonoGrid>(); } }
     /// <summary>
-    /// Gets the width and height of this formation
-    /// </summary>
-    public Vector3 Size { get { return nCells * Grid.CellSize; } }
-    /// <summary>
-    /// Gets the extents of this formation, equal to half the width and height.
-    /// </summary>
-    public Vector3 Extents { get { return Size / 2; } }
-    /// <summary>
     /// Gets the direction that this formation is facing.
     /// </summary>
     public Vector2Int Facing { get { return facing; } }
@@ -33,6 +25,9 @@ public class Formation : MonoBehaviour
         } 
     }
 
+    /// <summary>
+    /// Gets the number of files in this formation.
+    /// </summary>
     public int NFiles 
     { 
         get
@@ -44,6 +39,9 @@ public class Formation : MonoBehaviour
         } 
     }
 
+    /// <summary>
+    /// Gets the number of ranks in this formation.
+    /// </summary>
     public int NRanks
     {
         get
@@ -55,43 +53,32 @@ public class Formation : MonoBehaviour
         }
     }
 
-    [SerializeField]
+    [SerializeField][Tooltip("The size of this formation.")]
     private Vector2Int nCells = default;
-    [SerializeField]
+    [SerializeField][Tooltip("The bottom left coordinate of this formation.")]
     private Vector2Int origin = default;
-    [SerializeField]
+    [SerializeField][Tooltip("The direction this formation is facing.")]
     private Vector2Int facing = default;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 corner1 = transform.TransformPoint(new Vector3(-Extents.x, -Extents.y));
-        Vector3 corner2 = transform.TransformPoint(new Vector3(-Extents.x, Extents.y));
-        Vector3 corner3 = transform.TransformPoint(new Vector3(Extents.x, Extents.y));
-        Vector3 corner4 = transform.TransformPoint(new Vector3(Extents.x, -Extents.y));
-
-        Gizmos.DrawLine(corner1, corner2);
-        Gizmos.DrawLine(corner2, corner3);
-        Gizmos.DrawLine(corner3, corner4);
-        Gizmos.DrawLine(corner4, corner1);
-    }
-
-    private void OnValidate()
-    {
-        Vector3 localPosition = -(Vector3)Grid.Extents + (Vector3)(origin * Grid.CellSize) + (Vector3)((nCells * Grid.CellSize) / 2f);
-        transform.localPosition = localPosition;
-    }
-
+    /// <summary>
+    /// Gets whether the given cell is within this formation.
+    /// </summary>
     public bool Contains(Cell cell)
     {
         return Contains(cell.Coordinate);
     }
 
+    /// <summary>
+    /// Gets whether the given coordinate is within this formation.
+    /// </summary>
     public bool Contains(Vector2Int coordinate)
     {
         return Contains(coordinate.x, coordinate.y);
     }
 
+    /// <summary>
+    /// Gets whether the given coordinate is within this formation.
+    /// </summary>
     public bool Contains(int x, int y)
     {
         return x >= origin.x &&
@@ -100,6 +87,10 @@ public class Formation : MonoBehaviour
                 y <= (origin.y + nCells.y);
     }
 
+    /// <summary>
+    /// Gets a direction vector relative to the direction this 
+    /// formation is facing.
+    /// </summary>
     public Vector2Int GetDirection(FormationMovement movement)
     {
         switch (movement)
@@ -117,12 +108,18 @@ public class Formation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets all the cells in this formation.
+    /// </summary>
     public IEnumerable<Cell> GetCells()
     {
         foreach (Vector2Int coordinate in GetCoordinates())
             yield return Grid.GetCell(coordinate);
     }
 
+    /// <summary>
+    /// Gets all the coordinates in this formation
+    /// </summary>
     public IEnumerable<Vector2Int> GetCoordinates()
     {
         for (int x = 0; x < nCells.x; x++)

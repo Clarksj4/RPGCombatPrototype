@@ -1,110 +1,105 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Actions
+public class ActionHighlighter : MonoSingleton<ActionHighlighter>
 {
-    public class ActionHighlighter : MonoBehaviour
+    // Convenience properties
+    private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
+
+    [SerializeField]
+    private GridRenderer gridRenderer = null;
+
+    private void Awake()
     {
-        // Convenience properties
-        private BattleAction SelectedAction { get { return ActionManager.Instance.SelectedAction; } }
+        ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
+        ActionManager.Instance.OnActionDeselected += HandleOnActionDeselected;
+        ActionManager.Instance.OnTargetSelected += HandleOnTargetSelected;
+        ActionManager.Instance.OnTargetDeselected += HandleOnTargetDeselected;
+        ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
+    }
 
-        [SerializeField]
-        private GridRenderer gridRenderer = null;
+    private void Start()
+    {
+        UnhighlightAll();
+    }
 
-        private void Awake()
-        {
-            ActionManager.Instance.OnActionSelected += HandleOnActionSelected;
-            ActionManager.Instance.OnActionDeselected += HandleOnActionDeselected;
-            ActionManager.Instance.OnTargetSelected += HandleOnTargetSelected;
-            ActionManager.Instance.OnTargetDeselected += HandleOnTargetDeselected;
-            ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
-        }
+    private void HighlightPossibleTargets()
+    {
+        SetCellColour(
+            cells: GetPossibleTargets(),
+            colour: Color.white
+        );
+    }
 
-        private void Start()
-        {
-            UnhighlightAll();
-        }
+    private void HighlightAffectedCells()
+    {
+        SetCellColour(
+            cells: GetAffectedCoordinates(),
+            colour: GetActionColour()
+        );
+    }
 
-        private void HighlightPossibleTargets()
-        {
-            SetCellColour(
-                cells: GetPossibleTargets(),
-                colour: Color.white
-            );
-        }
+    private void UnhighlightAll()
+    {
+        // Unhighlight everything
+        gridRenderer.SetAllCellColours(Color.grey);
+    }
 
-        private void HighlightAffectedCells()
-        {
-            SetCellColour(
-                cells: GetAffectedCoordinates(),
-                colour: GetActionColour()
-            );
-        }
+    private Color GetActionColour()
+    {
+        Color colour = Color.cyan;
 
-        private void UnhighlightAll()
-        {
-            // Unhighlight everything
-            gridRenderer.SetAllCellColours(Color.grey);
-        }
+        if (SelectedAction.Tags.HasFlag(ActionTag.Damage))
+            colour = Color.red;
 
-        private Color GetActionColour()
-        {
-            Color colour = Color.cyan;
+        else if (SelectedAction.Tags.HasFlag(ActionTag.Heal))
+            colour = Color.green;
 
-            if (SelectedAction.Tags.HasFlag(ActionTag.Damage))
-                colour = Color.red;
+        return colour;
+    }
 
-            else if (SelectedAction.Tags.HasFlag(ActionTag.Heal))
-                colour = Color.green;
+    private void SetCellColour(IEnumerable<Cell> cells, Color colour)
+    {
+        // Highlight possible targets 
+        foreach (Cell cell in cells)
+            gridRenderer.SetCellColour(cell, colour);
+    }
 
-            return colour;
-        }
+    private IEnumerable<Cell> GetAffectedCoordinates()
+    {
+        return SelectedAction.AffectedCells;
+    }
 
-        private void SetCellColour(IEnumerable<Cell> cells, Color colour)
-        {
-            // Highlight possible targets 
-            foreach (Cell cell in cells)
-                gridRenderer.SetCellColour(cell.Coordinate, colour);
-        }
+    private IEnumerable<Cell> GetPossibleTargets()
+    {
+        return SelectedAction.TargetableCells;
+    }
 
-        private IEnumerable<Cell> GetAffectedCoordinates()
-        {
-            return SelectedAction.AffectedCells;
-        }
+    private void HandleOnTargetSelected(BattleAction action)
+    {
+        UnhighlightAll();
+        HighlightPossibleTargets();
+        HighlightAffectedCells();
+    }
 
-        private IEnumerable<Cell> GetPossibleTargets()
-        {
-            return SelectedAction.TargetableCells;
-        }
+    private void HandleOnTargetDeselected(BattleAction action)
+    {
+        UnhighlightAll();
+        HighlightPossibleTargets();
+    }
 
-        private void HandleOnTargetSelected(BattleAction action)
-        {
-            UnhighlightAll();
-            HighlightPossibleTargets();
-            HighlightAffectedCells();
-        }
+    private void HandleOnActionSelected(BattleAction action)
+    {
+        HighlightPossibleTargets();
+    }
 
-        private void HandleOnTargetDeselected(BattleAction action)
-        {
-            UnhighlightAll();
-            HighlightPossibleTargets();
-        }
+    private void HandleOnActionDeselected(BattleAction action)
+    {
+        UnhighlightAll();
+    }
 
-        private void HandleOnActionSelected(BattleAction action)
-        {
-            HighlightPossibleTargets();
-        }
-
-        private void HandleOnActionDeselected(BattleAction action)
-        {
-            UnhighlightAll();
-        }
-
-        private void HandleOnActionStarted(Pawn pawn, BattleAction action)
-        {
-            UnhighlightAll();
-        }
+    private void HandleOnActionStarted(Pawn pawn, BattleAction action)
+    {
+        UnhighlightAll();
     }
 }

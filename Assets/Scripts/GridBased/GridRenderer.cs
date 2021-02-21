@@ -1,49 +1,39 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
-//[RequireComponent(typeof(Grid))]
 public class GridRenderer : MonoBehaviour
 {
+    [Tooltip("The grid to control the colouring of.")]
     [SerializeField] private MonoGrid grid = null;
-    [SerializeField] private Transform cellParent = null;
 
-    public void SetCellColour(Vector2Int coordinate, Color colour)
+    /// <summary>
+    /// Sets the colour of the given cell.
+    /// </summary>
+    public void SetCellColour(Cell cell, Color colour)
     {
-        Cell cell = grid.GetCell(coordinate);
         SpriteRenderer renderer = cell.GetComponent<SpriteRenderer>();
         renderer.color = colour;
         renderer.sortingOrder++;
     }
 
+    /// <summary>
+    /// Sets the colour of the cell at the given coordinate.
+    /// </summary>
+    public void SetCellColour(Vector2Int coordinate, Color colour)
+    {
+        Cell cell = grid.GetCell(coordinate);
+        SetCellColour(cell, colour);
+    }
+
+    /// <summary>
+    /// Sets the colour of all the cells in the grid to the given colour.
+    /// </summary>
     public void SetAllCellColours(Color colour)
     {
-        foreach (Transform cell in cellParent)
+        foreach (Cell cell in grid.GetCells())
         {
             SpriteRenderer renderer = cell.GetComponent<SpriteRenderer>();
             renderer.color = colour;
             renderer.sortingOrder = -10;
         }
-            
     }
-
-    public void SetCellColour(int x, int y, Color colour)
-    {
-        //SetCellColour(coordinate.x, coordinate.y, colour);
-    }
-
-    //[ContextMenu("ArrangeCells")]
-    //private void ArrangeCells()
-    //{
-    //    for (int i = 0; i < cellParent.childCount; i++)
-    //    {
-    //        int y = i / grid.NCells.x;
-    //        int x = i % grid.NCells.x;
-    //        Vector2Int coordinate = new Vector2Int(x, y);
-
-    //        Transform child = cellParent.GetChild(i);
-    //        child.name = new Vector2Int(x, y).ToString();
-
-    //        child.position = grid.CoordinateToWorldPosition(coordinate);
-    //    }
-    //}
 }

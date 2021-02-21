@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class Cell : MonoBehaviour
 {
+    public event Action<Cell> OnTapped;
+
     /// <summary>
     /// Gets the grid this cell belongs to.
     /// </summary>
@@ -21,10 +25,6 @@ public class Cell : MonoBehaviour
     /// </summary>
     public Vector2Int Coordinate { get { return coordinate; } }
     /// <summary>
-    /// Gets the extents of this cell - equal to half its width and height
-    /// </summary>
-    public Vector3 Extents { get { return Grid.CellSize / 2; } }
-    /// <summary>
     /// Gets whether this cell is currently active.
     /// </summary>
     public bool Active { get { return gameObject.activeSelf; } }
@@ -32,11 +32,29 @@ public class Cell : MonoBehaviour
     /// Gets the formation that this cell belongs to.
     /// </summary>
     public Formation Formation { get { return FormationManager.Instance.GetFormation(this); } }
+    /// <summary>
+    /// Half the size of this cell.
+    /// </summary>
+    private Vector2 Extents { get { return Size / 2; } }
 
     [Tooltip("Whether or not this cell is traversable.")]
     public bool Traversable;
-    [SerializeField][HideInInspector]
+    [SerializeField]
     private Vector2Int coordinate;
+    [SerializeField]
+    private Vector2 Size;
+
+    private new BoxCollider collider;
+
+    private void Awake()
+    {
+        collider = GetComponent<BoxCollider>();
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        OnTapped?.Invoke(this);
+    }
 
     /// <summary>
     /// Checks whether this cell is occupied by aything.
@@ -78,56 +96,13 @@ public class Cell : MonoBehaviour
     }
 
     /// <summary>
-    /// Reparents the cell to the given grid and moves it to
-    /// the correct position based on its coordinate.
+    /// Is the given world position within the bounds of this cell?
     /// </summary>
-    public void Place(MonoGrid parent, Vector2Int coordinate)
+    public bool Contains(Vector3 worldPosition)
     {
-        Place(parent, coordinate.x, coordinate.y);
-    }
-
-    /// <summary>
-    /// Reparents the cell to the given grid and moves it to
-    /// the correct position based on its coordinate.
-    /// </summary>
-    public void Place(MonoGrid parent, int x, int y)
-    {
-        SetParent(parent);
-        SetCoordinate(x, y);
-        UpdateName();
-    }
-
-    /// <summary>
-    /// Updates the position of the cell.
-    /// </summary>
-    public void UpdatePosition()
-    {
-        transform.localPosition = -Grid.Extents + (Grid.CellSize * Coordinate) + (Grid.CellSize / 2);
-    }
-
-    private void SetParent(MonoGrid parent)
-    {
-        transform.SetParent(parent.transform, false);
-    }
-
-    private void SetCoordinate(Vector2Int coordinate)
-    {
-        // Set coordinate and update position
-        this.coordinate = coordinate;
-        UpdatePosition();
-    }
-
-    private void SetCoordinate(int x, int y)
-    {
-        // Set coordinate and update position
-        coordinate = new Vector2Int(x, y);
-        UpdatePosition();
-    }
-
-    private void UpdateName()
-    {
-        // Also rename it to its coordinate so its easy to
-        // identify in the hierarchy
-        name = coordinate.ToString();
+        
+        Vector3 localPoint = transform.InverseTransformPoint(worldPosition);
+        return localPoint.x < Mathf.Abs(Extents.x) &&
+                localPoint.y < Mathf.Abs(Extents.y);
     }
 }
