@@ -11,7 +11,7 @@ public class ManaRestriction : TargetingRestriction
     {
         Pawn pawn = cell.GetContent<Pawn>();
         if (pawn != null)
-            return pawn.Mana >= Amount;
+            return pawn.Stats["Mana"].Value >= Amount;
 
         return true;
     }

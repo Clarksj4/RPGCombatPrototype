@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
 [Serializable]
@@ -22,11 +21,6 @@ public class Stat
     public event Action<Stat, int> OnMaxChanged;
 
     /// <summary>
-    /// Gets the name of this stat.
-    /// </summary>
-    public string Name { get { return name; } }
-
-    /// <summary>
     /// Gets or sets the current value of this stat.
     /// </summary>
     public int Value
@@ -34,8 +28,10 @@ public class Stat
         get { return value; }
         set
         {
-            int delta = value - this.value;
-            this.value = value;
+            // Clamp value change so it doesn't exceed min or max.
+            int oldValue = this.value;
+            this.value = Mathf.Clamp(value, min, max);
+            int delta = value - oldValue;
          
             // Only notify listeners if the value actually changed.
             if (delta != 0)
@@ -78,11 +74,35 @@ public class Stat
     }
 
     [Tooltip("The name of this stat - used to identify it.")]
-    [SerializeField] private string name;
+    public string Name;
     [Tooltip("The current value of this stat.")]
-    [SerializeField] private int value;
+    [SerializeField] private int value = 0;
     [Tooltip("The minimum allowable value for this stat.")]
-    [SerializeField] private int min;
+    [SerializeField] private int min = 0;
     [Tooltip("The maximum allowable value for this stat.")]
-    [SerializeField] private int max;
+    [SerializeField] private int max = 100;
+
+    /// <summary>
+    /// Checks if this stat currently has a value that is not 0.
+    /// </summary>
+    public bool HasValue()
+    {
+        return Value != 0;
+    }
+
+    /// <summary>
+    /// Increases this stat's value by the given amount.
+    /// </summary>
+    public void Increment(int increment)
+    {
+        Value += increment;
+    }
+
+    /// <summary>
+    /// Decreases this stat's value by the given amount.
+    /// </summary>
+    public void Decrement(int decrement)
+    {
+        Value -= decrement;
+    }
 }

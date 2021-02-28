@@ -7,7 +7,7 @@ public class SetHealthNode : ActionNode
     {
         Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
-            pawn.SetHealth(Amount);
+            pawn.Stats["Health"].Value = Amount;
         return true;
     }
 }

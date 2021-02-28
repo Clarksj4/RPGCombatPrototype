@@ -6,15 +6,6 @@ public class StatusBar : MonoBehaviour
     [Tooltip("The frames that will hold icons for all the statuses applied to this pawn.")]
     public StatusFrame[] statusFrames;
 
-    private Pawn pawn;
-
-    private void Awake()
-    {
-        pawn = GetComponentInParent<Pawn>();
-        pawn.OnStatusApplied += HandleOnStatusApplied;
-        pawn.OnStatusExpired += HandleOnStatusExpired;
-    }
-
     private void HandleOnStatusApplied(PawnStatus status)
     {
         StatusFrame existingFrame = statusFrames.FirstOrDefault(s => s.StatusName == status.GetType().Name);

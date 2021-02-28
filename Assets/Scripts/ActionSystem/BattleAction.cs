@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -58,11 +59,24 @@ public class BattleAction : SerializedScriptableObject
     [OdinSerialize]
     [Tooltip("The sequence of things this battle action will do on each targeted cell.")]
     protected List<ActionNode> targetedActions = new List<ActionNode>(0);
+    
+    //
+    // Events
+    //
+
+    /// <summary>
+    /// Occurs when this action is used.
+    /// </summary>
+    public event Action<BattleAction> OnActionUsed;
 
     //
     // Properties
     //
 
+    /// <summary>
+    /// Gets the number of times this action has been used this turn.
+    /// </summary>
+    public int UseCount { get; private set; }
     /// <summary>
     /// Gets a collection of informative tags about this action.
     /// </summary>
@@ -121,6 +135,14 @@ public class BattleAction : SerializedScriptableObject
     //
 
     /// <summary>
+    /// Clears the use count for this action.
+    /// </summary>
+    public void ClearUses()
+    {
+        UseCount = 0;
+    }
+
+    /// <summary>
     /// Sets the actor that this action originates from.
     /// </summary>
     public void SetActor(Pawn actor)
@@ -172,7 +194,7 @@ public class BattleAction : SerializedScriptableObject
     public bool CanDo()
     {
         // No restreictions OR conforms to all restrictions.
-        return Actor.GetActionUseCount(name) < MaxUsesPerTurn &&
+        return UseCount < MaxUsesPerTurn &&
               (actorRestrictions == null ||
                actorRestrictions.Count == 0 ||
                actorRestrictions.All(r => r.IsTargetValid(Actor, OriginCell)));
@@ -184,6 +206,9 @@ public class BattleAction : SerializedScriptableObject
     /// </summary>
     public void Do()
     {
+        // Track the number of uses.
+        UseCount++;
+
         // Do self targeted actions FIRST!
         bool success = DoSelfActions();
 
@@ -191,6 +216,9 @@ public class BattleAction : SerializedScriptableObject
         // successful
         if (success)
             DoTargetedActions();
+
+        // Notify listeners once complete.
+        OnActionUsed?.Invoke(this);
     }
 
     /// <summary>

@@ -9,33 +9,14 @@ using Sirenix.Serialization;
 /// Encapsulates an entity that is locked to the grid of a
 /// battlemap and is targetable.
 /// </summary>
+[RequireComponent(typeof(StatSet))]
 public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 {
-    /// <summary>
-    /// Occurs when this pawn's health changes.
-    /// </summary>
-    public event Action<int> OnHealthChanged;
-    /// <summary>
-    /// Occurs when this pawn defers damage to another.
-    /// </summary>
-    public event Action<Pawn, int> OnHealthLossDelegated;
-    /// <summary>
-    /// Occurs when this pawn's mana amount changes.
-    /// </summary>
-    public event Action<Pawn, int> OnManaChanged;
     /// <summary>
     /// Occurs when the pawn is targeted by an ability. Whether
     /// the pawn is hit or not is passed as an argument.
     /// </summary>
     public event Action<bool> OnAttacked;
-    /// <summary>
-    /// Occurs when a status is applied to this pawn.
-    /// </summary>
-    public event Action<PawnStatus> OnStatusApplied;
-    /// <summary>
-    /// Occurs when a status is removed from this pawn.
-    /// </summary>
-    public event Action<PawnStatus> OnStatusExpired;
     /// <summary>
     /// Occurs when this pawn's allegience changes.
     /// </summary>
@@ -49,6 +30,11 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// has gained mana and statuses have been applied.
     /// </summary>
     public event Action<Pawn> OnTurnStarted;
+    /// <summary>
+    /// Occurs at the start of this pawn's turn after it
+    /// has gained mana and statuses have been applied.
+    /// </summary>
+    public event Action<Pawn> OnTurnEnded;
     /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
@@ -82,63 +68,14 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// </summary>
     public int File { get { return Formation.GetFile(Coordinate); } }
     /// <summary>
-    /// Gets or sets this pawn's current health.
-    /// </summary>
-    public int Health { get; set; }
-    /// <summary>
-    /// Gets this pawns defense.
-    /// </summary>
-    public int Defense { get; set; }
-    /// <summary>
-    /// Gets the maximum health of this pawn.
-    /// </summary>
-    public int MaxHealth { get; set; }
-    /// <summary>
-    /// Gets this pawns current mana amount.
-    /// </summary>
-    public int Mana { get; set; }
-    /// <summary>
-    /// Gets the maximum amount of mana this pawn can store.
-    /// </summary>
-    public int MaxMana { get; set; }
-    /// <summary>
     /// Gets the priority of this pawn in the turn order.
     /// </summary>
-    public float Priority { get; set; }
-    /// <summary>
-    /// Gets the damage amplification amount.
-    /// </summary>
-    public float Power { get; set; }
-    /// <summary>
-    /// Gets whether this pawn can be hit by abilities.
-    /// </summary>
-    public bool Evasive { get; set; }
+    public int Priority { get { return Stats["Priority"].Value; } }
     /// <summary>
     /// Gets whether this actor is currently able to take actions.
     /// </summary>
-    public bool Incapacitated { get { return Sleeping || Stunned; } }
-    /// <summary>
-    /// Gets whether this actor is currently sleeping.
-    /// </summary>
-    public bool Sleeping { get; set; }
-    /// <summary>
-    /// Gets whether this actor is currently stunned.
-    /// </summary>
-    public bool Stunned { get; set; }
-    /// <summary>
-    /// Gets how far this actor can move in their turn.
-    /// </summary>
-    public int Movement { get; set; }
-    /// <summary>
-    /// Gets or sets the maximum number of actions this
-    /// pawn can do per turn.
-    /// </summary>
-    public int ActionsPerTurn { get; set; }
-    /// <summary>
-    /// Gets whether this actor is immune to damage from
-    /// defendable sources.
-    /// </summary>
-    public bool Invulnerable { get; set; }
+    public bool Incapacitated { get { return Stats.HasValue("Sleeping") || 
+                                             Stats.HasValue("Stunned"); } }
     /// <summary>
     /// Gets whether this pawn has been setup successfully.
     /// </summary>
@@ -146,9 +83,19 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// <summary>
     /// Gets whether this pawn has abilities they can use.
     /// </summary>
-    public bool IsActor { get { return BattleActions != null && BattleActions.Count > 0; } }
-    [OdinSerialize][Tooltip("The collection of actions that this pawn can perform.")]
-    public List<BattleAction> BattleActions = null;
+    public bool IsActor { get { return Actions != null; } }
+    /// <summary>
+    /// Gets the stats of this pawn.
+    /// </summary>
+    public StatSet Stats { get; private set; }
+    /// <summary>
+    /// Gets the actions of this pawn.
+    /// </summary>
+    public ActionSet Actions { get; private set; }
+    /// <summary>
+    /// Gets the statuses on this pawn.
+    /// </summary>
+    public StatusSet Statuses { get; private set; }
     /// <summary>
     /// Gets or sets the team this pawn is allied with.
     /// </summary>
@@ -161,84 +108,31 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
             OnTeamChanged?.Invoke();
         }
     }
-    [Tooltip("The vital statistics of this pawn.")]
-    public PawnStats Stats = null;
+
+    public PawnData Data;
 
     private Team team;
     private List<Pawn> surrogates = new List<Pawn>();
-    private List<PawnStatus> statuses = new List<PawnStatus>();
-    private Dictionary<string, int> actionUses = new Dictionary<string, int>();
 
-    protected virtual void Start()
+    private void Awake()
     {
-        if (!Initialized)
-            Setup();
-    }
-
-    public void Setup()
-    {
-        if (Stats != null)
-            Stats.SetStats(this);
+        Stats = GetComponent<StatSet>();
+        Actions = GetComponent<ActionSet>();
+        Statuses = GetComponent<StatusSet>();
 
         // Add to turn order
         TurnManager.Instance.Add(this);
 
-        ActionManager.Instance.OnActionStarted += HandleOnActionStarted;
         ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
+    }
+
+    private void Start()
+    {
+        if (Data != null)
+            Data.SetData(this);
 
         Initialized = true;
         OnInitialized?.Invoke(this);
-    }
-
-    /// <summary>
-    /// Gets the number of times the given action has been used this turn.
-    /// </summary>
-    public int GetActionUseCount(string action)
-    {
-        if (actionUses.TryGetValue(action, out int uses))
-            return uses;
-        return 0;
-    }
-
-    /// <summary>
-    /// Adds the given status to this pawn.
-    /// </summary>
-    public void AddStatus(PawnStatus status)
-    {
-        bool collated = statuses.Any(s => s.Collate(status));
-        if (!collated)
-        {
-            statuses.Add(status);
-            status.Apply(this);
-            OnStatusApplied?.Invoke(status);
-        }
-    }
-
-    /// <summary>
-    /// Removes the given status from this pawn.
-    /// </summary>
-    public void RemoveStatus(PawnStatus status)
-    {
-        statuses.Remove(status);
-        OnStatusExpired?.Invoke(status);
-    }
-
-    /// <summary>
-    /// Checks if this pawn is currently affected by
-    /// a status of the given type.
-    /// </summary>
-    public bool HasStatus<T>() where T : PawnStatus
-    {
-        return statuses.Any(s => s is T);
-    }
-
-    /// <summary>
-    /// Checks if this pawn is currently affected by
-    /// a status with the given name.
-    /// </summary>
-    public bool HasStatus(string status)
-    {
-        return statuses.Any(s => s.GetType().Name.Contains(status));
     }
 
     /// <summary>
@@ -369,24 +263,20 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// </summary>
     public bool IsHit()
     {
-        bool hit = !Evasive;
+        bool hit = !Stats.HasValue("Evasive");
         OnAttacked?.Invoke(hit);
         return hit;
     }
 
     /// <summary>
-    /// Sets the amount of mana this pawn has stored.
+    /// Amplifies the given attack by this pawn's power stat.
     /// </summary>
-    public void SetMana(int amount)
+    public int GetAmplifiedDamage(int baseDamage)
     {
-        // Clamp it to sensible values.
-        int clamped = Mathf.Clamp(amount, 0, MaxMana);
-        int delta = clamped - Mana;
-        Mana = clamped;
-
-        // If the amount actually changed., notify listeners.
-        if (delta != 0)
-            OnManaChanged?.Invoke(this, delta);
+        float factor = Stats["Power"].Value / 100f;
+        float amplifiedDamage = baseDamage + (baseDamage * factor);
+        int rounded = Mathf.RoundToInt(amplifiedDamage);
+        return rounded;
     }
 
     /// <summary>
@@ -394,8 +284,8 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// values into account.
     public int TakeDamage(int amount, bool defendable = true)
     {
-        int resolved = Mathf.Min(amount, Health);
-        int healthDelta;
+        int resolved = Mathf.Min(amount, Stats["Health"].Value);
+        int healthDelta = 0;
         
         // Can't defend against the damage, just take it
         if (!defendable)
@@ -403,7 +293,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
         // CAN defend against damage, AND pawn is invulnerable
         // take NOTHING! muhahah!
-        else if (Invulnerable)
+        else if (Stats.HasValue("Invulnerable"))
             healthDelta = 0;
 
         // CAN defend...
@@ -421,7 +311,6 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
                 {
                     // Deal damage to surrogate
                     amountResolved += surrogate.TakeDamage(div);
-                    OnHealthLossDelegated?.Invoke(surrogate, div);
 
                     // Update remaining damage to be dealt
                     div = (amount - amountResolved) / surrogates.Count;
@@ -430,45 +319,19 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
             // Any remaining damage will be dealt to this pawn
             int remainder = amount - amountResolved;
-            int inflicted = Mathf.Max(remainder - Defense, 0);
-            int excess = Mathf.Max(inflicted - Health, 0);
+            int inflicted = Mathf.Max(remainder - Stats["Defense"].Value, 0);
+            int excess = Mathf.Max(inflicted - Stats["Health"].Value, 0);
 
             resolved = amount - excess;
-            healthDelta = Mathf.Min(inflicted, Health);
+            healthDelta = Mathf.Min(inflicted, Stats["Health"].Value);
         }
 
-        // If any damage was actually inflicted
-        if (healthDelta > 0)
-        {
-            Health -= healthDelta;
-            OnHealthChanged?.Invoke(-healthDelta);
-        }
+        // Apply change to health.
+        Stats["Health"].Value -= healthDelta;
             
         // Return the amount of damage this pawn abosrbed with 
         // health and or defense.
         return resolved;
-    }
-
-    /// <summary>
-    /// Increases this pawn's health by the given amount.
-    /// </summary>
-    public int GainHealth(int amount)
-    {
-        int clamped = Mathf.Min(amount, MaxHealth - Health);
-        Health += clamped;
-        OnHealthChanged?.Invoke(clamped);
-        return clamped;
-    }
-
-    /// <summary>
-    /// Sets the pawns health to the given value regardless of other factors.
-    /// </summary>
-    public void SetHealth(int value)
-    {
-        int clamped = Mathf.Clamp(value, 0, MaxHealth);
-        int delta = clamped - Health;
-        Health = clamped;
-        OnHealthChanged?.Invoke(delta);
     }
 
     /// <summary>
@@ -490,52 +353,30 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     public void OnTurnStart()
     {
         // Each pawn gains one mana at the start of their turn.
-        if (!Stunned)
-            SetMana(Mana + 1);
-
-        // Update actions so that they recalculate the
-        // targetable cells.
-        foreach (BattleAction action in BattleActions)
-            action.SetActor(this);
+        if (!Stats.HasValue("Stunned"))
+            Stats["Mana"]?.Increment(1);
 
         OnTurnStarted?.Invoke(this);
 
         // If actor is incapacitated, it doesn't get a turn.
         // Hard luck, bud.
-        if (Incapacitated || !IsActor)
+        if (!CanAct())
             TurnManager.Instance.RequestTurnEnd();
     }
 
     public void OnTurnEnd()
     {
-        actionUses.Clear();
+        OnTurnEnded?.Invoke(this);
     }
 
     private bool CanAct()
     {
-        // If the actor is stunned they can't act
-        if (Incapacitated || !IsActor)
-            return false;
+        // Mustn't be incapacitated AND must have some actions left to use.
+        if (IsActor)
+            return !Incapacitated && Actions.AnyAvailableAction();
 
-        // Can we afford any of our current actions?
-        bool anyAvailableAction = BattleActions.Any(a =>a.CanDo());
-        bool anyUsesLeft = actionUses.Values.Sum() < ActionsPerTurn;
-        return anyAvailableAction && anyUsesLeft;
-    }
-
-    private void IncrementActionUseCount(string actionName)
-    {
-        // Increment use count.
-        if (actionUses.ContainsKey(actionName))
-            actionUses[actionName]++;
-        else
-            actionUses.Add(actionName, 1);
-    }
-
-    private void HandleOnActionStarted(Pawn pawn, BattleAction action)
-    {
-        if (pawn == this)
-            IncrementActionUseCount(action.name);
+        // Not an actor
+        return false;
     }
 
     private void HandleOnActionComplete(Pawn pawn, BattleAction action)

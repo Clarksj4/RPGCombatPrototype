@@ -7,7 +7,7 @@ public class HealNode : ActionNode
     {
         Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
-            pawn.GainHealth(Amount);
+            pawn.Stats["Health"].Increment(Amount);
 
         return true;
     }

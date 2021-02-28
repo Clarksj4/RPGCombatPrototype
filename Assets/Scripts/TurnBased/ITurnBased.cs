@@ -1,6 +1,6 @@
 ﻿public interface ITurnBased
 {
-    float Priority { get; }
+    int Priority { get; }
 
     void OnTurnStart();
     void OnTurnEnd();

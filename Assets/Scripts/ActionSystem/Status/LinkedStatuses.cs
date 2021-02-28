@@ -19,9 +19,9 @@ public class LinkedStatuses : PawnStatus
     {
         base.OnApplication();
         foreach (PawnStatus status in linkedStatuses)
-            Pawn.AddStatus(status);
+            Pawn.Statuses.Add(status);
 
-        Pawn.OnStatusExpired += HandleOnStatusExpired;
+        Pawn.Statuses.OnExpired.AddListener(HandleOnStatusExpired);
     }
 
     protected override void OnExpired()

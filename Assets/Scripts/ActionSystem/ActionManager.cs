@@ -84,7 +84,7 @@ public class ActionManager : Singleton<ActionManager>
     public void SelectActionByIndex(int index)
     {
         // Get action name from actor
-        BattleAction action = SelectedActor.BattleActions[index];
+        BattleAction action = SelectedActor.Actions[index];
         SelectAction(action);
     }
 
@@ -94,8 +94,7 @@ public class ActionManager : Singleton<ActionManager>
     public void SelectActionByName(string name)
     {
         // Create an instance of the action
-        BattleAction action = SelectedActor.BattleActions
-                                           .FirstOrDefault(a => a.name.Contains(name));
+        BattleAction action = SelectedActor.Actions[name];
         SelectAction(action);
     }
 

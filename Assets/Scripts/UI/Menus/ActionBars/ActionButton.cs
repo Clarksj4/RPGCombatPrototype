@@ -70,7 +70,7 @@ public class ActionButton : MonoBehaviour
     {
         ManaRestriction restriction = GetManaRestriction();
         if (restriction != null)
-            return action.Actor.Mana >= restriction.Amount;
+            return action.Actor.Stats["Mana"].Value >= restriction.Amount;
 
         return true;
     }

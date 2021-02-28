@@ -5,7 +5,7 @@ using UnityEngine;
 public class SummonNode : ActionNode
 {
     [Tooltip("The thing to summon.")]
-    public PawnStats Pawn;
+    public PawnData Pawn;
     [HideIf("@this.Pawn != null")]
     [Tooltip("The name of the thing to summon.")]
     public string Name;

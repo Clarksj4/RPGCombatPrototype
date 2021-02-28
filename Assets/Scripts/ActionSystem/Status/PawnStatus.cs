@@ -69,7 +69,7 @@ public abstract class PawnStatus
             TurnManager.Instance.OnTurnEnd -= HandleOnTurnEnd;
 
             OnExpired();
-            Pawn.RemoveStatus(this);
+            Pawn.Statuses.Remove(this);
             OnStatusExpired?.Invoke(this);
         }
     }

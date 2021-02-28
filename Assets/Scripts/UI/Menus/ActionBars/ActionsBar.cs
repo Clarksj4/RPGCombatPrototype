@@ -5,7 +5,7 @@ public class ActionsBar : Menu
     /// <summary>
     /// Gets the number of actions the currently selected actor has.
     /// </summary>
-    private int ActionCount { get { return ActionManager.Instance.SelectedActor.BattleActions.Count; } }
+    private int ActionCount { get { return ActionManager.Instance.SelectedActor.Actions.Count; } }
 
     [Tooltip("All of the buttons for displaying actions.")]
     [SerializeField] private ActionButton[] actionButtons = null;
@@ -44,7 +44,7 @@ public class ActionsBar : Menu
             if (enabled)
             {
                 // Set the button's associated action.
-                BattleAction action = ActionManager.Instance.SelectedActor.BattleActions[i];
+                BattleAction action = ActionManager.Instance.SelectedActor.Actions[i];
                 button.SetAction(action);
             }
         }

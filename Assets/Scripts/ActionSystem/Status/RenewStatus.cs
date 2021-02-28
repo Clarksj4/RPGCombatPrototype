@@ -9,6 +9,6 @@ public class RenewStatus : PawnStatus
     protected override void DoEffect()
     {
         base.DoEffect();
-        Pawn.GainHealth(HealPerTurn);
+        Pawn.Stats["Health"].Value += HealPerTurn;
     }
 }

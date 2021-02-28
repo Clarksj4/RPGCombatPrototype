@@ -16,7 +16,7 @@ public class DrowsyStatus : PawnStatus
         base.OnExpired();
 
         // Put pawn to sleep.
-        Pawn.AddStatus(new SleepStatus() { Duration = SleepDuration });
+        Pawn.Statuses.Add(new SleepStatus() { Duration = SleepDuration });
     }
 
     public override bool Collate(PawnStatus other)

@@ -6,11 +6,11 @@ public class SwapHealthNode : ActionNode
         Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
         {
-            int originHealth = actor.Health;
-            int targetHealth = pawn.Health;
+            int originHealth = actor.Stats["Health"].Value;
+            int targetHealth = pawn.Stats["Health"].Value;
 
-            pawn.SetHealth(originHealth);
-            actor.SetHealth(targetHealth);
+            pawn.Stats["Health"].Value = originHealth;
+            actor.Stats["Health"].Value = targetHealth;
         }
             
         return true;

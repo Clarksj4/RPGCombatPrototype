@@ -8,14 +8,14 @@ public class ImmobilizedStatus : PawnStatus
     protected override void OnApplication()
     {
         base.OnApplication();
-        removedMovement = Pawn.Movement;
-        Pawn.Movement = 0;
+        removedMovement = Pawn.Stats["Movement"].Value;
+        Pawn.Stats["Movement"].Value = 0;
     }
 
     protected override void OnExpired()
     {
         base.OnExpired();
-        Pawn.Movement += removedMovement;
+        Pawn.Stats["Movement"].Value += removedMovement;
     }
 
     public override bool Collate(PawnStatus other)

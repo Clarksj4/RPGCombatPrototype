@@ -14,10 +14,11 @@ public class HealthRestriction : TargetingRestriction
         Pawn pawn = cell.GetContent<Pawn>();
         if (pawn != null)
         {
+            Stat health = pawn.Stats["Health"];
             if (Amount >= 0)
-                return pawn.Health > Amount;
+                return health.Value > Amount;
             else
-                return pawn.MaxHealth - pawn.Health > Mathf.Abs(Amount);
+                return health.Max - health.Value > Mathf.Abs(Amount);
         }
 
         return true;

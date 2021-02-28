@@ -11,7 +11,7 @@ public class ManaBar : MonoBehaviour
     {
         pawn = GetComponentInParent<Pawn>();
         pawn.OnInitialized += HandleOnPawnInitialized;
-        pawn.OnManaChanged += HandleOnPawnManaChanged;
+        pawn.Stats["Mana"].OnValueChanged += HandleOnPawnManaChanged;
     }
 
     private void HandleOnPawnInitialized(Pawn pawn)
@@ -24,17 +24,17 @@ public class ManaBar : MonoBehaviour
         for (int i = 0; i < pips.Length; i++)
         {
             // Show it if pawn has capacity
-            pips[i].gameObject.SetActive(i < pawn.MaxMana);
+            pips[i].gameObject.SetActive(i < pawn.Stats["Mana"].Max);
 
             // Fill it if pawn has that much mana
-            if (i < pawn.Mana)
+            if (i < pawn.Stats["Mana"].Value)
                 pips[i].Fill();
             else
                 pips[i].Empty();
         }
     }
 
-    private void HandleOnPawnManaChanged(Pawn pawn, int delta)
+    private void HandleOnPawnManaChanged(Stat stat, int delta)
     {
         RefreshPips();
     }

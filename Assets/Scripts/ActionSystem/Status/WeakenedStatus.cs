@@ -6,13 +6,13 @@ public class WeakenedStatus : PawnStatus
     protected override void OnApplication()
     {
         base.OnApplication();
-        Pawn.Power -= 0.5f;
+        Pawn.Stats["Power"].Value -= 50;
     }
 
     protected override void OnExpired()
     {
         base.OnExpired();
-        Pawn.Power += 0.5f;
+        Pawn.Stats["Power"].Value += 50;
     }
 
     public override bool Collate(PawnStatus other)

@@ -15,7 +15,7 @@ public class AgilityStatus : PawnStatus
         base.OnApplication();
 
         // Apply bonus movement
-        Pawn.Movement += BonusMovement;
+        Pawn.Stats["Movement"]?.Increment(BonusMovement);
     }
 
     protected override void OnExpired()
@@ -23,6 +23,6 @@ public class AgilityStatus : PawnStatus
         base.OnExpired();
 
         // Remove the movement again, but don't let movement fall below 0
-        Pawn.Movement = Mathf.Max(0, Pawn.Movement - BonusMovement);
+        Pawn.Stats["Movement"]?.Decrement(BonusMovement);
     }
 }

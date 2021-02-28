@@ -1,34 +1,14 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class PawnUI : MonoBehaviour
 {
     [SerializeField]
     private HealthBar healthBar = null;
-    private Pawn pawn = null;
 
-    private void Awake()
+    public void HandleOnHealthChanged(Stat health, int delta)
     {
-        pawn = GetComponentInParent<Pawn>();
-        pawn.OnHealthChanged += HandleOnPawnHealthChanged;
 
-        ActionManager.Instance.OnTargetSelected += HandleOnActionTargetSelected;
-    }
-
-    private void HandleOnPawnHealthChanged(int change)
-    {
-        float fill = (float)pawn.Health / pawn.MaxHealth;
+        float fill = (float)health.Value / health.Max;
         healthBar.SetHealth(fill);
-    }
-
-    private void HandleOnActionTargetSelected(BattleAction action)
-    {
-        if (action.AffectedCells.Contains(pawn.Cell))
-        {
-            // TODO: check actions nodes for damage node
-            DoDamageNode damageNode = action.TargetedActions.FirstOfTypeOrDefault<ActionNode, DoDamageNode>();
-        }
     }
 }

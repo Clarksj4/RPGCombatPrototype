@@ -11,7 +11,7 @@ public class RemoveManaNode : ActionNode
     {
         Pawn defender = target.GetContent<Pawn>();
         if (defender != null)
-            defender.SetMana(defender.Mana - Amount);
+            defender.Stats["Mana"]?.Decrement(Amount);
 
         return true;
     }

@@ -21,7 +21,7 @@ public class DoDamageNode : ActionNode
         Pawn defender = target.GetContent<Pawn>();
         if (defender != null)
         {
-            int inflicted = Amplifyable ? (int)(BaseDamage * actor.Power) : BaseDamage;
+            int inflicted = Amplifyable ? actor.GetAmplifiedDamage(BaseDamage) : BaseDamage;
             defender.TakeDamage(inflicted, Defendable);
         }
         

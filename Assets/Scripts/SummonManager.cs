@@ -7,20 +7,20 @@ public class SummonManager : MonoSingleton<SummonManager>
     [SerializeField]
     private Pawn Prefab = null;
     [SerializeField]
-    private List<PawnStats> Stats = null;
+    private List<PawnData> Stats = null;
 
-    public Pawn Spawn(PawnStats stats, Cell cell, int duration)
+    public Pawn Spawn(PawnData data, Cell cell, int duration)
     {
-        if (stats != null)
+        if (data != null)
         {
             // Create new pawn
             Pawn instance = Instantiate(Prefab);
-            instance.Stats = stats;
+            instance.Data = data;
             instance.SetCell(cell);
 
             // This is the final countdown.
             if (duration > -1)
-                instance.AddStatus(new DeathTimerStatus() { Duration = duration });
+                instance.Statuses.Add(new DeathTimerStatus() { Duration = duration });
 
             return instance;
         }
@@ -30,7 +30,7 @@ public class SummonManager : MonoSingleton<SummonManager>
 
     public Pawn Spawn(string name, Cell cell, int duration)
     {
-        PawnStats stats = Stats.FirstOrDefault(p => p.name == name);
+        PawnData stats = Stats.FirstOrDefault(p => p.name == name);
         if (stats != null)
             return Spawn(stats, cell, duration);
 

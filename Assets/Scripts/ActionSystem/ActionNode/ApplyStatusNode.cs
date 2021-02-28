@@ -8,7 +8,7 @@ public class ApplyStatusNode : ActionNode
         Status.Applicator = actor;
         Pawn pawn = target.GetContent<Pawn>();
         if (pawn != null)
-            pawn.AddStatus(Status);
+            pawn.Statuses.Add(Status);
         return true;
     }
 }

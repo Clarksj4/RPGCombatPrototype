@@ -7,13 +7,13 @@ public class StunnedStatus : PawnStatus
     protected override void OnApplication()
     {
         base.OnApplication();
-        Pawn.Stunned = true;
+        Pawn.Stats["Stunned"].Value += 1;
     }
 
     protected override void OnExpired()
     {
         base.OnExpired();
-        Pawn.Stunned = false;
+        Pawn.Stats["Stunned"].Value -= 1;
     }
 
     public override bool Collate(PawnStatus other)

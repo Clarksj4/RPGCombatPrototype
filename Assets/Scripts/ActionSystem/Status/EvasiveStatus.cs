@@ -32,14 +32,14 @@ public class EvasiveStatus : PawnStatus
         base.OnApplication();
 
         // Will evade until enough attacks are evaded
-        Pawn.Evasive = true;
+        Pawn.Stats["Evasive"].Value += 1;
         Pawn.OnAttacked += Pawn_OnAttacked;
     }
 
     protected override void OnExpired()
     {
         base.OnExpired();
-        Pawn.Evasive = false;
+        Pawn.Stats["Evasive"].Value -= 1;
     }
 
     private void Pawn_OnAttacked(bool obj)

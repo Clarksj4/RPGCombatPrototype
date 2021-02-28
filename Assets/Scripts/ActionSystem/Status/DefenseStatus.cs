@@ -6,12 +6,12 @@ public class DefenseStatus : PawnStatus
     protected override void OnApplication()
     {
         base.OnApplication();
-        Pawn.Defense += 5;
+        Pawn.Stats["Defense"]?.Increment(5);
     }
 
     protected override void OnExpired()
     {
         base.OnExpired();
-        Pawn.Defense -= 5;
+        Pawn.Stats["Defense"]?.Decrement(5);
     }
 }

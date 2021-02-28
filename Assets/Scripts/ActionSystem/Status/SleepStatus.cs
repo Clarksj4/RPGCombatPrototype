@@ -6,17 +6,17 @@ public class SleepStatus : PawnStatus
 {
     protected override void OnApplication()
     {
-        Pawn.Sleeping = true;
-        Pawn.OnHealthChanged += Pawn_OnHealthChanged;
+        Pawn.Stats["Sleeping"].Value += 1;
+        Pawn.Stats["Health"].OnValueChanged += Pawn_OnHealthChanged;
     }
 
     protected override void OnExpired()
     {
-        Pawn.OnHealthChanged -= Pawn_OnHealthChanged;
-        Pawn.Sleeping = false;
+        Pawn.Stats["Health"].OnValueChanged -= Pawn_OnHealthChanged;
+        Pawn.Stats["Sleeping"].Value -= 1;
     }
 
-    private void Pawn_OnHealthChanged(int delta)
+    private void Pawn_OnHealthChanged(Stat stat, int delta)
     {
         // If Pawn takes damage - wake up!
         if (delta < 0)

@@ -9,7 +9,7 @@ public class HasStatusNode : ActionNode
     {
         Pawn defender = target.GetContent<Pawn>();
         if (defender != null)
-            return defender.HasStatus(StatusName);
+            return defender.Statuses.Contains(StatusName);
 
         // Fudge it if there is no defender
         return true;
