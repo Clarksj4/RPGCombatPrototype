@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using DG.Tweening;
 using System.Collections.Generic;
-using Sirenix.Serialization;
+using UnityEngine.Events;
 
 /// <summary>
 /// Encapsulates an entity that is locked to the grid of a
@@ -12,29 +12,33 @@ using Sirenix.Serialization;
 [RequireComponent(typeof(StatSet))]
 public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 {
+    public PawnData Data;
+
+    /// <summary>
+    /// Occurs once this pawn has had its stats set.
+    /// </summary>
+    public UnityEvent<Pawn> OnInitialized;
+    /// <summary>
+    /// Occurs at the start of this pawn's turn after it
+    /// has gained mana and statuses have been applied.
+    /// </summary>
+    public UnityEvent<Pawn> OnTurnStarted;
+    /// <summary>
+    /// Occurs at the start of this pawn's turn after it
+    /// has gained mana and statuses have been applied.
+    /// </summary>
+    public UnityEvent<Pawn> OnTurnEnded;
+    /// <summary>
+    /// Occurs when this pawn's allegience changes.
+    /// </summary>
+    public UnityEvent<Pawn> OnTeamChanged;
+
     /// <summary>
     /// Occurs when the pawn is targeted by an ability. Whether
     /// the pawn is hit or not is passed as an argument.
     /// </summary>
     public event Action<bool> OnAttacked;
-    /// <summary>
-    /// Occurs when this pawn's allegience changes.
-    /// </summary>
-    public event Action OnTeamChanged;
-    /// <summary>
-    /// Occurs once this pawn has had its stats set.
-    /// </summary>
-    public event Action<Pawn> OnInitialized;
-    /// <summary>
-    /// Occurs at the start of this pawn's turn after it
-    /// has gained mana and statuses have been applied.
-    /// </summary>
-    public event Action<Pawn> OnTurnStarted;
-    /// <summary>
-    /// Occurs at the start of this pawn's turn after it
-    /// has gained mana and statuses have been applied.
-    /// </summary>
-    public event Action<Pawn> OnTurnEnded;
+
     /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
@@ -105,11 +109,9 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         set
         {
             team = value;
-            OnTeamChanged?.Invoke();
+            OnTeamChanged?.Invoke(this);
         }
     }
-
-    public PawnData Data;
 
     private Team team;
     private List<Pawn> surrogates = new List<Pawn>();
@@ -120,9 +122,6 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         Actions = GetComponent<ActionSet>();
         Statuses = GetComponent<StatusSet>();
 
-        // Add to turn order
-        TurnManager.Instance.Add(this);
-
         ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
     }
 
@@ -130,6 +129,9 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     {
         if (Data != null)
             Data.SetData(this);
+
+        // Add to turn order
+        TurnManager.Instance.Add(this);
 
         Initialized = true;
         OnInitialized?.Invoke(this);

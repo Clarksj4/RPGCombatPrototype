@@ -12,7 +12,6 @@ public class PawnData : SerializedScriptableObject
     [HideLabel, PreviewField(100)]
     public Sprite SplashSprite;
 
-    [OdinSerialize]
     [Tooltip("The stats associate with the attached pawn.")]
     public Stat[] Stats = new Stat[]
     {
@@ -27,7 +26,6 @@ public class PawnData : SerializedScriptableObject
     [Tooltip("Collection of statuses currently applied to this pawn.")]
     public List<PawnStatus> Statuses = new List<PawnStatus>(0);
 
-    [OdinSerialize]
     [Tooltip("The actions that this actor can do.")]
     public List<BattleAction> Actions = new List<BattleAction>(0);
 

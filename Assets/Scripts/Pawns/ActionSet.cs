@@ -34,8 +34,8 @@ public class ActionSet : MonoBehaviour
     private void Awake()
     {
         pawn = GetComponent<Pawn>();
-        pawn.OnTurnStarted += HandleOnPawnTurnStarted;
-        pawn.OnTurnEnded += HandleOnPawnTurnEnded;
+        pawn.OnTurnStarted.AddListener(HandleOnPawnTurnStarted);
+        pawn.OnTurnEnded.AddListener(HandleOnPawnTurnEnded);
     }
 
     /// <summary>

@@ -33,18 +33,32 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  MaxHealth: 100
-  MaxMana: 3
-  Defense: 0
-  Priority: 50
-  Power: 1
-  Movement: 1
-  ActionsPerTurn: 1
   HeadSprite: {fileID: 21300000, guid: 5a1612740b23e5241b54f8657a8d9b64, type: 3}
   SplashSprite: {fileID: -565618138733698508, guid: e21b0e63459c3e94d99a7ef6875d37d4, type: 3}
-  BattleActions:
+  Stats:
+  - Name: Health
+    value: 100
+    min: 0
+    max: 100
+  - Name: Mana
+    value: 0
+    min: 0
+    max: 100
+  - Name: Priority
+    value: 50
+    min: 0
+    max: 100
+  - Name: Movement
+    value: 1
+    min: 0
+    max: 100
+  - Name: ActionsPerTurn
+    value: 1
+    min: 0
+    max: 100
+  Actions:
   - {fileID: 11400000, guid: 3cd5efd45e4fac34f918a50d599fba20, type: 2}
-  - {fileID: 11400000, guid: 5fbb326b3890c0044a7c5d465cfac030, type: 2}
-  - {fileID: 11400000, guid: 9f7828170b0ce064a9cd3adc3832af16, type: 2}
-  - {fileID: 11400000, guid: e50e9db54c1b36f4e8c405af414073d6, type: 2}
-  - {fileID: 11400000, guid: 6fc64444d4f635342ac0812cebfc8742, type: 2}
+  - {fileID: 11400000, guid: 2d74b8ff9ef4a464baa6a9bee49c1919, type: 2}
+  - {fileID: 11400000, guid: ce4e2e644c5b728479f3ff86ac2dd597, type: 2}
+  - {fileID: 11400000, guid: ccd407bbdbbae1f4e94307c7fd30c324, type: 2}
+  - {fileID: 11400000, guid: 0708b911657b3eb47a2fe55950607bd6, type: 2}

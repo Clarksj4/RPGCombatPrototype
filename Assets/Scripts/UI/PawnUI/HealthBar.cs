@@ -23,6 +23,15 @@ public class HealthBar : MonoBehaviour
     private float currentHealth = 1f;
     private float currentFill = 1f;
 
+    public void HandleOnStatValueChanged(Stat stat, int delta)
+    {
+        if (stat.Name == "Health")
+        {
+            float fill = (float)stat.Value / stat.Max;
+            SetHealth(fill);
+        }
+    }
+
     public void SetHealth(float amount, bool animate = true)
     {
         bool filling = amount > currentHealth;

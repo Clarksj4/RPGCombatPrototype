@@ -10,7 +10,6 @@ public class ManaBar : MonoBehaviour
     private void Awake()
     {
         pawn = GetComponentInParent<Pawn>();
-        pawn.OnInitialized += HandleOnPawnInitialized;
         pawn.Stats["Mana"].OnValueChanged += HandleOnPawnManaChanged;
     }
 
