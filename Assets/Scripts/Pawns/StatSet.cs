@@ -35,7 +35,7 @@ public class StatSet : MonoBehaviour
     /// <summary>
     /// Gets all the stats.
     /// </summary>
-    public List<Stat> Stats { get; private set; }
+    public List<Stat> Stats { get; private set; } = new List<Stat>();
 
     // Components
     private Pawn pawn;

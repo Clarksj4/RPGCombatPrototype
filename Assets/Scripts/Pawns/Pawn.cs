@@ -10,7 +10,7 @@ using UnityEngine.Events;
 /// battlemap and is targetable.
 /// </summary>
 [RequireComponent(typeof(StatSet))]
-public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
+public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased, IStartable
 {
     public PawnData Data;
 
@@ -38,7 +38,6 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
     /// the pawn is hit or not is passed as an argument.
     /// </summary>
     public event Action<bool> OnAttacked;
-
     /// <summary>
     /// Gets this pawns position in world space.
     /// </summary>
@@ -115,6 +114,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
     private Team team;
     private List<Pawn> surrogates = new List<Pawn>();
+    private static int initOrder = 0;
 
     private void Awake()
     {
@@ -123,9 +123,10 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
         Statuses = GetComponent<StatusSet>();
 
         ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
+        PrioritizedStartManager.Instance.RegisterWithPriority(this, initOrder++);
     }
 
-    private void Start()
+    public bool Initialize()
     {
         if (Data != null)
             Data.SetData(this);
@@ -135,6 +136,8 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased
 
         Initialized = true;
         OnInitialized?.Invoke(this);
+
+        return true;
     }
 
     /// <summary>

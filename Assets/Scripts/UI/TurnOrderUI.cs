@@ -31,7 +31,7 @@ public class TurnOrderUI : MonoBehaviour, IStartable
         rectTransform = transform as RectTransform;
 
         TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
-        PrioritizedStartManager.Instance.RegisterWithPriority(this, 1);
+        PrioritizedStartManager.Instance.RegisterWithPriority(this, 10);
     }
 
     public bool Initialize()
