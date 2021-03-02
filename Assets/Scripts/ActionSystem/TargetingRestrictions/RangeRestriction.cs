@@ -20,17 +20,6 @@ public class RangeRestriction : TargetingRestriction
 
     public int GetRange(string rangeString, Pawn actor)
     {
-        if (int.TryParse(rangeString, out int range))
-            return range;
-
-        PropertyInfo[] properties = actor.GetType().GetProperties();
-        if (properties != null)
-        {
-            PropertyInfo property = properties.FirstOrDefault(p => p.Name == rangeString);
-            if (property != null)
-                return (int)property.GetValue(actor);
-        }
-
-        return 0;
+        return actor.Stats[rangeString].Value;
     }
 }

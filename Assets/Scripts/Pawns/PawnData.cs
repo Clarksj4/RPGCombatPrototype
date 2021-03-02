@@ -31,11 +31,19 @@ public class PawnData : SerializedScriptableObject
 
     public virtual void SetData(Pawn pawn)
     {
-        // Give actor each stat
+        // Duplicate each stat for actor
         if (Stats != null)
         {
             foreach (Stat stat in Stats)
-                pawn.Stats.Add(stat);
+            {
+                pawn.Stats.Add(new Stat() { 
+                    Name = stat.Name,
+                    Value = stat.Value,
+                    Min = stat.Min,
+                    Max = stat.Max
+                });
+            }
+                
         }
 
         // Give actor a duplicate of each action.
