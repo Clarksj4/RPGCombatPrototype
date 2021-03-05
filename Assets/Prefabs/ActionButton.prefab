@@ -228,6 +228,7 @@ MonoBehaviour:
   Cooldown: {fileID: 331415886118990133}
   CooldownText: {fileID: 6704086835508461986}
   AbilityImage: {fileID: 331415887331873646}
+  Button: {fileID: 331415886185440284}
 --- !u!1 &331415886866374344
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +778,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4435456689866479341, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_fontSize
-      value: 53.7
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4550117066530378868, guid: 7828f7ec878ce6c45a1a1e7810f76918, type: 3}
       propertyPath: m_Name

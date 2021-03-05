@@ -122,6 +122,10 @@ public class BattleAction : SerializedScriptableObject
     /// Gets all the cells affected by this action.
     /// </summary>
     public IEnumerable<Cell> AffectedCells { get { return affectedCells; } }
+    /// <summary>
+    /// Gets if there are any cells that can be targeted by this action.
+    /// </summary>
+    public bool AnyTargetableCells { get { return targetableCells.Any(); } }
 
     //
     // Fields

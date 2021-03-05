@@ -31,6 +31,8 @@ public class PawnData : SerializedScriptableObject
 
     public virtual void SetData(Pawn pawn)
     {
+        pawn.name = name;
+
         // Duplicate each stat for actor
         if (Stats != null)
         {

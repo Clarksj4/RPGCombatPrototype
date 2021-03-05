@@ -17,6 +17,7 @@ public class ActionButton : MonoBehaviour
     public GameObject Cooldown;
     public TextMeshProUGUI CooldownText;
     public Image AbilityImage;
+    public Button Button;
 
     private Sequence angrySequence;
     private BattleAction action;
@@ -36,19 +37,10 @@ public class ActionButton : MonoBehaviour
     {
         if (action != null)
         {
-            // Show mana restriction if there is one
-            ManaRestriction restriction = GetManaRestriction();
-            bool hasManaRestriction = restriction != null;
-            ManaCost.SetActive(hasManaRestriction);
-            if (hasManaRestriction)
-            {
-                // Set text and colour
-                ManaCostText.text = restriction.Amount.ToString();
-                ManaCostText.color = CanAfford() ? canAffordColour : cantAffordColour;
-            }
+            RefreshManaCost();
+            RefreshUsability();
 
-            // TODO: do cooldown
-            //Sprite sprite = SpriteManager.Instance.GetSpriteByName(action.name);
+
             if (action.Sprite != null)
                 AbilityImage.sprite = action.Sprite;
         }
@@ -81,6 +73,36 @@ public class ActionButton : MonoBehaviour
             return action.ActorRestrictions.FirstOfTypeOrDefault<TargetingRestriction, ManaRestriction>();
 
         return null;
+    }
+
+    private void RefreshUsability()
+    {
+        if (action.CanDo() && action.AnyTargetableCells)
+        {
+            Button.targetGraphic.color = Button.colors.normalColor;
+            Button.transition = Selectable.Transition.ColorTint;
+        }
+            
+        else
+        {
+            Button.targetGraphic.color = Button.colors.disabledColor;
+            Button.transition = Selectable.Transition.None;
+        }
+            
+    }
+
+    private void RefreshManaCost()
+    {
+        // Show mana restriction if there is one
+        ManaRestriction restriction = GetManaRestriction();
+        bool hasManaRestriction = restriction != null;
+        ManaCost.SetActive(hasManaRestriction);
+        if (hasManaRestriction)
+        {
+            // Set text and colour
+            ManaCostText.text = restriction.Amount.ToString();
+            ManaCostText.color = CanAfford() ? canAffordColour : cantAffordColour;
+        }
     }
 
     private void HighlightCost()
