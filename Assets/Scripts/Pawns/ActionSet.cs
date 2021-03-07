@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 using System.Linq;
-using System;
 
 public class ActionSet : MonoBehaviour
 {
@@ -30,6 +29,8 @@ public class ActionSet : MonoBehaviour
 
     // Components
     private Pawn pawn;
+
+    // Fields
     private bool initialized;
 
     private void Awake()
