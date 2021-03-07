@@ -4,15 +4,15 @@ using UnityEngine;
 public class CellContentRestrictionDisplay : BattleActionElementDisplay
 {
     [BoxGroup("Components")]
-    [SerializeField] private GameObject all;
+    [SerializeField] private GameObject all = null;
     [BoxGroup("Components")]
-    [SerializeField] private GameObject ally;
+    [SerializeField] private GameObject ally = null;
     [BoxGroup("Components")]
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject enemy = null;
     [BoxGroup("Components")]
-    [SerializeField] private GameObject self;
+    [SerializeField] private GameObject self = null;
     [BoxGroup("Components")]
-    [SerializeField] private GameObject empty;
+    [SerializeField] private GameObject empty = null;
 
     public override void Setup(IBattleActionElement element)
     {

@@ -15,7 +15,7 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased, IStartabl
     public PawnData Data;
 
     /// <summary>
-    /// Occurs once this pawn has had its stats set.
+    /// Occurs once THIS pawn has had its stats set.
     /// </summary>
     public UnityEvent<Pawn> OnInitialized;
     /// <summary>

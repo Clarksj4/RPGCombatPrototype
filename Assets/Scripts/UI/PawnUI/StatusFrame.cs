@@ -14,7 +14,7 @@ public class StatusFrame : MonoBehaviour
     public string StatusName { get; private set; }
 
     [SerializeField]
-    private Image image;
+    private Image image = null;
 
     public void SetStatus(string statusName)
     {

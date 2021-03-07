@@ -4,17 +4,13 @@ using System.Collections;
 
 public class ManaPip : MonoBehaviour
 {
-    public Color ManaColour;
-    public Color EmptyColour;
+    public Color ManaColour = Color.white;
+    public Color EmptyColour = Color.white;
 
     [SerializeField]
-    private Image glowImage;
+    private Image baseImage = null;
     [SerializeField]
-    private Image darkenImage;
-    [SerializeField]
-    private Image baseImage;
-    [SerializeField]
-    private Image highlightImage;
+    private Image highlightImage = null;
 
     public void Fill()
     {

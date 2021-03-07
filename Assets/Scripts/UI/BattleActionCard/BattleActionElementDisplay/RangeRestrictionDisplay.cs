@@ -5,7 +5,7 @@ using UnityEngine;
 public class RangeRestrictionDisplay : BattleActionElementDisplay
 {
     [BoxGroup("Components")]
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI text = null;
 
     public override void Setup(IBattleActionElement element)
     {

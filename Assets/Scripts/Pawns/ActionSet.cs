@@ -30,10 +30,12 @@ public class ActionSet : MonoBehaviour
 
     // Components
     private Pawn pawn;
+    private bool initialized;
 
     private void Awake()
     {
         pawn = GetComponent<Pawn>();
+        pawn.OnTurnStarted.AddListener(HandleOnPawnTurnStarted);
         pawn.OnTurnEnded.AddListener(HandleOnPawnTurnEnded);
     }
 
@@ -77,6 +79,17 @@ public class ActionSet : MonoBehaviour
     private void HandleOnActionUsed(BattleAction action)
     {
         OnActionUsed?.Invoke(this, action);
+    }
+
+    private void HandleOnPawnTurnStarted(Pawn pawn)
+    {
+        if (!initialized)
+        {
+            foreach (BattleAction action in Actions)
+                action.SetActor(pawn);
+
+            initialized = true;
+        }
     }
 
     private void HandleOnPawnTurnEnded(Pawn pawn)

@@ -11,7 +11,7 @@ public class SpriteCatalogue : ScriptableObject
     /// Just a big ol array of sprites.
     /// </summary>
     [SerializeField]
-    private Sprite[] sprites;
+    private Sprite[] sprites = null;
 
     /// <summary>
     /// Gets a sprite with the given name. Returns null

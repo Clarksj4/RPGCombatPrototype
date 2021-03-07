@@ -7,26 +7,26 @@ using System.Linq;
 public class BattleActionCard : MonoBehaviour
 {
     [SerializeField]
-    private BattleAction Test;
+    private BattleAction Test = null;
 
     [BoxGroup("Components")]
     [Tooltip("Text for showing the name of the displayed action.")]
-    [SerializeField] private TextMeshProUGUI actionTitle;
+    [SerializeField] private TextMeshProUGUI actionTitle = null;
     [BoxGroup("Components")]
     [Tooltip("Image for showing the sprite of the displayed action.")]
-    [SerializeField] private Image actionImage;
+    [SerializeField] private Image actionImage = null;
     [BoxGroup("Layouts")]
     [Tooltip("Layout for displaying the cost of using this action.")]
-    [SerializeField] private SlotFiller actionCostLayout;
+    [SerializeField] private SlotFiller actionCostLayout = null;
     [BoxGroup("Layouts")]
     [Tooltip("Layout for displaying the positional requirements of using this action.")]
-    [SerializeField] private SlotFiller positionRestrictionLayout;
+    [SerializeField] private SlotFiller positionRestrictionLayout = null;
     [BoxGroup("Layouts")]
     [Tooltip("Layout for displaying the restrictions of valid targets.")]
-    [SerializeField] private SlotFiller targetRestictionLayout;
+    [SerializeField] private SlotFiller targetRestictionLayout = null;
     [BoxGroup("Layouts")]
     [Tooltip("Layout for displaying the effect on targeted cells.")]
-    [SerializeField] private Transform actionLayout;
+    [SerializeField] private Transform actionLayout = null;
 
     private void OnValidate()
     {

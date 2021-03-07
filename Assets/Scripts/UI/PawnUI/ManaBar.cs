@@ -4,7 +4,7 @@ using UnityEngine;
 public class ManaBar : MonoBehaviour
 {
     [SerializeField]
-    private ManaPip[] pips;
+    private ManaPip[] pips = null;
     private Pawn pawn;
 
     private void Awake()

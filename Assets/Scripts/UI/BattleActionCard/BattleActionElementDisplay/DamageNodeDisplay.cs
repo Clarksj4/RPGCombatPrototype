@@ -6,7 +6,7 @@ public class DamageNodeDisplay : BattleActionElementDisplay
 {
     [BoxGroup("Components")]
     [SerializeField]
-    private TextMeshProUGUI amountText;
+    private TextMeshProUGUI amountText = null;
 
     public override void Setup(IBattleActionElement element) 
     {

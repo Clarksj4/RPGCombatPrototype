@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Singleton responsible 
 /// </summary>
 public class BattleManager : MonoSingleton<BattleManager>
 {
+    public UnityEvent OnInitialized;
+
     public MonoGrid Grid { get; private set; }
 
     protected override void Awake()
@@ -35,6 +38,7 @@ public class BattleManager : MonoSingleton<BattleManager>
                 i++;
             }
 
+            OnInitialized?.Invoke();
 
             // Start the turn!
             TurnManager.Instance.RequestTurnEnd();

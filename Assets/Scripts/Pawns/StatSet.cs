@@ -28,7 +28,10 @@ public class StatSet : MonoBehaviour
             // If the stat being asked for doesn't exist - make it!
             Stat requested = Stats.FirstOrDefault(s => s.Name == name);
             if (requested == null)
+            {
+                print($"Requested stat: '{name}' does not exist - creating it.");
                 requested = Add(name);
+            }
             return requested;
         } 
     }

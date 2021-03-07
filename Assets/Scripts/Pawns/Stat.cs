@@ -31,7 +31,7 @@ public class Stat
             // Clamp value change so it doesn't exceed min or max.
             int oldValue = this.value;
             this.value = Mathf.Clamp(value, min, max);
-            int delta = value - oldValue;
+            int delta = this.value - oldValue;
          
             // Only notify listeners if the value actually changed.
             if (delta != 0)

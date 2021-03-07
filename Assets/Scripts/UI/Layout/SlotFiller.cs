@@ -6,9 +6,9 @@ using System.Collections;
 public class SlotFiller : MonoBehaviour
 {
     [SerializeField]
-    private Transform[] slots;
+    private Transform[] slots = null;
     [SerializeField]
-    private bool hideEmpty;
+    private bool hideEmpty = false;
 
     private void Awake()
     {

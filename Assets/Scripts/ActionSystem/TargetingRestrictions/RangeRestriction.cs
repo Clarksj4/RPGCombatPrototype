@@ -20,6 +20,10 @@ public class RangeRestriction : TargetingRestriction
 
     public int GetRange(string rangeString, Pawn actor)
     {
+        // Range can store an int OR a reference to a stat name
+        if (int.TryParse(rangeString, out int range))
+            return range;
+            
         return actor.Stats[rangeString].Value;
     }
 }

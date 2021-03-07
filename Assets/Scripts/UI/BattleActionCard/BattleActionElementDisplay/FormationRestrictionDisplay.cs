@@ -4,8 +4,8 @@ using Sirenix.OdinInspector;
 public class FormationRestrictionDisplay : BattleActionElementDisplay
 {
     [BoxGroup("Colours")]
-    [SerializeField] private Color selfColour;
-    [SerializeField] private Color otherColour;
+    [SerializeField] private Color selfColour = Color.white;
+    [SerializeField] private Color otherColour = Color.white;
 
     public override void Setup(IBattleActionElement element)
     {

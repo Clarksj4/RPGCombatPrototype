@@ -3,7 +3,7 @@
 public class SpriteManager : MonoSingleton<SpriteManager>
 {
     [SerializeField]
-    private SpriteCatalogue[] SpriteCatalogues;
+    private SpriteCatalogue[] SpriteCatalogues = null;
 
     /// <summary>
     /// Gets a sprite with the given name. Returns null

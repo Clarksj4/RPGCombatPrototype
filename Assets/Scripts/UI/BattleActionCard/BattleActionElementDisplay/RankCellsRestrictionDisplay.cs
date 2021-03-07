@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 public class RankCellsRestrictionDisplay : BattleActionElementDisplay
 {
     [BoxGroup("Components")]
-    [SerializeField] private string baseSpriteName;
+    [SerializeField] private string baseSpriteName = null;
 
     public override void Setup(IBattleActionElement element)
     {

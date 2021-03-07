@@ -40,9 +40,9 @@ public class Cell : MonoBehaviour
     [Tooltip("Whether or not this cell is traversable.")]
     public bool Traversable;
     [SerializeField]
-    private Vector2Int coordinate;
+    private Vector2Int coordinate = Vector2Int.zero;
     [SerializeField]
-    private Vector2 Size;
+    private Vector2 Size = Vector2.one;
 
     private new BoxCollider collider;
 
