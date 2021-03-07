@@ -77,7 +77,7 @@ public class ActionButton : MonoBehaviour
 
     private void RefreshUsability()
     {
-        if (action.CanDo() && action.AnyTargetableCells)
+        if (action.CanDo())
         {
             Button.targetGraphic.color = Button.colors.normalColor;
             Button.transition = Selectable.Transition.ColorTint;

@@ -177,18 +177,14 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased, IStartabl
     }
 
     /// <summary>
-    /// Moves the pawn to the given cell.
+    /// Sets the pawn's parent cell to the given cell.
     /// </summary>
-    public void SetCell(Cell cell)
+    public void SetCell(Cell cell, bool moveTo = false)
     {
-        if (cell != null)
-        {
-            transform.SetParent(cell.transform, true);
-            transform.localPosition = Vector3.zero;
-        }
+        transform.SetParent(cell?.transform ?? null, true);
 
-        else
-            transform.SetParent(null);
+        if (moveTo)
+            transform.localPosition = Vector3.zero;
     }
 
     /// <summary>
@@ -207,16 +203,14 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased, IStartabl
     {
         if (cell != null)
         {
+            SetCell(cell);
+
             // Get final position
             Vector3 targetWorldPosition = cell.WorldPosition;
 
             // Move actor to position over time
             Sequence sequence = DOTween.Sequence();
             sequence.Append(transform.DOMove(targetWorldPosition, 0.5f).SetEase(Ease.OutQuad));
-            sequence.OnComplete(() => {
-                // Update coordinate on arrival
-                SetCell(cell);
-            });
         }
     }
 

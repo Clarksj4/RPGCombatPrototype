@@ -108,16 +108,6 @@ public class ActionManager : Singleton<ActionManager>
     }
 
     /// <summary>
-    /// Checks if the current actor can perform the
-    /// given action.
-    /// </summary>
-    public bool CanDo(BattleAction action)
-    {
-        return action.CanDo() &&
-               action.TargetableCells.Count() > 0;
-    }
-
-    /// <summary>
     /// Sets the target for the current action.
     /// </summary>
     public bool SetTarget(Vector2Int coordinate)

@@ -55,6 +55,7 @@ public class PawnData : SerializedScriptableObject
             {
                 BattleAction duplicate = Instantiate(action);
                 pawn.Actions.Add(duplicate);
+                duplicate.SetActor(pawn);
             }
         }
 

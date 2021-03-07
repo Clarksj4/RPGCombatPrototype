@@ -34,7 +34,6 @@ public class ActionSet : MonoBehaviour
     private void Awake()
     {
         pawn = GetComponent<Pawn>();
-        pawn.OnTurnStarted.AddListener(HandleOnPawnTurnStarted);
         pawn.OnTurnEnded.AddListener(HandleOnPawnTurnEnded);
     }
 
@@ -78,14 +77,6 @@ public class ActionSet : MonoBehaviour
     private void HandleOnActionUsed(BattleAction action)
     {
         OnActionUsed?.Invoke(this, action);
-    }
-
-    private void HandleOnPawnTurnStarted(Pawn pawn)
-    {
-        // Set the actor again so the target cells
-        // are recalculated.
-        foreach (BattleAction action in Actions)
-            action.SetActor(pawn);
     }
 
     private void HandleOnPawnTurnEnded(Pawn pawn)

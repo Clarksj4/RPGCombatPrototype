@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Encapsulates any action / ability used by an pawn
@@ -122,10 +123,8 @@ public class BattleAction : SerializedScriptableObject
     /// Gets all the cells affected by this action.
     /// </summary>
     public IEnumerable<Cell> AffectedCells { get { return affectedCells; } }
-    /// <summary>
-    /// Gets if there are any cells that can be targeted by this action.
-    /// </summary>
-    public bool AnyTargetableCells { get { return targetableCells.Any(); } }
+
+    public UnityEvent<Pawn> HandleOnTurnStarted { get; private set; }
 
     //
     // Fields
@@ -152,7 +151,15 @@ public class BattleAction : SerializedScriptableObject
     public void SetActor(Pawn actor)
     {
         Actor = actor;
-        targetableCells = GetTargetableCells().ToList();
+        CacheTargetableCells();
+
+        // Listen for turn starting so can update which cells are targetable
+        actor.OnTurnStarted.RemoveListener(HandleOnTurnStart);
+        actor.OnTurnStarted.AddListener(HandleOnTurnStart);
+
+        // Listen for actions being used by actor so can update which cells are targetable
+        actor.Actions.OnActionUsed.RemoveListener(HandleOnActionUsed);
+        actor.Actions.OnActionUsed.AddListener(HandleOnActionUsed);
     }
 
     /// <summary>
@@ -199,6 +206,7 @@ public class BattleAction : SerializedScriptableObject
     {
         // No restreictions OR conforms to all restrictions.
         return UseCount < MaxUsesPerTurn &&
+               targetableCells.Any() &&
               (actorRestrictions == null ||
                actorRestrictions.Count == 0 ||
                actorRestrictions.All(r => r.IsTargetValid(Actor, OriginCell)));
@@ -232,7 +240,8 @@ public class BattleAction : SerializedScriptableObject
     {
         // If there are restrictions then only return cells
         // that conform.
-        if (targetRestrictions != null && targetRestrictions.Count > 0)
+        if (targetRestrictions != null && 
+            targetRestrictions.Count > 0)
         {
             // Iterate through ALL cells.
             foreach (Cell cell in Grid.GetCells())
@@ -327,5 +336,20 @@ public class BattleAction : SerializedScriptableObject
                 else break;
             }
         }
+    }
+
+    private void CacheTargetableCells()
+    {
+        targetableCells = GetTargetableCells().ToList();
+    }
+
+    private void HandleOnActionUsed(ActionSet set, BattleAction action)
+    {
+        CacheTargetableCells();
+    }
+
+    private void HandleOnTurnStart(Pawn pawn)
+    {
+        CacheTargetableCells();
     }
 }
