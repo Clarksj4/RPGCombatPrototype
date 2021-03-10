@@ -1,14 +1,23 @@
-﻿
+﻿using SimpleBehaviourTree;
+using UnityEngine;
+
 public class ApplyStatusNode : ActionNode
 {
+    [Tooltip("The status to apply to the targeted cell.")]
     public PawnStatus Status;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
+        // Get relevant data from state.
+        Pawn actor = state.Get<Pawn>("Actor");
+        Cell targetCell = state.Get<Cell>("Cell");
+        Pawn targetPawn = targetCell.GetContent<Pawn>();
+
+        // Apply status
         Status.Applicator = actor;
-        Pawn pawn = target.GetContent<Pawn>();
-        if (pawn != null)
-            pawn.Statuses.Add(Status);
-        return true;
+        targetPawn?.Statuses.Add(Status);
+
+        // Counts as success if a status was applied.
+        return targetPawn != null;
     }
 }
