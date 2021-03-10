@@ -1,9 +1,10 @@
 ﻿using System;
+using SimpleBehaviourTree;
 
 [Serializable]
-public abstract class ActionNode : IBattleActionElement
+public abstract class ActionNode : IBattleActionElement, IBehaviourTreeNode
 {
     public string name { get { return GetType().Name; } }
 
-    public abstract bool Do(Pawn actor, Cell target);
+    public abstract bool Do(BehaviourTreeState state);
 }

@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using SimpleBehaviourTree;
+using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System;
 using System.Collections.Generic;
@@ -54,12 +55,12 @@ public class BattleAction : SerializedScriptableObject
     [BoxGroup("Effect on Caster", CenterLabel = true)]
     [OdinSerialize]
     [Tooltip("The sequence of things this battle action will do on the caster.")]
-    protected List<ActionNode> selfActions = new List<ActionNode>(0);
+    protected IBehaviourTreeNode selfAction;
 
     [BoxGroup("Effect on Targeted Cells", CenterLabel = true)]
     [OdinSerialize]
     [Tooltip("The sequence of things this battle action will do on each targeted cell.")]
-    protected List<ActionNode> targetedActions = new List<ActionNode>(0);
+    protected IBehaviourTreeNode targetedAction;
     
     //
     // Events
@@ -107,14 +108,10 @@ public class BattleAction : SerializedScriptableObject
     /// </summary>
     public IEnumerable<TargetingRestriction> TargetingRestrictions { get { return targetRestrictions; } }
     /// <summary>
-    /// The sequence of things this battle action will do first.
-    /// </summary>
-    public IEnumerable<ActionNode> SelfActions { get { return selfActions; } }
-    /// <summary>
     /// The sequence of things this battle action with do to 
     /// each of the targeted cells.
     /// </summary>
-    public IEnumerable<ActionNode> TargetedActions { get { return targetedActions; } }
+    public IEnumerable<ActionNode> TargetedActions { get { return targetedAction.GetLeafNodes().Select(a => a as ActionNode); } }
     /// <summary>
     /// Gets all the cells targetable by this action.
     /// </summary>
@@ -292,15 +289,15 @@ public class BattleAction : SerializedScriptableObject
     private bool DoSelfActions()
     {
         // Don't do anything if there's nothing to do.
-        if (selfActions != null &&
-            selfActions.Count > 0)
+        if (selfAction != null)
         {
-            foreach (ActionNode node in selfActions)
+            BehaviourTreeState state = new BehaviourTreeState()
             {
-                // If the node fails - abort iteration.
-                if (!node.Do(Actor, OriginCell))
-                    return false;
-            }
+                { "Actor", Actor },
+                { "Cell", OriginCell }
+            };
+
+            selfAction.Do(state);
         }
 
         // Also assumes success if there was nothing to do.
@@ -310,30 +307,18 @@ public class BattleAction : SerializedScriptableObject
     private void DoTargetedActions()
     {
         // Only do things if there ARE targeted actions to perform.
-        if (targetedActions != null &&
-            targetedActions.Count > 0)
+        if (targetedAction != null)
         {
             // Apply actions to each affected cell.
-            bool success;
             foreach (Cell cell in affectedCells)
             {
-                foreach (ActionNode node in targetedActions)
+                BehaviourTreeState state = new BehaviourTreeState()
                 {
-                    success = node.Do(Actor, cell);
+                    { "Actor", Actor },
+                    { "Cell", cell }
+                };
 
-                    // If one of the nodes fails - abort subsequent 
-                    // node execution
-                    if (!success)
-                        break;
-                }
-
-                // If we don't mind about failures between cells
-                // then reset the success state
-                if (AffectedCellsIndependent)
-                    success = true;
-
-                // Otherwise, end iteration.
-                else break;
+                targetedAction.Do(state);
             }
         }
     }
