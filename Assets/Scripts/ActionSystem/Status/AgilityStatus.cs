@@ -4,11 +4,15 @@ using System;
 [Serializable]
 public class AgilityStatus : PawnStatus
 {
-    /// <summary>
-    /// Gets the movement bonus granted to
-    /// the targeted pawn.
-    /// </summary>
+    [Tooltip("The bonus movement to apply to the target.")]
     public int BonusMovement;
+
+    public override PawnStatus Duplicate()
+    {
+        AgilityStatus duplicate = base.Duplicate() as AgilityStatus;
+        duplicate.BonusMovement = BonusMovement;
+        return duplicate;
+    }
 
     protected override void OnApplication()
     {

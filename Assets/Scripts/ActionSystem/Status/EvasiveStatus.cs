@@ -4,11 +4,15 @@ using UnityEngine;
 [Serializable]
 public class EvasiveStatus : PawnStatus
 {
-    /// <summary>
-    /// Gets the number of attacks the afflicted pawn
-    /// will evade while affected by this status.
-    /// </summary>
+    [Tooltip("The number of attacks the target will evade will affected by this status.")]
     public int AttacksToEvade;
+
+    public override PawnStatus Duplicate()
+    {
+        EvasiveStatus duplicate = base.Duplicate() as EvasiveStatus;
+        duplicate.AttacksToEvade = AttacksToEvade;
+        return duplicate;
+    }
 
     public override bool Collate(PawnStatus other)
     {

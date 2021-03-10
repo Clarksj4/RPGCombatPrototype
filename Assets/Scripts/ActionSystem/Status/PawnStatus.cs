@@ -36,11 +36,22 @@ public abstract class PawnStatus
     {
         Pawn = pawn;
 
-        TurnManager.Instance.OnTurnStart += HandleOnTurnBegin;
-        TurnManager.Instance.OnTurnEnd += HandleOnTurnEnd;
+        pawn.OnTurnStarted.AddListener(HandleOnTurnStarted);
+        pawn.OnTurnEnded.AddListener(HandleOnTurnEnded);
 
         OnApplication();
     }
+    
+    /// <summary>
+    /// Creates a duplicate of this status.
+    /// </summary>
+    public virtual PawnStatus Duplicate()
+    {
+        PawnStatus duplicate = (PawnStatus)Activator.CreateInstance(GetType());
+        duplicate.Duration = Duration;
+        return duplicate;
+    }
+
     /// <summary>
     /// Checks for and handle interactions between statuses.
     /// </summary>
@@ -65,8 +76,8 @@ public abstract class PawnStatus
         if (!expiring)
         {
             expiring = true;
-            TurnManager.Instance.OnTurnStart -= HandleOnTurnBegin;
-            TurnManager.Instance.OnTurnEnd -= HandleOnTurnEnd;
+            Pawn.OnTurnStarted.RemoveListener(HandleOnTurnStarted);
+            Pawn.OnTurnEnded.RemoveListener(HandleOnTurnEnded);
 
             OnExpired();
             Pawn.Statuses.Remove(this);
@@ -74,24 +85,20 @@ public abstract class PawnStatus
         }
     }
 
-    private void HandleOnTurnBegin(ITurnBased ent)
+    private void HandleOnTurnStarted(Pawn pawn)
     {
-        if (ent == (ITurnBased)Pawn)
-        {
-            DoEffect();
+        DoEffect();
 
-            // Duration reduced at the START of turn
-            // so that the duration only decreased if
-            // the status actually did something.
-            Duration -= 1;
-        }
+        // Duration reduced at the START of turn
+        // so that the duration only decreased if
+        // the status actually did something.
+        Duration -= 1;
     }
 
-    private void HandleOnTurnEnd(ITurnBased ent)
+    private void HandleOnTurnEnded(Pawn pawn)
     {
         // If expired...
-        if (ent == (ITurnBased)Pawn && 
-            Duration == 0)
+        if (Duration == 0)
             Expire();
     }
 }

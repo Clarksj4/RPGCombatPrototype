@@ -186,4 +186,4 @@ MonoBehaviour:
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: c19536e2516c0fc47834641909cb48f5, type: 3}

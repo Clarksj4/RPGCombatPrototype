@@ -14,16 +14,21 @@ public class ApplyStatusNode : ActionNode
         Pawn targetPawn = state.Get<Cell>("Cell")
                               ?.GetContent<Pawn>();
 
+        // Make a duplicate of the status and apply that instead so 
+        // that the above status is not passed to ALL the things 
+        // that it is applied to.
+        PawnStatus duplicate = Status.Duplicate();
+
         // Apply status
-        Status.Applicator = actor;
-        targetPawn?.Statuses.Add(Status);
+        duplicate.Applicator = actor;
+        targetPawn?.Statuses.Add(duplicate);
 
         // Update state with the status that was applied
         var statuses = state.Get<List<PawnStatus>>("Statuses");
         if (statuses == null)
             state["Statuses"] = new List<PawnStatus>();
         statuses = state.Get<List<PawnStatus>>("Statuses");
-        statuses.Add(Status);
+        statuses.Add(duplicate);
 
         // Counts as success if a status was applied.
         return targetPawn != null;

@@ -9,6 +9,13 @@ public class BurningStatus : PawnStatus
     [Tooltip("The amount of damage that will be done to adjacent cells each turn.")]
     public int DamagePerTurn;
 
+    public override PawnStatus Duplicate()
+    {
+        BurningStatus duplicate = base.Duplicate() as BurningStatus;
+        duplicate.DamagePerTurn = DamagePerTurn;
+        return duplicate;
+    }
+
     protected override void DoEffect()
     {
         DoDamageNode damage = new DoDamageNode() { BaseDamage = DamagePerTurn };

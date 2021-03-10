@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
 [Serializable]
 public class GuardedStatus : PawnStatus
 {
-
     protected override void OnApplication()
     {
         Pawn.AddSurrogate(Applicator);

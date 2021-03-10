@@ -8,7 +8,7 @@ public class StatusBar : MonoBehaviour
 
     public void HandleOnStatusApplied(PawnStatus status)
     {
-        StatusFrame existingFrame = statusFrames.FirstOrDefault(s => s.StatusName == status.GetType().Name);
+        StatusFrame existingFrame = statusFrames.FirstOrDefault(s => s.StatusName == status.Name);
         if (existingFrame != null)
             existingFrame.IncrementStatusCount();
 
@@ -23,7 +23,7 @@ public class StatusBar : MonoBehaviour
 
     public void HandleOnStatusExpired(PawnStatus status)
     {
-        StatusFrame existingFrame = statusFrames.FirstOrDefault(s => s.StatusName == status.GetType().Name);
+        StatusFrame existingFrame = statusFrames.FirstOrDefault(s => s.StatusName == status.Name);
         if (existingFrame != null)
             existingFrame.DecrementStatusCount();
     }

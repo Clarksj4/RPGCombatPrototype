@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
 [Serializable]
 public class HobbleStatus : PawnStatus
 {
-    /// <summary>
-    /// Gets the number of turns that the targeted pawn will
-    /// be immobilized for when hobble expires.
-    /// </summary>
+    [Tooltip("The duration that the target will be immobilized for after hobbled wears off.")]
     public int ImmobilizeDuration;
+
+    public override PawnStatus Duplicate()
+    {
+        HobbleStatus duplicate = base.Duplicate() as HobbleStatus;
+        duplicate.ImmobilizeDuration = ImmobilizeDuration;
+        return duplicate;
+    }
 
     protected override void OnExpired()
     {

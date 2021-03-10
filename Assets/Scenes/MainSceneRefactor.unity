@@ -8227,7 +8227,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.8
+  m_fontSize: 51.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8591,8 +8591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2f0542998ce3249b5a7971bc9c3384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLanguage: eng
-  FallbackLanguage: eng
+  CurrentLanguage: en-NZ
+  FallbackLanguage: en-US
   Data: []
 --- !u!1001 &2116722260
 PrefabInstance:

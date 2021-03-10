@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
 [Serializable]
 public class DrowsyStatus : PawnStatus
 {
-    /// <summary>
-    /// Gets the number of turns that the targeted pawn will
-    /// sleep for when drowsy expires.
-    /// </summary>
+    [Tooltip("The duration that the target will sleep for after drowzy wears off.")]
     public int SleepDuration;
+
+    public override PawnStatus Duplicate()
+    {
+        DrowsyStatus duplicate = base.Duplicate() as DrowsyStatus;
+        duplicate.SleepDuration = SleepDuration;
+        return duplicate;
+    }
 
     protected override void OnExpired()
     {
