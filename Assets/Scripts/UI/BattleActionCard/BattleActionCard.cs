@@ -30,8 +30,8 @@ public class BattleActionCard : MonoBehaviour
 
     private void OnValidate()
     {
-        if (Application.isPlaying && Test != null)
-            Invoke("SetAction", 0.1f);
+        //if (Application.isPlaying && Test != null)
+        //    Invoke("SetAction", 0.1f);
     }
 
     private void SetAction()

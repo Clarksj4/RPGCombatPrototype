@@ -1,18 +1,25 @@
-﻿
+﻿using SimpleBehaviourTree;
+
 public class SwapHealthNode : ActionNode
 {
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn pawn = target.GetContent<Pawn>();
-        if (pawn != null)
+        Pawn actor = state.Get<Pawn>("Actor");
+        Pawn target = state.Get<Cell>("Cell")
+                          ?.GetContent<Pawn>();
+
+        // Swap health if there's a target
+        bool isTarget = target != null;
+        if (isTarget)
         {
             int originHealth = actor.Stats["Health"].Value;
-            int targetHealth = pawn.Stats["Health"].Value;
+            int targetHealth = target.Stats["Health"].Value;
 
-            pawn.Stats["Health"].Value = originHealth;
+            target.Stats["Health"].Value = originHealth;
             actor.Stats["Health"].Value = targetHealth;
         }
             
-        return true;
+        // Success if there was a target to swap with.
+        return isTarget;
     }
 }

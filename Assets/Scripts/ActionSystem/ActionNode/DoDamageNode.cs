@@ -1,21 +1,14 @@
 ﻿
 using SimpleBehaviourTree;
+using UnityEngine;
 
 public class DoDamageNode : ActionNode
 {
-    /// <summary>
-    /// Gets or sets the amount of damage this action will do.
-    /// </summary>
+    [Tooltip("The amount of damage this action will do.")]
     public int BaseDamage;
-    /// <summary>
-    /// Gets or sets whether the damage is amplified by the
-    /// actor's power level.
-    /// </summary>
+    [Tooltip("Whether the damage is amplified by the actor's power level.")]
     public bool Amplifyable = true;
-    /// <summary>
-    /// Gets or sets whether this damage can be reduced by
-    /// defense or delegated to a surrogate.
-    /// </summary>
+    [Tooltip("Whether this damage can be reduced by defense or delegated to a surrogate.")]
     public bool Defendable = true;
 
     public override bool Do(BehaviourTreeState state)

@@ -1,13 +1,18 @@
-﻿using Sirenix.Serialization;
+﻿using SimpleBehaviourTree;
+using Sirenix.Serialization;
 using System;
+using UnityEngine;
 
 public class OnTeamNode : ActionNode
 {
+    [Tooltip("The allegiance the target must have.")]
     public TeamFlags Allegiance = TeamFlags.None;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn defender = target.GetContent<Pawn>();
+        Pawn actor = state.Get<Pawn>("Actor");
+        Pawn defender = state.Get<Cell>("Cell")
+                            ?.GetContent<Pawn>();
         if (defender != null)
         {
             if (Allegiance.HasFlag(TeamFlags.Any) &&
@@ -25,8 +30,6 @@ public class OnTeamNode : ActionNode
             else if (Allegiance.HasFlag(TeamFlags.Other) &&
                 defender.Team != actor.Team)
                 return true;
-
-            return false;
         }
          
         return false;

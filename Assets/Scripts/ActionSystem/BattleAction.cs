@@ -318,7 +318,11 @@ public class BattleAction : SerializedScriptableObject
                     { "Cell", cell }
                 };
 
-                targetedAction.Do(state);
+                // If the action tree fails on a cell, do we
+                // cancel further action on other cells?
+                bool success = targetedAction.Do(state);
+                if (!AffectedCellsIndependent && !success)
+                    break;
             }
         }
     }

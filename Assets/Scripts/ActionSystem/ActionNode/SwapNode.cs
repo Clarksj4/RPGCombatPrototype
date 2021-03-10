@@ -1,12 +1,18 @@
-﻿
+﻿using SimpleBehaviourTree;
+
 public class SwapNode : ActionNode
 {
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn pawn = target.GetContent<Pawn>();
-        if (pawn != null)
-            actor.Swap(pawn);
+        Pawn actor = state.Get<Pawn>("Actor");
+        Pawn target = state.Get<Cell>("Cell")
+                          ?.GetContent<Pawn>();
 
-        return true;
+        bool isTarget = target != null;
+        if (isTarget)
+            actor.Swap(target);
+
+        // Success if there was a target to swap with.
+        return isTarget;
     }
 }

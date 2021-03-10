@@ -10,8 +10,8 @@ public enum StringCase
 
 public class LocalizationManager : MonoSingleton<LocalizationManager>
 {
-    public string CurrentLanguage = CultureInfo.CurrentCulture.ThreeLetterISOLanguageName;
-    public string FallbackLanguage = new CultureInfo("en-US").ThreeLetterISOLanguageName;
+    public string CurrentLanguage = CultureInfo.CurrentCulture.Name;
+    public string FallbackLanguage = new CultureInfo("en-US").Name;
     public LocalizationData[] Data;
 
     private Dictionary<string, string> strings = new Dictionary<string, string>();

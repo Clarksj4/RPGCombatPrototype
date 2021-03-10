@@ -1,17 +1,19 @@
-﻿using Sirenix.Serialization;
-using System;
+﻿using SimpleBehaviourTree;
+using UnityEngine;
 
 public class HasStatusNode : ActionNode
 {
+    [Tooltip("The status to apply to the target.")]
     public string StatusName;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn defender = target.GetContent<Pawn>();
+        Pawn defender = state.Get<Cell>("Cell")
+                            ?.GetContent<Pawn>();
         if (defender != null)
             return defender.Statuses.Contains(StatusName);
 
-        // Fudge it if there is no defender
-        return true;
+        // Doesn't have status
+        return false;
     }
 }

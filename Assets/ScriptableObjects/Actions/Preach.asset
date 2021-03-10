@@ -27,7 +27,16 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|ManaRestriction, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -36,11 +45,20 @@ MonoBehaviour:
       Data: 
     - Name: targetRestrictions
       Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 2|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 3|CellContentRestriction, Assembly-CSharp
+    - Name: Content
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -49,11 +67,17 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffect
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
+      Data: 4|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 5|AffectedPawns, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -62,7 +86,7 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffectRestrictions
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 6|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -73,26 +97,88 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
+      Data: 7|RemoveManaNode, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetedAction
+      Entry: 7
+      Data: 8|SimpleBehaviourTree.SelectorNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 10|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 12|OnTeamNode, Assembly-CSharp
+    - Name: Allegiance
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|ApplyStatusNode, Assembly-CSharp
+    - Name: Status
+      Entry: 7
+      Data: 14|PowerStatus, Assembly-CSharp
+    - Name: Duration
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: targetedActions
-      Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
     - Name: 
-      Entry: 12
-      Data: 0
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|ApplyStatusNode, Assembly-CSharp
+    - Name: Status
+      Entry: 7
+      Data: 16|WeakenedStatus, Assembly-CSharp
+    - Name: Duration
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8

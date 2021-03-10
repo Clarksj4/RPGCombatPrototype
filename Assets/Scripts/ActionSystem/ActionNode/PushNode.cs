@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using SimpleBehaviourTree;
+using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEngine;
 
@@ -16,15 +17,19 @@ public class PushNode : MoveNode
     [Tooltip("Push in a literal direction.")]
     public Vector2Int Direction;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn pawn = target.GetContent<Pawn>();
-        if (pawn != null)
+        Pawn actor = state.Get<Pawn>("Actor");
+        Cell targetCell = state.Get<Cell>("Cell");
+        Pawn targetPawn = targetCell.GetContent<Pawn>();
+
+        if (targetPawn != null)
         {
-            pawn.TakePush(GetDirection(actor, target), Distance);
+            targetPawn.TakePush(GetDirection(actor, targetCell), Distance);
             return true;
         }
         
+        // No target to be pushed
         return false;
     }
 

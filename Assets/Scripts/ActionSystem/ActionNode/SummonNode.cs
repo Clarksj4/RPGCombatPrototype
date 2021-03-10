@@ -1,4 +1,5 @@
 ﻿
+using SimpleBehaviourTree;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,16 +13,25 @@ public class SummonNode : ActionNode
     [Tooltip("The duration the summoned thing will persist for.")]
     public int Duration;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        // Spawn Pawn
-        if (Pawn == null)
-            SummonManager.Instance.Spawn(Name, target, Duration);
+        Cell target = state.Get<Cell>("Cell");
+        Pawn occupant = target.GetContent<Pawn>();
+        bool occupied = occupant != null;
 
-        // Spawn Pawn by name
-        else
-            SummonManager.Instance.Spawn(Pawn, target, Duration);
+        // Spawn pawn if the cell is unoccupied.
+        if (!occupied)
+        {
+            // Spawn Pawn
+            if (Pawn == null)
+                SummonManager.Instance.Spawn(Name, target, Duration);
+
+            // Spawn Pawn by name
+            else
+                SummonManager.Instance.Spawn(Pawn, target, Duration);
+        }
         
-        return true;
+        // Success if the target cell wasn't occupied
+        return !occupied;
     }
 }

@@ -1,13 +1,15 @@
-﻿
+﻿using SimpleBehaviourTree;
+
 public class IsHitNode : ActionNode
 {
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn defender = target.GetContent<Pawn>();
+        Pawn defender = state.Get<Cell>("Cell")
+                            ?.GetContent<Pawn>();
         if (defender != null)
             return defender.IsHit();
 
-        // Fudge it if there is no defender
-        return true;
+        // Nothing to hit.
+        return false;
     }
 }

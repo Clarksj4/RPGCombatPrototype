@@ -1,12 +1,9 @@
-﻿
-using SimpleBehaviourTree;
+﻿using SimpleBehaviourTree;
+using UnityEngine;
 
 public class HasCellContentNode : ActionNode
 {
-    /// <summary>
-    /// Gets or sets the content that is valid for the
-    /// targeted cell.
-    /// </summary>
+    [Tooltip("The content that is valid for the targeted cell.")]
     public TargetableCellContent Content = TargetableCellContent.All;
 
     public override bool Do(BehaviourTreeState state)

@@ -1,18 +1,22 @@
-﻿using UnityEngine;
+﻿using SimpleBehaviourTree;
+using UnityEngine;
 
 public class RemoveManaNode : ActionNode
 {
-    /// <summary>
-    /// Gets or sets the amount of damage this action will do.
-    /// </summary>
+    [Tooltip("The amount of mana to remove from the target.")]
     public int Amount;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn defender = target.GetContent<Pawn>();
-        if (defender != null)
-            defender.Stats["Mana"]?.Decrement(Amount);
+        Pawn target = state.Get<Cell>("Cell")
+                          ?.GetContent<Pawn>();
 
-        return true;
+        // Remove mana if there is a target.
+        bool isTarget = target != null;
+        if (isTarget)
+            target.Stats["Mana"]?.Decrement(Amount);
+
+        // Success if there was a target to remove mana from.
+        return isTarget;
     }
 }

@@ -1,14 +1,27 @@
-﻿
+﻿using SimpleBehaviourTree;
+using UnityEngine;
+
 public class HealNode : ActionNode
 {
+    [Tooltip("The amount to heal the target.")]
     public int Amount;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn pawn = target.GetContent<Pawn>();
+        Pawn pawn = state.Get<Cell>("Cell")
+                        ?.GetContent<Pawn>();
         if (pawn != null)
+        {
+            // Heal pawn
             pawn.Stats["Health"].Increment(Amount);
 
-        return true;
+            // Update state with heal amount
+            state["Health"] = state.Get<int>("Health") + Amount;
+
+            return true;
+        }
+
+        // Nothing was healed.
+        return false;
     }
 }
