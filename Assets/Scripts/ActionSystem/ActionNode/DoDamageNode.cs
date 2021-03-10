@@ -1,4 +1,6 @@
 ﻿
+using SimpleBehaviourTree;
+
 public class DoDamageNode : ActionNode
 {
     /// <summary>
@@ -16,15 +18,21 @@ public class DoDamageNode : ActionNode
     /// </summary>
     public bool Defendable = true;
 
-    public override bool Do(Pawn actor, Cell target)
+    public override bool Do(BehaviourTreeState state)
     {
-        Pawn defender = target.GetContent<Pawn>();
+        Pawn actor = state.Get<Pawn>("Actor");
+        Pawn defender = state.Get<Cell>("Cell")
+                            ?.GetContent<Pawn>();
+        
+        // If there is a defender - do damage to it
         if (defender != null)
         {
-            int inflicted = Amplifyable ? actor.GetAmplifiedDamage(BaseDamage) : BaseDamage;
-            defender.TakeDamage(inflicted, Defendable);
+            int attack = Amplifyable ? actor.GetAmplifiedDamage(BaseDamage) : BaseDamage;
+            int inflicted = defender.TakeDamage(attack, Defendable);
+            return inflicted > 0;
         }
         
-        return true;
+        // Only counts as success if damage was inflicted
+        return false;
     }
 }

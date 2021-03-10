@@ -10,8 +10,8 @@ public class ApplyStatusNode : ActionNode
     {
         // Get relevant data from state.
         Pawn actor = state.Get<Pawn>("Actor");
-        Cell targetCell = state.Get<Cell>("Cell");
-        Pawn targetPawn = targetCell.GetContent<Pawn>();
+        Pawn targetPawn = state.Get<Cell>("Cell")
+                              ?.GetContent<Pawn>();
 
         // Apply status
         Status.Applicator = actor;
