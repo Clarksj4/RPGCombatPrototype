@@ -29,6 +29,11 @@ public class DoDamageNode : ActionNode
         {
             int attack = Amplifyable ? actor.GetAmplifiedDamage(BaseDamage) : BaseDamage;
             int inflicted = defender.TakeDamage(attack, Defendable);
+
+            // Update state with damage
+            state["Attack"] = state.Get<int>("Attack") + attack;
+            state["Inflicted"] = state.Get<int>("Inflicted") + inflicted;
+
             return inflicted > 0;
         }
         
