@@ -6,5 +6,5 @@ public abstract class ActionNode : IBattleActionElement, IBehaviourTreeNode
 {
     public string name { get { return GetType().Name; } }
 
-    public abstract bool Do(BehaviourTreeState state);
+    public abstract bool Do(Blackboard state);
 }

@@ -2,7 +2,7 @@
 
 public class MoveNode : ActionNode
 {
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn actor = state.Get<Pawn>("Actor");
         Cell target = state.Get<Cell>("Cell");

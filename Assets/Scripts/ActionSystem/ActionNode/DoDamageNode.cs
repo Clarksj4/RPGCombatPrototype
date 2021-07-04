@@ -11,7 +11,7 @@ public class DoDamageNode : ActionNode
     [Tooltip("Whether this damage can be reduced by defense or delegated to a surrogate.")]
     public bool Defendable = true;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn actor = state.Get<Pawn>("Actor");
         Pawn defender = state.Get<Cell>("Cell")

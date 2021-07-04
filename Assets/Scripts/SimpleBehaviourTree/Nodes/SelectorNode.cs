@@ -6,7 +6,7 @@ namespace SimpleBehaviourTree
     /// </summary>
     public class SelectorNode : ParentBehaviourTreeNode
     {
-        public override bool Do(BehaviourTreeState state)
+        public override bool Do(Blackboard state)
         {
             // Select the first node that succeeds. Tries successive nodes 
             // until it finds one that doesn't fail.

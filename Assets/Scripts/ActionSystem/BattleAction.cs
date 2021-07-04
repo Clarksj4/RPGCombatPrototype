@@ -291,7 +291,7 @@ public class BattleAction : SerializedScriptableObject
         // Don't do anything if there's nothing to do.
         if (selfAction != null)
         {
-            BehaviourTreeState state = new BehaviourTreeState()
+            Blackboard state = new Blackboard()
             {
                 { "Actor", Actor },
                 { "Cell", OriginCell }
@@ -312,7 +312,7 @@ public class BattleAction : SerializedScriptableObject
             // Apply actions to each affected cell.
             foreach (Cell cell in affectedCells)
             {
-                BehaviourTreeState state = new BehaviourTreeState()
+                Blackboard state = new Blackboard()
                 {
                     { "Actor", Actor },
                     { "Cell", cell }

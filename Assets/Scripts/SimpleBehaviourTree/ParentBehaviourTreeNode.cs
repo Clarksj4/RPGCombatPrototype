@@ -16,6 +16,6 @@ namespace SimpleBehaviourTree
         [OdinSerialize]
         public List<IBehaviourTreeNode> children = new List<IBehaviourTreeNode>();
 
-        public abstract bool Do(BehaviourTreeState state);
+        public abstract bool Do(Blackboard state);
     }
 }

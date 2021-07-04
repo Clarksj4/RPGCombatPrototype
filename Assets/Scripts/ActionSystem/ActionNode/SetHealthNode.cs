@@ -7,7 +7,7 @@ public class SetHealthNode : ActionNode
     [Tooltip("The value to set the target's health to.")]
     public int Amount;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn target = state.Get<Cell>("Cell")
                           ?.GetContent<Pawn>();

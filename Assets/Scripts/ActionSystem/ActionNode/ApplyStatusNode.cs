@@ -7,7 +7,7 @@ public class ApplyStatusNode : ActionNode
     [Tooltip("The status to apply to the targeted cell.")]
     public PawnStatus Status;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         // Get relevant data from state.
         Pawn actor = state.Get<Pawn>("Actor");
@@ -24,11 +24,7 @@ public class ApplyStatusNode : ActionNode
         targetPawn?.Statuses.Add(duplicate);
 
         // Update state with the status that was applied
-        var statuses = state.Get<List<PawnStatus>>("Statuses");
-        if (statuses == null)
-            state["Statuses"] = new List<PawnStatus>();
-        statuses = state.Get<List<PawnStatus>>("Statuses");
-        statuses.Add(duplicate);
+        state.Add(duplicate.Name, duplicate);
 
         // Counts as success if a status was applied.
         return targetPawn != null;

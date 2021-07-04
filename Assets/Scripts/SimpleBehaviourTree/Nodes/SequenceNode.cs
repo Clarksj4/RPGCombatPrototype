@@ -6,7 +6,7 @@ namespace SimpleBehaviourTree
     /// </summary>
     public class SequenceNode : ParentBehaviourTreeNode
     {
-        public override bool Do(BehaviourTreeState state)
+        public override bool Do(Blackboard state)
         {
             // Run child nodes in sequence until one fails.
             foreach (var child in children)

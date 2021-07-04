@@ -6,7 +6,7 @@ public class HasStatusNode : ActionNode
     [Tooltip("The status to apply to the target.")]
     public string StatusName;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn defender = state.Get<Cell>("Cell")
                             ?.GetContent<Pawn>();

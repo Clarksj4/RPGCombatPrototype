@@ -9,6 +9,6 @@ namespace SimpleBehaviourTree
         /// <summary>
         /// Update the time of the behaviour tree.
         /// </summary>
-        bool Do(BehaviourTreeState state);
+        bool Do(Blackboard state);
     }
 }

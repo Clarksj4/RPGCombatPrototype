@@ -2,7 +2,7 @@
 
 public class SwapHealthNode : ActionNode
 {
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn actor = state.Get<Pawn>("Actor");
         Pawn target = state.Get<Cell>("Cell")

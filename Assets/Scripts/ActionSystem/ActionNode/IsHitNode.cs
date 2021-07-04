@@ -2,7 +2,7 @@
 
 public class IsHitNode : ActionNode
 {
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn defender = state.Get<Cell>("Cell")
                             ?.GetContent<Pawn>();

@@ -17,7 +17,7 @@ public class PushNode : MoveNode
     [Tooltip("Push in a literal direction.")]
     public Vector2Int Direction;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn actor = state.Get<Pawn>("Actor");
         Cell targetCell = state.Get<Cell>("Cell");

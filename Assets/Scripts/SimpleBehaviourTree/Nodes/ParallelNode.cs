@@ -11,7 +11,7 @@ namespace SimpleBehaviourTree
         /// </summary>
         public int NumRequiredToSucceed { get; protected set; }
 
-        public override bool Do(BehaviourTreeState state)
+        public override bool Do(Blackboard state)
         {
             var numChildrenSuceeded = 0;
             var numChildrenFailed = 0;

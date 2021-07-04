@@ -6,7 +6,7 @@ public class RemoveManaNode : ActionNode
     [Tooltip("The amount of mana to remove from the target.")]
     public int Amount;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn target = state.Get<Cell>("Cell")
                           ?.GetContent<Pawn>();

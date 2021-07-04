@@ -13,7 +13,7 @@ public class SummonNode : ActionNode
     [Tooltip("The duration the summoned thing will persist for.")]
     public int Duration;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Cell target = state.Get<Cell>("Cell");
         Pawn occupant = target.GetContent<Pawn>();

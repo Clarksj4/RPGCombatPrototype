@@ -23,7 +23,7 @@ public class BurningStatus : PawnStatus
         IEnumerable<Cell> adjacentCells = Pawn.Grid.GetRange(Pawn.Coordinate, 1, 1);
         foreach (Cell cell in adjacentCells)
         {
-            BehaviourTreeState state = new BehaviourTreeState()
+            Blackboard state = new Blackboard()
             {
                 { "Actor", Pawn },
                 { "Cell", cell }

@@ -7,7 +7,7 @@ namespace SimpleBehaviourTree
     /// </summary>
     public class InverterNode : ParentBehaviourTreeNode
     {
-        public override bool Do(BehaviourTreeState state)
+        public override bool Do(Blackboard state)
         {
             // Return the opposite result
             var result = children.Single().Do(state);

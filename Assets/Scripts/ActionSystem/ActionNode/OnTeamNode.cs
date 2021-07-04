@@ -8,7 +8,7 @@ public class OnTeamNode : ActionNode
     [Tooltip("The allegiance the target must have.")]
     public TeamFlags Allegiance = TeamFlags.None;
 
-    public override bool Do(BehaviourTreeState state)
+    public override bool Do(Blackboard state)
     {
         Pawn actor = state.Get<Pawn>("Actor");
         Pawn defender = state.Get<Cell>("Cell")

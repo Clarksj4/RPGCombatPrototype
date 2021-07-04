@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
+using System.Collections;
 
-public class StatusSet : MonoBehaviour
+public class StatusSet : MonoBehaviour, IEnumerable<PawnStatus>
 {
     /// <summary>
     /// Occurs when a status is applied to this pawn.
@@ -63,5 +64,15 @@ public class StatusSet : MonoBehaviour
     public bool Contains(string status)
     {
         return statuses.Any(s => s.GetType().Name.Contains(status));
+    }
+
+    public IEnumerator<PawnStatus> GetEnumerator()
+    {
+        return statuses.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return statuses.GetEnumerator();
     }
 }
