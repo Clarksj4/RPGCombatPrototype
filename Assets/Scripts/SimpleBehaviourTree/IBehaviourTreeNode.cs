@@ -7,7 +7,7 @@ namespace SimpleBehaviourTree
     public interface IBehaviourTreeNode
     {
         /// <summary>
-        /// Update the time of the behaviour tree.
+        /// Action method for this node.
         /// </summary>
         bool Do(Blackboard state);
     }
