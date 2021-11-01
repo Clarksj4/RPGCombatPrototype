@@ -19,6 +19,7 @@ Many aspects of the codebase exist to ease the prototyping process:
 - [Fluent Behaviour Tree](https://github.com/ashleydavis/Fluent-Behaviour-Tree/commits?author=ashleydavis): SimpleBehaviour tree is adapted from fluent behaviour trees to allow for inheritence of my interfaces and to pass around a blackboard object at each tick.
 - [Singleton Generics](https://gist.github.com/mstevenson/4325117): used to simplify the repeated implementation of the singleton pattern (there are many versions of this online, the one linked is just an example).
 - Extension Methods: lots of the extension methods used are sourced from the internet.
+- Art assets: most are sourced from [opengameart.org](https://opengameart.org/)
 
 ## Action System Overview:
 The ActionManager is responsible for assembling actions, which is a multiple step process involving: selecting an actor, action, and target.
