@@ -15,6 +15,9 @@ using UnityEngine.Events;
 public class BattleAction : SerializedScriptableObject
 {
     [TitleGroup("Battle Action")]
+    [Multiline(2)]
+    public string Description = null;
+    
     [HorizontalGroup("Battle Action/Misc")]
     [VerticalGroup("Battle Action/Misc/Left")]
     [Tooltip("The maximum number of uses of this action per turn.")]
