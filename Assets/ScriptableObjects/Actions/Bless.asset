@@ -102,79 +102,38 @@ MonoBehaviour:
     - Name: areaOfEffectRestrictions
       Entry: 6
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 8|DoDamageNode, Assembly-CSharp
+      Data: 7|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
       Data: 10
     - Name: Amplifyable
       Entry: 5
-      Data: false
+      Data: true
     - Name: Defendable
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
+    - Name: targetedAction
       Entry: 7
-      Data: 9|RemoveManaNode, Assembly-CSharp
-    - Name: Amount
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
-      Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 11|HealNode, Assembly-CSharp
-    - Name: Amount
-      Entry: 3
-      Data: 15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 12|ApplyStatusNode, Assembly-CSharp
+      Data: 8|ApplyStatusNode, Assembly-CSharp
     - Name: Status
       Entry: 7
-      Data: 13|PowerStatus, Assembly-CSharp
+      Data: 9|PowerStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  Description: Increases the power of the target and adjacent cells temporarily.
+    Costs health to cast.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
