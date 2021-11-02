@@ -64,8 +64,13 @@ public class MonoGrid : MonoBehaviour
                 int range = Mathf.Abs(x) + Mathf.Abs(y);
                 if (range >= min)
                 {
-                   Vector2Int coordinate = new Vector2Int(origin.x + x, origin.y + y);
-                    yield return GetCell(coordinate);
+                    Vector2Int coordinate = new Vector2Int(origin.x + x, origin.y + y);
+                    Cell cell = GetCell(coordinate);
+
+                    // Only return cells - don't send null for coordinates that
+                    // don't have a corresponding cell.
+                    if (cell != null)
+                        yield return cell;
                 }
             }
         }
