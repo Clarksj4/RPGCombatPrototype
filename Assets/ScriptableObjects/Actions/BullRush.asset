@@ -70,7 +70,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 5|RankCellsRestriction, Assembly-CSharp
@@ -97,7 +97,16 @@ MonoBehaviour:
       Data: 7|CellContentRestriction, Assembly-CSharp
     - Name: Content
       Entry: 3
-      Data: 4
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|FormationRestriction, Assembly-CSharp
+    - Name: Formations
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -109,14 +118,14 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffect
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
+      Data: 9|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 9|AffectedPoint, Assembly-CSharp
+      Data: 10|AffectedPoint, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -128,7 +137,7 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffectRestrictions
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 11|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -139,16 +148,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
+      Data: 12|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 13|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 12|RemoveManaNode, Assembly-CSharp
+      Data: 14|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
@@ -157,10 +169,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|PushNode, Assembly-CSharp
+      Data: 15|PushNode, Assembly-CSharp
     - Name: Distance
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: FormationDirection
       Entry: 3
       Data: 1
@@ -188,25 +200,44 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: targetedActions
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targetedAction
       Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
+      Data: 16|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 17|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 18|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 19|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 15|IsHitNode, Assembly-CSharp
+      Data: 20|HasCellContentNode, Assembly-CSharp
+    - Name: Content
+      Entry: 3
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|DoDamageNode, Assembly-CSharp
+      Data: 21|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
-      Data: 25
+      Data: 20
     - Name: Amplifyable
       Entry: 5
       Data: true
@@ -218,16 +249,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|PushNode, Assembly-CSharp
+      Data: 22|PushNode, Assembly-CSharp
     - Name: Distance
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: FormationDirection
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: relativeDirection
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: Direction
       Entry: 7
       Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
@@ -249,6 +280,20 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Description: Rush forward 2 ranks, deal damage to targets in the opposite rank
+    and push them back.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
