@@ -104,7 +104,17 @@ MonoBehaviour:
       Data: 
     - Name: selfAction
       Entry: 7
-      Data: 7|DoDamageNode, Assembly-CSharp
+      Data: 7|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 9|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
       Data: 10
@@ -113,16 +123,34 @@ MonoBehaviour:
       Data: true
     - Name: Defendable
       Entry: 5
-      Data: true
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|RemoveManaNode, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: targetedAction
       Entry: 7
-      Data: 8|ApplyStatusNode, Assembly-CSharp
+      Data: 11|ApplyStatusNode, Assembly-CSharp
     - Name: Status
       Entry: 7
-      Data: 9|PowerStatus, Assembly-CSharp
+      Data: 12|PowerStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
       Data: 0
