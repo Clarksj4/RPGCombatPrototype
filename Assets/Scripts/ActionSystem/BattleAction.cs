@@ -124,8 +124,6 @@ public class BattleAction : SerializedScriptableObject
     /// </summary>
     public IEnumerable<Cell> AffectedCells { get { return affectedCells; } }
 
-    public UnityEvent<Pawn> HandleOnTurnStarted { get; private set; }
-
     //
     // Fields
     //
