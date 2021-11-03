@@ -111,8 +111,8 @@ public class BattleAction : SerializedScriptableObject
     /// </summary>
     public IEnumerable<TargetingRestriction> TargetingRestrictions { get { return targetRestrictions; } }
     /// <summary>
-    /// The sequence of things this battle action will do to 
-    /// each of the targeted cells.
+    /// The things this battle action will do to each of the
+    /// targeted cells.
     /// </summary>
     public IEnumerable<ActionNode> TargetedActions { get { return targetedAction.GetLeafNodes().Select(a => a as ActionNode); } }
     /// <summary>
