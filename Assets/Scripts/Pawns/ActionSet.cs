@@ -86,6 +86,7 @@ public class ActionSet : MonoBehaviour
     {
         if (!initialized)
         {
+            // Each action is always associated with the given pawn.
             foreach (BattleAction action in Actions)
                 action.SetActor(pawn);
 
