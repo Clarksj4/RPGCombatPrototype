@@ -103,7 +103,7 @@ public class BattleAction : SerializedScriptableObject
     /// </summary>
     public Cell OriginCell { get { return Actor.Cell; } }
     /// <summary>
-    /// The collection of restrictions on cells that can be targeted.
+    /// The restrictions of whether an actor can use this action.
     /// </summary>
     public IEnumerable<TargetingRestriction> ActorRestrictions { get { return actorRestrictions; } }
     /// <summary>
