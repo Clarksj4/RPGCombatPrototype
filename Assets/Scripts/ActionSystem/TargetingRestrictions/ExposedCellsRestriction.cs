@@ -14,8 +14,13 @@ public class ExposedCellsRestriction : TargetingRestriction
             // If there is a cell in front that contains anything
             // then the given cell is not exposed.
             Cell obscuringCell = formation.Grid.GetCell(walker);
-            if (obscuringCell != null && obscuringCell.Contents.Any())
-                return false;
+            if (obscuringCell != null)
+            {
+                // Check if the cell contains a different pawn
+                Pawn content = obscuringCell.GetContent<Pawn>();
+                if (content != null && content != actor)
+                    return false;
+            }
 
             walker += facing;
         }
