@@ -183,6 +183,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  Description: Increases the power of all allies, and weakens all enemies.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
