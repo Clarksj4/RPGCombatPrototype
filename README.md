@@ -17,9 +17,10 @@ Many aspects of the codebase exist to ease the prototyping process:
 - Art assets: most are sourced from [opengameart.org](https://opengameart.org/)
 
 ## Action System Overview:
-The ActionManager is responsible for assembling actions, which is a multiple step process involving: selecting an actor, action, and target.
+### Action Manager:
+The ActionManager singleton is responsible for assembling actions for use, which is a multiple step process involving: selecting an actor (pawn), action, and target. At the start of a pawn's turn they are automatically selected as the current actor, the player then selects an action from those available to that actor, and a suitable target for the action.
 
-## Battle Actions:
+### Battle Actions:
 A battle action is a complex behaviour performed by a pawn during their turn (think of the kinds of things your D&D character could do during their turn). Battle actions require certain conditions to be met in order to use them (think of the casting cost associated with a card from MTG). Some examples include: 
 - __Move:__ moves the pawn to another cell within range on the grid.
 - __Firebot:__ deals damage to a single enemy in the opposing formation. Costs 1 mana.
@@ -53,7 +54,7 @@ __Definition:__ Self and Targeted actions are each defined as a behaviour tree t
 Battle actions are stored as ScriptableObjects. This allows for serialization of the data associated with each action. Battle actions inherit from `SerializedScriptableObject` a class defined by the Odin Inspector plugin for Unity - this allows for serializing and displaying generic classes and interfaces in the editor.
 
 
-## Action Nodes:
+### Action Nodes:
 An action node is a small, reusable piece of functionality that can be executed in a behaviour tree. They are the units of functionality that make up what a battle action does. Each one could be a check that passes data to other nodes in the tree (via the blackboard) or a behaviour that affects a targeted pawn. Examples include:
 
 - `GetStatus`: gets the statuses of the pawn at the targeted cell and adds them to the blackboard. Succeeds if there was a pawn that had a status
