@@ -160,7 +160,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Description: Increases the power of the target and adjacent cells temporarily.
+  Description: Increases the power of the target and adjacent allies temporarily.
     Costs health to cast.
   MaxUsesPerTurn: 1
   Cooldown: 1
