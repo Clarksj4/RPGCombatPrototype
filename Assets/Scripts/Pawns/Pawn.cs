@@ -235,9 +235,9 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased, IStartabl
             // Get cell at coordinate
             Vector2Int coordinate = Coordinate + (direction * i);
             Cell cell = Grid.GetCell(coordinate);
-
-            // If its empty mark it as a possible destination
-            if (cell != null && !cell.IsOccupied())
+            
+            // If its empty and part of this formation, mark it as a possible destination
+            if (cell != null && cell.Formation == Formation && !cell.IsOccupied())
                 furthestUnoccupiedCell = cell;
 
             // If its not empty, pawn can't be pushed any further.
