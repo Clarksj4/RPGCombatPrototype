@@ -121,38 +121,37 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 11|RemoveManaNode, Assembly-CSharp
+      Data: 10|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
+      Data: 11|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 13|IsHitNode, Assembly-CSharp
+      Data: 13|DoDamageNode, Assembly-CSharp
+    - Name: BaseDamage
+      Entry: 3
+      Data: 10
+    - Name: Amplifyable
+      Entry: 5
+      Data: true
+    - Name: Defendable
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -161,7 +160,7 @@ MonoBehaviour:
       Data: 14|PushNode, Assembly-CSharp
     - Name: Distance
       Entry: 3
-      Data: 1
+      Data: 3
     - Name: FormationDirection
       Entry: 3
       Data: 0
@@ -184,26 +183,15 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 15|DoDamageNode, Assembly-CSharp
-    - Name: BaseDamage
-      Entry: 3
-      Data: 15
-    - Name: Amplifyable
-      Entry: 5
-      Data: true
-    - Name: Defendable
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Description: Deals damage to the target and puills them towards the caster.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
