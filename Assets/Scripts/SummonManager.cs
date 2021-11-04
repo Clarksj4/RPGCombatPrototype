@@ -16,7 +16,7 @@ public class SummonManager : MonoSingleton<SummonManager>
             // Create new pawn
             Pawn instance = Instantiate(Prefab);
             instance.Data = data;
-            instance.SetCell(cell);
+            instance.SetCell(cell, true);
 
             // This is the final countdown.
             if (duration > -1)
