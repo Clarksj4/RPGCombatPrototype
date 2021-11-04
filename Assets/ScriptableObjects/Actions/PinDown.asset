@@ -124,65 +124,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 11|ApplyStatusNode, Assembly-CSharp
-    - Name: Status
-      Entry: 7
-      Data: 12|AgilityStatus, Assembly-CSharp
-    - Name: Duration
-      Entry: 3
-      Data: 1
-    - Name: BonusMovement
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 13|RemoveManaNode, Assembly-CSharp
+      Data: 10|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 2
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
+      Data: 11|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 15|IsHitNode, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 16|DoDamageNode, Assembly-CSharp
+      Data: 13|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
-      Data: 15
+      Data: 30
     - Name: Amplifyable
       Entry: 5
       Data: true
@@ -194,16 +160,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|ApplyStatusNode, Assembly-CSharp
+      Data: 14|ApplyStatusNode, Assembly-CSharp
     - Name: Status
       Entry: 7
-      Data: 18|HobbleStatus, Assembly-CSharp
+      Data: 15|HobbleStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
       Data: 1
     - Name: ImmobilizeDuration
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -216,6 +182,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Description: Deals damage and hobbles a visible enemy in the same file.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
