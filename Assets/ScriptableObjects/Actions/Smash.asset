@@ -197,7 +197,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Description: 
+  Description: Deals damage and makes the target vulnerable.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
