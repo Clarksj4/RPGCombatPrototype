@@ -97,52 +97,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 8|RemoveManaNode, Assembly-CSharp
+      Data: 7|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
+      Data: 8|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
+    - Name: children
       Entry: 7
-      Data: 10|ApplyStatusNode, Assembly-CSharp
-    - Name: Status
-      Entry: 7
-      Data: 11|LinkedStatuses, Assembly-CSharp
-    - Name: Duration
-      Entry: 3
-      Data: 0
-    - Name: linkedStatuses
-      Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[PawnStatus, Assembly-CSharp]],
-        mscorlib
+      Data: 9|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 13|AgilityStatus, Assembly-CSharp
+      Data: 10|ApplyStatusNode, Assembly-CSharp
+    - Name: Status
+      Entry: 7
+      Data: 11|AgilityStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
       Data: 2
@@ -153,8 +132,14 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
-      Data: 14|EvasiveStatus, Assembly-CSharp
+      Data: 12|ApplyStatusNode, Assembly-CSharp
+    - Name: Status
+      Entry: 7
+      Data: 13|EvasiveStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
       Data: 2
@@ -165,15 +150,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 8
       Data: 
     - Name: 
@@ -182,6 +158,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Description: Makes the caster evasive and increases their movement temporarily.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
