@@ -103,76 +103,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 9|RemoveManaNode, Assembly-CSharp
+      Data: 8|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 2
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 11|IsHitNode, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 12|DoDamageNode, Assembly-CSharp
-    - Name: BaseDamage
-      Entry: 3
-      Data: 15
-    - Name: Amplifyable
-      Entry: 5
-      Data: true
-    - Name: Defendable
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 13|ApplyStatusNode, Assembly-CSharp
+      Data: 9|ApplyStatusNode, Assembly-CSharp
     - Name: Status
       Entry: 7
-      Data: 14|ImmobilizedStatus, Assembly-CSharp
+      Data: 10|StunnedStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  Description: Stuns a single enemy in sight for a turn.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
