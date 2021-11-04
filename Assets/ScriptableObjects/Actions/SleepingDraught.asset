@@ -136,7 +136,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Description: 
+  Description: Makes the target drowsy.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
