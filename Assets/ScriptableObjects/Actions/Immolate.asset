@@ -117,21 +117,23 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 10|FormationRestriction, Assembly-CSharp
+    - Name: Formations
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
-      Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
+    - Name: selfAction
       Entry: 7
       Data: 11|RemoveManaNode, Assembly-CSharp
     - Name: Amount
@@ -140,43 +142,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
+    - Name: targetedAction
       Entry: 7
-      Data: 12|DoDamageNode, Assembly-CSharp
-    - Name: BaseDamage
-      Entry: 3
-      Data: 15
-    - Name: Amplifyable
-      Entry: 5
-      Data: false
-    - Name: Defendable
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+      Data: 12|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
+    - Name: children
       Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
+      Data: 13|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 14|IsHitNode, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 15|DoDamageNode, Assembly-CSharp
+      Data: 14|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
       Data: 15
@@ -191,13 +169,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|ApplyStatusNode, Assembly-CSharp
+      Data: 15|ApplyStatusNode, Assembly-CSharp
     - Name: Status
       Entry: 7
-      Data: 17|WeakenedStatus, Assembly-CSharp
+      Data: 16|VulnerabilityStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -210,6 +188,11 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Description: Deals damage and applies vulnerability to a target in sight and adjacent
+    enemies.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
