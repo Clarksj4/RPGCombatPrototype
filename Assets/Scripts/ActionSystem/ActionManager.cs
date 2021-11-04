@@ -174,6 +174,8 @@ public class ActionManager : Singleton<ActionManager>
         // instance action is cleared.
         BattleAction action = SelectedAction;
 
+        // Reset the state of the action.
+        SelectedAction?.DeselectTarget();
         SelectedAction = null;
         
         // Notify senpai
