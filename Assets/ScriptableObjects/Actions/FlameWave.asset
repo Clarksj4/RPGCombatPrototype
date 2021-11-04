@@ -73,19 +73,10 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 5|CellContentRestriction, Assembly-CSharp
-    - Name: Content
-      Entry: 3
-      Data: 4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 6|RankCellsRestriction, Assembly-CSharp
+      Data: 5|RankCellsRestriction, Assembly-CSharp
     - Name: Ranks
       Entry: 7
-      Data: 7|System.Int32[], mscorlib
+      Data: 6|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 1
@@ -98,6 +89,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|FormationRestriction, Assembly-CSharp
+    - Name: Formations
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -139,47 +139,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 12|RemoveManaNode, Assembly-CSharp
+      Data: 11|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 14|IsHitNode, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 15|DoDamageNode, Assembly-CSharp
+      Data: 12|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
-      Data: 25
+      Data: 20
     - Name: Amplifyable
       Entry: 5
       Data: true
@@ -189,12 +163,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  Description: Deals damage to the front rank of an opposing formation. Only castable
+    from the front rank.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
