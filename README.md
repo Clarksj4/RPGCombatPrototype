@@ -2,7 +2,7 @@
 ___Synopsis:__ Teams of pawns do battle on a grid, each team confined to their own 3x3 formation. Pawns act in turn, using abilities to move, deal damage, or apply status effects to pawns on the opposing formation. First to eliminate all pawns on the opposing team wins._
 
 ### Prototype
-This project is a WIP prototype / learning space for me to explore the mechanics of an RPG combat system; consequently, lots of things don't work and parts of it have been reinvented multiple times.
+This project is a WIP prototype / learning space for me to explore the mechanics of an RPG combat system; consequently, parts of it have been reinvented multiple times and lots of things don't work. It's not yet in a fun, playable state, but some of the functionality of the action system is beginning to emerge.
 
 #### Anti-patterns:
 Many aspects of the codebase exist to ease the prototyping process:
@@ -48,6 +48,10 @@ Battle actions perform any combination of behaviours on the actor and / or the a
 - `targetedActions`: the collection of things the battle action will do to each of the affected cells, e.g. deal damage, or apply a status.
 
 __Definition:__ Self and Targeted actions are each defined as a behaviour tree to allow for complex branching behaviours, e.g. the Bull Rush battle action pushes the actor forwards, and if there is an enemy in the opposing cell of the enemy formation then it deals damage and pushes the enemy backwards.
+
+#### Serialization:
+Battle actions are stored as ScriptableObjects. This allows for serialization of the data associated with each action. Battle actions inherit from `SerializedScriptableObject` a class defined by the Odin Inspector plugin for Unity - this allows for serializing and displaying generic classes and interfaces in the editor.
+
 
 ## Action Nodes:
 An action node is a small, reusable piece of functionality that can be executed in a behaviour tree. They are the units of functionality that make up what a battle action does. Each one could be a check that passes data to other nodes in the tree (via the blackboard) or a behaviour that affects a targeted pawn. Examples include:
