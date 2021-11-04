@@ -56,6 +56,10 @@ MonoBehaviour:
     value: 1
     min: 0
     max: 100
+  - Name: Defense
+    value: 0
+    min: -100
+    max: 100
   Actions:
   - {fileID: 11400000, guid: 3cd5efd45e4fac34f918a50d599fba20, type: 2}
   - {fileID: 11400000, guid: 0d7c694c441559e449a63c6247a47f16, type: 2}
