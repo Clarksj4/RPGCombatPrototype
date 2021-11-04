@@ -5,7 +5,7 @@ A WIP prototype / learning space for me to explore the mechanics of an RPG comba
 At present there is no concrete design for this prototype (it exists so I can learn how to craft a production quality combat system); consequently, parts of it have been reinvented multiple times, but at it's core it adheres to the following:
 - __Turn-based__: one actor acts at a time,
 - __Grid-based:__ actors move and act on a grid,
-- __Team-based:__ each player controls multiple actos,
+- __Team-based:__ each player controls a team of actors, these teams are pitted against one another,
 - __Multiple actions:__ actors spend points from a limited resource pool to cast actions, potentially casting multiple per turn,
 - __Action variety:__ overall the game contains a large number of unique actions (large enough so I can figure out the bounds of the action system).
 
