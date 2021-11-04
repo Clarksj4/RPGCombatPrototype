@@ -97,26 +97,63 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: areaOfEffectRestrictions
-      Entry: 6
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: selfAction
-      Entry: 6
+      Entry: 7
+      Data: 9|RemoveManaNode, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
       Data: 
     - Name: targetedAction
       Entry: 7
-      Data: 8|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+      Data: 10|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
     - Name: children
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+      Data: 11|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 10|ApplyStatusNode, Assembly-CSharp
+      Data: 12|DoDamageNode, Assembly-CSharp
+    - Name: BaseDamage
+      Entry: 3
+      Data: 5
+    - Name: Amplifyable
+      Entry: 5
+      Data: true
+    - Name: Defendable
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|ApplyStatusNode, Assembly-CSharp
     - Name: Status
-      Entry: 6
+      Entry: 7
+      Data: 14|PoisonStatus, Assembly-CSharp
+    - Name: Duration
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
@@ -130,7 +167,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Description: 
+  Description: Deals light damange and poisons a targeted visible enemy.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
