@@ -134,6 +134,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  Description: Moves the caster to any cell within range of their movement.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
