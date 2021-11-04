@@ -8,6 +8,7 @@ This project is a WIP prototype / learning space for me to explore the mechanics
 Many aspects of the codebase exist to ease the prototyping process:
 - Singletons for ease of access instead of dependency injection
 - Linq for readability and speed of implementation despite the [cost on performance](https://www.jacksondunstan.com/articles/4819)
+- Magic strings are used as indices in the stats dictionary because at the time of writing I wasn't sure of what stats I wanted to use in the game.
 
 #### Things that aren't mine:
 - [Odin Inspector / Serializer](https://odininspector.com/): Used to allow for serialization of generics within the editor (and the formating of fields on components is pretty nice too).
