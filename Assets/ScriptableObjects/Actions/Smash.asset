@@ -139,47 +139,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 12|RemoveManaNode, Assembly-CSharp
+      Data: 11|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
+      Data: 12|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 13|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 14|IsHitNode, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 15|DoDamageNode, Assembly-CSharp
+      Data: 14|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
-      Data: 30
+      Data: 25
     - Name: Amplifyable
       Entry: 5
       Data: true
@@ -191,25 +175,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|PushNode, Assembly-CSharp
-    - Name: Distance
-      Entry: 3
-      Data: 3
-    - Name: FormationDirection
-      Entry: 3
-      Data: 0
-    - Name: relativeDirection
-      Entry: 3
-      Data: 2
-    - Name: Direction
+      Data: 15|ApplyStatusNode, Assembly-CSharp
+    - Name: Status
       Entry: 7
-      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
-    - Name: 
+      Data: 16|VulnerabilityStatus, Assembly-CSharp
+    - Name: Duration
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -222,6 +194,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Description: 
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
