@@ -121,43 +121,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 10|RemoveManaNode, Assembly-CSharp
+      Data: 9|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 3
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 12|IsHitNode, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 13|DoDamageNode, Assembly-CSharp
+      Data: 10|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
       Data: 30
@@ -170,12 +145,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  Description: Deals damage to all pawns in an opposing formation. Not castable from
+    the front rank.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
