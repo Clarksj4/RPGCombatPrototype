@@ -253,8 +253,11 @@ public class Pawn : MonoBehaviour, IGridBased, ITurnBased, ITeamBased, IStartabl
     /// </summary>
     public void Swap(Pawn other)
     {
-        Move(other.Cell);
-        other.Move(Cell);
+        Cell origin = Cell;
+        Cell destination = other.Cell;
+
+        Move(destination);
+        other.Move(origin);
     }
 
     /// <summary>
