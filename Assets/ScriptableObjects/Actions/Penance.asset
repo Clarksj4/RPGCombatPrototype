@@ -97,39 +97,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 8|RemoveManaNode, Assembly-CSharp
+      Data: 7|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: targetedActions
+    - Name: targetedAction
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]], mscorlib
+      Data: 8|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
       Data: 10|HealNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
-      Data: 20
+      Data: 30
     - Name: 
       Entry: 8
       Data: 
@@ -149,29 +141,15 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 13|ApplyStatusNode, Assembly-CSharp
-    - Name: Status
-      Entry: 7
-      Data: 14|RenewStatus, Assembly-CSharp
-    - Name: Duration
-      Entry: 3
-      Data: 1
-    - Name: HealPerTurn
-      Entry: 3
-      Data: 20
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Description: Heals and stuns the caster.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
