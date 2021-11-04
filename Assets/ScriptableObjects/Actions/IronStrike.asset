@@ -139,16 +139,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: selfActions
+    - Name: selfAction
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
+      Data: 11|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+    - Name: children
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 12|RemoveManaNode, Assembly-CSharp
+      Data: 13|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
@@ -157,10 +160,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|ApplyStatusNode, Assembly-CSharp
+      Data: 14|ApplyStatusNode, Assembly-CSharp
     - Name: Status
       Entry: 7
-      Data: 14|DefenseStatus, Assembly-CSharp
+      Data: 15|DefenseStatus, Assembly-CSharp
     - Name: Duration
       Entry: 3
       Data: 1
@@ -176,25 +179,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: targetedActions
-      Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[ActionNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 16|IsHitNode, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
+    - Name: targetedAction
       Entry: 7
-      Data: 17|DoDamageNode, Assembly-CSharp
+      Data: 16|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
-      Data: 25
+      Data: 20
     - Name: Amplifyable
       Entry: 5
       Data: true
@@ -204,12 +197,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  Description: Deals damage to an adjacent enemy and temporarily increases the defense
+    of the caster.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
