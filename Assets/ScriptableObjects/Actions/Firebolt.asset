@@ -100,24 +100,30 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: selfAction
-      Entry: 6
+      Entry: 7
+      Data: 8|RemoveManaNode, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
       Data: 
     - Name: targetedAction
       Entry: 7
-      Data: 8|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+      Data: 9|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
     - Name: children
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+      Data: 10|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 10|DoDamageNode, Assembly-CSharp
+      Data: 11|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
-      Data: 30
+      Data: 20
     - Name: Amplifyable
       Entry: 5
       Data: true
@@ -136,7 +142,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Description: 
+  Description: Deals damage to a single enemy in sight.
   MaxUsesPerTurn: 1
   Cooldown: 1
   AffectedCellsIndependent: 1
