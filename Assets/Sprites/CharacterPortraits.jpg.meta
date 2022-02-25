@@ -114,6 +114,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -122,9 +123,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -145,6 +146,8 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -842,6 +845,37 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Sintar: 2500888661606313485
+      Gabriel: 9050661054376052139
+      Rashaad: -3547314659757624505
+      Hangman: 8945900648447485841
+      Crystal: -7733304396297021365
+      Richard: 934118374923024562
+      Shan Targ: 6079669531490932445
+      Ixion: -7661962976591981663
+      Lina: -565618138733698508
+      Gashlock, son of Grimal: -3786760206420316861
+      Elrond: -2117490594260513319
+      Ragnor: 6054191527098039197
+      Baewyn: -6950632620235659330
+      Vincent: 9052739027384607984
+      Storm: -343054068062230019
+      Gimli: -4577073723549460883
+      Trixy: 3494982329719292425
+      Brandon: 5887594809182175635
+      Quilnox: 1682716436009870897
+      Varda: -6316446968738591790
+      Ifrit: -5880592869739040303
+      Musharn: 3275052335323433387
+      Amwyn: -6382963479669870448
+      Aenar: -8020906441743618833
+      June: 7383752513866376927
+      Gorm: -2978532924967328263
+      Robyn: -1669450078160861664
+      Gambit: 355418311549296546
+      Snake: 1593965286551336283
+      Rayden: -7117532903186948579
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
