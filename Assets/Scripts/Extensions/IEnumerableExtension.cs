@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public static class IEnumerableExtension
@@ -22,5 +23,16 @@ public static class IEnumerableExtension
         }
 
         return default(T2);
+    }
+
+    public static T FirstOfTypeOrDefault<T>(this IEnumerable<T> collection, Type type)
+    {
+        foreach (T item in collection)
+        {
+            if (typeof(T) == type)
+                return item;
+        }
+
+        return default;
     }
 }

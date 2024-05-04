@@ -45,7 +45,6 @@ public class PawnData : SerializedScriptableObject
                     Max = stat.Max
                 });
             }
-                
         }
 
         // Give actor a duplicate of each action.
@@ -54,6 +53,7 @@ public class PawnData : SerializedScriptableObject
             foreach (BattleAction action in Actions)
             {
                 BattleAction duplicate = Instantiate(action);
+                duplicate.name = action.name;
                 pawn.Actions.Add(duplicate);
             }
         }

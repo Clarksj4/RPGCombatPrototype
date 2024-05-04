@@ -3,28 +3,40 @@ using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ActionButton : MonoBehaviour
 {
-    public Color canAffordColour;
-    public Color cantAffordColour;
-    public Color angryCantAffordColour;
-    public float angryDuration;
+    [SerializeField]
+    private string actionOverride = null;
+    [Space(10)]
+    [SerializeField]
+    private UnityEvent<bool> OnTapped = null;
+    [SerializeField]
+    private UnityEvent OnRefresh = null;
 
-    public GameObject ManaCost;
-    public TextMeshProUGUI ManaCostText;
-    public GameObject Cooldown;
-    public TextMeshProUGUI CooldownText;
-    public Image AbilityImage;
-    public Button Button;
-
-    private Sequence angrySequence;
-    private BattleAction action;
+    public BattleAction Action => action;
+    private BattleAction action = null;
 
     private void Awake()
     {
         ActionManager.Instance.OnActionComplete += HandleOnActionComplete;
+
+        if (!string.IsNullOrEmpty(actionOverride))
+            ActionManager.Instance.OnActorSelected += HandleOnActorSelected;
+    }
+
+    public void OnTap()
+    {
+        if (action != null)
+        {
+            bool canDo = action.CanDo();
+            if (canDo)
+                ActionManager.Instance.SelectAction(action);
+
+            OnTapped?.Invoke(canDo);
+        }
     }
 
     public void SetAction(BattleAction action)
@@ -33,98 +45,20 @@ public class ActionButton : MonoBehaviour
         Refresh();
     }
 
-    public void Refresh()
+    private void Refresh()
     {
-        if (action != null)
-        {
-            RefreshManaCost();
-            RefreshUsability();
-
-
-            if (action.Sprite != null)
-                AbilityImage.sprite = action.Sprite;
-        }
-    }
-
-    public void OnTap()
-    {
-        if (!action.CanDo())
-        {
-            if (!CanAfford())
-                HighlightCost();
-        }
-
-        else
-            ActionManager.Instance.SelectAction(action);
-    }
-
-    private bool CanAfford()
-    {
-        ManaRestriction restriction = GetManaRestriction();
-        if (restriction != null)
-            return action.Actor.Stats["Mana"].Value >= restriction.Amount;
-
-        return true;
-    }
-
-    private ManaRestriction GetManaRestriction()
-    {
-        if (action != null && action.ActorRestrictions != null)
-            return action.ActorRestrictions.FirstOfTypeOrDefault<TargetingRestriction, ManaRestriction>();
-
-        return null;
-    }
-
-    private void RefreshUsability()
-    {
-        if (action.CanDo())
-        {
-            Button.targetGraphic.color = Button.colors.normalColor;
-            Button.transition = Selectable.Transition.ColorTint;
-        }
-            
-        else
-        {
-            Button.targetGraphic.color = Button.colors.disabledColor;
-            Button.transition = Selectable.Transition.None;
-        }
-            
-    }
-
-    private void RefreshManaCost()
-    {
-        // Show mana restriction if there is one
-        ManaRestriction restriction = GetManaRestriction();
-        bool hasManaRestriction = restriction != null;
-        ManaCost.SetActive(hasManaRestriction);
-        if (hasManaRestriction)
-        {
-            // Set text and colour
-            ManaCostText.text = restriction.Amount.ToString();
-            ManaCostText.color = CanAfford() ? canAffordColour : cantAffordColour;
-        }
-    }
-
-    private void HighlightCost()
-    {
-        // Halt existing tween immediately (without finishing it)
-        if (angrySequence != null && !angrySequence.IsComplete())
-        {
-            angrySequence.Complete();
-            angrySequence = null;
-        }
-            
-        float startScale = ManaCostText.transform.localScale.x;
-        angrySequence = DOTween.Sequence();
-        angrySequence.Append(ManaCostText.DOColor(angryCantAffordColour, angryDuration * 0.5f));
-        angrySequence.Join(ManaCostText.transform.DOScale(startScale * 1.25f, angryDuration * 0.5f).SetEase(Ease.OutQuad));
-        angrySequence.Append(ManaCostText.DOColor(cantAffordColour, angryDuration * 0.5f));
-        angrySequence.Join(ManaCostText.transform.DOScale(startScale, angryDuration * 0.5f).SetEase(Ease.InQuad));
+        OnRefresh?.Invoke();
     }
 
     private void HandleOnActionComplete(Pawn pawn, BattleAction action)
     {
         if (gameObject.activeSelf)
             Refresh();
+    }
+
+    private void HandleOnActorSelected(Pawn pawn)
+    {
+        if (!string.IsNullOrEmpty(actionOverride))
+            SetAction(pawn.Actions[actionOverride]);
     }
 }

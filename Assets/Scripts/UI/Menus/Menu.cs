@@ -44,7 +44,10 @@ public abstract class Menu : MonoBehaviour
         offScreenPosition = onScreenPosition + Transition;
 
         MenuStack.Instance.RegisterMenu(this);
+    }
 
+    protected virtual void Start()
+    {
         Hide(true);
     }
 

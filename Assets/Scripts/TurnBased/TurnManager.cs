@@ -26,7 +26,7 @@ public class TurnManager : Singleton<TurnManager>
     /// Gets the order in which actors will have a turn
     /// during each round.
     /// </summary>
-    public IEnumerable<ITurnBased> OrderOfActors { get { return turnOrder; } }
+    public IReadOnlyCollection<ITurnBased> OrderOfActors { get { return turnOrder; } }
     /// <summary>
     /// The index of the current round.
     /// </summary>
@@ -35,7 +35,7 @@ public class TurnManager : Singleton<TurnManager>
     private bool turnEndInProgress;
     private bool turnEndRequested;
     private bool roundStarted;
-    private TurnOrder turnOrder = new TurnOrder();
+    private ITurnOrder turnOrder = new TurnOrder();
 
     /// <summary>
     /// Adds the given actor to the turn order.

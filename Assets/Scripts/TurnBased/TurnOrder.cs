@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class TurnOrder : IEnumerable<ITurnBased>
+
+public class TurnOrder : ITurnOrder
 {
     /// <summary>
     /// The current actor whose turn it is.
     /// </summary>
     public ITurnBased Current { get { return current != null ? current.Value : null; } }
-    
+
+    /// <summary>
+    /// Gets the number of actors in this turn order.
+    /// </summary>
+    public int Count => turnOrder.Count;
+
     private LinkedListNode<ITurnBased> current;
     private LinkedList<ITurnBased> turnOrder = new LinkedList<ITurnBased>();
     private LinkedListNode<ITurnBased> toBeRemoved;
