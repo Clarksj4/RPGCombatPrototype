@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ActionsBar : Menu
+public class ActionMenu : Menu
 {
     /// <summary>
     /// Gets the number of actions the currently selected actor has.
