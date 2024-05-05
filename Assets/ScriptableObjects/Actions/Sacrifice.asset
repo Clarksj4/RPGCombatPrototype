@@ -21,16 +21,60 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: Costs
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Int32,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Mana
+    - Name: $v
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Health
+    - Name: $v
+      Entry: 3
+      Data: 25
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: actorRestrictions
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 2|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 1|ManaRestriction, Assembly-CSharp
+      Data: 3|ManaRestriction, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
@@ -39,7 +83,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|HealthRestriction, Assembly-CSharp
+      Data: 4|HealthRestriction, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 25
@@ -54,14 +98,14 @@ MonoBehaviour:
       Data: 
     - Name: targetRestrictions
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 5|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 4|CellContentRestriction, Assembly-CSharp
+      Data: 6|CellContentRestriction, Assembly-CSharp
     - Name: Content
       Entry: 3
       Data: 2
@@ -70,7 +114,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 5|HealthRestriction, Assembly-CSharp
+      Data: 7|HealthRestriction, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: -1
@@ -85,14 +129,14 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffect
       Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
+      Data: 8|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 7|AffectedPoint, Assembly-CSharp
+      Data: 9|AffectedPoint, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -104,7 +148,7 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffectRestrictions
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 10|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -117,17 +161,17 @@ MonoBehaviour:
       Data: 
     - Name: selfAction
       Entry: 7
-      Data: 9|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
+      Data: 11|SimpleBehaviourTree.ParallelNode, Assembly-CSharp
     - Name: children
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+      Data: 12|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 11|RemoveManaNode, Assembly-CSharp
+      Data: 13|RemoveManaNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 1
@@ -136,7 +180,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 12|DoDamageNode, Assembly-CSharp
+      Data: 14|DoDamageNode, Assembly-CSharp
     - Name: BaseDamage
       Entry: 3
       Data: 25
@@ -160,7 +204,7 @@ MonoBehaviour:
       Data: 
     - Name: targetedAction
       Entry: 7
-      Data: 13|HealNode, Assembly-CSharp
+      Data: 15|HealNode, Assembly-CSharp
     - Name: Amount
       Entry: 3
       Data: 50

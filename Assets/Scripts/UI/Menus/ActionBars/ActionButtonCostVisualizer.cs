@@ -9,16 +9,12 @@ using UnityEngine.UI;
 
 public class ActionButtonCostVisualizer : SerializedMonoBehaviour
 {
-    [OdinSerialize]
-    private TargetingRestriction restriction = null;
+    [SerializeField] private ActionButton actionButton = null;
+    [SerializeField] private string resource = null;
 
-    [SerializeField]
-    private ActionButton actionButton = null;
     [Header("Components")]
-    [SerializeField]
-    private GameObject costObject = null;
-    [SerializeField]
-    private TextMeshProUGUI costText = null;
+    [SerializeField] private GameObject costObject = null;
+    [SerializeField] private TextMeshProUGUI costAmountTMP = null;
     [Header("Highlight")]
     [SerializeField]
     private Color canAffordColour = default;
@@ -31,6 +27,11 @@ public class ActionButtonCostVisualizer : SerializedMonoBehaviour
     [SerializeField]
     private float angrySize = 1.25f;
 
+    private BattleAction Action => actionButton.Action;
+    private Pawn Actor => Action?.Actor;
+    private int Cost => Action.GetCost(resource);
+    private int CurrentAmount => Actor.Stats[resource].Value;
+
     private Sequence angrySequence;
 
     public void OnActionButtonTapped(bool activated)
@@ -41,33 +42,27 @@ public class ActionButtonCostVisualizer : SerializedMonoBehaviour
 
     public void OnActionButtonRefresh()
     {
-        RefreshManaCost();
+        RefreshCost();
+    }
+
+    private bool HasCost()
+    {
+        return Cost > 0;
     }
 
     private bool CanAfford()
     {
-        TargetingRestriction restriction = GetRestriction();
-        Pawn actor = actionButton.Action.Actor;
-        Cell target = actionButton.Action.TargetCell;
-        return restriction.IsTargetValid(actor, target);
+        return CurrentAmount >= Cost;
     }
 
-    private TargetingRestriction GetRestriction()
+    private void RefreshCost()
     {
-        return actionButton.Action.ActorRestrictions.FirstOfTypeOrDefault(restriction.GetType());
-    }
-
-    private void RefreshManaCost()
-    {
-        // Show mana restriction if there is one
-        TargetingRestriction restriction = GetRestriction();
-        bool hasManaRestriction = restriction != null;
-        costObject.SetActive(hasManaRestriction);
-        if (hasManaRestriction)
+        bool hasCost = HasCost();
+        costObject.SetActive(hasCost);
+        if (hasCost)
         {
-            // Set text and colour
-            //costText.text = restriction.Amount.ToString();
-            costText.color = CanAfford() ? canAffordColour : cantAffordColour;
+            costAmountTMP.text = Cost.ToString();
+            costAmountTMP.color = CanAfford() ? canAffordColour : cantAffordColour;
         }
     }
 
@@ -80,11 +75,11 @@ public class ActionButtonCostVisualizer : SerializedMonoBehaviour
             angrySequence = null;
         }
 
-        float startScale = costText.transform.localScale.x;
+        float startScale = costAmountTMP.transform.localScale.x;
         angrySequence = DOTween.Sequence();
-        angrySequence.Append(costText.DOColor(angryCantAffordColour, angryDuration * 0.5f));
-        angrySequence.Join(costText.transform.DOScale(startScale * angrySize, angryDuration * 0.5f).SetEase(Ease.OutQuad));
-        angrySequence.Append(costText.DOColor(cantAffordColour, angryDuration * 0.5f));
-        angrySequence.Join(costText.transform.DOScale(startScale, angryDuration * 0.5f).SetEase(Ease.InQuad));
+        angrySequence.Append(costAmountTMP.DOColor(angryCantAffordColour, angryDuration * 0.5f));
+        angrySequence.Join(costAmountTMP.transform.DOScale(startScale * angrySize, angryDuration * 0.5f).SetEase(Ease.OutQuad));
+        angrySequence.Append(costAmountTMP.DOColor(cantAffordColour, angryDuration * 0.5f));
+        angrySequence.Join(costAmountTMP.transform.DOScale(startScale, angryDuration * 0.5f).SetEase(Ease.InQuad));
     }
 }

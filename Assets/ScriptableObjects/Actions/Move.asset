@@ -21,9 +21,29 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: Costs
+      Entry: 7
+      Data: 0|Unity.Cloud.Collaborate.Common.SerializableDictionary`2[[System.String,
+        mscorlib],[System.Int32, mscorlib]], Unity.CollabProxy.Editor
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: actorRestrictions
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 2|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -36,14 +56,14 @@ MonoBehaviour:
       Data: 
     - Name: targetRestrictions
       Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 3|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 2|RangeRestriction, Assembly-CSharp
+      Data: 4|RangeRestriction, Assembly-CSharp
     - Name: Range
       Entry: 1
       Data: Movement
@@ -52,7 +72,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|FormationRestriction, Assembly-CSharp
+      Data: 5|FormationRestriction, Assembly-CSharp
     - Name: Formations
       Entry: 3
       Data: 1
@@ -61,7 +81,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|CellContentRestriction, Assembly-CSharp
+      Data: 6|CellContentRestriction, Assembly-CSharp
     - Name: Content
       Entry: 3
       Data: 8
@@ -76,14 +96,14 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffect
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
+      Data: 7|System.Collections.Generic.List`1[[AffectedArea, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 6|AffectedPoint, Assembly-CSharp
+      Data: 8|AffectedPoint, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -95,7 +115,7 @@ MonoBehaviour:
       Data: 
     - Name: areaOfEffectRestrictions
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
+      Data: 9|System.Collections.Generic.List`1[[TargetingRestriction, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -111,17 +131,17 @@ MonoBehaviour:
       Data: 
     - Name: targetedAction
       Entry: 7
-      Data: 8|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
+      Data: 10|SimpleBehaviourTree.SequenceNode, Assembly-CSharp
     - Name: children
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
+      Data: 11|System.Collections.Generic.List`1[[SimpleBehaviourTree.IBehaviourTreeNode,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 10|MoveNode, Assembly-CSharp
+      Data: 12|MoveNode, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

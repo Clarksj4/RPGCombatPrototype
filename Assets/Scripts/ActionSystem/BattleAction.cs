@@ -15,7 +15,7 @@ using UnityEngine.Events;
 public class BattleAction : SerializedScriptableObject
 {
     [TitleGroup("Battle Action")]
-    [Multiline(2)]
+    [Multiline(3)]
     public string Description = null;
     
     [HorizontalGroup("Battle Action/Misc")]
@@ -34,6 +34,8 @@ public class BattleAction : SerializedScriptableObject
     [VerticalGroup("Battle Action/Misc/Right")]
     [HideLabel, PreviewField(Height = 100, Alignment = ObjectFieldAlignment.Right)]
     public Sprite Sprite;
+
+    public Dictionary<string, int> Costs = null;
 
     [BoxGroup("Prerequisites", CenterLabel = true)]
     [OdinSerialize]
@@ -134,6 +136,14 @@ public class BattleAction : SerializedScriptableObject
     //
     // Methods
     //
+
+    public int GetCost(string resource)
+    {
+        if (Costs == null) return 0;
+        if (Costs.ContainsKey(resource))
+            return Costs[resource];
+        return 0;
+    }
 
     /// <summary>
     /// Clears the use count for this action.
